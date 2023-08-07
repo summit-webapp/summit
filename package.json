@@ -1,0 +1,45 @@
+{
+  "name": "digital_shelf_scratch",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
+    "axios-cookiejar-support": "^4.0.6",
+    "firebase": "^9.23.0",
+    "formik": "^2.2.9",
+    "keen-slider": "^6.8.5",
+    "next": "13.4.1",
+    "react": "18.2.0",
+    "react-bootstrap": "^2.7.4",
+    "react-dom": "18.2.0",
+    "react-image-gallery": "^1.2.12",
+    "react-paginate": "^8.2.0",
+    "react-redux": "^8.0.5",
+    "react-share": "^4.4.1",
+    "redux-persist": "^6.0.0",
+    "sass": "^1.62.1",
+    "swiper": "^9.3.2",
+    "tough-cookie": "^4.1.2",
+    "yup": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5.2.6",
+    "@types/node": "20.1.0",
+    "@types/react": "18.2.6",
+    "@types/react-bootstrap": "^0.32.32",
+    "@types/react-burger-menu": "^2.8.3",
+    "@types/react-dom": "18.2.4",
+    "@types/react-image-gallery": "^1.2.0",
+    "@types/tough-cookie": "^4.0.2",
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.1",
+    "typescript": "5.0.4"
+  }
+}

@@ -1,0 +1,62 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchMultiLanguagesThunkAPI,
+  multiLanguageDataFromStore,
+} from "../../store/slices/general_slices/multilang-slice";
+import {
+  SelectedFilterLangDataFromStore,
+  SelectedLangData,
+} from "../../store/slices/general_slices/selected-multilanguage-slice";
+import { get_access_token } from "../../store/slices/auth/token-login-slice";
+import { CONSTANTS } from "../../services/config/app-config";
+
+const useMultilangHook = () => {
+  const dispatch = useDispatch();
+  const MultiLanguageFromStore = useSelector(multiLanguageDataFromStore);
+
+  const SelectedLangDataFromStore = useSelector(
+    SelectedFilterLangDataFromStore
+  );
+
+  console.log("hoooook");
+  const [multiLanguagesData, SetMultiLanguagesData] = useState<any>([]);
+  const [selectedLang, setSelectedLang] = useState<any>("en");
+  const TokenFromStore: any = useSelector(get_access_token);
+
+  useEffect(() => {
+    // const langTranslations = async () => {
+    dispatch(fetchMultiLanguagesThunkAPI(TokenFromStore?.token) as any);
+    // };
+    // langTranslations();
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(MultiLanguageFromStore)?.length > 0) {
+      SetMultiLanguagesData(MultiLanguageFromStore?.languageData);
+    }
+  }, []);
+
+  const handleLanguageChange = (lang: any) => {
+    console.log("selected lang", lang);
+    setSelectedLang(lang);
+  };
+
+  useEffect(() => {
+    const params = {
+      multilanguageData: MultiLanguageFromStore?.languageData,
+      selectedLanguage: selectedLang,
+    };
+    console.log("params", params);
+    dispatch(SelectedLangData(params) as any);
+  }, [selectedLang]);
+
+  return {
+    setSelectedLang,
+    selectedLang,
+    handleLanguageChange,
+    multiLanguagesData,
+  };
+};
+
+export default useMultilangHook;
