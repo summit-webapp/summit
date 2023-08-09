@@ -1,6 +1,5 @@
 import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
 
 const UserRoleFetch = async () => {
   let response: any;
@@ -8,19 +7,19 @@ const UserRoleFetch = async () => {
   const method = "get_user_profile";
   const entity = "signin";
 
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  // const token =
+  //   typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
+  // const config = {
+  //   headers: {
+  //     Authorization: token,
+  //   },
+  // };
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}`,
-      config
+      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}`
+      // config
     )
     .then((res: any) => {
       response = res?.data?.message?.data;

@@ -21,6 +21,7 @@ import {
 } from "../../store/slices/product-detail-page-slices/product-stock-availability-slice";
 import useProductDetailFunctions from "./product-detail-functions-hook";
 import { get_access_token } from "../../store/slices/auth/token-login-slice";
+import { currency_selector_state } from "../../store/slices/general_slices/multi-currency-slice";
 
 const useProductDetail = () => {
   const router = useRouter();
@@ -37,10 +38,13 @@ const useProductDetail = () => {
     stock_availability_state
   );
 
-  const TokenFromStore: any = useSelector(get_access_token)
+  const TokenFromStore: any = useSelector(get_access_token);
   const product_matching_items_data_from_redux = useSelector(
     product_matching_items_selector_state
   );
+
+  const currency_state_from_redux: any = useSelector(currency_selector_state);
+
 
   console.log("product_variants_data_from_redux", product_variants_data_from_redux)
 
@@ -316,6 +320,7 @@ const useProductDetail = () => {
     doesSelectedVariantDoesNotExists,
     stockDoesNotExistsForSelectedVariants,
     productItemOptions,
+    currency_state_from_redux
   };
 };
 
