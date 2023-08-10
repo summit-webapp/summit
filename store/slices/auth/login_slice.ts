@@ -62,7 +62,7 @@ export const fetchLoginUser: any = createAsyncThunk(
         setTimeout(() => {
           dispatch(hideToast());
         }, 800);
-        localStorage.removeItem("guest")
+        localStorage.removeItem("guest");
       } else {
         dispatch(failmsg("Invalid Credential"));
         setTimeout(() => {
@@ -90,7 +90,15 @@ const initialState: RepoLoginState = {
 export const LoginScreen = createSlice({
   name: "login",
   initialState,
-  reducers: {},
+  reducers: {
+    updateFetchLoginUser(state: any, action: any) {
+      console.log("guest update login slice", action?.payload)
+      localStorage.setItem("isLoggedIn", "true");
+      state.isLoading = "succeeded";
+      state.user = "LoggedIn";
+      state.error = "";
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchLoginUser.pending, (state) => {
       state.isLoading = "pending";
@@ -128,5 +136,7 @@ export const LoginScreen = createSlice({
 });
 
 export const login_state = (state: RootState) => state.LoginScreen;
+export const { updateFetchLoginUser }: any =
+  LoginScreen.actions;
 
 export default LoginScreen.reducer;

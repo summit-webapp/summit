@@ -29,9 +29,11 @@ import BreadCrumbsReducer from "./slices/general_slices/breadcrumbs-slice";
 import CurrencyReducer from "./slices/general_slices/multi-currency-slice";
 import QuickOrderReducer from "./slices/general_slices/quick-order-slice";
 import GetAccessTokenReducer from "./slices/auth/token-login-slice";
-import CatalogListReducer  from "./slices/catalog-page-slice/get-catalog-slice";
+import CatalogListReducer from "./slices/catalog-page-slice/get-catalog-slice";
 import MultiLanguageReducer from "./slices/general_slices/multilang-slice";
 import SelectedFilterLangDataScreen from "./slices/general_slices/selected-multilanguage-slice";
+import DealerledgerSummary from "./slices/dealer-ledger-slice/dealer-ledger-summary";
+import Dealerledger from "./slices/dealer-ledger-slice/dealer-ledger-slice";
 
 const appReducer = combineReducers({
   CacheScreen: CacheReducer,
@@ -62,11 +64,13 @@ const appReducer = combineReducers({
   LanguagesScreen: LanguageReducer,
   CurrencyScreen: CurrencyReducer,
   BreadCrumbsScreen: BreadCrumbsReducer,
-  QuickOrderScreen:QuickOrderReducer,
+  QuickOrderScreen: QuickOrderReducer,
   GetAccessTokenScreen: GetAccessTokenReducer,
-  CatalogListScreen:CatalogListReducer,
+  CatalogListScreen: CatalogListReducer,
   MultilanguageScreen: MultiLanguageReducer,
   SelectedFilterLangDataScreen: SelectedFilterLangDataScreen,
+  DealerledgerSummaryScreen: DealerledgerSummary,
+  DealerledgerScreen: Dealerledger,
 });
 
 const rootReducer = (state: any, action: any) => {

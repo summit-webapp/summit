@@ -32,7 +32,8 @@ export interface CheckoutPageInterface {
   setCouponCode?: any;
   couponCodeApiRes?: any;
   couponError?: any;
-  setStoreCredit?:any;
-  handleStoreCredit?:any;
-  state?:any
+  setStoreCredit?: any;
+  handleStoreCredit?: any;
+  state?: any;
+  selectedMultiLangData?: any;
 }

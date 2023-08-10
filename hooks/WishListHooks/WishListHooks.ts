@@ -10,10 +10,10 @@ const useWishlist = () => {
   const dispatch = useDispatch();
 
   const wishlistStoreData: any = useSelector(wishlist_state);
-  const TokenFromStore: any = useSelector(get_access_token)
+  const TokenFromStore: any = useSelector(get_access_token);
 
   console.log("wishlist hookval", wishlistStoreData?.isLoading);
-  const [Loadings, setLoadings] = useState("")
+  const [Loadings, setLoadings] = useState("");
   const [wishlistData, setWishlistData] = useState<any>([]);
   const [wishlistCount, setWishlistCount] = useState<number>(0);
 
@@ -22,25 +22,23 @@ const useWishlist = () => {
       getWishlist: true,
       deleteWishlist: false,
       addTowishlist: false,
-      token: TokenFromStore?.token
+      token: TokenFromStore?.token,
     };
     dispatch(fetchWishlistUser(wishListRequest));
   }, []);
 
   useEffect(() => {
     setWishlistCount(wishlistStoreData?.user?.wishlist_count);
-    setLoadings(wishlistStoreData?.isLoading)
+    setLoadings(wishlistStoreData?.isLoading);
     if (wishlistStoreData?.user?.data?.length > 0) {
       setWishlistData([...wishlistStoreData?.user?.data]);
     }
     // setWishlistProduct([wishlistStoreData?.wishProduct]);
-
   }, [wishlistStoreData]);
 
   console.log("wishlist count in hook LOADING", Loadings);
   console.log("wishlistdata in hook end", wishlistData);
   // console.log("wishlistProduct in hook end", wishlistProduct);
-
 
   return { wishlistData, wishlistCount, Loadings };
 };

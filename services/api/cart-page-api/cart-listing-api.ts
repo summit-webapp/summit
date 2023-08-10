@@ -1,6 +1,5 @@
 import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
 
 const fetchCartListing = async (token: any) => {
   let response: any;
