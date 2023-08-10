@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
@@ -18,11 +17,10 @@ import { CONSTANTS } from "../../services/config/app-config";
 import { currency_selector_state } from "../../store/slices/general_slices/multi-currency-slice";
 import { get_access_token } from "../../store/slices/auth/token-login-slice";
 
-
 const useProductListing = () => {
   const router = useRouter();
   const { query }: any = useRouter();
-  console.log(router,"routers")
+  console.log(router, "routers");
   const dispatch = useDispatch();
 
   const product_listing_state_from_redux: any = useSelector(
@@ -34,24 +32,26 @@ const useProductListing = () => {
   const filters_state_from_redux: any = useSelector(filters_selector_state);
 
   const product_view_slice_from_redux: any = useSelector(products_view_state);
-  const TokenFromStore: any = useSelector(get_access_token)
-
+  const TokenFromStore: any = useSelector(get_access_token);
 
   const [productsLoading, setProductsLoading] = useState<boolean>(false);
   const [filtersLoading, setFiltersLoading] = useState<boolean>(false);
   const [toggleProductListView, setToggleProductListView] =
     useState("list-view");
-    const [pageNo, setpageNo] = useState<number>(1);
+  const [pageNo, setpageNo] = useState<number>(1);
 
   let [productListingData, setProductListingData] = useState<any>([]);
   const [productListTotalCount, setProductListTotalCount] = useState<number>(0);
   const [filtersData, setFiltersData] = useState<any>([]);
   const [selectedFilters, setSelectedFilters] = useState<any>([]);
+
   const handlePaginationBtn = (pageNo: any) => {
     router.push({
-      query: { ...query, page: pageNo+1 },
+      query: { ...query, page: pageNo + 1 },
     });
   };
+
+  console.log("product listing router", router);
 
   const handleApplyFilters = async (event: any) => {
     let duplicateFilters: any;
@@ -156,9 +156,12 @@ const useProductListing = () => {
       url_params: query,
       filterDoctype: filters_state_from_redux?.doctype,
       filterDocname: filters_state_from_redux?.docname.toLowerCase(),
-      token: TokenFromStore?.token
+      token: TokenFromStore?.token,
     };
-    console.log(storeUsefulParamsForFurtherProductListingApi,"storeUsefulParamsForFurtherProductListingApi")
+    console.log(
+      storeUsefulParamsForFurtherProductListingApi,
+      "storeUsefulParamsForFurtherProductListingApi"
+    );
     dispatch(
       ProductListingThunk({
         storeUsefulParamsForFurtherProductListingApi,
@@ -166,8 +169,8 @@ const useProductListing = () => {
     );
     const requestParams = {
       query: query,
-      token: TokenFromStore?.token
-    }
+      token: TokenFromStore?.token,
+    };
     dispatch(FiltersThunk(requestParams) as any);
     if (CONSTANTS.ENABLE_TOGGLE_PRODUCT_LISTING_VIEW) {
       // dispatch(setProductsView("list-view"));
@@ -231,7 +234,7 @@ const useProductListing = () => {
     }
     setToggleProductListView(product_view_slice_from_redux?.view);
   }, [product_listing_state_from_redux, filters_state_from_redux]);
-  console.log(query,"router")
+  console.log(query, "router");
   return {
     productsLoading,
     productListingData,
@@ -244,9 +247,8 @@ const useProductListing = () => {
     toggleProductListView,
     handleToggleProductsListingView,
     handleLoadMore,
-    handlePaginationBtn ,
+    handlePaginationBtn,
     currency_state_from_redux,
   };
 };
 export default useProductListing;
-

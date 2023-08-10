@@ -2,7 +2,7 @@ import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
 
 const AddToCartPostApi: any = async (
-  item_code: any,
+  items_list: any,
   currencyVal?: any,
   token?: any
 ) => {
@@ -22,7 +22,7 @@ const AddToCartPostApi: any = async (
     version: version,
     method: method,
     entity: entity,
-    item_list: item_code,
+    item_list: items_list,
     currency: currencyVal,
   };
 
@@ -33,7 +33,7 @@ const AddToCartPostApi: any = async (
     })
     .then((res: any) => {
       console.log("add to cart res", res);
-      response = res.data.message;
+      response = res;
     })
     .catch((err: any) => {
       if (err.code === "ECONNABORTED") {
@@ -92,7 +92,7 @@ export const QuickOrderAddToCart = async (item_data: any) => {
   return response;
 };
 
-const AddToCartApi = (item_code: any, currencyVal?: any, token?: any) =>
-  AddToCartPostApi(item_code, currencyVal, token);
+const AddToCartApi = (items_list: any, currencyVal?: any, token?: any) =>
+  AddToCartPostApi(items_list, currencyVal, token);
 
 export default AddToCartApi;

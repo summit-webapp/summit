@@ -2,23 +2,23 @@ import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
 import { client } from "../general_apis/cookie-instance-api";
 
-const GetCartHistory = async (date?: any, id?: any, token?: any) => {
+const GetCartHistory = async (request: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = "get_list";
   const entity = "order";
 
-  console.log("date range", date);
-  const OrderIdParams = `?version=${version}&method=${method}&entity=${entity}&order_id=${id}`;
-  const getOrderListParams = `?version=${version}&method=${method}&entity=${entity}&date_range=${date}`;
+  console.log("date range", request);
+  const OrderIdParams = `?version=${version}&method=${method}&entity=${entity}&order_id=${request.id}`;
+  const getOrderListParams = `?version=${version}&method=${method}&entity=${entity}&date_range=${request.date}`;
 
   const config = {
     headers: {
-      Authorization: token,
+      Authorization: request.token,
     },
   };
 
-  if (id) {
+  if (request.id) {
     await axios
       .get(
         `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${OrderIdParams}`,

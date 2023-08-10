@@ -29,6 +29,9 @@ const UseCartOrderHistory = () => {
     dispatch(FetchOrderListing(reqParams));
     // dispatch(FetchOrderListing(history, "", TokenFromStore?.token));
   }, [history]);
+  // useEffect(()=>{
+  //     dispatch(FetchOrderListing("this_month"))
+  // },[])
 
   useEffect(() => {
     if (OrderListingProducts?.data?.length > 0) {
@@ -67,7 +70,6 @@ const UseCartOrderHistory = () => {
     orderHistoryItems,
     handleHistoryDate,
     history,
-    loadingStatus,
   };
 };
 

@@ -29,78 +29,36 @@ const loginFetch = async (request: any) => {
     // withCredentials: true,
   };
 
-  let isVisitor = localStorage.getItem("guest");
+  raw_data = {
+    usr: request.values.email,
+    pwd: request.values.password,
+  };
 
-  console.log("login is visitor", isVisitor);
-
-  if (isVisitor !== null) {
-    const guestLogin = await CheckGuestLogin(request)
-    console.log("guestLogin response", guestLogin)
-    // if(guestLogin?.data?.data?.access_token?.access_token){}
-    return guestLogin
-    // raw_data = {
-    //   version: "v1",
-    //   method: "existing_user_signin",
-    //   entity: "signin",
-    //   usr: request.email,
-    //   pwd: request.password,
-    //   random: isVisitor
-    //   // redirect: true,
-    // };
-
-    // console.log("Login visitor api");
-    // console.log("login visitor raw data", raw_data);
-    // await axios
-    //   .post(
-    //     `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}`,
-    //     raw_data,
-    //     { ...config, timeout: 5000 }
-    //   )
-    //   .then((res) => {
-    //     console.log("LOGIN API FILE visitor", res);
-    //     response = res;
-
-    //   })
-    //   .catch((err) => {
-    //     if (err.code === "ECONNABORTED") {
-    //       response = "Request timed out";
-    //     } else if (err.code === "ERR_BAD_REQUEST") {
-    //       response = "Bad Request";
-    //     } else if (err.code === "ERR_INVALID_URL") {
-    //       response = "Invalid URL";
-    //     } else {
-    //       response = err;
-    //     }
-    //   });
-    // return response;
-  } else {
-    raw_data = {
-      usr: request.email,
-      pwd: request.password,
-    };
-
-    await axios
-      .post(`${CONSTANTS.API_BASE_URL}/api/method/login`, raw_data, {
-        ...config,
-        timeout: 5000,
-      })
-      .then((res) => {
-        console.log("login api file success", res);
-        response = res;
-      })
-      .catch((err) => {
-        if (err.code === "ECONNABORTED") {
-          response = "Request timed out";
-        } else if (err.code === "ERR_BAD_REQUEST") {
-          response = "Bad Request";
-        } else if (err.code === "ERR_INVALID_URL") {
-          response = "Invalid URL";
-        } else {
-          response = err;
-        }
-      });
-    return response;
-  }
+  await axios
+    .post(`${CONSTANTS.API_BASE_URL}/api/method/login`, raw_data, {
+      ...config,
+      timeout: 5000,
+    })
+    .then((res) => {
+      response = res;
+      console.log("login api file success", response);
+      if (response?.data?.message === "Logged In") {
+        console.log("in update user");
+        localStorage.setItem("isLoggedIn", "true");
+      }
+    })
+    .catch((err) => {
+      if (err.code === "ECONNABORTED") {
+        response = "Request timed out";
+      } else if (err.code === "ERR_BAD_REQUEST") {
+        response = "Bad Request";
+      } else if (err.code === "ERR_INVALID_URL") {
+        response = "Invalid URL";
+      } else {
+        response = err;
+      }
+    });
+  return response;
 };
 
 const getLoginApi = (request: any) => loginFetch(request);

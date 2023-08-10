@@ -7,4 +7,5 @@ export interface FiltersViewProps {
   productListingData?: any;
   SelectedLangDataFromStore?: any;
   selectLangData?: any;
+  selectedMultiLangData?: any;
 }
