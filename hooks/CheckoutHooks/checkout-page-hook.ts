@@ -242,49 +242,49 @@ const UseCheckoutPageHook = () => {
       transportCharges
     );
     console.log("ordersummary", orderSummary);
-    // if (CONSTANTS.ALLOW_PAYMENT_GATEWAY === true) {
-    //   console.log("payment gateway");
-    //   let paymentApiRes = await RedirectPayment(
-    //     cartListingItems?.name,
-    //     orderSummary[10]?.value,
-    //     "Quotation",
-    //     TokenFromStore?.token
-    //   );
+    if (CONSTANTS.ALLOW_PAYMENT_GATEWAY === true) {
+      console.log("payment gateway");
+      let paymentApiRes = await RedirectPayment(
+        cartListingItems?.name,
+        orderSummary[10]?.value,
+        "Quotation",
+        TokenFromStore?.token
+      );
 
-    //   console.log("redirect payment", paymentApiRes);
-    //   if (paymentApiRes?.data?.message !== "error") {
-    //     response = paymentApiRes?.data?.message;
-    //     window.location.href = `${paymentApiRes}`;
-    //   }
-    // } else {
-    //   let res = await PlaceOrderApi(
-    //     cartListingItems?.name,
-    //     initialShippingAddress,
-    //     initialBillingAddress,
-    //     selectedState,
-    //     textState,
-    //     locationState,
-    //     transporterState,
-    //     transportersCharges,
-    //     TokenFromStore?.token
-    //   );
-    //   console.log("place order res", res);
+      console.log("redirect payment", paymentApiRes);
+      if (paymentApiRes?.data?.message !== "error") {
+        response = paymentApiRes?.data?.message;
+        window.location.href = `${paymentApiRes}`;
+      }
+    } else {
+      let res = await PlaceOrderApi(
+        cartListingItems?.name,
+        initialShippingAddress,
+        initialBillingAddress,
+        selectedState,
+        textState,
+        locationState,
+        transporterState,
+        transportersCharges,
+        TokenFromStore?.token
+      );
+      console.log("place order res", res);
 
-    //   if (res?.data?.message !== "error") {
-    //     response = res?.data?.message;
+      if (res?.data?.message !== "error") {
+        response = res?.data?.message;
 
-    //     Router.push(`/thankyou/${response}`);
-    //   }
+        Router.push(`/thankyou/${response}`);
+      }
 
-    //   // dispatch(fetchCartListing());
-    //   // ga.event({
-    //   //   action: "begin_checkout",
-    //   //   params: {
-    //   //     not_set: JSON.stringify(cartListingItems),
-    //   //     not_set: cartListingItems[0]?.id
-    //   //   },
-    //   // });
-    // }
+      // dispatch(fetchCartListing());
+      // ga.event({
+      //   action: "begin_checkout",
+      //   params: {
+      //     not_set: JSON.stringify(cartListingItems),
+      //     not_set: cartListingItems[0]?.id
+      //   },
+      // });
+    }
   };
 
   const handleChangeSameAsShipping = (checkboxValue: boolean) => {

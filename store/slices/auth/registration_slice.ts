@@ -12,7 +12,10 @@ export const getRegistrationData: any = createAsyncThunk(
   async (data, { dispatch }) => {
     const RegistrationValues = await RegistrationApi(data);
     console.log(RegistrationValues, "RegistrationValues");
-    if (RegistrationValues.status === 200) {
+    if (
+      RegistrationValues.status === 200 &&
+      RegistrationValues?.data?.message?.msg === "success"
+    ) {
       dispatch(successmsg("Registerd sucessfully"));
       setTimeout(() => {
         dispatch(hideToast());
