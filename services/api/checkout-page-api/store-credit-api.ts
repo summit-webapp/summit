@@ -2,15 +2,12 @@ import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
 import { client } from "../general_apis/cookie-instance-api";
 
-const StoreCreditPostApi = async (store_credit: any) => {
+const StoreCreditPostApi = async (store_credit: any, token: any) => {
   let response: any;
 
   const version = CONSTANTS.VERSION;
   const method = "put";
   const entity = "store_credit";
-
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const config = {
     headers: {

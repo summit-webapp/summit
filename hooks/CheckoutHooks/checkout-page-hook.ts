@@ -190,7 +190,7 @@ const UseCheckoutPageHook = () => {
         quotationId: quotationId,
         Token: TokenFromStore?.token,
       };
-      dispatch(getOrderSummary(request));
+      dispatch(fetchOrderSummary(request));
       // dispatch(getOrderSummary(quotationId));
     }
     if (res?.data?.message?.msg === "error") {
@@ -202,7 +202,7 @@ const UseCheckoutPageHook = () => {
   };
 
   const handleDeleteCouponCode = async () => {
-    let res = await DeleteCouponCode(quotationId);
+    let res = await DeleteCouponCode(quotationId, TokenFromStore?.token);
     if (res?.data?.message?.msg !== "error") {
       setCouponerr(true);
       setCouponCodeApiRes(" ");
@@ -211,21 +211,22 @@ const UseCheckoutPageHook = () => {
         quotationId: quotationId,
         Token: TokenFromStore?.token,
       };
-      dispatch(getOrderSummary(request));
+      dispatch(fetchOrderSummary(request));
+
       setCouponCodeToastS(!couponCodeToastS);
     }
   };
   const handleStoreCredit = async (e: any) => {
     e.preventDefault();
     console.log("store Credit", storeCredit);
-    let res = await StoreCreditPostApi(storeCredit);
+    let res = await StoreCreditPostApi(storeCredit, TokenFromStore?.token);
     console.log("store response", quotationId);
     if (res?.data?.message?.msg !== "error") {
       const request = {
         quotationId: quotationId,
         Token: TokenFromStore?.token,
       };
-      dispatch(getOrderSummary(request));
+      dispatch(fetchOrderSummary(request));
     }
   };
 
