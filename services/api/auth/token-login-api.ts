@@ -15,8 +15,6 @@ const getTokenLoginApi: any = async (values: any) => {
   const entity = "access_token";
   const params = `?version=${version}&method=${method}&entity=${entity}&usr=${usr}&pwd=${pwd}`;
 
-  console.log('token login check', values);
-
   const config = {
     headers: {
       Accept: "application/json",

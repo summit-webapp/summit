@@ -35,12 +35,12 @@ const UseThankyou = () => {
       getOrderDetail();
     } else {
       const getSalesOrderID = async () => {
-        const fetchID = await SalesOrderIdFetch(TokenFromStore?.token);
-        console.log(" get fetch Id", fetchID);
-        setId(fetchID);
+        // const fetchID = await SalesOrderIdFetch(TokenFromStore?.token);
+        // console.log(" get fetch Id", fetchID);
+        // setId(fetchID);
 
         let ecommerce_enhanced_code = await ECommerceEnhancedCodeApi(
-          fetchID,
+          router?.query.id,
           TokenFromStore?.token
         );
         console.log(
@@ -50,9 +50,10 @@ const UseThankyou = () => {
         setEcommerceData({ ...ecommerce_enhanced_code });
         const requestParams = {
           date: "",
-          id: fetchID,
+          id: router?.query.id,
           token: TokenFromStore?.token,
         };
+        console.log("requestParams", requestParams);
         const getOrderDetailData = await GetCartHistory(requestParams);
         console.log(
           "get sales order data for order detail",

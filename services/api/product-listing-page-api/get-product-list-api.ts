@@ -3,20 +3,20 @@ import { CONSTANTS } from "../../config/app-config";
 import { client } from "../general_apis/cookie-instance-api";
 
 export const fetchProductListing = async (query: any) => {
-  console.log(query,"page query")
+  console.log(query, "page query");
   let response: any;
   let url: any;
-  let page_no:any;
+  let page_no: any;
   let limit: any;
   const version = CONSTANTS.VERSION;
   if (CONSTANTS.ENABLE_LOAD_MORE) {
-     page_no = 1;
-     limit = 4 * Number(query.url_params.page);
+    page_no = 1;
+    limit = 4 * Number(query.url_params.page);
   }
   if (CONSTANTS.ENABLE_PAGINATION) {
-    page_no= query?.url_params?.page;
-    limit = 8;
- }
+    page_no = query?.url_params?.page;
+    limit = 12;
+  }
   const price_range = "low_to_high";
   const category: any = query.url_params.category;
 
@@ -44,7 +44,6 @@ export const fetchProductListing = async (query: any) => {
     .join("&");
 
   // console.log("search work url params", modifiedParams);
-
 
   const config = {
     headers: {
