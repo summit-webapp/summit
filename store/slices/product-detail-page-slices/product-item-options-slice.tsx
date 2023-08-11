@@ -10,7 +10,6 @@ export const ProductMatchingItemOptions = createAsyncThunk(
     const getProductMatchingItemsOptionsData = await fetchProductMatchingItems(
       productID, currency, token
     );
-    console.log("matching items in slice", getProductMatchingItemsOptionsData);
     return getProductMatchingItemsOptionsData;
   }
 );

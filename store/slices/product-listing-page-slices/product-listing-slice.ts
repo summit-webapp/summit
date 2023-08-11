@@ -8,10 +8,6 @@ export const ProductListingThunk = createAsyncThunk(
   "product-listing-slice/fetchProductListing",
   async (params: any) => {
     const { storeUsefulParamsForFurtherProductListingApi } = params;
-    console.log(
-      "product listing thunk router in slice",
-      storeUsefulParamsForFurtherProductListingApi
-    );
     const getProductListingData = await fetchProductListing(
       storeUsefulParamsForFurtherProductListingApi
     );
@@ -22,11 +18,11 @@ export const ProductListingThunk = createAsyncThunk(
       )
     ) {
       const missingPartsApiRes = await MissingPartsAPI(
+        storeUsefulParamsForFurtherProductListingApi?.token,
         storeUsefulParamsForFurtherProductListingApi.url_params?.search_text,
         null
       );
     }
-    console.log("product listing in thunk", getProductListingData);
     return getProductListingData;
   }
 );
