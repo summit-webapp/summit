@@ -14,14 +14,18 @@ const UseThankyou = () => {
   const [id, setId] = useState("");
   const [detail, setdetail] = useState([]);
   const [ecommerceData, setEcommerceData] = useState({});
-  const TokenFromStore: any = useSelector(get_access_token)
-
+  const TokenFromStore: any = useSelector(get_access_token);
 
   useEffect(() => {
     if (router.asPath.split("/")[1] !== "thankyou") {
       // console.log("in my order")
       const getOrderDetail = async () => {
-        const getOrderDetailData = await GetCartHistory("", router?.query.id, TokenFromStore?.token);
+        const reqParams = {
+          date: "",
+          id: router?.query.id,
+          token: TokenFromStore?.token,
+        };
+        const getOrderDetailData = await GetCartHistory(reqParams);
         console.log(
           "get sales order data for order detail",
           getOrderDetailData
@@ -31,17 +35,26 @@ const UseThankyou = () => {
       getOrderDetail();
     } else {
       const getSalesOrderID = async () => {
-        const fetchID = await SalesOrderIdFetch(TokenFromStore?.token);
-        console.log(" get fetch Id", fetchID);
-        setId(fetchID);
+        // const fetchID = await SalesOrderIdFetch(TokenFromStore?.token);
+        // console.log(" get fetch Id", fetchID);
+        // setId(fetchID);
 
-        let ecommerce_enhanced_code = await ECommerceEnhancedCodeApi(fetchID, TokenFromStore?.token);
+        let ecommerce_enhanced_code = await ECommerceEnhancedCodeApi(
+          router?.query.id,
+          TokenFromStore?.token
+        );
         console.log(
           "e-commerce enhanced code api res",
           ecommerce_enhanced_code
         );
         setEcommerceData({ ...ecommerce_enhanced_code });
-        const getOrderDetailData = await GetCartHistory("", fetchID, TokenFromStore?.token);
+        const requestParams = {
+          date: "",
+          id: router?.query.id,
+          token: TokenFromStore?.token,
+        };
+        console.log("requestParams", requestParams);
+        const getOrderDetailData = await GetCartHistory(requestParams);
         console.log(
           "get sales order data for order detail",
           getOrderDetailData

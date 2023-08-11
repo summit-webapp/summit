@@ -6,11 +6,16 @@ import {
   quick_order_state,
 } from "../../../store/slices/general_slices/quick-order-slice";
 import { get_access_token } from "../../../store/slices/auth/token-login-slice";
+import { currency_selector_state } from "../../../store/slices/general_slices/multi-currency-slice";
 
 export const useQuickOrder = () => {
   const dispatch = useDispatch();
   const quickOrderDataFromStore: any = useSelector(quick_order_state);
-  const TokenFromStore: any = useSelector(get_access_token)
+  const TokenFromStore: any = useSelector(get_access_token);
+  const currency_state_from_redux: any = useSelector(currency_selector_state);
+
+  const token_value = TokenFromStore?.token;
+  const selected_currency = currency_state_from_redux?.selected_currency;
 
   const [partNumberInputField, setPartNumberInputField] = useState<string>("");
   const [inputFieldCount, setInputFieldCount] = useState<number>(1);
@@ -50,14 +55,9 @@ export const useQuickOrder = () => {
           console.log(existingHsnCode, "newval12");
           if (existingHsnCode.length > 0) {
             setIfPartNumberExistsErr(true);
-          } else {
-            setIfPartNumberExistsErr(false);
-          }
-          if (quickOrderDataFromStore?.itemList?.length >= 1) {
-            setItemNotFoundErr(false);
-          }
-          else {
-            setItemNotFoundErr(true);
+            setTimeout(() => {
+              setIfPartNumberExistsErr(false);
+            }, 3000);
           }
         }
       }
@@ -98,6 +98,8 @@ export const useQuickOrder = () => {
   return {
     partNumbersData,
     setPartNumbersData,
+    token_value,
+    selected_currency,
     minQty,
     inputFieldCount,
     ifInputEmptyErr,

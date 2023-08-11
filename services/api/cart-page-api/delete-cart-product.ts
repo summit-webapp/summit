@@ -2,14 +2,19 @@ import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
 import { client } from "../general_apis/cookie-instance-api";
 
-const DeleteCartProduct: any = async (item_code: any, token: any) => {
+const DeleteCartProduct: any = async (
+  item_code: any,
+  quotationId: any,
+  token: any
+) => {
   let response: any;
   let version = CONSTANTS.VERSION;
   const method = "delete_products";
   const entity = "cart";
   const id = item_code;
+  const quotation = quotationId;
 
-  const params = `?version=${version}&method=${method}&entity=${entity}&item_code=${id}`;
+  const params = `?version=${version}&method=${method}&entity=${entity}&item_code=${id}&quotation_id=${quotation}`;
 
   const config = {
     headers: {
@@ -41,7 +46,7 @@ const DeleteCartProduct: any = async (item_code: any, token: any) => {
   return response;
 };
 
-const DeleteProductFromCart = (item_code: any, token: any) =>
-  DeleteCartProduct(item_code, token);
+const DeleteProductFromCart = (item_code: any, quotationId: any, token: any) =>
+  DeleteCartProduct(item_code, quotationId, token);
 
 export default DeleteProductFromCart;

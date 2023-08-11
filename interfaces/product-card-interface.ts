@@ -16,4 +16,5 @@ export interface ProductCardProps {
   wishlistData?: any;
   currency_state_from_redux?: any;
   selectLangData?: any;
+  selectedMultiLangData?: any;
 }

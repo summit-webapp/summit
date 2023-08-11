@@ -19,7 +19,7 @@ export const SelectedFilterLangData: any = createSlice({
       console.log(action.payload, "payload toast");
       if (action?.payload?.multilanguageData?.length > 0) {
         const filteredList = action?.payload?.multilanguageData?.filter(
-          (obj: any) => obj.lang_code === action?.payload?.selectedLanguage
+          (obj: any) => obj?.lang_code === action?.payload?.selectedLanguage
         );
 
         if (filteredList?.length > 0 && filteredList !== null) {

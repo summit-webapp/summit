@@ -5,7 +5,11 @@ import {
   DeleteProductfromWishlist,
   GetWishlistData,
 } from "../../../services/api/wishlist-page-api/wishlist-api";
-import { successmsg, failmsg, hideToast } from "../general_slices/toast_notification_slice";
+import {
+  successmsg,
+  failmsg,
+  hideToast,
+} from "../general_slices/toast_notification_slice";
 
 export const fetchWishlistUser: any = createAsyncThunk(
   "wishlist/fetchWishlistUser",
@@ -15,35 +19,33 @@ export const fetchWishlistUser: any = createAsyncThunk(
     if (request.addTowishlist === true) {
       userWishList = await AddProductToWishlist(request);
       if (userWishList.msg === "success") {
-        dispatch(successmsg("item added to wishlist"))
+        dispatch(successmsg("item added to wishlist"));
         setTimeout(() => {
-          dispatch(hideToast())
+          dispatch(hideToast());
+        }, 500);
+      } else {
+        dispatch(failmsg("Error in adding item in wishlist"));
+        setTimeout(() => {
+          dispatch(hideToast());
         }, 500);
       }
-      else {
-        dispatch(failmsg("Error in adding item in wishlist"))
-        setTimeout(() => {
-          dispatch(hideToast())
-        }, 500);
-      }
-      console.log(userWishList, "userWishList")
+      console.log(userWishList, "userWishList");
     } else if (request.getWishlist === true) {
       userWishList = await GetWishlistData(request);
     } else if (request.deleteWishlist === true) {
       userWishList = await DeleteProductfromWishlist(request);
       if (userWishList.msg === "success") {
-        dispatch(failmsg(userWishList.data))
+        dispatch(failmsg(userWishList.data));
         setTimeout(() => {
-          dispatch(hideToast())
+          dispatch(hideToast());
+        }, 700);
+      } else {
+        dispatch(failmsg("Error in deleting item from wishlist"));
+        setTimeout(() => {
+          dispatch(hideToast());
         }, 700);
       }
-      else {
-        dispatch(failmsg("Error in deleting item from wishlist"))
-        setTimeout(() => {
-          dispatch(hideToast())
-        }, 700);
-      }
-      console.log(userWishList.data, "userWishList")
+      console.log(userWishList.data, "userWishList");
     } else {
       return null;
     }
@@ -77,7 +79,10 @@ export const WishlistScreen = createSlice({
     });
     builder.addCase(fetchWishlistUser.fulfilled, (state, action) => {
       console.log(" slice success12", action);
-      if (action?.payload?.status === 200) {
+      if (
+        action?.payload?.status === 200 &&
+        action?.payload?.data?.message?.msg === "success"
+      ) {
         state.user = action?.payload?.data?.message;
         state.error = "";
         state.isLoading = "succeeded";

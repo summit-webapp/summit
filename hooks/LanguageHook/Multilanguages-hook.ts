@@ -19,23 +19,20 @@ const useMultilangHook = () => {
     SelectedFilterLangDataFromStore
   );
 
-  console.log("hoooook");
+  console.log("MultiLanguageFromStore hoooook", MultiLanguageFromStore);
   const [multiLanguagesData, SetMultiLanguagesData] = useState<any>([]);
   const [selectedLang, setSelectedLang] = useState<any>("en");
   const TokenFromStore: any = useSelector(get_access_token);
 
   useEffect(() => {
-    // const langTranslations = async () => {
     dispatch(fetchMultiLanguagesThunkAPI(TokenFromStore?.token) as any);
-    // };
-    // langTranslations();
   }, []);
 
   useEffect(() => {
     if (Object.keys(MultiLanguageFromStore)?.length > 0) {
       SetMultiLanguagesData(MultiLanguageFromStore?.languageData);
     }
-  }, []);
+  }, [MultiLanguageFromStore]);
 
   const handleLanguageChange = (lang: any) => {
     console.log("selected lang", lang);
@@ -49,7 +46,13 @@ const useMultilangHook = () => {
     };
     console.log("params", params);
     dispatch(SelectedLangData(params) as any);
-  }, [selectedLang]);
+  }, [MultiLanguageFromStore, selectedLang]);
+
+  console.log(
+    "MultiLanguageFromStore hoooook",
+    multiLanguagesData,
+    selectedLang
+  );
 
   return {
     setSelectedLang,

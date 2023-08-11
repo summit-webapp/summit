@@ -4,11 +4,9 @@ import { RootState } from "../../root-reducer";
 
 export const FetchOrderListing: any = createAsyncThunk(
   "orderListing/fetchOrderListing",
-  async (date: any) => {
-    const response = await GetCartHistory(date);
-    console.log(
-"order data",response
-    )
+  async (request: any) => {
+    const response = await GetCartHistory(request);
+    console.log("order data", response);
     return response;
   }
 );

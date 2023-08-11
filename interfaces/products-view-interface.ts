@@ -31,6 +31,7 @@ export interface ProductsViewProps {
   currency_state_from_redux?: any;
   handlePaginationBtn?: any;
   selectLangData?: any;
+  selectedMultiLangData?: any;
 }
 
 export interface ProductsProps {
@@ -42,4 +43,5 @@ export interface ProductsProps {
   wishlistData: any;
   handleRenderingOfImages?: any;
   currency_state_from_redux?: any;
+  selectedMultiLangData?: any;
 }

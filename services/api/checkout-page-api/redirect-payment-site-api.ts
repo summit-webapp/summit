@@ -20,10 +20,11 @@ const RedirectPayment = async (
   const params = `?version=${version}&method=${method}&entity=${entity}&amount=${orderAmount}&document_type=${order_document_type}&order_id=${order_id}&payment_gateway=${payment_gateway}`;
 
   console.log(
-    "params",
+    "razor pay api params",
     CONSTANTS.API_BASE_URL,
     CONSTANTS.API_MANDATE_PARAMS,
-    params
+    params,
+    token
   );
 
 
@@ -34,7 +35,7 @@ const RedirectPayment = async (
   };
 
   await axios
-    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, {
+    .post(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`,undefined, {
       ...config,
       timeout: 5000,
     })
