@@ -241,7 +241,7 @@ const UseCheckoutPageHook = () => {
       transporterState,
       transportCharges
     );
-    console.log("ordersummary", orderSummary);
+    console.log("payment gateway ordersummary", orderSummary);
     if (CONSTANTS.ALLOW_PAYMENT_GATEWAY === true) {
       console.log("payment gateway");
       let paymentApiRes = await RedirectPayment(
@@ -256,7 +256,8 @@ const UseCheckoutPageHook = () => {
         response = paymentApiRes?.data?.message;
         window.location.href = `${paymentApiRes}`;
       }
-    } else {
+    } 
+    else {
       let res = await PlaceOrderApi(
         cartListingItems?.name,
         initialShippingAddress,
@@ -275,15 +276,6 @@ const UseCheckoutPageHook = () => {
 
         Router.push(`/thankyou/${response}`);
       }
-
-      // dispatch(fetchCartListing());
-      // ga.event({
-      //   action: "begin_checkout",
-      //   params: {
-      //     not_set: JSON.stringify(cartListingItems),
-      //     not_set: cartListingItems[0]?.id
-      //   },
-      // });
     }
   };
 
