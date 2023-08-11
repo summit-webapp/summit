@@ -275,15 +275,6 @@ const UseCheckoutPageHook = () => {
 
         Router.push(`/thankyou/${response}`);
       }
-
-      // dispatch(fetchCartListing());
-      // ga.event({
-      //   action: "begin_checkout",
-      //   params: {
-      //     not_set: JSON.stringify(cartListingItems),
-      //     not_set: cartListingItems[0]?.id
-      //   },
-      // });
     }
   };
 
