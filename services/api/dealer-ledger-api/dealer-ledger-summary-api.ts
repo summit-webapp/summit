@@ -2,6 +2,7 @@ import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
 
 const getDealerLedgerSummary = async (token: any) => {
+  console.log("token ledger", token);
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = "get_ledger_summary";

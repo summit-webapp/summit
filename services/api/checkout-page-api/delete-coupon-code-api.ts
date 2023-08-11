@@ -2,14 +2,11 @@ import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
 import { client } from "../general_apis/cookie-instance-api";
 
-const DeleteCouponCode = async (item_code: any) => {
+const DeleteCouponCode = async (item_code: any, token: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = "delete";
   const entity = "coupon_code";
-
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const config = {
     headers: {
