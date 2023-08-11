@@ -1,12 +1,12 @@
 import React from "react";
 import { CONSTANTS } from "../services/config/app-config";
 import MetaTag from "../services/api/general_apis/meta-tag-api";
-import DealerLedger from "../components/DealerLedger";
+import DealerLedgerComponent from "../components/DealerLedger/DealerLedger";
 
-const Checkout = () => {
+const DealerLedger = () => {
   return (
     <>
-      <DealerLedger />
+      <DealerLedgerComponent />
     </>
   );
 };
@@ -32,4 +32,4 @@ export async function getServerSideProps(context: any) {
   }
 }
 
-export default Checkout;
+export default DealerLedger;

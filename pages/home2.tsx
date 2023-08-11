@@ -1,15 +1,14 @@
-import React from 'react'
-import { CONSTANTS } from '../services/config/app-config';
+import React from "react";
+import { CONSTANTS } from "../services/config/app-config";
 import MetaTag from "../services/api/general_apis/meta-tag-api";
-import Homepage2Master from '../components/Homepage2Master';
+import Homepage2Master from "../components/Homepage2Master";
 const home2 = () => {
   return (
     <>
-    <Homepage2Master/>
-    
+      <Homepage2Master />
     </>
-  )
-}
+  );
+};
 export async function getServerSideProps(context: any) {
   const method = "get_meta_tags";
   const version = "v1";
@@ -31,5 +30,4 @@ export async function getServerSideProps(context: any) {
   }
 }
 
-export default home2
-
+export default home2;
