@@ -1,24 +1,22 @@
 import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
 
-const UserRoleFetch = async () => {
+const UserRoleFetch = async (token: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = "get_user_profile";
   const entity = "signin";
 
-  // const token =
-  //   typeof window !== "undefined" ? localStorage.getItem("token") : null;
-
-  // const config = {
-  //   headers: {
-  //     Authorization: token,
-  //   },
-  // };
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}`
+      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}`,
+      { ...config, timeout: 5000 }
       // config
     )
     .then((res: any) => {
@@ -48,6 +46,6 @@ const UserRoleFetch = async () => {
   return response;
 };
 
-const UserRoleGet = () => UserRoleFetch();
+const UserRoleGet = (token: any) => UserRoleFetch(token);
 
 export default UserRoleGet;
