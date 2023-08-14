@@ -19,20 +19,28 @@ export interface ProductData {
   url: string;
   weight_per_unit: number;
   weight_uom: string;
+  catalogListItem?: any,
+  handleAddProduct?: any,
+  handleSubmitCatalogName?: any,
+  handleChange?: any
 }
 
 export interface ProductsViewProps {
   loading: boolean;
   listItems: ProductData[];
-  filtersData?:any;
-  productListTotalCount?:any;
-  handleLoadMore?:any;
-  wishlistData:any
-  currency_state_from_redux?:any
-  handlePaginationBtn ?:any
-  query?:any
+  filtersData?: any;
+  productListTotalCount?: any;
+  handleLoadMore?: any;
+  wishlistData: any
+  currency_state_from_redux?: any
+  handlePaginationBtn?: any
+  query?: any
   selectLangData?: any;
   selectedMultiLangData?: any;
+  catalogListItem?: any,
+  handleAddProduct?: any,
+  handleSubmitCatalogName?: any,
+  handleChange?: any
 }
 
 export interface ProductsProps {
@@ -45,4 +53,8 @@ export interface ProductsProps {
   handleRenderingOfImages?: any;
   currency_state_from_redux?: any;
   selectedMultiLangData?: any;
+  catalogListItem?: any,
+  handleAddProduct?: any,
+  handleSubmitCatalogName?: any,
+  handleChange?: any
 }

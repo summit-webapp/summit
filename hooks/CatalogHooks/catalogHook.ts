@@ -56,54 +56,54 @@ const useCatalogHook = () => {
       getcatalogList_reduxList?.data?.length > 0
     ) {
       setCatalogListItem(getcatalogList_reduxList?.data);
-      
+
     } else {
       setCatalogListItem([]);
     }
   }, [getcatalogList_reduxList, catalogSucessMsg]);
   console.log(catalogListItem, "catalogListItem");
   const handleDeleteCatalog = async (catalog: any) => {
-   const deleteCatalogs = await deleteCatalog(catalog, token);
-   if(deleteCatalogs?.message?.msg === "success") {
-    dispatch(successmsg("Catalog Deleted Successfuly"));
-    setTimeout(() => {
-      dispatch(fetchCatalogList(token));
-      dispatch(hideToast());
-    }, 1000);
-   }
-   else {
-    dispatch(failmsg("Error in deleting the catalog"));
-    setTimeout(() => {
-      dispatch(hideToast());
-    }, 1000);
-   }
+    const deleteCatalogs = await deleteCatalog(catalog, token);
+    if (deleteCatalogs?.message?.msg === "success") {
+      dispatch(successmsg("Catalog Deleted Successfuly"));
+      setTimeout(() => {
+        dispatch(fetchCatalogList(token));
+        dispatch(hideToast());
+      }, 1000);
+    }
+    else {
+      dispatch(failmsg("Error in deleting the catalog"));
+      setTimeout(() => {
+        dispatch(hideToast());
+      }, 1000);
+    }
   };
-  const handleAddProduct = async( catalogname:any,name:any) => {
+  const handleAddProduct = async (catalogname: any, name: any) => {
     console.log(catalogname, name, "CatalogName")
     // const CatalogName = catalogname.replace(/-/g, " ");
     const productdata = {
-      catalogNames:catalogname,
-      ItemCode:name,
-      tokens:token
+      catalogNames: catalogname,
+      ItemCode: name,
+      tokens: token
     }
-   const getCatalogList = await AddProductToCatalogList(productdata);
-   if(getCatalogList.data.message.msg ==="success"){
-    dispatch(successmsg("Item Added To Catalog Successfuly"));
-    setTimeout(() => {
-      dispatch(fetchCatalogList(token));
-      dispatch(hideToast());
-    }, 1000);
-   }
-   else {
-    dispatch(failmsg("Error in adding product to catalog"));
-    setTimeout(() => {
-      dispatch(hideToast());
-    }, 1000);
-   }
-  
-   
+    const getCatalogList = await AddProductToCatalogList(productdata);
+    if (getCatalogList.data.message.msg === "success") {
+      dispatch(successmsg("Item Added To Catalog Successfuly"));
+      setTimeout(() => {
+        dispatch(fetchCatalogList(token));
+        dispatch(hideToast());
+      }, 1000);
+    }
+    else {
+      dispatch(failmsg("Error in adding product to catalog"));
+      setTimeout(() => {
+        dispatch(hideToast());
+      }, 1000);
+    }
+
+
   }
-  console.log(loading,"getCatalogList")
+  console.log(loading, "getCatalogList")
   return {
     handleChange,
     handleSubmitCatalogName,
