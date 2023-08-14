@@ -17,4 +17,5 @@ export interface ProductCardProps {
   currency_state_from_redux?: any;
   selectLangData?: any;
   selectedMultiLangData?: any;
+  query?:any
 }

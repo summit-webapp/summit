@@ -7,7 +7,6 @@ export const MissingPartsAPI = async (
   token:any,
   searchText: any,
   descriptionValue: any,
-  token: any
 ) => {
   let response: any;
   let url: any;

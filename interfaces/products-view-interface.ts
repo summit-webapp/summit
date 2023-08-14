@@ -24,12 +24,13 @@ export interface ProductData {
 export interface ProductsViewProps {
   loading: boolean;
   listItems: ProductData[];
-  filtersData?: any;
-  productListTotalCount?: any;
-  handleLoadMore?: any;
-  wishlistData: any;
-  currency_state_from_redux?: any;
-  handlePaginationBtn?: any;
+  filtersData?:any;
+  productListTotalCount?:any;
+  handleLoadMore?:any;
+  wishlistData:any
+  currency_state_from_redux?:any
+  handlePaginationBtn ?:any
+  query?:any
   selectLangData?: any;
   selectedMultiLangData?: any;
 }
