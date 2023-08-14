@@ -1,18 +1,28 @@
 import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
 
-const getDealerLedger = async (token: any) => {
+const getDealerLedger = async (request: any) => {
+  console.log("dealer ledger req", request)
   let response: any;
+  let params: any
   const version = CONSTANTS.VERSION;
   const method = "get_dealer_ledger";
   const entity = "gl";
-  const party = "";
-  const month = "Dec 2022";
+  const party = request.partyName;
+  const month = request.month;
+  const FromDate = request.fromDate;
+  const ToDate = request.toDate;
 
-  const params = `?version=${version}&method=${method}&entity=${entity}&party=${party}&month=${month}`;
+  if (request.month) {
+    params = `?version=${version}&method=${method}&entity=${entity}&party=${party}&month=${month}`;
+  } else {
+    params = `?version=${version}&method=${method}&entity=${entity}&party=${party}&from_date=${FromDate}&to_date=${ToDate}`;
+
+  }
+
   const config = {
     headers: {
-      Authorization: token,
+      Authorization: request.token,
     },
   };
   await axios
@@ -35,6 +45,7 @@ const getDealerLedger = async (token: any) => {
         response = err;
       }
     });
+  return response
 };
 
 export default getDealerLedger;
