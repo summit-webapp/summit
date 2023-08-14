@@ -241,7 +241,7 @@ const UseCheckoutPageHook = () => {
       transporterState,
       transportCharges
     );
-    console.log("ordersummary", orderSummary);
+    console.log("payment gateway ordersummary", orderSummary);
     if (CONSTANTS.ALLOW_PAYMENT_GATEWAY === true) {
       console.log("payment gateway");
       let paymentApiRes = await RedirectPayment(
@@ -256,7 +256,8 @@ const UseCheckoutPageHook = () => {
         response = paymentApiRes?.data?.message;
         window.location.href = `${paymentApiRes}`;
       }
-    } else {
+    } 
+    else {
       let res = await PlaceOrderApi(
         cartListingItems?.name,
         initialShippingAddress,

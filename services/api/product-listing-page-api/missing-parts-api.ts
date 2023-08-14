@@ -4,9 +4,9 @@ import { CONSTANTS } from "../../config/app-config";
 import { client } from "../general_apis/cookie-instance-api";
 
 export const MissingPartsAPI = async (
+  token:any,
   searchText: any,
   descriptionValue: any,
-  token: any
 ) => {
   let response: any;
   let url: any;
