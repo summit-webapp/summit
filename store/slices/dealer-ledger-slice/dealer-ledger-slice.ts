@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../root-reducer";
-import getDealerLedgerSummary from "../../../services/api/dealer-ledger-api/dealer-ledger-summary-api";
+import getDealerLedger from "../../../services/api/dealer-ledger-api/dealer-ledger-api";
 
 export const fetchDealerLedger: any = createAsyncThunk(
   "dealerLedger/fetchdealer",
-  async (token: any) => {
-    const response = await getDealerLedgerSummary(token);
+  async (params: any) => {
+    const response = await getDealerLedger(params);
     return response;
   }
 );
@@ -17,7 +17,7 @@ interface RepoDealerLedgerState {
 }
 
 const initialState: RepoDealerLedgerState = {
-  data: [],
+  data: {},
   error: "",
   isLoading: "idle",
 };
@@ -32,9 +32,11 @@ export const DealerLedgerScreen = createSlice({
       state.isLoading = "pending";
     });
     builder.addCase(fetchDealerLedger.fulfilled, (state, action) => {
-      console.log("action payload dealer summry", action.payload);
-      state.data = action.payload;
-      state.isLoading = "succeeded";
+      console.log("action payload dealer data", action.payload);
+      if (action?.payload?.data?.message?.msg === "success") {
+        state.data = action?.payload?.data?.message?.data;
+        state.isLoading = "succeeded";
+      }
     });
     builder.addCase(fetchDealerLedger.rejected, (state) => {
       state.data = [];
@@ -44,7 +46,7 @@ export const DealerLedgerScreen = createSlice({
   },
 });
 
-export const dealerLedgerSummary: any = (state: RootState) =>
+export const dealerLedgerStore: any = (state: RootState) =>
   state.DealerledgerScreen;
 
 export default DealerLedgerScreen.reducer;
