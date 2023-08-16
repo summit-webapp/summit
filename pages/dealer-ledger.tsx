@@ -1,7 +1,7 @@
 import React from "react";
 import { CONSTANTS } from "../services/config/app-config";
 import MetaTag from "../services/api/general_apis/meta-tag-api";
-import DealerLedger from "../components/DealerLedger";
+import DealerLedger from "../components/DealerLedger/DealerLedger";
 
 const Checkout = () => {
   return (
