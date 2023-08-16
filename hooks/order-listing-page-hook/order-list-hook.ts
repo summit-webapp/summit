@@ -17,48 +17,39 @@ const UseThankyou = () => {
   const TokenFromStore: any = useSelector(get_access_token);
 
   useEffect(() => {
-    if (router.asPath.split("/")[1] !== "thankyou") {
-      // console.log("in my order")
+    if (router.asPath.split("/")[1] === "thankyou") {
+      console.log("thank u b2c");
       const getOrderDetail = async () => {
+        const fetchID = await SalesOrderIdFetch(TokenFromStore?.token);
+        // setId(fetchID);
         const reqParams = {
           date: "",
-          id: router?.query.id,
+          id: fetchID,
           token: TokenFromStore?.token,
         };
         const getOrderDetailData = await GetCartHistory(reqParams);
-        console.log(
-          "get sales order data for order detail",
-          getOrderDetailData
-        );
+
         setdetail(getOrderDetailData);
       };
       getOrderDetail();
     } else {
       const getSalesOrderID = async () => {
-        // const fetchID = await SalesOrderIdFetch(TokenFromStore?.token);
-        // console.log(" get fetch Id", fetchID);
-        // setId(fetchID);
+        console.log("thank u b2b");
 
         let ecommerce_enhanced_code = await ECommerceEnhancedCodeApi(
           router?.query.id,
           TokenFromStore?.token
         );
-        console.log(
-          "e-commerce enhanced code api res",
-          ecommerce_enhanced_code
-        );
+
         setEcommerceData({ ...ecommerce_enhanced_code });
         const requestParams = {
           date: "",
           id: router?.query.id,
           token: TokenFromStore?.token,
         };
-        console.log("requestParams", requestParams);
+
         const getOrderDetailData = await GetCartHistory(requestParams);
-        console.log(
-          "get sales order data for order detail",
-          getOrderDetailData
-        );
+
         setdetail(getOrderDetailData);
         dispatch(fetchCartListing(TokenFromStore?.token));
       };
