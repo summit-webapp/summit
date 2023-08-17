@@ -21,7 +21,7 @@ export const ProductListingThunk = createAsyncThunk(
         "search_text"
       )
     ) {
-      const missingPartsApiRes = await MissingPartsAPI(
+      const missingPartsApiRes = await MissingPartsAPI(storeUsefulParamsForFurtherProductListingApi?.token,
         storeUsefulParamsForFurtherProductListingApi.url_params?.search_text,
         null
       );
