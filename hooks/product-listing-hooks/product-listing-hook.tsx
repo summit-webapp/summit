@@ -26,7 +26,7 @@ const useProductListing = () => {
   const product_listing_state_from_redux: any = useSelector(
     product_listing_selector_state
   );
-
+  const tokens = useSelector(get_access_token);
   const currency_state_from_redux: any = useSelector(currency_selector_state);
 
   const filters_state_from_redux: any = useSelector(filters_selector_state);
@@ -51,7 +51,7 @@ const useProductListing = () => {
     });
   };
 
-  console.log("product listing router", router);
+  console.log("product listing router",currency_state_from_redux);
 
   const handleApplyFilters = async (event: any) => {
     let duplicateFilters: any;
@@ -111,7 +111,15 @@ const useProductListing = () => {
     });
   };
   useEffect(() => {
-    dispatch(setProductsView("list-view"));
+    const catalogSlug = router.route.split('/')[1];
+    console.log(catalogSlug,"newSlug ")
+    if(catalogSlug === 'catalog') {
+      dispatch(setProductsView("grid-view"));
+    }
+    else {
+      dispatch(setProductsView("list-view"));
+    }
+  
   }, []);
   const handleToggleProductsListingView = (view_value?: any) => {
     if (view_value === "list-view") {
@@ -151,13 +159,31 @@ const useProductListing = () => {
   };
   useEffect(() => {
     // console.log("multi currency in prod list hook",currency_value_from_redux);
-    const storeUsefulParamsForFurtherProductListingApi = {
+    let storeUsefulParamsForFurtherProductListingApi
+    if(router.asPath==="/product-category"){
+      router.push({
+        query: { page: '1', currency: currency_state_from_redux?.selected_currency_value },
+      });
+     storeUsefulParamsForFurtherProductListingApi = {
       router_origin: router.route.split("/")[1],
       url_params: query,
       filterDoctype: filters_state_from_redux?.doctype,
       filterDocname: filters_state_from_redux?.docname.toLowerCase(),
       token: TokenFromStore?.token,
+      listing_route:router.route
     };
+  
+  }
+  else {
+    storeUsefulParamsForFurtherProductListingApi = {
+      router_origin: router.route.split("/")[1],
+      url_params: query,
+      filterDoctype: filters_state_from_redux?.doctype,
+      filterDocname: filters_state_from_redux?.docname.toLowerCase(),
+      token: TokenFromStore?.token,
+      listing_route:router.route
+    };
+  }
     console.log(
       storeUsefulParamsForFurtherProductListingApi,
       "storeUsefulParamsForFurtherProductListingApi"
@@ -189,6 +215,7 @@ const useProductListing = () => {
       setSelectedFilters([]);
     }
   }, [dispatch, query]);
+  console.log(router,"routers")
   useEffect(() => {
     setToggleProductListView(product_view_slice_from_redux?.view);
   }, [product_view_slice_from_redux?.view]);
@@ -249,6 +276,7 @@ const useProductListing = () => {
     handleLoadMore,
     handlePaginationBtn,
     currency_state_from_redux,
+    query
   };
 };
 export default useProductListing;
