@@ -1,6 +1,5 @@
 import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
 
 const GetCartHistory = async (request: any) => {
   let response: any;
@@ -47,7 +46,7 @@ const GetCartHistory = async (request: any) => {
         { ...config, timeout: 5000 }
       )
       .then((res) => {
-        console.log("get orderid ", res);
+        console.log("get orderlist ", res);
         response = res;
       })
       .catch((err) => {

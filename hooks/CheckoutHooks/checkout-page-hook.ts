@@ -74,8 +74,7 @@ const UseCheckoutPageHook = () => {
   const Storeaddress: any = useSelector(store_address_state);
   const cart_listing_data_store: any = useSelector(cart_listing_state);
 
-  const TokenFromStore: any = useSelector(get_access_token)
-
+  const TokenFromStore: any = useSelector(get_access_token);
 
   const config = {
     headers: {
@@ -83,14 +82,12 @@ const UseCheckoutPageHook = () => {
     },
   };
 
-
   useEffect(() => {
     dispatch(fetchShippingAddress(TokenFromStore?.token) as any);
     dispatch(fetchBillingAddress(TokenFromStore?.token) as any);
     transporter();
     setcartListingItems(cart_listing_data_store?.data);
   }, []);
-
 
   // useEffect(() => {
   //   const CheckGuestLogin = async () => {
@@ -134,8 +131,8 @@ const UseCheckoutPageHook = () => {
     if (Object.keys(cart_listing_data_store?.data).length > 0) {
       const request = {
         quotationId: cart_listing_data_store?.data?.name,
-        token: TokenFromStore?.token
-      }
+        token: TokenFromStore?.token,
+      };
       dispatch(fetchOrderSummary(request));
     }
   }, [cart_listing_data_store]);
@@ -177,7 +174,11 @@ const UseCheckoutPageHook = () => {
 
   const handleApplyCouponCode = async (e: any) => {
     console.log("coupon code bool", deleteCoupon, quotationId);
-    let res: any = await CouponCodePostApi(quotationId, couponCode, TokenFromStore?.token);
+    let res: any = await CouponCodePostApi(
+      quotationId,
+      couponCode,
+      TokenFromStore?.token
+    );
     console.log("coupon code res--", res);
     if (res?.data?.message?.msg !== "error") {
       setCouponerr(false);
@@ -187,9 +188,9 @@ const UseCheckoutPageHook = () => {
       setdeleteCoupon(!deleteCoupon);
       const request = {
         quotationId: quotationId,
-        Token: TokenFromStore?.token
-      }
-      dispatch(getOrderSummary(request));
+        Token: TokenFromStore?.token,
+      };
+      dispatch(fetchOrderSummary(request));
       // dispatch(getOrderSummary(quotationId));
     }
     if (res?.data?.message?.msg === "error") {
@@ -201,30 +202,31 @@ const UseCheckoutPageHook = () => {
   };
 
   const handleDeleteCouponCode = async () => {
-    let res = await DeleteCouponCode(quotationId);
+    let res = await DeleteCouponCode(quotationId, TokenFromStore?.token);
     if (res?.data?.message?.msg !== "error") {
       setCouponerr(true);
       setCouponCodeApiRes(" ");
       setdeleteCoupon(false);
       const request = {
         quotationId: quotationId,
-        Token: TokenFromStore?.token
-      }
-      dispatch(getOrderSummary(request));
+        Token: TokenFromStore?.token,
+      };
+      dispatch(fetchOrderSummary(request));
+
       setCouponCodeToastS(!couponCodeToastS);
     }
   };
   const handleStoreCredit = async (e: any) => {
     e.preventDefault();
     console.log("store Credit", storeCredit);
-    let res = await StoreCreditPostApi(storeCredit);
+    let res = await StoreCreditPostApi(storeCredit, TokenFromStore?.token);
     console.log("store response", quotationId);
     if (res?.data?.message?.msg !== "error") {
       const request = {
         quotationId: quotationId,
-        Token: TokenFromStore?.token
-      }
-      dispatch(getOrderSummary(request));
+        Token: TokenFromStore?.token,
+      };
+      dispatch(fetchOrderSummary(request));
     }
   };
 
@@ -239,7 +241,7 @@ const UseCheckoutPageHook = () => {
       transporterState,
       transportCharges
     );
-    console.log("ordersummary", orderSummary);
+    console.log("payment gateway ordersummary", orderSummary);
     if (CONSTANTS.ALLOW_PAYMENT_GATEWAY === true) {
       console.log("payment gateway");
       let paymentApiRes = await RedirectPayment(
@@ -254,7 +256,8 @@ const UseCheckoutPageHook = () => {
         response = paymentApiRes?.data?.message;
         window.location.href = `${paymentApiRes}`;
       }
-    } else {
+    } 
+    else {
       let res = await PlaceOrderApi(
         cartListingItems?.name,
         initialShippingAddress,
@@ -273,15 +276,6 @@ const UseCheckoutPageHook = () => {
 
         Router.push(`/thankyou/${response}`);
       }
-
-      // dispatch(fetchCartListing());
-      // ga.event({
-      //   action: "begin_checkout",
-      //   params: {
-      //     not_set: JSON.stringify(cartListingItems),
-      //     not_set: cartListingItems[0]?.id
-      //   },
-      // });
     }
   };
 

@@ -4,17 +4,15 @@ import { CONSTANTS } from "../../config/app-config";
 import { client } from "../general_apis/cookie-instance-api";
 
 export const MissingPartsAPI = async (
+  token:any,
   searchText: any,
-  descriptionValue: any
+  descriptionValue: any,
 ) => {
   let response: any;
   let url: any;
   const version = CONSTANTS.VERSION;
   const method = "customer_inquiry";
   const entity = "profile";
-
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const config = {
     headers: {

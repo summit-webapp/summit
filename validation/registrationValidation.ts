@@ -19,4 +19,10 @@ export const RegistrationValidation = Yup.object().shape({
   state: Yup.string().required("Please enter your State"),
   city: Yup.string().required("Please select valid City"),
   postal_code: Yup.string().required("Pincode is required"),
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters long")
+    .required("Password is required"),
+  confirm_password: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords must match")
+    .required("Confirm Password is required"),
 });

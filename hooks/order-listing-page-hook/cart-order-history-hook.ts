@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FetchOrderListing,
@@ -9,6 +9,7 @@ import { get_access_token } from "../../store/slices/auth/token-login-slice";
 const UseCartOrderHistory = () => {
   const dispatch = useDispatch();
   const [orderHistoryItems, setOrderHistoryItems] = useState<any>([]);
+  const [loadingStatus, setLoadingStatus] = useState<boolean>(false);
 
   const OrderListingProducts = useSelector(order_listing_state);
   const TokenFromStore: any = useSelector(get_access_token);
@@ -35,12 +36,36 @@ const UseCartOrderHistory = () => {
   useEffect(() => {
     if (OrderListingProducts?.data?.length > 0) {
       setOrderHistoryItems(OrderListingProducts.data);
+      setLoadingStatus(false);
     } else {
       setOrderHistoryItems([]);
     }
   }, [OrderListingProducts]);
 
-  console.log("orderlisting hook end", orderHistoryItems);
+  useEffect(() => {
+    setLoadingStatus(true);
+    if (
+      OrderListingProducts?.data?.length < 0 &&
+      OrderListingProducts?.isLoading === "pending"
+    ) {
+      setLoadingStatus(true);
+    } else if (
+      OrderListingProducts?.data?.length > 0 &&
+      OrderListingProducts?.isLoading === "succeeded"
+    ) {
+      setOrderHistoryItems(OrderListingProducts?.data);
+      setLoadingStatus(false);
+    } else if (
+      OrderListingProducts?.data?.length < 0 &&
+      OrderListingProducts?.isLoading === "succeeded"
+    ) {
+      setLoadingStatus(false);
+      setOrderHistoryItems([]);
+    } else if (OrderListingProducts?.isLoading === "succeeded") {
+      setLoadingStatus(false);
+    }
+  }, [OrderListingProducts]);
+
   return {
     orderHistoryItems,
     handleHistoryDate,

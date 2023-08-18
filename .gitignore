@@ -38,8 +38,8 @@ next-env.d.ts
 /public/robots.txt
 /public/sitemap.xml
 
-/themes/summit-theme-b2c
-/themes/summit-theme-b2b
+/themes/elite
+/themes/maxima
 /cards 
 /components
 /styles
@@ -48,3 +48,5 @@ next-env.d.ts
 # pages
 /pages/_app.tsx
 /pages/index.tsx
+/pages/dealer-ledger.tsx
+/pages/quick-order.tsx

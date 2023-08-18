@@ -54,7 +54,7 @@ export const fetchLoginUser: any = createAsyncThunk(
       userLogin = await LogoutList();
     } else {
       userLogin = await getLoginApi(request);
-      const get_user_role = await UserRoleGet();
+      // const get_user_role = await UserRoleGet();
 
       if (userLogin?.data?.message === "Logged In") {
         console.log("login dispatch", userLogin);
@@ -92,12 +92,12 @@ export const LoginScreen = createSlice({
   initialState,
   reducers: {
     updateFetchLoginUser(state: any, action: any) {
-      console.log("guest update login slice", action?.payload)
+      console.log("guest update login slice", action?.payload);
       localStorage.setItem("isLoggedIn", "true");
       state.isLoading = "succeeded";
       state.user = "LoggedIn";
       state.error = "";
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchLoginUser.pending, (state) => {
@@ -136,7 +136,6 @@ export const LoginScreen = createSlice({
 });
 
 export const login_state = (state: RootState) => state.LoginScreen;
-export const { updateFetchLoginUser }: any =
-  LoginScreen.actions;
+export const { updateFetchLoginUser }: any = LoginScreen.actions;
 
 export default LoginScreen.reducer;
