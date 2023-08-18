@@ -5,11 +5,9 @@ import { fetchProductVariant } from "../../../services/api/product-detail-page-a
 export const ProductVariantsThunk = createAsyncThunk(
   "product-variants-data-slice/fetchProductDetailData",
   async (params: any) => {
-    console.log("detail data params", params);
     const { productID, token } = params;
 
     const getProductVariants = await fetchProductVariant(productID, token);
-    console.log("detail data in slice", getProductVariants);
     return getProductVariants;
   }
 );
