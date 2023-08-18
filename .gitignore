@@ -48,3 +48,5 @@ next-env.d.ts
 # pages
 /pages/_app.tsx
 /pages/index.tsx
+/pages/dealer-ledger.tsx
+/pages/quick-order.tsx
