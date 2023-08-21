@@ -9,7 +9,8 @@ const getTokenLoginApi: any = async (values: any) => {
   // const dispatch = useDispatch();
   console.log("token req", values);
   const usr = values.values.email;
-  const pwd = values.values.password;
+  const pwd = encodeURIComponent(values.values.password);
+
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = "get_access_token";
