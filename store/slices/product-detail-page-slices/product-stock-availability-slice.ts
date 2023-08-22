@@ -6,7 +6,6 @@ export const fetchStockAvailability: any = createAsyncThunk(
   "stockAvailability/fetchStockAvailability",
   async (params) => {
     const { item_code, qty, token }: any = params;
-    console.log("qtttt", params);
 
     const respnse = await getStockAvailability(item_code, qty, token);
     return respnse;
