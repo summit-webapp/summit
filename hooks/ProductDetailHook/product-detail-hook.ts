@@ -45,8 +45,7 @@ const useProductDetail = () => {
 
   const currency_state_from_redux: any = useSelector(currency_selector_state);
 
-
-  console.log("product_variants_data_from_redux", product_variants_data_from_redux)
+  // console.log("product_variants_data_from_redux", product_variants_data_from_redux)
 
   const productID = router.query.product_id;
 
@@ -81,8 +80,8 @@ const useProductDetail = () => {
 
   const [productItemOptions, setProductItemOptions] = useState([]);
 
-  console.log("detail page router", router);
-  console.log("detail page router", stock_availability_data_from_redux);
+  // console.log("detail page router", router);
+  // console.log("detail page router", stock_availability_data_from_redux);
 
   const handleCreationOfProductEnlargeImages = () => {
     console.log("creation", productDetailData);
@@ -172,24 +171,38 @@ const useProductDetail = () => {
   };
 
   const handleStockAvail = (item_code: any) => {
-    const params = { item_code: item_code, qty: productQuantity, token: TokenFromStore?.token };
+    const params = {
+      item_code: item_code,
+      qty: productQuantity,
+      token: TokenFromStore?.token,
+    };
     dispatch(fetchStockAvailability(params));
     // window.scrollTo({top:  document.getElementById('scroll_btn');
     // sectionsnew?.scrollIntoView({ behavior: 'smooth' });})
     setTimeout(() => {
       window.scrollTo({
-        top: document.getElementById('scroll_btn')?.offsetTop,
-        behavior: 'smooth',
+        top: document.getElementById("scroll_btn")?.offsetTop,
+        behavior: "smooth",
       });
     }, 100);
     setCheckStock(true);
-
   };
   useEffect(() => {
     console.log("currency in prod detail", query);
-    dispatch(ProductDetailPageThunk({ productID: productID, currency: query.currency, token: TokenFromStore?.token }) as any);
-    dispatch(ProductVariantsThunk({ productID: productID, token: TokenFromStore?.token }) as any);
-    dispatch(ProductMatchingItemOptions({ productID: productID, currency: query.currency, token: TokenFromStore?.token }) as any);
+    dispatch(
+      ProductDetailPageThunk({
+        productID: productID,
+        currency: query.currency,
+        token: TokenFromStore?.token,
+      }) as any
+    );
+    dispatch(
+      ProductVariantsThunk({
+        productID: productID,
+        token: TokenFromStore?.token,
+      }) as any
+    );
+    // dispatch(ProductMatchingItemOptions({ productID: productID, currency: query.currency, token: TokenFromStore?.token }) as any);
   }, [query]);
 
   useEffect(() => {
@@ -197,7 +210,6 @@ const useProductDetail = () => {
   }, [productDetailData]);
 
   useEffect(() => {
-
     handleCreationOfProductEnlargeImages();
   }, [selectedVariant]);
 
@@ -211,6 +223,9 @@ const useProductDetail = () => {
       case "succeeded":
         if (product_detail_data_from_redux?.data?.hasOwnProperty("name")) {
           setProductDetailData(product_detail_data_from_redux.data);
+          const keysToExtract = ["alternate", "equivalent", "suggested", "mandatory"];
+          const filteredKeys = keysToExtract.filter(key => product_detail_data_from_redux?.data[key] === true);
+          // console.log("true keys", filteredKeys);
         } else {
           setProductDetailData({});
         }
@@ -237,7 +252,9 @@ const useProductDetail = () => {
     }
 
     if (product_matching_items_data_from_redux?.data?.length > 0) {
-      setProductItemOptions(product_matching_items_data_from_redux?.data)
+      setProductItemOptions(product_matching_items_data_from_redux?.data);
+    } else {
+      setProductItemOptions([]);
     }
 
     if (
@@ -273,8 +290,7 @@ const useProductDetail = () => {
       }
       if (product_detail_data_from_redux?.data?.in_stock_status === false) {
         setStockDoesNotExistsForSelectedVariants(true);
-      }
-      else {
+      } else {
         setStockDoesNotExistsForSelectedVariants(false);
       }
 
@@ -297,7 +313,7 @@ const useProductDetail = () => {
     }
   }, [stock_availability_data_from_redux]);
 
-  console.log("productItemOptions in hook end", productItemOptions);
+  // console.log("productItemOptions in hook end", productItemOptions);
   return {
     productImageLoading,
     productDetailLoading,
@@ -320,7 +336,7 @@ const useProductDetail = () => {
     doesSelectedVariantDoesNotExists,
     stockDoesNotExistsForSelectedVariants,
     productItemOptions,
-    currency_state_from_redux
+    currency_state_from_redux,
   };
 };
 
