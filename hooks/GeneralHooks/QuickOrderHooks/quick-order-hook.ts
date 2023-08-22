@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  removeSingleItem,
   clearAllDataAddedToQuickOrderList,
   fetchQuickOrder,
   quick_order_state,
@@ -52,7 +53,7 @@ export const useQuickOrder = () => {
             (element: any, i: any) =>
               element.oem_part_number === partNumberInputField
           );
-          console.log(existingHsnCode, "newval12");
+          // console.log(existingHsnCode, "newval12");
           if (existingHsnCode.length > 0) {
             setIfPartNumberExistsErr(true);
             setTimeout(() => {
@@ -64,7 +65,7 @@ export const useQuickOrder = () => {
     }
 
   };
-  console.log(quickOrderDataFromStore, "quick_order_state");
+  // console.log(quickOrderDataFromStore, "quick_order_state");
   const handleClearReduxStore = () => {
     dispatch(clearAllDataAddedToQuickOrderList());
   };
@@ -72,7 +73,7 @@ export const useQuickOrder = () => {
   const handleAddToCartQuickOrder = () => { };
 
   useEffect(() => {
-    console.log("enter data from store", quickOrderDataFromStore);
+    // console.log("enter data from store", quickOrderDataFromStore);
     // dispatch(emptyStore());
     if (quickOrderDataFromStore?.error === "Data Not Found") {
       setItemNotFoundErr(true);
@@ -94,8 +95,9 @@ export const useQuickOrder = () => {
       setPartNumbersData([]);
     }
   }, [quickOrderDataFromStore]);
-  console.log(partNumbersData, "partNumbersData");
+  // console.log(partNumbersData, "partNumbersData");
   return {
+    removeSingleItem,
     partNumbersData,
     setPartNumbersData,
     token_value,
