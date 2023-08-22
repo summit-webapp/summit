@@ -6,7 +6,9 @@ import MetaTag from "../services/api/general_apis/meta-tag-api";
 const registration = () => {
   return (
     <>
+
       <Registration />
+      
     </>
   );
 };
