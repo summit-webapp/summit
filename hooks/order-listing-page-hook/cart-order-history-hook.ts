@@ -70,6 +70,7 @@ const UseCartOrderHistory = () => {
     orderHistoryItems,
     handleHistoryDate,
     history,
+    loadingStatus,
   };
 };
 
