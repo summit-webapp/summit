@@ -45,9 +45,14 @@ const useProductDetail = () => {
 
   const currency_state_from_redux: any = useSelector(currency_selector_state);
 
-
-  console.log("product_variants_data_from_redux", product_variants_data_from_redux)
-
+  console.log(
+    "product_variants_data_from_redux",
+    product_variants_data_from_redux
+  );
+  let isDealer: any;
+  if (typeof window !== "undefined") {
+    isDealer = localStorage.getItem("isDealer");
+  }
   const productID = router.query.product_id;
 
   const { handleSettingOfSelectedVariantsAndThumbnailOfVariants } =
@@ -58,6 +63,7 @@ const useProductDetail = () => {
   const [productDetailData, setProductDetailData] = useState<any>({});
   const [productImages, setProductImages] = useState<any>([]);
   const [productQuantity, setProductQuantity] = useState<number>(1);
+  const [newobjectState, setnewObjectState] = useState<any>([]);
   let [minQty, setMinQty] = useState<any>("");
   const [stockAvailabilityTextChanges, setstockAvailabilityTextChanges] =
     useState(false);
@@ -172,24 +178,64 @@ const useProductDetail = () => {
   };
 
   const handleStockAvail = (item_code: any) => {
-    const params = { item_code: item_code, qty: productQuantity, token: TokenFromStore?.token };
-    dispatch(fetchStockAvailability(params));
-    // window.scrollTo({top:  document.getElementById('scroll_btn');
-    // sectionsnew?.scrollIntoView({ behavior: 'smooth' });})
-    setTimeout(() => {
-      window.scrollTo({
-        top: document.getElementById('scroll_btn')?.offsetTop,
-        behavior: 'smooth',
-      });
-    }, 100);
-    setCheckStock(true);
+    console.log("input qty object", newobjectState);
 
+    if (isDealer === "true") {
+      const params = {
+        item_code: item_code,
+        qty: newobjectState[0]?.quantity,
+        token: TokenFromStore?.token,
+      };
+      dispatch(fetchStockAvailability(params));
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: document.getElementById("scroll_btn")?.offsetTop,
+          behavior: "smooth",
+        });
+      }, 100);
+      setCheckStock(true);
+    } else {
+      const params = {
+        item_code: item_code,
+        qty: productQuantity,
+        token: TokenFromStore?.token,
+      };
+
+      dispatch(fetchStockAvailability(params));
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: document.getElementById("scroll_btn")?.offsetTop,
+          behavior: "smooth",
+        });
+      }, 100);
+      setCheckStock(true);
+    }
   };
+
   useEffect(() => {
     console.log("currency in prod detail", query);
-    dispatch(ProductDetailPageThunk({ productID: productID, currency: query.currency, token: TokenFromStore?.token }) as any);
-    dispatch(ProductVariantsThunk({ productID: productID, token: TokenFromStore?.token }) as any);
-    dispatch(ProductMatchingItemOptions({ productID: productID, currency: query.currency, token: TokenFromStore?.token }) as any);
+    dispatch(
+      ProductDetailPageThunk({
+        productID: productID,
+        currency: query.currency,
+        token: TokenFromStore?.token,
+      }) as any
+    );
+    dispatch(
+      ProductVariantsThunk({
+        productID: productID,
+        token: TokenFromStore?.token,
+      }) as any
+    );
+    dispatch(
+      ProductMatchingItemOptions({
+        productID: productID,
+        currency: query.currency,
+        token: TokenFromStore?.token,
+      }) as any
+    );
   }, [query]);
 
   useEffect(() => {
@@ -197,7 +243,6 @@ const useProductDetail = () => {
   }, [productDetailData]);
 
   useEffect(() => {
-
     handleCreationOfProductEnlargeImages();
   }, [selectedVariant]);
 
@@ -237,7 +282,7 @@ const useProductDetail = () => {
     }
 
     if (product_matching_items_data_from_redux?.data?.length > 0) {
-      setProductItemOptions(product_matching_items_data_from_redux?.data)
+      setProductItemOptions(product_matching_items_data_from_redux?.data);
     }
 
     if (
@@ -273,8 +318,7 @@ const useProductDetail = () => {
       }
       if (product_detail_data_from_redux?.data?.in_stock_status === false) {
         setStockDoesNotExistsForSelectedVariants(true);
-      }
-      else {
+      } else {
         setStockDoesNotExistsForSelectedVariants(false);
       }
 
@@ -320,7 +364,9 @@ const useProductDetail = () => {
     doesSelectedVariantDoesNotExists,
     stockDoesNotExistsForSelectedVariants,
     productItemOptions,
-    currency_state_from_redux
+    currency_state_from_redux,
+    newobjectState,
+    setnewObjectState,
   };
 };
 
