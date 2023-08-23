@@ -3,7 +3,6 @@ import {
   createSlice,
   configureStore,
 } from "@reduxjs/toolkit";
-import getBrandsList from "../../../services/api/home_page_api/home-brand-api";
 import { RootState } from "../../root-reducer";
 import getQuickOrder from "../../../services/api/general_apis/quick-order-api";
 
@@ -11,7 +10,7 @@ export const fetchQuickOrder: any = createAsyncThunk(
   "quickOrder/fetchQuickOrder",
   async (request: any) => {
     const QuickOrderData = await getQuickOrder(request);
-    console.log("uick order", QuickOrderData);
+    // console.log("uick order", QuickOrderData);
     return QuickOrderData;
   }
 );
@@ -34,6 +33,14 @@ export const QuickOrderScreen = createSlice({
   name: "quickOrder",
   initialState,
   reducers: {
+    removeSingleItem(state?:any, action?:any)
+    {
+      // console.log('single item remove from quick order', action);
+      state.items = [...action.payload];
+      state.isLoading = "succeeded";
+      state.itemList = [];
+      state.error = ""
+    },
     clearAllDataAddedToQuickOrderList(state?: any, action?: any) {
       state.items = [];
       state.error = "";
@@ -49,13 +56,13 @@ export const QuickOrderScreen = createSlice({
       state.itemList = []
     });
     builder.addCase(fetchQuickOrder.fulfilled, (state, action) => {
-      console.log("uick order", action.payload);
+      // console.log("uick order", action.payload);
       if (action.payload.status === 200) {
         state.isLoading = "succeeded";
         state.items = [...state.items, ...action?.payload?.data?.message?.data];
         state.itemList = action?.payload?.data?.message?.data
         state.error = "";
-        console.log("uick order data slice items", state.items);
+        // console.log("uick order data slice items", state.items);
       } else {
         state.isLoading = "failed";
         state.items = [...state.items];
@@ -74,5 +81,5 @@ export const QuickOrderScreen = createSlice({
 
 export const quick_order_state = (state: RootState) => state.QuickOrderScreen;
 
-export const { clearAllDataAddedToQuickOrderList }: any = QuickOrderScreen.actions;
+export const { removeSingleItem,clearAllDataAddedToQuickOrderList }: any = QuickOrderScreen.actions;
 export default QuickOrderScreen.reducer;
