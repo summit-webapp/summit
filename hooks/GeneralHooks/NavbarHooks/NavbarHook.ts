@@ -41,6 +41,11 @@ const useNavbar = () => {
     dispatch(MultiCurrencyThunk(TokenFromStore?.token) as any);
   }, []);
 
+  const handleCurrencyValueChange = (curr: any) => {
+    dispatch(setCurrencyValue(curr));
+    setSelectedCurrencyValue(curr);
+  };
+
   useEffect(() => {
     console.log("multi currency in navbar ", currency_state_from_redux);
     const url = new URL(window.location.href);
@@ -104,7 +109,7 @@ const useNavbar = () => {
   return {
     navbarData,
     isLoading,
-    // handleCurrencyValueChange,
+    handleCurrencyValueChange,
     selectedCurrencyValue,
   };
 };
