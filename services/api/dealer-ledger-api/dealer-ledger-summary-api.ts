@@ -34,6 +34,6 @@ const getDealerLedgerSummary = async (token: any) => {
         response = err;
       }
     });
+  return response;
 };
-
 export default getDealerLedgerSummary;

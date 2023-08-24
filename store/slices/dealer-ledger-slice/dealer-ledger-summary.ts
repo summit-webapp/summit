@@ -28,13 +28,15 @@ export const DealerLedgerSummaryScreen = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchDealerLedgerSummary.pending, (state) => {
-      state.data = [];
+      state.data = {};
       state.isLoading = "pending";
     });
     builder.addCase(fetchDealerLedgerSummary.fulfilled, (state, action) => {
       console.log("action payload dealer summry", action.payload);
-      state.data = action.payload;
-      state.isLoading = "succeeded";
+      if (action?.payload?.data?.message?.msg === "success") {
+        state.data = action.payload?.data?.message?.data;
+        state.isLoading = "succeeded";
+      }
     });
     builder.addCase(fetchDealerLedgerSummary.rejected, (state) => {
       state.data = [];
@@ -44,7 +46,7 @@ export const DealerLedgerSummaryScreen = createSlice({
   },
 });
 
-export const dealerLedgerSummary: any = (state: RootState) =>
+export const dealer_ledger_summary: any = (state: RootState) =>
   state.DealerledgerSummaryScreen;
 
 export default DealerLedgerSummaryScreen.reducer;

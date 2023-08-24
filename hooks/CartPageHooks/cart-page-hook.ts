@@ -11,7 +11,10 @@ import {
 import { get_access_token } from "../../store/slices/auth/token-login-slice";
 import { currency_selector_state } from "../../store/slices/general_slices/multi-currency-slice";
 import AddToCartApi from "../../services/api/cart-page-api/add-to-cart-api";
-import { hideToast, successmsg } from "../../store/slices/general_slices/toast_notification_slice";
+import {
+  hideToast,
+  successmsg,
+} from "../../store/slices/general_slices/toast_notification_slice";
 
 const UseCartPageHook = () => {
   const dispatch = useDispatch();
@@ -57,14 +60,11 @@ const UseCartPageHook = () => {
       currency_state_from_redux?.selected_currency_value,
       TokenFromStore?.token
     );
-    console.log('update cart', updateCartAPI);
-    if(updateCartAPI?.status === 200)
-    {
+    if (updateCartAPI?.msg === "success") {
       dispatch(successmsg("Your cart has been updated"));
-      setTimeout(()=>
-      {
-        dispatch(hideToast())
-      },3000)
+      setTimeout(() => {
+        dispatch(hideToast());
+      }, 3000);
     }
   };
 

@@ -3,12 +3,14 @@ import { CONSTANTS } from "../../config/app-config";
 import getLoginApi from "./login_api";
 import CheckGuestLogin from "./guest-login-api";
 import { useDispatch } from "react-redux";
+import UserRoleGet from "./get_userrole_api";
 
 const getTokenLoginApi: any = async (values: any) => {
   // const dispatch = useDispatch();
   console.log("token req", values);
   const usr = values.values.email;
-  const pwd = values.values.password;
+  const pwd = encodeURIComponent(values.values.password);
+
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = "get_access_token";
@@ -32,12 +34,14 @@ const getTokenLoginApi: any = async (values: any) => {
       if (values?.guest !== null) {
         localStorage.setItem("guestToken", response.access_token);
       }
+      UserRoleGet(res?.data?.message?.access_token);
     })
 
     .then(() => {
       if (values?.guest !== null) {
         console.log("token guest values", values);
         CheckGuestLogin(values);
+
         // dispatch(fetchLoginUser());
       } else {
         console.log("token else");

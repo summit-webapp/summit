@@ -6,7 +6,7 @@ import { client } from "../general_apis/cookie-instance-api";
 export const MissingPartsAPI = async (
   token:any,
   searchText: any,
-  descriptionValue: any
+  descriptionValue: any,
 ) => {
   let response: any;
   let url: any;

@@ -33,28 +33,8 @@ const useNavbar = () => {
 
   const [selectedCurrencyValue, setSelectedCurrencyValue] = useState("");
 
-  // const handleLanguageChange = (lang: any) => {
-  //   console.log("selected lang", lang);
-  //   setSelectedLang(lang);
-  //   if (Object.keys(MultiLanguageFromStore)?.length > 0) {
-  //     const filteredList = MultiLanguageFromStore?.languageData.filter(
-  //       (obj: any) => obj.langCode === selectedLang
-  //     );
-
-  //     console.log("selectedLangData filterlist")
-  //     setSelectedLangData(filteredList);
-  //   }
-  // };
-
-  const handleCurrencyValueChange = (curr: any) => {
-    setSelectedCurrencyValue(curr);
-  };
-
   useEffect(() => {
-    dispatch(setCurrencyValue(selectedCurrencyValue));
-  }, [selectedCurrencyValue]);
-
-  useEffect(() => {
+    console.log("multi currency in navbar 1st useEffect");
     dispatch(fetchNavbarDataFromAPI(TokenFromStore?.token) as any);
 
     dispatch(fetchCartListing(TokenFromStore?.token));
@@ -75,7 +55,10 @@ const useNavbar = () => {
         "currency",
         `${currency_state_from_redux?.selected_currency_value}`
       );
-      const updatedUrl = url.toString();
+      const updatedUrl = `${url.origin}${
+        url.pathname
+      }?${searchParams.toString()}`;
+      console.log("multi currency in navbar updatedURL", url, updatedUrl);
       push(updatedUrl);
     }
 
@@ -121,7 +104,7 @@ const useNavbar = () => {
   return {
     navbarData,
     isLoading,
-    handleCurrencyValueChange,
+    // handleCurrencyValueChange,
     selectedCurrencyValue,
   };
 };

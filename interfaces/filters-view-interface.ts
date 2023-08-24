@@ -9,3 +9,4 @@ export interface FiltersViewProps {
   selectLangData?: any;
   selectedMultiLangData?: any;
 }
+
