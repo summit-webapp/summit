@@ -2,7 +2,7 @@ import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
 import { client } from "../general_apis/cookie-instance-api";
 
-const fetchDisplaytags = async (token: any) => {
+const fetchDisplaytags = async (token: any,currencyValue:any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = "get_tagged_products";
@@ -36,7 +36,7 @@ const fetchDisplaytags = async (token: any) => {
     displayTagsList.map(async (tag: any) => {
       try {
         const res = await axios.get(
-          `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}&tag=${tag.name}`,
+          `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}&tag=${tag.name}&currency=${currencyValue}`,
           config
         );
         console.log("display tag new arrival api res in api 1", res);
@@ -60,5 +60,5 @@ const fetchDisplaytags = async (token: any) => {
   return getDisplayTagsProductsList;
 };
 
-const displayTagList = (token: any) => fetchDisplaytags(token);
+const displayTagList = (token: any,currencyValue?:any) => fetchDisplaytags(token,currencyValue);
 export default displayTagList;

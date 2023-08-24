@@ -7,10 +7,10 @@ export const fetchHomeTopCategoriesDataFromAPI = createAsyncThunk(
   async (token: any) => {
     const getHomeTopCategoriesDataAPIResponse: any =
       await getHomeTopCategoriesList(token);
-    console.log(
-      "home top categories data in slice",
-      getHomeTopCategoriesDataAPIResponse
-    );
+    // console.log(
+    //   "home top categories data in slice",
+    //   getHomeTopCategoriesDataAPIResponse
+    // );
     return getHomeTopCategoriesDataAPIResponse;
   }
 );

@@ -21,7 +21,7 @@ const fetchTopCategoriesData = async (token: any) => {
       timeout: 5000,
     })
     .then((res) => {
-      console.log("top categories success", res);
+      // console.log("top categories success", res);
       response = res;
     })
     .catch((err) => {
