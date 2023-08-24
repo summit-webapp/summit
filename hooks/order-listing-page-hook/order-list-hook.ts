@@ -7,6 +7,7 @@ import GetCartHistory from "../../services/api/my-order-api/order-history-api";
 import SalesOrderIdFetch from "../../services/api/my-order-api/get-sales-order-id";
 import ECommerceEnhancedCodeApi from "../../services/api/my-order-api/e-commerce-enhanced-api";
 import { get_access_token } from "../../store/slices/auth/token-login-slice";
+import { order_listing_state } from "../../store/slices/order-listing-page-slice/order-listing-page-slice";
 
 const UseThankyou = () => {
   const router = useRouter();
@@ -48,10 +49,12 @@ const UseThankyou = () => {
           token: TokenFromStore?.token,
         };
 
-        const getOrderDetailData = await GetCartHistory(requestParams);
-
-        setdetail(getOrderDetailData);
-        dispatch(fetchCartListing(TokenFromStore?.token));
+        if (requestParams?.id !== undefined) {
+          const getOrderDetailData = await GetCartHistory(requestParams);
+          console.log("thank u b2b detail", getOrderDetailData);
+          setdetail(getOrderDetailData);
+          dispatch(fetchCartListing(TokenFromStore?.token));
+        }
       };
       getSalesOrderID();
     }

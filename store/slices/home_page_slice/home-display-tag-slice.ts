@@ -4,14 +4,15 @@ import { RootState } from "../../root-reducer";
 
 export const fetchDisplayTags: any = createAsyncThunk(
   "displayTagsList/fetchDisplayTags",
-  async (token: any) => {
-    const displayTags = await displayTagList(token);
-    console.log("display tags slice", displayTags);
+  async (params: any) => {
+    const { token, currencyValue } = params;
+    const displayTags = await displayTagList(token,currencyValue);
+    // console.log("display tags slice", displayTags);
     return displayTags;
   }
 );
 interface RepoDisplayTag {
-  tagData: any
+  tagData: any;
   error: string;
   isLoading: "idle" | "pending" | "succeeded" | "failed";
 }
@@ -25,17 +26,23 @@ const initialState: RepoDisplayTag = {
 export const displayTagScreen = createSlice({
   name: "displayTagsList",
   initialState,
-  reducers: {},
+  reducers: {
+    testReducer(state: any) {
+      console.log("navbar parent component reducer");
+      state.error = "err";
+    },
+  },
   extraReducers: (builder) => {
+
     builder.addCase(fetchDisplayTags.pending, (state) => {
       state.isLoading = "pending";
       state.error = "";
-      state.tagData = []
+      // state.tagData = []
     });
     builder.addCase(fetchDisplayTags.fulfilled, (state, action) => {
       console.log("display tag in slice fulfilled", action.payload)
-      state.isLoading = "succeeded";
       state.error = "";
+      state.isLoading = "succeeded";
       state.tagData = action.payload;
     });
     builder.addCase(fetchDisplayTags.rejected, (state, action) => {
@@ -45,6 +52,8 @@ export const displayTagScreen = createSlice({
     });
   },
 });
+
+export const { testReducer } = displayTagScreen.actions;
 
 export const display_tags = (state: RootState) => state.HomeDisplayTagScreen;
 
