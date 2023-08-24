@@ -17,7 +17,7 @@ export async function getServerSideProps(context: any) {
   const entity = "seo";
   const params = `?version=${version}&method=${method}&entity=${entity}`;
   const url = `${context.resolvedUrl.split("?")[0]}`;
-  console.log("context url",url);
+  // console.log("context ur l",url);
   if (CONSTANTS.ENABLE_META_TAGS) {
     let meta_data:any = await MetaTag(
       `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}&page_name=${url}`
