@@ -4,7 +4,7 @@ import { CONSTANTS } from "../../config/app-config";
 const ResetPassword = async (values: any, hostName: any) => {
   console.log("reset pswd link", values, hostName);
   let response: any;
-  const ResetLink: any = `${hostName}/reset_password`;
+  const ResetLink: any = `${hostName}/reset-password`;
 
   let body = {
     version: CONSTANTS.VERSION,
