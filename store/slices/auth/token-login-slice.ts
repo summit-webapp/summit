@@ -14,6 +14,8 @@ export const getAccessToken: any = createAsyncThunk(
     console.log(AccessTokenData, "AccessTokenData");
 
     if (AccessTokenData?.hasOwnProperty("access_token")) {
+      localStorage.setItem("isLoggedIn", "true");
+
       setTimeout(() => {
         dispatch(successmsg("logged in sucessfully"));
       }, 1200);
