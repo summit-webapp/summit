@@ -1,6 +1,5 @@
 import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
 
 const RegisterFetch = async (request: any) => {
   let response: any;
@@ -10,18 +9,7 @@ const RegisterFetch = async (request: any) => {
   console.log(request, "body");
   const params = `?version=${version}&method=${method}&entity=${entity}`;
   const encodedPassword = encodeURIComponent(request.confirm_password);
-  const body = {
-    email: request.email,
-    name: request.name,
-    contact_no: request.contact,
-    address: request.address_1,
-    address_2: request.address_2,
-    gst_number: request.gst_number,
-    state: request.state,
-    city: request.city,
-    postal_code: request.postal_code,
-    password: request.encodedPassword,
-  };
+
   const config = {
     headers: {
       Accept: "application/json",

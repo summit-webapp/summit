@@ -58,6 +58,8 @@ const UseCheckoutPageHook = () => {
   const [textState, setTextstate] = useState("");
   const [transportersCharges, settransportersCharges] = useState("");
   const [orderSummary, setorderSummary] = useState<any>([]);
+  const [currencySymbolForSummary, setCurrencySymbolForSummary] =
+    useState<any>("");
   const [quotationId, setquotationId] = useState<any>("");
   const [deleteCoupon, setdeleteCoupon] = useState<boolean>(false);
   const [couponCode, setCouponCode] = useState<any>("");
@@ -140,6 +142,7 @@ const UseCheckoutPageHook = () => {
   useEffect(() => {
     if (orderSummaryStore?.data?.values.length > 0) {
       setorderSummary(orderSummaryStore?.data?.values);
+      setCurrencySymbolForSummary(orderSummaryStore?.data?.currency_symbol);
     }
     if (Object.keys(cart_listing_data_store?.data).length > 0) {
       setquotationId(cart_listing_data_store?.data?.name);
@@ -256,8 +259,7 @@ const UseCheckoutPageHook = () => {
         response = paymentApiRes?.data?.message;
         window.location.href = `${paymentApiRes}`;
       }
-    } 
-    else {
+    } else {
       let res = await PlaceOrderApi(
         cartListingItems?.name,
         initialShippingAddress,
@@ -337,6 +339,7 @@ const UseCheckoutPageHook = () => {
     handleStoreCredit,
     handlePlaceOrder,
     storeCredit,
+    currencySymbolForSummary,
   };
 };
 
