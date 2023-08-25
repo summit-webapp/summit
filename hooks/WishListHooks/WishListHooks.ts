@@ -12,7 +12,7 @@ const useWishlist = () => {
   const wishlistStoreData: any = useSelector(wishlist_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
-  console.log("wishlist hookval", wishlistStoreData?.isLoading);
+  console.log("wishlist hookval", wishlistStoreData);
   const [Loadings, setLoadings] = useState("");
   const [wishlistData, setWishlistData] = useState<any>([]);
   const [wishlistCount, setWishlistCount] = useState<number>(0);
@@ -32,6 +32,10 @@ const useWishlist = () => {
     setLoadings(wishlistStoreData?.isLoading);
     if (wishlistStoreData?.user?.data?.length > 0) {
       setWishlistData([...wishlistStoreData?.user?.data]);
+    } else {
+      if (wishlistStoreData?.user?.data?.length === 0) {
+        setWishlistData([]);
+      }
     }
     // setWishlistProduct([wishlistStoreData?.wishProduct]);
   }, [wishlistStoreData]);
