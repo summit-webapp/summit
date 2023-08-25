@@ -3,12 +3,12 @@ import axios from "axios";
 
 const MetaTag = async (url: any) => {
   let meta_data;
-  console.log("meta tags component", url);
+  // console.log("meta tags component", url);
 
   await axios
     .get(`${url}`, { timeout: 5000 })
     .then((res) => {
-      meta_data = res.data.message.data;
+      meta_data = res;
     })
     .catch((err) => {
       if (err.code === "ECONNABORTED") {
