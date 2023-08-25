@@ -24,6 +24,7 @@ export interface CheckoutPageInterface {
   textState?: any;
   transportersCharges?: any;
   orderSummary?: any;
+  currencySymbolForSummary?: any;
   handlePlaceOrder?: any;
   handleApplyCouponCode?: any;
   handleDeleteCouponCode?: any;

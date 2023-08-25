@@ -1,12 +1,12 @@
 import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
+
 const getOtpFetch = async (emailval: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = "send_otp";
   const entity = "otp";
-  const params = `?version=${version}&method=${method}&entity=${entity}`;
+  const params = `?version=${version}&method=${method}&entity=${entity}&usr=${emailval.email}`;
   const config = {
     headers: {
       Accept: "application/json",
@@ -14,14 +14,10 @@ const getOtpFetch = async (emailval: any) => {
   };
   const token = localStorage.getItem("token");
 
-  let body = {
-    email: emailval,
-  };
-
   await axios
     .post(
       `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      body,
+      undefined,
       { ...config, timeout: 5000 }
     )
     .then((res) => {

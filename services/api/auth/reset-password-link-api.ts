@@ -1,32 +1,24 @@
 import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
 
-const ResetPassword = async (request: any) => {
-  console.log("reset pswd link", request);
+const ResetPassword = async (values: any, hostName: any) => {
+  console.log("reset pswd link", values, hostName);
   let response: any;
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
-
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
+  const ResetLink: any = `${hostName}/reset-password`;
 
   let body = {
     version: CONSTANTS.VERSION,
     method: "send_reset_link",
     entity: "registration",
-    link: "http://localhost:3000/reset_password",
-    email: request.email,
+    link: ResetLink,
+    email: values.email,
   };
 
   await axios
     .post(
       `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}`,
-      body,
-      config
+      body
+      // config
     )
     .then((res: any) => {
       console.log("res", res);
@@ -46,6 +38,7 @@ const ResetPassword = async (request: any) => {
   return response;
 };
 
-const ResetPasswordLink = (request: any) => ResetPassword(request);
+const ResetPasswordLink = (values: any, hostName: any) =>
+  ResetPassword(values, hostName);
 
 export default ResetPasswordLink;
