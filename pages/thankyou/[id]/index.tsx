@@ -27,7 +27,9 @@ export async function getServerSideProps(context: any) {
       `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}&page_name=${url}`
     );
     if (meta_data !== null && Object.keys(meta_data).length > 0) {
-      return { props: { meta_data } };
+      const metaData = meta_data?.data?.message?.data;
+      // console.log("meta data in page server", metaData);
+      return { props: { metaData } };
     } else {
       return { props: {} };
     }

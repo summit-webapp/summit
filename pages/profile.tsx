@@ -24,7 +24,9 @@ export async function getServerSideProps(context: any) {
     );
 
     if (meta_data !== null && Object.keys(meta_data).length > 0) {
-      return { props: { meta_data } };
+      const metaData = meta_data?.data?.message?.data;
+      // console.log("meta data in page server", metaData);
+      return { props: { metaData } };
     } else {
       return { props: {} };
     }

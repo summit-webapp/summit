@@ -9,7 +9,6 @@ import {
   SelectedLangData,
 } from "../../store/slices/general_slices/selected-multilanguage-slice";
 import { get_access_token } from "../../store/slices/auth/token-login-slice";
-import { CONSTANTS } from "../../services/config/app-config";
 
 const useMultilangHook = () => {
   const dispatch = useDispatch();
@@ -19,16 +18,17 @@ const useMultilangHook = () => {
     SelectedFilterLangDataFromStore
   );
 
-  console.log("MultiLanguageFromStore hoooook", MultiLanguageFromStore);
+  // console.log("MultiLanguageFromStore hoooook", MultiLanguageFromStore);
   const [multiLanguagesData, SetMultiLanguagesData] = useState<any>([]);
   const [selectedLang, setSelectedLang] = useState<any>("en");
   const TokenFromStore: any = useSelector(get_access_token);
 
-  useEffect(() => {
-    dispatch(fetchMultiLanguagesThunkAPI(TokenFromStore?.token) as any);
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchMultiLanguagesThunkAPI(TokenFromStore?.token) as any);
+  // }, []);
 
   useEffect(() => {
+    // console.log("check data of server obj - hook", MultiLanguageFromStore);
     if (Object.keys(MultiLanguageFromStore)?.length > 0) {
       SetMultiLanguagesData(MultiLanguageFromStore?.languageData);
     }
@@ -44,15 +44,15 @@ const useMultilangHook = () => {
       multilanguageData: MultiLanguageFromStore?.languageData,
       selectedLanguage: selectedLang,
     };
-    console.log("params", params);
+    // console.log("params", params);
     dispatch(SelectedLangData(params) as any);
   }, [MultiLanguageFromStore, selectedLang]);
 
-  console.log(
-    "MultiLanguageFromStore hoooook",
-    multiLanguagesData,
-    selectedLang
-  );
+  // console.log(
+  //   "MultiLanguageFromStore hoooook",
+  //   multiLanguagesData,
+  //   selectedLang
+  // );
 
   return {
     setSelectedLang,
