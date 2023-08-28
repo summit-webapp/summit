@@ -5,7 +5,7 @@ import { getMultiCurrencyValue } from "../../../services/api/general_apis/defaul
 export const MultiCurrencyThunk = createAsyncThunk(
   "multi-currency-slice/fetchMultiCurrency",
   async (token: any) => {
-    const getDefaultCurrencyValueFromAPI = await getMultiCurrencyValue(token);
+    const getDefaultCurrencyValueFromAPI = await getMultiCurrencyValue();
     console.log("multi currency in thunk", getDefaultCurrencyValueFromAPI);
     return getDefaultCurrencyValueFromAPI;
   }
@@ -26,43 +26,56 @@ const MultiCurrencySlice = createSlice({
   name: "currency-slice",
   initialState,
   reducers: {
-    setCurrencyValue(state, action) {
-      console.log("multi currency in reducer", action.payload);
-      state.selected_currency_value = action.payload;
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(MultiCurrencyThunk.pending, (state, action) => {
-      state.loading = "pending";
-      state.default_currency_value = "INR";
-      state.selected_currency_value = "INR";
-    });
-    builder.addCase(MultiCurrencyThunk.fulfilled, (state, action) => {
-      console.log("multi currency in extra reducer from api", action);
-      if (
-        action.payload.status === 200 &&
-        action.payload.data.hasOwnProperty("data")
-      ) {
+    setDefaultCurrencyValue(state, action) {
+      console.log("multi currency in reducer default slice", action);
+      if (Object.keys(action.payload).length > 0) {
         state.loading = "succeeded";
-        state.default_currency_value =
-          action.payload?.data?.data[0]?.default_currency;
-        state.selected_currency_value =
-          action.payload?.data?.data[0]?.default_currency;
+        state.default_currency_value = action.payload.default_currency;
+        state.selected_currency_value = action.payload.default_currency;
       } else {
         state.loading = "succeeded";
         state.default_currency_value = "INR";
         state.selected_currency_value = "INR";
       }
-    });
-    builder.addCase(MultiCurrencyThunk.rejected, (state, action) => {
-      state.loading = "pending";
-      state.default_currency_value = "INR";
-      state.selected_currency_value = "INR";
-    });
+    },
+    setCurrencyValue(state, action) {
+      console.log("multi currency in reducer", action.payload);
+      state.selected_currency_value = action.payload;
+    },
   },
+  // extraReducers: (builder) => {
+  //   builder.addCase(MultiCurrencyThunk.pending, (state, action) => {
+  //     state.loading = "pending";
+  //     state.default_currency_value = "INR";
+  //     state.selected_currency_value = "INR";
+  //   });
+  //   builder.addCase(MultiCurrencyThunk.fulfilled, (state, action) => {
+  //     console.log("multi currency in extra reducer from api", action);
+  //     if (
+  //       action.payload.status === 200 &&
+  //       action.payload.data.hasOwnProperty("data")
+  //     ) {
+  //       state.loading = "succeeded";
+  //       state.default_currency_value =
+  //         action.payload?.data?.data[0]?.default_currency;
+  //       state.selected_currency_value =
+  //         action.payload?.data?.data[0]?.default_currency;
+  //     } else {
+  //       state.loading = "succeeded";
+  //       state.default_currency_value = "INR";
+  //       state.selected_currency_value = "INR";
+  //     }
+  //   });
+  //   builder.addCase(MultiCurrencyThunk.rejected, (state, action) => {
+  //     state.loading = "pending";
+  //     state.default_currency_value = "INR";
+  //     state.selected_currency_value = "INR";
+  //   });
+  // },
 });
 
-export const { setCurrencyValue } = MultiCurrencySlice.actions;
+export const { setDefaultCurrencyValue, setCurrencyValue } =
+  MultiCurrencySlice.actions;
 
 export const currency_selector_state = (state: RootState) =>
   state.CurrencyScreen;
