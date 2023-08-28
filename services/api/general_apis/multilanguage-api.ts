@@ -1,21 +1,15 @@
 import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
 
-const MultiLangApi = async (token: any) => {
+const MultiLangApi = async () => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = "get_languages";
   const entity = "translation";
   const params = `?version=${version}&method=${method}&entity=${entity}`;
 
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
   const MultiLanguagesList = await axios
     .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, {
-      ...config,
       timeout: 5000,
     })
     .then((res: any) => {
@@ -34,18 +28,18 @@ const MultiLangApi = async (token: any) => {
       }
     });
 
-  console.log("MultiLanguagesList", MultiLanguagesList);
+  // console.log("MultiLanguagesList", MultiLanguagesList);
 
   const langTransmethod = "get_translation_text";
   const langTransentity = "translation";
 
-  const getDisplayTagsProductsList = await Promise.all(
+  const generateMultiLingualArrayOfData = await Promise.all(
     MultiLanguagesList.map(async (lang: any) => {
       console.log("MultiLanguagesList langname", lang);
       try {
         const res = await axios.get(
           `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${langTransmethod}&entity=${langTransentity}&language_code=${lang.language_code}`,
-          { ...config, timeout: 5000 }
+          { timeout: 5000 }
         );
 
         return {
@@ -67,7 +61,7 @@ const MultiLangApi = async (token: any) => {
     })
   );
 
-  return getDisplayTagsProductsList;
+  return generateMultiLingualArrayOfData;
 };
 
 export default MultiLangApi;
