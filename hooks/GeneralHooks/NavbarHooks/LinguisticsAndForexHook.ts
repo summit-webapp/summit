@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  currency_selector_state,
-  setCurrencyValue,
-} from "../../../store/slices/general_slices/multi-currency-slice";
+import useDisplayTagHooks from "../../HomePageHooks/DisplayTagHooks";
 
 const useLinguisticsAndForexHook = () => {
   const dispatch = useDispatch();
 
+  const { fetchDisplayTagsDataFunction } = useDisplayTagHooks();
+
   const [selectedCurrencyValue, setSelectedCurrencyValue] = useState("");
 
   const handleCurrencyValueChange = (curr: any) => {
-    dispatch(setCurrencyValue(curr));
+    fetchDisplayTagsDataFunction(curr);
     setSelectedCurrencyValue(curr);
   };
 

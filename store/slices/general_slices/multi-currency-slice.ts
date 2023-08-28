@@ -27,7 +27,7 @@ const MultiCurrencySlice = createSlice({
   initialState,
   reducers: {
     setDefaultCurrencyValue(state, action) {
-      // console.log("optimizing api work in progress", action);
+      console.log("multi currency in reducer default slice", action);
       if (Object.keys(action.payload).length > 0) {
         state.loading = "succeeded";
         state.default_currency_value = action.payload.default_currency;
@@ -39,7 +39,7 @@ const MultiCurrencySlice = createSlice({
       }
     },
     setCurrencyValue(state, action) {
-      // console.log("multi currency in reducer", action.payload);
+      console.log("multi currency in reducer", action.payload);
       state.selected_currency_value = action.payload;
     },
   },
