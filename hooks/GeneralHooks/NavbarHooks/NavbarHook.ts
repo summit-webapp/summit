@@ -34,11 +34,11 @@ const useNavbar = () => {
   const [selectedCurrencyValue, setSelectedCurrencyValue] = useState("");
 
   useEffect(() => {
-    console.log("multi currency in navbar 1st useEffect");
+    // console.log("multi currency in navbar 1st useEffect");
     dispatch(fetchNavbarDataFromAPI(TokenFromStore?.token) as any);
 
     dispatch(fetchCartListing(TokenFromStore?.token));
-    dispatch(MultiCurrencyThunk(TokenFromStore?.token) as any);
+    // dispatch(MultiCurrencyThunk(TokenFromStore?.token) as any);
   }, []);
 
   const handleCurrencyValueChange = (curr: any) => {
@@ -47,7 +47,7 @@ const useNavbar = () => {
   };
 
   useEffect(() => {
-    console.log("multi currency in navbar ", currency_state_from_redux);
+    // console.log("multi currency in navbar ", currency_state_from_redux);
     const url = new URL(window.location.href);
 
     // Get the URLSearchParams object from the URL
@@ -63,7 +63,7 @@ const useNavbar = () => {
       const updatedUrl = `${url.origin}${
         url.pathname
       }?${searchParams.toString()}`;
-      console.log("multi currency in navbar updatedURL", url, updatedUrl);
+      // console.log("multi currency in navbar updatedURL", url, updatedUrl);
       push(updatedUrl);
     }
 
