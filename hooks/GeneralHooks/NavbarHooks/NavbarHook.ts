@@ -47,7 +47,7 @@ const useNavbar = () => {
   };
 
   useEffect(() => {
-    // console.log("multi currency in navbar ", currency_state_from_redux);
+    console.log("multi currency in navbar ", currency_state_from_redux);
     const url = new URL(window.location.href);
 
     // Get the URLSearchParams object from the URL
