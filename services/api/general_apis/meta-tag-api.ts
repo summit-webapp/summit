@@ -8,6 +8,7 @@ const MetaTag = async (url: any) => {
   await axios
     .get(`${url}`, { timeout: 5000 })
     .then((res) => {
+      console.log("meta tag res", res);
       meta_data = res;
     })
     .catch((err) => {

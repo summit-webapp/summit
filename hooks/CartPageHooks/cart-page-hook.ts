@@ -15,6 +15,7 @@ import {
   hideToast,
   successmsg,
 } from "../../store/slices/general_slices/toast_notification_slice";
+import { showToast } from "../../components/ToastNotificationNew";
 
 const UseCartPageHook = () => {
   const dispatch = useDispatch();
@@ -61,10 +62,7 @@ const UseCartPageHook = () => {
       TokenFromStore?.token
     );
     if (updateCartAPI?.msg === "success") {
-      dispatch(successmsg("Your cart has been updated"));
-      setTimeout(() => {
-        dispatch(hideToast());
-      }, 3000);
+      showToast("Your cart has been updated", "success");
     }
   };
 
