@@ -10,6 +10,7 @@ import {
   failmsg,
   hideToast,
 } from "../general_slices/toast_notification_slice";
+import { showToast } from "../../../components/ToastNotificationNew";
 
 export const fetchWishlistUser: any = createAsyncThunk(
   "wishlist/fetchWishlistUser",
@@ -19,15 +20,17 @@ export const fetchWishlistUser: any = createAsyncThunk(
     if (request.addTowishlist === true) {
       userWishList = await AddProductToWishlist(request);
       if (userWishList.msg === "success") {
-        dispatch(successmsg("item added to wishlist"));
-        setTimeout(() => {
-          dispatch(hideToast());
-        }, 500);
+        // dispatch(successmsg("item added to wishlist"));
+        // setTimeout(() => {
+        //   dispatch(hideToast());
+        // }, 500);
+        showToast("item added to wishlist", "success");
       } else {
-        dispatch(failmsg("Error in adding item in wishlist"));
-        setTimeout(() => {
-          dispatch(hideToast());
-        }, 500);
+        showToast("Failed to add item in wishlist", "error");
+        // dispatch(failmsg("Error in adding item in wishlist"));
+        // setTimeout(() => {
+        //   dispatch(hideToast());
+        // }, 500);
       }
       console.log(userWishList, "userWishList");
     } else if (request.getWishlist === true) {
