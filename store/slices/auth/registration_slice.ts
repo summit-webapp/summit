@@ -6,6 +6,7 @@ import {
   hideToast,
   successmsg,
 } from "../general_slices/toast_notification_slice";
+import { showToast } from "../../../components/ToastNotificationNew";
 
 export const getRegistrationData: any = createAsyncThunk(
   "registrationData/getRegistrationData",
@@ -16,15 +17,9 @@ export const getRegistrationData: any = createAsyncThunk(
       RegistrationValues.status === 200 &&
       RegistrationValues?.data?.message?.msg === "success"
     ) {
-      dispatch(successmsg("Registerd sucessfully"));
-      setTimeout(() => {
-        dispatch(hideToast());
-      }, 1200);
+      showToast("Registerd sucessfully", "success");
     } else {
-      dispatch(failmsg(RegistrationValues?.data?.message?.error));
-      setTimeout(() => {
-        dispatch(hideToast());
-      }, 1200);
+      showToast(RegistrationValues?.data?.message?.error, "error");
     }
     return RegistrationValues;
   }

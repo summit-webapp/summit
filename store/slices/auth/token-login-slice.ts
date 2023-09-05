@@ -1,11 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../root-reducer";
 import getTokenLoginApi from "../../../services/api/auth/token-login-api";
-import {
-  failmsg,
-  hideToast,
-  successmsg,
-} from "../general_slices/toast_notification_slice";
+import { showToast } from "../../../components/ToastNotificationNew";
 
 export const getAccessToken: any = createAsyncThunk(
   "accessToken/getAccessToken",
@@ -17,16 +13,10 @@ export const getAccessToken: any = createAsyncThunk(
       localStorage.setItem("isLoggedIn", "true");
 
       setTimeout(() => {
-        dispatch(successmsg("logged in sucessfully"));
+        showToast("logged in sucessfully", "success");
       }, 1200);
-      setTimeout(() => {
-        dispatch(hideToast());
-      }, 2000);
     } else {
-      dispatch(failmsg("Invalid Credential"));
-      setTimeout(() => {
-        dispatch(hideToast());
-      }, 1800);
+      showToast("Invalid Credential", "error");
     }
     return AccessTokenData;
   }

@@ -9,14 +9,19 @@ import {
 import deleteCatalog from "../../services/api/product-catalog-api/delete-catalog-api";
 import AddProductToCatalogList from "../../services/api/product-catalog-api/put-product-to-catalog-api";
 import { currency_selector_state } from "../../store/slices/general_slices/multi-currency-slice";
-import { failmsg, hideToast, successmsg } from "../../store/slices/general_slices/toast_notification_slice";
+import {
+  failmsg,
+  hideToast,
+  successmsg,
+} from "../../store/slices/general_slices/toast_notification_slice";
+import { showToast } from "../../components/ToastNotificationNew";
 
 const useCatalogHook = () => {
   const getcatalogList_reduxList: any = useSelector(catalog_summary_state);
   const [catalogName, setCatalogName] = useState<string>("");
   const [catalogSucessMsg, setCatalogSucessMsg] = useState("");
   const [catalogListItem, setCatalogListItem] = useState([]);
-  const [loading, setLoading] = useState("")
+  const [loading, setLoading] = useState("");
   const currency_state_from_redux: any = useSelector(currency_selector_state);
   const tokens = useSelector(get_access_token);
   const dispatch = useDispatch();
@@ -27,21 +32,15 @@ const useCatalogHook = () => {
   };
   const handleSubmitCatalogName = async () => {
     const newCatalog = await CreateCatalog(catalogName, token);
-    console.log(newCatalog.message.error, "newCatalog");
+
     setCatalogSucessMsg(newCatalog?.message?.msg);
-    if (newCatalog.message.msg === "success") {
-      dispatch(successmsg("Catalog created sucessfully"));
+    if (newCatalog?.message?.msg === "success") {
+      showToast("Catalog created sucessfully", "success");
+
       dispatch(fetchCatalogList(token));
-      setCatalogName("")
-      setTimeout(() => {
-        dispatch(hideToast());
-      }, 1200);
-    }
-    else {
-      dispatch(failmsg(newCatalog.message.error));
-      setTimeout(() => {
-        dispatch(hideToast());
-      }, 1500);
+      setCatalogName("");
+    } else {
+      showToast(newCatalog?.message?.error, "error");
     }
   };
 
@@ -50,13 +49,12 @@ const useCatalogHook = () => {
   }, []);
 
   useEffect(() => {
-    setLoading(getcatalogList_reduxList?.isLoading)
+    setLoading(getcatalogList_reduxList?.isLoading);
     if (
       getcatalogList_reduxList.isLoading === "succeeded" &&
       getcatalogList_reduxList?.data?.length > 0
     ) {
       setCatalogListItem(getcatalogList_reduxList?.data);
-
     } else {
       setCatalogListItem([]);
     }
@@ -65,45 +63,35 @@ const useCatalogHook = () => {
   const handleDeleteCatalog = async (catalog: any) => {
     const deleteCatalogs = await deleteCatalog(catalog, token);
     if (deleteCatalogs?.message?.msg === "success") {
-      dispatch(successmsg("Catalog Deleted Successfuly"));
+      showToast("Catalog Deleted Successfuly", "success");
+
       setTimeout(() => {
         dispatch(fetchCatalogList(token));
-        dispatch(hideToast());
       }, 1000);
-    }
-    else {
-      dispatch(failmsg("Error in deleting the catalog"));
-      setTimeout(() => {
-        dispatch(hideToast());
-      }, 1000);
+    } else {
+      showToast("Error in deleting the catalog", "error");
     }
   };
   const handleAddProduct = async (catalogname: any, name: any) => {
-    console.log(catalogname, name, "CatalogName")
+    console.log(catalogname, name, "CatalogName");
     // const CatalogName = catalogname.replace(/-/g, " ");
     const productdata = {
       catalogNames: catalogname,
       ItemCode: name,
-      tokens: token
-    }
+      tokens: token,
+    };
     const getCatalogList = await AddProductToCatalogList(productdata);
     if (getCatalogList.data.message.msg === "success") {
-      dispatch(successmsg("Item Added To Catalog Successfuly"));
+      showToast("Item Added To Catalog Successfuly", "success");
+
       setTimeout(() => {
         dispatch(fetchCatalogList(token));
-        dispatch(hideToast());
       }, 1000);
+    } else {
+      showToast("Error in adding product to catalog", "error");
     }
-    else {
-      dispatch(failmsg("Error in adding product to catalog"));
-      setTimeout(() => {
-        dispatch(hideToast());
-      }, 1000);
-    }
-
-
-  }
-  console.log(loading, "getCatalogList")
+  };
+  console.log(loading, "getCatalogList");
   return {
     handleChange,
     handleSubmitCatalogName,
@@ -111,7 +99,7 @@ const useCatalogHook = () => {
     handleDeleteCatalog,
     handleAddProduct,
     currency_state_from_redux,
-    loading
+    loading,
   };
 };
 
