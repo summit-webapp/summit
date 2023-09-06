@@ -9,7 +9,7 @@ export const getAccessToken: any = createAsyncThunk(
     const AccessTokenData = await getTokenLoginApi(param);
     console.log(AccessTokenData, "AccessTokenData");
 
-    if (AccessTokenData?.hasOwnProperty("access_token")) {
+    if (AccessTokenData?.data?.hasOwnProperty("access_token")) {
       localStorage.setItem("isLoggedIn", "true");
 
       setTimeout(() => {
@@ -44,7 +44,7 @@ export const GetAccessTokenScreen = createSlice({
     },
     updateAccessToken(state?: any, action?: any) {
       console.log("new access token payload", action.payload);
-      state.token = action?.payload;
+      state.token = action?.payload?.data;
       state.error = "";
       state.isLoading = "idle";
     },
@@ -56,8 +56,8 @@ export const GetAccessTokenScreen = createSlice({
     });
     builder.addCase(getAccessToken.fulfilled, (state, action) => {
       console.log("token payload", action?.payload);
-      if (action?.payload?.hasOwnProperty("access_token")) {
-        state.token = action?.payload?.access_token;
+      if (action?.payload?.data?.hasOwnProperty("access_token")) {
+        state.token = action?.payload?.data?.access_token;
         state.isLoading = "succeeded";
       }
     });
