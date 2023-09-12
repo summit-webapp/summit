@@ -29,21 +29,28 @@ Follow these steps to clone theme repository:
 
    ```shell
    git clone https://github.com/summit-webapp-themes/theme-repo.git
-10. Navigate to the directory where you want to store the theme repository.
-   ```
+  ```
+10. Navigate to the theme repo.
+   ```shell
     cd theme-repo
+   ```
 11. Take checkout of main branch
     ```shell
     git checkout main
+    ```
 12. After checking out from main branch, you need to install the theme by running the following command.
      ```shell
      /bin/bash install-theme.sh
+     ```
 13. After following the above steps, navigate back to summit repository
     ```shell
     cd ../../
+    ```
 14. Install all the dependencies first. Enter this command to install the dependencies
     ```shell
     npm install
+    ```
 15. Now you're good to run the application. Run the following command
     ```shell
     npm run dev
+    ```
