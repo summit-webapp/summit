@@ -37,7 +37,7 @@ const getTokenLoginApi: any = async (values: any) => {
         if (values?.guest !== null) {
           localStorage.setItem("guestToken", response.access_token);
         }
-        UserRoleGet(res?.data?.message?.access_token);
+        UserRoleGet(res?.data?.message?.data?.access_token);
       })
 
       .then(() => {
@@ -48,7 +48,7 @@ const getTokenLoginApi: any = async (values: any) => {
           // dispatch(fetchLoginUser());
         } else {
           console.log("token else");
-          getLoginApi(values);
+          // getLoginApi(values);
         }
       })
       .catch((err) => console.log(err));
