@@ -34,7 +34,7 @@ const MultiLangApi = async () => {
   const langTransentity = "translation";
 
   const generateMultiLingualArrayOfData = await Promise.all(
-    MultiLanguagesList.map(async (lang: any) => {
+    MultiLanguagesList?.map(async (lang: any) => {
       console.log("MultiLanguagesList langname", lang);
       try {
         const res = await axios.get(
