@@ -13,6 +13,7 @@ const getTokenLoginApi: any = async (values: any) => {
   const pwd = encodeURIComponent(values.values.password);
 
   let response: any;
+  let guestLoginFunction: any;
   const version = CONSTANTS.VERSION;
   const method = "get_access_token";
   const entity = "access_token";
@@ -40,19 +41,17 @@ const getTokenLoginApi: any = async (values: any) => {
         UserRoleGet(res?.data?.message?.data?.access_token);
       })
 
-      .then(() => {
+      .then(async () => {
         if (values?.guest !== null) {
           console.log("token guest values", values);
-          CheckGuestLogin(values);
 
-          // dispatch(fetchLoginUser());
+          guestLoginFunction = await CheckGuestLogin(values);
         } else {
           console.log("token else");
-          // getLoginApi(values);
         }
       })
       .catch((err) => console.log(err));
-    return response;
+    return { tokenResponse: response, guestLoginFunction: guestLoginFunction };
   } else {
     const OtpLoginFunction: any = OtpLoginApi(values);
     return OtpLoginFunction;
