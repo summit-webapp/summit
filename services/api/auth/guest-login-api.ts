@@ -26,7 +26,7 @@ const CheckGuestLogin = async (request: any) => {
 
   const config = {
     headers: {
-      Authorization: guestToken,
+
     },
   };
 

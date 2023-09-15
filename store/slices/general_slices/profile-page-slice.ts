@@ -19,7 +19,7 @@ interface RepofetchProfileDataState {
 
 const initialState: RepofetchProfileDataState = {
   items: [],
-  partyName: "",
+  partyName: null,
   error: "",
   isLoading: "idle",
 };
@@ -29,7 +29,7 @@ export const ProfileDataScreen = createSlice({
   initialState,
   reducers: {
     ClearPartyName(state?: any, action?: any) {
-      state.partyName = "";
+      state.partyName = null;
       state.error = "";
       state.isLoading = "idle";
     },
@@ -45,7 +45,7 @@ export const ProfileDataScreen = createSlice({
     builder.addCase(fetchprofileDataThunk.pending, (state) => {
       state.isLoading = "pending";
       state.items = [];
-      state.partyName = "";
+      state.partyName = null;
     });
     builder.addCase(fetchprofileDataThunk.fulfilled, (state, action) => {
       console.log(
@@ -60,14 +60,14 @@ export const ProfileDataScreen = createSlice({
       } else {
         state.isLoading = "failed";
         state.items = [];
-        state.partyName = "";
+        state.partyName = null;
         state.error = "Profile data is not loaded";
       }
     });
     builder.addCase(fetchprofileDataThunk.rejected, (state, action) => {
       state.isLoading = "failed";
       state.items = [];
-      state.partyName = "";
+      state.partyName = null;
       state.error = "data is not found";
     });
   },
