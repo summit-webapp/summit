@@ -60,7 +60,7 @@ export const GetAccessTokenScreen = createSlice({
       if (
         action?.payload?.data?.hasOwnProperty("access_token")
       ) {
-        state.token = action?.payload?.data?.access_token.data?.access_token;
+        state.token = action?.payload?.data?.access_token;
         state.isLoading = "succeeded";
       }
     });
