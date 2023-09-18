@@ -11,15 +11,15 @@ export const fetchprofileDataThunk: any = createAsyncThunk(
   }
 );
 interface RepofetchProfileDataState {
-  items: any;
   partyName: any;
+  items: any;
   error: string;
   isLoading: "idle" | "pending" | "succeeded" | "failed";
 }
 
 const initialState: RepofetchProfileDataState = {
+  partyName: "",
   items: [],
-  partyName: null,
   error: "",
   isLoading: "idle",
 };
@@ -29,7 +29,7 @@ export const ProfileDataScreen = createSlice({
   initialState,
   reducers: {
     ClearPartyName(state?: any, action?: any) {
-      state.partyName = null;
+      state.partyName = "";
       state.error = "";
       state.isLoading = "idle";
     },
@@ -44,8 +44,8 @@ export const ProfileDataScreen = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchprofileDataThunk.pending, (state) => {
       state.isLoading = "pending";
+      state.partyName = "";
       state.items = [];
-      state.partyName = null;
     });
     builder.addCase(fetchprofileDataThunk.fulfilled, (state, action) => {
       console.log(
@@ -54,20 +54,20 @@ export const ProfileDataScreen = createSlice({
       );
       if (action?.payload?.status === 200) {
         state.isLoading = "succeeded";
-        state.items = action?.payload;
         state.partyName =
           action?.payload?.data?.message?.data?.profile_details?.customer_name;
+        state.items = action?.payload;
       } else {
         state.isLoading = "failed";
+        state.partyName = "";
         state.items = [];
-        state.partyName = null;
         state.error = "Profile data is not loaded";
       }
     });
     builder.addCase(fetchprofileDataThunk.rejected, (state, action) => {
       state.isLoading = "failed";
+      state.partyName = "";
       state.items = [];
-      state.partyName = null;
       state.error = "data is not found";
     });
   },

@@ -12,7 +12,7 @@ export const getAccessToken: any = createAsyncThunk(
 
     if (AccessTokenData?.data?.hasOwnProperty("access_token")) {
       localStorage.setItem("isLoggedIn", "true");
-      dispatch(UpdatePartyName(AccessTokenData?.full_name));
+      dispatch(UpdatePartyName(AccessTokenData?.data?.full_name));
       setTimeout(() => {
         showToast("login successfully", "success");
       }, 1200);
@@ -57,9 +57,7 @@ export const GetAccessTokenScreen = createSlice({
     });
     builder.addCase(getAccessToken.fulfilled, (state, action) => {
       console.log("token payload", action?.payload);
-      if (
-        action?.payload?.data?.hasOwnProperty("access_token")
-      ) {
+      if (action?.payload?.data?.hasOwnProperty("access_token")) {
         state.token = action?.payload?.data?.access_token;
         state.isLoading = "succeeded";
       }
