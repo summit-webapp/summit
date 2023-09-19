@@ -11,10 +11,7 @@ import {
 import { get_access_token } from "../../store/slices/auth/token-login-slice";
 import { currency_selector_state } from "../../store/slices/general_slices/multi-currency-slice";
 import AddToCartApi from "../../services/api/cart-page-api/add-to-cart-api";
-import {
-  hideToast,
-  successmsg,
-} from "../../store/slices/general_slices/toast_notification_slice";
+
 import { showToast } from "../../components/ToastNotificationNew";
 
 const UseCartPageHook = () => {
@@ -31,6 +28,7 @@ const UseCartPageHook = () => {
   console.log("cart Listing from store", cart_listing_data_store);
 
   const TokenFromStore: any = useSelector(get_access_token);
+  console.log("cart token", TokenFromStore);
 
   const updateCart = (item_code: string, input_value: string) => {
     if (input_value === "") {

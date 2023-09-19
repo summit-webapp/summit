@@ -256,8 +256,15 @@ const useProductDetail = () => {
       case "succeeded":
         if (product_detail_data_from_redux?.data?.hasOwnProperty("name")) {
           setProductDetailData(product_detail_data_from_redux.data);
-          const keysToExtract = ["alternate", "equivalent", "suggested", "mandatory"];
-          const filteredKeys = keysToExtract.filter(key => product_detail_data_from_redux?.data[key] === true);
+          const keysToExtract = [
+            "alternate",
+            "equivalent",
+            "suggested",
+            "mandatory",
+          ];
+          const filteredKeys = keysToExtract.filter(
+            (key) => product_detail_data_from_redux?.data[key] === true
+          );
           // console.log("true keys", filteredKeys);
         } else {
           setProductDetailData({});

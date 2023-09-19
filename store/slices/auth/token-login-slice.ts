@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../root-reducer";
 import getTokenLoginApi from "../../../services/api/auth/token-login-api";
 import { showToast } from "../../../components/ToastNotificationNew";
+import { UpdatePartyName } from "../general_slices/profile-page-slice";
 
 export const getAccessToken: any = createAsyncThunk(
   "accessToken/getAccessToken",
@@ -11,9 +12,9 @@ export const getAccessToken: any = createAsyncThunk(
 
     if (AccessTokenData?.data?.hasOwnProperty("access_token")) {
       localStorage.setItem("isLoggedIn", "true");
-
+      dispatch(UpdatePartyName(AccessTokenData?.data?.full_name));
       setTimeout(() => {
-        showToast("logged in sucessfully", "success");
+        showToast("login successfully", "success");
       }, 1200);
     } else {
       showToast("Invalid Credential", "error");
@@ -44,7 +45,7 @@ export const GetAccessTokenScreen = createSlice({
     },
     updateAccessToken(state?: any, action?: any) {
       console.log("new access token payload", action.payload);
-      state.token = action?.payload?.data;
+      state.token = action?.payload;
       state.error = "";
       state.isLoading = "idle";
     },
