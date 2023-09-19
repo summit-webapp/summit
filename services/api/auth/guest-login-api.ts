@@ -26,7 +26,7 @@ const CheckGuestLogin = async (request: any) => {
 
   const config = {
     headers: {
-      Authorization: guestToken,
+
     },
   };
 
@@ -48,24 +48,11 @@ const CheckGuestLogin = async (request: any) => {
     )
     .then((res) => {
       console.log("LOGIN API FILE visitor", res);
-      response = res;
+      response = res?.data?.data?.access_token;
       if (response?.data?.data?.message === "Logged In") {
         console.log("in update user");
         localStorage.setItem("isLoggedIn", "true");
       }
-      //   if (response?.data?.data?.message === "Logged In") {
-      //     console.log("login dispatch", response);
-      //     dispatch(successmsg("logged in sucessfully"));
-      //     setTimeout(() => {
-      //       dispatch(hideToast());
-      //     }, 800);
-      //     localStorage.removeItem("guest");
-      //   } else {
-      //     dispatch(failmsg("Invalid Credential"));
-      //     setTimeout(() => {
-      //       dispatch(hideToast());
-      //     }, 1500);
-      //   }
     })
     .catch((err) => {
       if (err.code === "ECONNABORTED") {
