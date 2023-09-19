@@ -1,10 +1,6 @@
 import axios from "axios";
 import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
-import {
-  HandleAPIExpirationTime,
-  handleUpdateCachingOfData,
-} from "../../../helpers/handle-api-cache-data";
+
 const fetchHomeBannerData = async (TokenFromStore: any) => {
   const version = CONSTANTS.VERSION;
   const method = "get";
@@ -41,6 +37,7 @@ const fetchHomeBannerData = async (TokenFromStore: any) => {
   return response;
 };
 
-const getHomeBannersList = (TokenFromStore: any) => fetchHomeBannerData(TokenFromStore);
+const getHomeBannersList = (TokenFromStore: any) =>
+  fetchHomeBannerData(TokenFromStore);
 
 export default getHomeBannersList;
