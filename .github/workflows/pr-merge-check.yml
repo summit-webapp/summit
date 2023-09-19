@@ -1,0 +1,26 @@
+name: PR Merge Check
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  pr-merge-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check if PR is merged with main branch
+        run: |
+          BASE_BRANCH=main
+          PR_BRANCH=$GITHUB_REF
+          
+          # Check if the PR branch contains commits from the main branch
+          if ! git merge-base --is-ancestor $BASE_BRANCH $PR_BRANCH; then
+            echo "Error: Please make sure to fetch and merge the latest changes from $BASE_BRANCH before creating a PR."
+            exit 1
+          fi
+        env:
+          BASE_BRANCH: ${{ secrets.BASE_BRANCH }}
