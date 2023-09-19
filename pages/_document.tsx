@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import { useEffect } from "react";
 export const config = { amp: "hybrid" };
 export default function Document() {
   let isDealer;
@@ -7,6 +8,15 @@ export default function Document() {
   }
   console.log(isDealer);
   console.log(typeof isDealer);
+
+  useEffect(() => {
+    const isRTL: any = document.documentElement.dir === "rtl";
+
+    // Load the appropriate global CSS file based on text direction
+    // if (isRTL) {
+    //   import("../styles/pages/homepage-rtl.scss");
+    // }
+  }, []);
   return (
     <Html>
       <Head>
@@ -42,8 +52,6 @@ export default function Document() {
             }}
           ></link>
 
-
-
           <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             async
@@ -65,17 +73,18 @@ export default function Document() {
           />
           {/* <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com"> */}
-          <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet"
+          <link
+            href="https://fonts.googleapis.com/css2?family=Nunito&display=swap"
+            rel="stylesheet"
             onLoad={(e) => {
               console.log("Font Loaded Successfully");
               const linkElem = e.currentTarget as HTMLLinkElement;
               linkElem.media = "all";
-            }} />
-
+            }}
+          />
         </>
       </Head>
       <body>
-
         <Main />
         <NextScript />
       </body>

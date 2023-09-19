@@ -3,11 +3,13 @@ import { RootState } from "../../root-reducer";
 
 interface selectedLangData {
   selectedLanguageData: any;
+  selectHtmlLayoutDir: any;
   error: string;
 }
 
 const initialState: selectedLangData = {
   selectedLanguageData: [],
+  selectHtmlLayoutDir: "ltr",
   error: "",
 };
 
@@ -28,11 +30,16 @@ export const SelectedFilterLangData: any = createSlice({
         }
       }
     },
+    SelectHtmlLayoutDir: (state, action) => {
+      console.log("dir action payload", action.payload);
+      state.selectHtmlLayoutDir = action.payload;
+    },
   },
 });
 
 export const SelectedFilterLangDataFromStore = (state: RootState) =>
   state.SelectedFilterLangDataScreen;
 
-export const { SelectedLangData } = SelectedFilterLangData.actions;
+export const { SelectedLangData, SelectHtmlLayoutDir } =
+  SelectedFilterLangData.actions;
 export default SelectedFilterLangData.reducer;

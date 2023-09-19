@@ -37,6 +37,7 @@ const useMultilangHook = () => {
   const handleLanguageChange = (lang: any) => {
     console.log("selected lang", lang);
     setSelectedLang(lang);
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   };
 
   useEffect(() => {
