@@ -4,7 +4,8 @@ import { CONSTANTS } from "../../config/app-config";
 const AddToCartPostApi: any = async (
   item_code: any,
   currencyVal?: any,
-  token?: any
+  token?: any,
+  partyName?: any
 ) => {
   console.log("add currency in api", token);
   let response: any;
@@ -24,6 +25,7 @@ const AddToCartPostApi: any = async (
     entity: entity,
     item_list: item_code,
     currency: currencyVal,
+    party_name: partyName,
   };
 
   await axios
@@ -92,7 +94,11 @@ export const QuickOrderAddToCart = async (item_data: any) => {
   return response;
 };
 
-const AddToCartApi = (item_code: any, currencyVal?: any, token?: any) =>
-  AddToCartPostApi(item_code, currencyVal, token);
+const AddToCartApi = (
+  item_code: any,
+  currencyVal?: any,
+  token?: any,
+  partyName?: any
+) => AddToCartPostApi(item_code, currencyVal, token, partyName);
 
 export default AddToCartApi;
