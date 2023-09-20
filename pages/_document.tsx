@@ -9,14 +9,6 @@ export default function Document() {
   console.log(isDealer);
   console.log(typeof isDealer);
 
-  useEffect(() => {
-    const isRTL: any = document.documentElement.dir === "rtl";
-
-    // Load the appropriate global CSS file based on text direction
-    // if (isRTL) {
-    //   import("../styles/pages/homepage-rtl.scss");
-    // }
-  }, []);
   return (
     <Html>
       <Head>
