@@ -14,9 +14,9 @@ jobs:
 
       - name: Check if code is merged with main branch
         run: |
-          git fetch
-          git merge --no-ff origin/main
-          if [ $? -eq 0 ]; then
+          git fetch origin main
+          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          if [ $(git rev-list --count $BRANCH..origin/main) -eq 0 ]; then
             echo "Code is merged with main branch"
           else
             echo "Code is not merged with main branch"
