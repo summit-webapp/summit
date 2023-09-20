@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - main
-      - develop
 
 jobs:
   build:
@@ -15,11 +14,16 @@ jobs:
 
       - name: Check if code is merged with main branch
         run: |
-          git fetch origin main
-          BRANCH=$(git rev-parse --abbrev-ref HEAD)
-          if [ $(git rev-list --count $BRANCH..origin/main) -eq 0 ]; then
+          git fetch
+          git merge --no-ff origin/main
+          if [ $? -eq 0 ]; then
             echo "Code is merged with main branch"
           else
             echo "Code is not merged with main branch"
             exit 1
           fi
+
+      - name: Fail PR if code is not merged with main branch
+        if: ${{ steps.check-if-code-is-merged-with-main-branch.outputs.status }} != 'success'
+            echo "PR Fail"
+        fi
