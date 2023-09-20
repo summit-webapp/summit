@@ -76,6 +76,7 @@ export const getServerSideProps = async ({ res }: any) => {
 
   // return getServerSideSitemapLegacy(ctx, responseData);
 
+
   res.setHeader("Content-Type", "text/xml");
   // // we send the XML to the browser
   res.write(sitemap);

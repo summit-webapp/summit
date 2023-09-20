@@ -1,26 +1,24 @@
-name: PR Merge Check
+name: Check PR merge status
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    branches:
+      - main
 
 jobs:
-  pr-merge-check:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Check if PR is merged with main branch
+      - name: Check if code is merged with main branch
         run: |
-          BASE_BRANCH=main
-          PR_BRANCH=$GITHUB_REF
-          
-          # Check if the PR branch contains commits from the main branch
-          if ! git merge-base --is-ancestor $BASE_BRANCH $PR_BRANCH; then
-            echo "Error: Please make sure to fetch and merge the latest changes from $BASE_BRANCH before creating a PR."
+          git fetch
+          git merge --no-ff origin/main
+          if [ $? -eq 0 ]; then
+            echo "Code is merged with main branch"
+          else
+            echo "Code is not merged with main branch"
             exit 1
           fi
-        env:
-          BASE_BRANCH: ${{ secrets.BASE_BRANCH }}
