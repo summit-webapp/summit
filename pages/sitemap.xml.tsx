@@ -88,6 +88,7 @@ export const getServerSideProps = async ({ res }: any) => {
 
 export default SiteMap;
 /*
-Sitemap is the function to 
+
+  getServerSideProps function is to dynamically get the url's from api
 
 */
