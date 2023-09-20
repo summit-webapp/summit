@@ -91,4 +91,7 @@ export default SiteMap;
 
   getServerSideProps function is to dynamically get the url's from api
 
+  Array - pageTypes
+  @type {Array<string>}
+
 */
