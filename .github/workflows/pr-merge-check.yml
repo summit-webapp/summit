@@ -3,7 +3,7 @@ name: Check PR merge status
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["main", "develop"]
 
 jobs:
   check-main-branch:
