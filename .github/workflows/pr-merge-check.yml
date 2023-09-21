@@ -20,3 +20,8 @@ jobs:
             echo "Main branch is not merged"
             exit 1
           fi
+
+      - name: Fail PR if code is not merged with main branch
+        if: ${{ steps.check-if-code-is-merged-with-main-branch.outputs.status }} != 'success'
+            echo "PR Fail"
+        fi
