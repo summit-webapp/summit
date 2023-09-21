@@ -1,0 +1,27 @@
+
+name: Check PR merge status
+
+on:
+  pull_request:
+    branches: ["main", "develop"]
+
+jobs:
+  check-main-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check if main branch is merged
+        run: |
+          git fetch origin main
+          if [[ $(git rev-parse HEAD) == $(git rev-parse origin/main) ]]; then
+            echo "Main branch is merged"
+          else
+            echo "Main branch is not merged"
+            exit 1
+          fi
+
+      - name: Fail PR if code is not merged with main branch
+        if: ${{ steps.check-if-code-is-merged-with-main-branch.outputs.status }} != 'success'
+            echo "PR Fail"
+        fi
