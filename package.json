@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sitemap": "next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -42,6 +43,7 @@
     "@types/tough-cookie": "^4.0.2",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
+    "next-sitemap": "^4.2.3",
     "typescript": "5.0.4"
   }
 }
