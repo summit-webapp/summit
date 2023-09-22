@@ -1,18 +1,17 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
-import { API_CONFIG } from "../../config/api-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from '../general_apis/cookie-instance-api';
+import { API_CONFIG } from '../../config/api-config';
 
 export const fetchProductListingPageFilters = async (request: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "get_filters";
-  const entity = "filter";
-  const doctype = "Category";
+  const method = 'get_filters';
+  const entity = 'filter';
+  const doctype = 'Category';
 
   // we are passing category in docname variable because in erpnext it checks whether that category is present in docname
   const docname = request.query.category;
-
 
   const config = {
     headers: {
@@ -25,16 +24,16 @@ export const fetchProductListingPageFilters = async (request: any) => {
   await axios
     .get(`${url}`, { ...config, timeout: 5000 })
     .then((res) => {
-      console.log("filters check in product listing api res successful", res);
+      console.log('filters check in product listing api res successful', res);
       response = res;
     })
     .catch((err) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

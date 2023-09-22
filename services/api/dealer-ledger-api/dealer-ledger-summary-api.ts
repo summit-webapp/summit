@@ -1,12 +1,12 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const getDealerLedgerSummary = async (token: any) => {
-  console.log("token ledger", token);
+  console.log('token ledger', token);
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "get_ledger_summary";
-  const entity = "gl";
+  const method = 'get_ledger_summary';
+  const entity = 'gl';
 
   const params = `?version=${version}&method=${method}&entity=${entity}`;
   const config = {
@@ -20,16 +20,16 @@ const getDealerLedgerSummary = async (token: any) => {
       timeout: 5000,
     })
     .then((res: any) => {
-      console.log("dealer summary api res", res);
+      console.log('dealer summary api res', res);
       response = res;
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

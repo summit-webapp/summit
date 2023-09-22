@@ -18,8 +18,8 @@ export interface ProductCardProps {
   selectLangData?: any;
   selectedMultiLangData?: any;
   query?: any;
-  catalogListItem?: any,
-  handleAddProduct?: any,
-  handleSubmitCatalogName?: any,
-  handleChange?: any
+  catalogListItem?: any;
+  handleAddProduct?: any;
+  handleSubmitCatalogName?: any;
+  handleChange?: any;
 }

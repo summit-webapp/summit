@@ -1,13 +1,17 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from '../general_apis/cookie-instance-api';
 
-const CouponCodePostApi = async (item_code: any, coupon_code: any, token: any) => {
+const CouponCodePostApi = async (
+  item_code: any,
+  coupon_code: any,
+  token: any
+) => {
   let response: any;
 
   const version = CONSTANTS.VERSION;
-  const method = "put";
-  const entity = "coupon_code";
+  const method = 'put';
+  const entity = 'coupon_code';
 
   const config = {
     headers: {
@@ -32,12 +36,12 @@ const CouponCodePostApi = async (item_code: any, coupon_code: any, token: any) =
       response = res;
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

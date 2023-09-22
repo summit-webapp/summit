@@ -1,5 +1,5 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const AddToCartPostApi: any = async (
   item_code: any,
@@ -7,11 +7,11 @@ const AddToCartPostApi: any = async (
   token?: any,
   partyName?: any
 ) => {
-  console.log("add currency in api", token);
+  console.log('add currency in api', token);
   let response: any;
   let version = CONSTANTS.VERSION;
-  const method = "put_products";
-  const entity = "cart";
+  const method = 'put_products';
+  const entity = 'cart';
 
   const config = {
     headers: {
@@ -34,16 +34,16 @@ const AddToCartPostApi: any = async (
       timeout: 5000,
     })
     .then((res: any) => {
-      console.log("add to cart res", res);
+      console.log('add to cart res', res);
       response = res.data.message;
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }
@@ -52,11 +52,11 @@ const AddToCartPostApi: any = async (
 };
 
 export const QuickOrderAddToCart = async (item_data: any) => {
-  console.log("uick order add cart api", item_data);
+  console.log('uick order add cart api', item_data);
   let response: any;
   let version = CONSTANTS.VERSION;
-  const method = "put_products";
-  const entity = "cart";
+  const method = 'put_products';
+  const entity = 'cart';
 
   const config = {
     headers: {
@@ -77,16 +77,16 @@ export const QuickOrderAddToCart = async (item_data: any) => {
       timeout: 5000,
     })
     .then((res: any) => {
-      console.log("uick order add to cart res", res);
+      console.log('uick order add to cart res', res);
       response = res.data.message;
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

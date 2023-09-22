@@ -1,13 +1,13 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from '../general_apis/cookie-instance-api';
 
 const AddProductToWishlistFetch = async (request: any) => {
-  console.log("wishlist add prod id", request.prod_id);
+  console.log('wishlist add prod id', request.prod_id);
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "add_to_wishlist";
-  const entity = "wishlist";
+  const method = 'add_to_wishlist';
+  const entity = 'wishlist';
   const item_code = request.prod_id;
   const params = `?version=${version}&method=${method}&entity=${entity}&item_code=${item_code}`;
 
@@ -25,15 +25,15 @@ const AddProductToWishlistFetch = async (request: any) => {
     )
     .then((res) => {
       response = res.data.message;
-      console.log("wishlist api res", response);
+      console.log('wishlist api res', response);
     })
     .catch((err) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }
@@ -42,10 +42,10 @@ const AddProductToWishlistFetch = async (request: any) => {
 };
 
 const GetWishlistDataFetch = async (request: any) => {
-  console.log(" wishlist get data");
+  console.log(' wishlist get data');
   const version = CONSTANTS.VERSION;
-  const method = "get_wishlist_items";
-  const entity = "wishlist";
+  const method = 'get_wishlist_items';
+  const entity = 'wishlist';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
   let response: any;
 
@@ -61,7 +61,7 @@ const GetWishlistDataFetch = async (request: any) => {
       config
     )
     .then((res) => {
-      console.log("handle response", res);
+      console.log('handle response', res);
       response = res;
     })
     .catch((err) => {
@@ -72,7 +72,7 @@ const GetWishlistDataFetch = async (request: any) => {
 };
 
 const DeleteProductFromWishlistFetch = async (request: any) => {
-  console.log(" wishlist get data", request.prod_id);
+  console.log(' wishlist get data', request.prod_id);
   let response: any;
 
   const config = {
@@ -80,8 +80,8 @@ const DeleteProductFromWishlistFetch = async (request: any) => {
       Authorization: request.token,
     },
   };
-  const method = "remove_from_wishlist";
-  const entity = "wishlist";
+  const method = 'remove_from_wishlist';
+  const entity = 'wishlist';
   const item_code = request.prod_id;
   const version = CONSTANTS.VERSION;
   const params = `?version=${version}&method=${method}&entity=${entity}&item_code=${item_code}`;
@@ -91,9 +91,9 @@ const DeleteProductFromWishlistFetch = async (request: any) => {
       config
     )
     .then((res) => {
-      console.log("api res", res);
+      console.log('api res', res);
       response = res?.data?.message;
-      console.log("delete wishlist api res", response);
+      console.log('delete wishlist api res', response);
     })
     .catch((err) => {
       console.log(err);

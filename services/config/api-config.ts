@@ -1,6 +1,6 @@
 export const API_CONFIG = {
   headers: {
-    Accept: "application/json",
+    Accept: 'application/json',
   },
   withCredentials: true,
 };

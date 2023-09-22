@@ -1,11 +1,11 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const AddressesPost = async (request: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "put";
-  const entity = "customer_address";
+  const method = 'put';
+  const entity = 'customer_address';
 
   const config = {
     headers: {
@@ -31,16 +31,16 @@ const AddressesPost = async (request: any) => {
       // if(res?.data?.message?.msg === "success") {
       //   localStorage.setItem("guestId", action?.payload?.customer_id?.name);
       // }
-      console.log("address post res", res);
+      console.log('address post res', res);
       response = res?.data?.message;
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

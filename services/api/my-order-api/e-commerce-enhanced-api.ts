@@ -1,12 +1,12 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from '../general_apis/cookie-instance-api';
 
 const ECommerceEnhancedCodeApi = async (salesOrderId: any, token: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "get_order_details";
-  const entity = "order";
+  const method = 'get_order_details';
+  const entity = 'order';
 
   const params = `?version=${version}&method=${method}&entity=${entity}&order_id=${salesOrderId}`;
 
@@ -23,15 +23,15 @@ const ECommerceEnhancedCodeApi = async (salesOrderId: any, token: any) => {
     })
     .then((res: any) => {
       response = res;
-      console.log("ecommerce", res);
+      console.log('ecommerce', res);
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

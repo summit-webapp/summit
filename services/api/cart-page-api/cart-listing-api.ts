@@ -1,13 +1,13 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const fetchCartListing = async (token: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "get_list";
-  const entity = "cart";
+  const method = 'get_list';
+  const entity = 'cart';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
-  console.log("tokennn", token);
+  console.log('tokennn', token);
 
   if (Object?.keys(token)?.length > 0) {
     const config = {
@@ -27,12 +27,12 @@ const fetchCartListing = async (token: any) => {
         response = res;
       })
       .catch((err: any) => {
-        if (err.code === "ECONNABORTED") {
-          response = "Request timed out";
-        } else if (err.code === "ERR_BAD_REQUEST") {
-          response = "Bad Request";
-        } else if (err.code === "ERR_INVALID_URL") {
-          response = "Invalid URL";
+        if (err.code === 'ECONNABORTED') {
+          response = 'Request timed out';
+        } else if (err.code === 'ERR_BAD_REQUEST') {
+          response = 'Bad Request';
+        } else if (err.code === 'ERR_INVALID_URL') {
+          response = 'Invalid URL';
         } else {
           response = err;
         }
@@ -50,12 +50,12 @@ const fetchCartListing = async (token: any) => {
         response = res;
       })
       .catch((err: any) => {
-        if (err.code === "ECONNABORTED") {
-          response = "Request timed out";
-        } else if (err.code === "ERR_BAD_REQUEST") {
-          response = "Bad Request";
-        } else if (err.code === "ERR_INVALID_URL") {
-          response = "Invalid URL";
+        if (err.code === 'ECONNABORTED') {
+          response = 'Request timed out';
+        } else if (err.code === 'ERR_BAD_REQUEST') {
+          response = 'Bad Request';
+        } else if (err.code === 'ERR_INVALID_URL') {
+          response = 'Invalid URL';
         } else {
           response = err;
         }

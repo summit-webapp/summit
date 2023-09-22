@@ -1,6 +1,6 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from '../general_apis/cookie-instance-api';
 
 const PlaceOrderApi = async (
   cart: any,
@@ -11,16 +11,17 @@ const PlaceOrderApi = async (
   locationState?: any,
   transporterState?: any,
   transportersCharges?: any,
-  token?: any
+  token?: any,
+  partyName?: any
 ) => {
   let response: any;
 
   const version = CONSTANTS.VERSION;
-  const method = "place_order";
-  const entity = "order";
+  const method = 'place_order';
+  const entity = 'order';
 
-  const vals = selectedState == 1 ? selectedState : "";
-  const door_deliveryState = selectedState == 0 ? selectedState : "";
+  const vals = selectedState == 1 ? selectedState : '';
+  const door_deliveryState = selectedState == 0 ? selectedState : '';
 
   const order_id = cart;
   const shipping_address_id = shippingdAddress;
@@ -32,8 +33,7 @@ const PlaceOrderApi = async (
   const remarks = textState;
   const transport_charges = transportersCharges;
 
-  const params = `?version=${version}&method=${method}&entity=${entity}&order_id=${order_id}&shipping_address_id=${shipping_address_id}&billing_address_id=${billing_address_id}&transporter=${transporter}&godown_delivery=${godown_delivery}&door_delivery=${door_delivery}&location=${location}&remarks=${remarks}&transport_charges=${transport_charges}`;
-
+  const params = `?version=${version}&method=${method}&entity=${entity}&order_id=${order_id}&shipping_address_id=${shipping_address_id}&billing_address_id=${billing_address_id}&transporter=${transporter}&godown_delivery=${godown_delivery}&door_delivery=${door_delivery}&location=${location}&remarks=${remarks}&transport_charges=${transport_charges}&party_name=${partyName}`;
 
   const config = {
     headers: {
@@ -51,12 +51,12 @@ const PlaceOrderApi = async (
       response = res;
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

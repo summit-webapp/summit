@@ -1,15 +1,15 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "./cookie-instance-api";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from './cookie-instance-api';
 
 export default async function QuickOrderAddCart() {
   let response;
 
-  const method = "put_products";
-  const entity = "cart";
+  const method = 'put_products';
+  const entity = 'cart';
 
   const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   const config = {
     headers: {
@@ -18,7 +18,7 @@ export default async function QuickOrderAddCart() {
   };
 
   let body = {
-    version: "v1",
+    version: 'v1',
     method: `${method}`,
     entity: `${entity}`,
   };
@@ -29,16 +29,16 @@ export default async function QuickOrderAddCart() {
       timeout: 5000,
     })
     .then((res) => {
-      console.log("Add to cart api - ", res);
+      console.log('Add to cart api - ', res);
       response = res?.data?.message;
     })
     .catch((err) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }
