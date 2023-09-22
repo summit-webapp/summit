@@ -1,7 +1,7 @@
-import { CONSTANTS } from './services/config/app-config';
+// import { CONSTANTS } from './services/config/app-config';
 
 // const siteUrl = `${CONSTANTS.DOMAIN_NAME}`;
-const siteUrl = `https://summit-b2b-demo.8848digital.com`;
+const siteUrl = ``;
 
 module.exports = {
   siteUrl,
