@@ -1,24 +1,24 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import {
   ProductDetailPageThunk,
   product_detail_data_selector_state,
-} from "../../store/slices/product-detail-page-slices/product-detail-data-slice";
+} from '../../store/slices/product-detail-page-slices/product-detail-data-slice';
 import {
   ProductVariantsThunk,
   product_variants_selector_state,
-} from "../../store/slices/product-detail-page-slices/product-variants-data-slice";
-import { CONSTANTS } from "../../services/config/app-config";
+} from '../../store/slices/product-detail-page-slices/product-variants-data-slice';
+import { CONSTANTS } from '../../services/config/app-config';
 import {
   ProductMatchingItemOptions,
   product_matching_items_selector_state,
-} from "../../store/slices/product-detail-page-slices/product-item-options-slice";
+} from '../../store/slices/product-detail-page-slices/product-item-options-slice';
 import {
   fetchStockAvailability,
   stock_availability_state,
-} from "../../store/slices/product-detail-page-slices/product-stock-availability-slice";
-import useProductDetailFunctions from "./product-detail-functions-hook";
+} from '../../store/slices/product-detail-page-slices/product-stock-availability-slice';
+import useProductDetailFunctions from './product-detail-functions-hook';
 
 const useProductDetailNewHook = () => {
   const router = useRouter();
@@ -53,11 +53,12 @@ const useProductDetailNewHook = () => {
   const [productEnlargeImages, setProductEnlargeImages] = useState<any>([]);
   const [storeTemplateImages, setStoreTemplateImages] = useState<any>([]);
 
-  const [selectedVariantCodeForAddToCart, setSelectedVariantCodeForAddToCart] = useState('');
-  let [minQty, setMinQty] = useState<any>("");
+  const [selectedVariantCodeForAddToCart, setSelectedVariantCodeForAddToCart] =
+    useState('');
+  let [minQty, setMinQty] = useState<any>('');
 
   const handleCreationOfProductEnlargeImages = () => {
-    console.log("images in handle func", productDetailData);
+    console.log('images in handle func', productDetailData);
     if (productDetailData?.slide_img?.length > 0) {
       let templateImages: any = [];
       productDetailData?.slide_img?.map((imgs: any) => {
@@ -75,13 +76,13 @@ const useProductDetailNewHook = () => {
     let imgArr: any = [];
 
     if (Object.keys(selectedVariant).length > 0) {
-      console.log("rastafari 2", selectedVariant);
+      console.log('rastafari 2', selectedVariant);
       const matchedVariant = productVariants?.variants?.find((variant: any) =>
         Object.entries(selectedVariant).every(
           ([key, value]) => variant[key] === value
         )
       );
-      console.log("util format matched variant", matchedVariant);
+      console.log('util format matched variant', matchedVariant);
       setSelectedVariantCodeForAddToCart(matchedVariant?.variant_code);
       matchedVariant?.image?.map((imgs: any) => {
         imgArr.push({
@@ -93,7 +94,6 @@ const useProductDetailNewHook = () => {
       setProductEnlargeImages([...imgArr, ...productEnlargeImages]);
     }
   };
-
 
   // BELOW USE-EFFECT's TO CALL API's
   useEffect(() => {
@@ -115,17 +115,17 @@ const useProductDetailNewHook = () => {
   // BELOW USE-EFFECT's TO STORE DATA FROM REDUX STORE TO LOCAL STATE
   useEffect(() => {
     switch (product_detail_data_from_redux?.loading) {
-      case "pending":
+      case 'pending':
         setProductDetailData({});
         break;
-      case "succeeded":
-        if (product_detail_data_from_redux?.data?.hasOwnProperty("name")) {
+      case 'succeeded':
+        if (product_detail_data_from_redux?.data?.hasOwnProperty('name')) {
           setProductDetailData(product_detail_data_from_redux.data);
         } else {
           setProductDetailData({});
         }
         break;
-      case "failed":
+      case 'failed':
         setProductDetailData({});
         break;
     }
@@ -133,13 +133,13 @@ const useProductDetailNewHook = () => {
 
   useEffect(() => {
     switch (product_variants_data_from_redux?.loading) {
-      case "pending":
+      case 'pending':
         setProductVariants({});
         break;
-      case "succeeded":
+      case 'succeeded':
         setProductVariants(product_variants_data_from_redux.data);
         break;
-      case "failed":
+      case 'failed':
         setProductVariants({});
         break;
     }

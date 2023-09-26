@@ -4,9 +4,9 @@ import Pagenotfound from '../components/404Page';
 const PageNotFoundPage = () => {
   return (
     <>
-    <Pagenotfound/>
+      <Pagenotfound />
     </>
-  )
-}
+  );
+};
 
 export default PageNotFoundPage;

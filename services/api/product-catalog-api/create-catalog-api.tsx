@@ -1,12 +1,12 @@
-import React from "react";
-import { CONSTANTS } from "../../config/app-config";
-import axios from "axios";
+import React from 'react';
+import { CONSTANTS } from '../../config/app-config';
+import axios from 'axios';
 
-const CreateCatalog = async (catalogobj:any,token:any) => {
+const CreateCatalog = async (catalogobj: any, token: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "put";
-  const entity = "catalog";
+  const method = 'put';
+  const entity = 'catalog';
   const params = `?version=${version}&method=${method}&entity=${entity}&catalog_name=${catalogobj}&catalog_access_level=Public`;
   const config = {
     headers: {

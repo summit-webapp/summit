@@ -1,12 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import MultiLangApi from "../../../services/api/general_apis/multilanguage-api";
-import { RootState } from "../../root-reducer";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import MultiLangApi from '../../../services/api/general_apis/multilanguage-api';
+import { RootState } from '../../root-reducer';
 
 export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk(
-  "multilanguage/fetchMultilanguage",
+  'multilanguage/fetchMultilanguage',
   async (token: any) => {
     const MultilanguageData = await MultiLangApi();
-    console.log("multilanguage res", MultilanguageData);
+    console.log('multilanguage res', MultilanguageData);
     return MultilanguageData;
   }
 );
@@ -14,24 +14,24 @@ export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk(
 interface RepoDisplayTag {
   languageData: any;
   error: string;
-  isLoading: "idle" | "pending" | "succeeded" | "failed";
+  isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
 const initialState: RepoDisplayTag = {
   languageData: [],
-  error: "",
-  isLoading: "idle",
+  error: '',
+  isLoading: 'idle',
 };
 
 export const MultiLanguageScreen = createSlice({
-  name: "multilanguage",
+  name: 'multilanguage',
   initialState,
   reducers: {
     setMultiLingualData(state, action) {
-      console.log("check data of server obj multi - lingugal values", action);
-      state.isLoading = "succeeded";
+      console.log('check data of server obj multi - lingugal values', action);
+      state.isLoading = 'succeeded';
       state.languageData = [...action.payload];
-      state.error = "";
+      state.error = '';
     },
   },
   // extraReducers: (builder) => {

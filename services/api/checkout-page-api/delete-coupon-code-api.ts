@@ -1,12 +1,12 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from '../general_apis/cookie-instance-api';
 
 const DeleteCouponCode = async (item_code: any, token: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "delete";
-  const entity = "coupon_code";
+  const method = 'delete';
+  const entity = 'coupon_code';
 
   const config = {
     headers: {
@@ -32,12 +32,12 @@ const DeleteCouponCode = async (item_code: any, token: any) => {
       console.log(res);
     })
     .catch((err) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

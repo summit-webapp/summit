@@ -1,33 +1,32 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import getLoginApi from "./login_api";
-import CheckGuestLogin from "./guest-login-api";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import getLoginApi from './login_api';
+import CheckGuestLogin from './guest-login-api';
 
-import UserRoleGet from "./get_userrole_api";
-import OtpLoginApi from "./otp-login-api";
+import UserRoleGet from './get_userrole_api';
+import OtpLoginApi from './otp-login-api';
 
 const getTokenLoginApi: any = async (values: any) => {
-
-  console.log("token req", values);
+  console.log('token req', values);
   const usr = values.values.email;
   const pwd = encodeURIComponent(values.values.password);
 
   let response: any;
   let guestLoginFunction: any;
   const version = CONSTANTS.VERSION;
-  const method = "get_access_token";
-  const entity = "access_token";
+  const method = 'get_access_token';
+  const entity = 'access_token';
   const params = `?version=${version}&method=${method}&entity=${entity}&usr=${usr}&pwd=${pwd}`;
 
   const config = {
     headers: {
-      Accept: "application/json",
+      Accept: 'application/json',
     },
   };
 
   if (values.guest !== null) {
     guestLoginFunction = await CheckGuestLogin(values);
-    console.log("guest login res", guestLoginFunction)
+    console.log('guest login res', guestLoginFunction);
     return guestLoginFunction;
   } else if (values.isOtpLogin === true) {
     const OtpLoginFunction: any = OtpLoginApi(values);
@@ -40,13 +39,13 @@ const getTokenLoginApi: any = async (values: any) => {
         config
       )
       .then((res) => {
-        console.log("@@token login", res);
+        console.log('@@token login', res);
         response = res?.data?.message;
         if (values?.guest !== null) {
-          localStorage.setItem("guestToken", response.access_token);
+          localStorage.setItem('guestToken', response.access_token);
         }
         UserRoleGet(res?.data?.message?.data?.access_token);
-      })
+      });
     return response;
   }
 
@@ -83,8 +82,6 @@ const getTokenLoginApi: any = async (values: any) => {
   //   const OtpLoginFunction: any = OtpLoginApi(values);
   //   return OtpLoginFunction;
   // }
-
-
 };
 
 export default getTokenLoginApi;

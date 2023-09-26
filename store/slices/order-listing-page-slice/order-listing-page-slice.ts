@@ -1,12 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import GetCartHistory from "../../../services/api/my-order-api/order-history-api";
-import { RootState } from "../../root-reducer";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import GetCartHistory from '../../../services/api/my-order-api/order-history-api';
+import { RootState } from '../../root-reducer';
 
 export const FetchOrderListing: any = createAsyncThunk(
-  "orderListing/fetchOrderListing",
+  'orderListing/fetchOrderListing',
   async (request: any) => {
     const response = await GetCartHistory(request);
-    console.log("order data", response);
+    console.log('order data', response);
     return response;
   }
 );
@@ -14,42 +14,42 @@ export const FetchOrderListing: any = createAsyncThunk(
 interface RepoOrderListingState {
   data: any;
   error: string;
-  isLoading: "idle" | "pending" | "succeeded" | "failed";
+  isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
 const initialState: RepoOrderListingState = {
   data: [],
-  error: "",
-  isLoading: "idle",
+  error: '',
+  isLoading: 'idle',
 };
 
 export const OrderListingScreen = createSlice({
-  name: "cartListing",
+  name: 'cartListing',
   initialState,
   reducers: {},
   extraReducers: (builder: any) => {
     builder.addCase(FetchOrderListing.pending, (state: any) => {
-      state.isLoading = "pending";
-      state.error = "";
+      state.isLoading = 'pending';
+      state.error = '';
     });
     builder.addCase(FetchOrderListing.fulfilled, (state: any, action: any) => {
-      console.log("cart payload", action.payload);
+      console.log('cart payload', action.payload);
       if (
         action?.payload?.status === 200 &&
-        action?.payload?.data?.message?.msg === "success"
+        action?.payload?.data?.message?.msg === 'success'
       ) {
-        state.isLoading = "succeeded";
+        state.isLoading = 'succeeded';
         state.data = action?.payload?.data?.message?.data;
       } else {
         // state.isLoading = "succeeded";
         state.data = [];
-        state.error = "";
+        state.error = '';
       }
     });
     builder.addCase(FetchOrderListing.rejected, (state: any, action: any) => {
-      state.isLoading = "failed";
+      state.isLoading = 'failed';
       state.data = [];
-      state.error = "Unable to load cart listing";
+      state.error = 'Unable to load cart listing';
     });
   },
 });

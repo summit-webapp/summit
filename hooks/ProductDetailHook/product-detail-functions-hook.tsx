@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const useProductDetailFunctions = () => {
   const [generateSelectedVariants, setGenerateSelectedVariants] = useState<any>(
@@ -10,7 +10,7 @@ const useProductDetailFunctions = () => {
   const handleSettingOfSelectedVariantsAndThumbnailOfVariants = (
     variantsDataFromAPI: any
   ) => {
-    console.log("working for modal slug custom function", variantsDataFromAPI);
+    console.log('working for modal slug custom function', variantsDataFromAPI);
     const temporaryStoreForSelectedVariant: any = {};
     // variants[0]?.
     variantsDataFromAPI?.attributes?.forEach((attribute: any) => {
@@ -19,7 +19,7 @@ const useProductDetailFunctions = () => {
     });
 
     console.log(
-      "working for modal slug from api selected variant",
+      'working for modal slug from api selected variant',
       temporaryStoreForSelectedVariant
     );
     setGenerateSelectedVariants({ ...temporaryStoreForSelectedVariant });
@@ -30,7 +30,7 @@ const useProductDetailFunctions = () => {
       );
 
     console.log(
-      "working for modal slug from api display thumbnail",
+      'working for modal slug from api display thumbnail',
       displayThumbnailAttributes
     );
 
@@ -41,7 +41,7 @@ const useProductDetailFunctions = () => {
       },
       {}
     );
-    console.log("working for modal slug from api imgsValObj", imgsValObj);
+    console.log('working for modal slug from api imgsValObj', imgsValObj);
 
     displayThumbnailAttributes?.forEach((attr: any) => {
       attr?.values?.map((value: any) => {
@@ -56,7 +56,7 @@ const useProductDetailFunctions = () => {
       });
     });
 
-    console.log("thumbnail variants in hook", imgsValObj);
+    console.log('thumbnail variants in hook', imgsValObj);
 
     const uniqueImgsValObj: any = {};
     for (const key in imgsValObj) {
@@ -73,7 +73,7 @@ const useProductDetailFunctions = () => {
 
     setGenerateThumbnailOfVariants({ ...uniqueImgsValObj });
     console.log(
-      "working for modal slug check generated values",
+      'working for modal slug check generated values',
       generateSelectedVariants,
       generateThumbnailOfVariants
     );
@@ -82,8 +82,8 @@ const useProductDetailFunctions = () => {
   };
 
   return {
-    handleSettingOfSelectedVariantsAndThumbnailOfVariants
-  }
+    handleSettingOfSelectedVariantsAndThumbnailOfVariants,
+  };
 };
 
 export default useProductDetailFunctions;

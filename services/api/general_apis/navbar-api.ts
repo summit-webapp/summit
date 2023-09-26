@@ -1,10 +1,10 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const fetchNavbarData = async (token: any) => {
   const version = CONSTANTS.VERSION;
-  const method = "get";
-  const entity = "mega_menu";
+  const method = 'get';
+  const entity = 'mega_menu';
   let response: any;
 
   const params = `?version=${version}&method=${method}&entity=${entity}`;
@@ -20,16 +20,16 @@ const fetchNavbarData = async (token: any) => {
       ...config,
     })
     .then((res) => {
-      console.log("navbar api in api file", res);
+      console.log('navbar api in api file', res);
       response = res;
     })
     .catch((err) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }
