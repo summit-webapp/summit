@@ -1,6 +1,6 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { updateFetchLoginUser } from "../../../store/slices/auth/login_slice";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { updateFetchLoginUser } from '../../../store/slices/auth/login_slice';
 
 interface IRaw_Data {
   version?: string;
@@ -14,27 +14,25 @@ interface IRaw_Data {
   guest_token?: any;
 }
 const CheckGuestLogin = async (request: any) => {
-  console.log("login is visitor", request);
+  console.log('login is visitor', request);
   let response: any;
   let raw_data: IRaw_Data;
   const version = CONSTANTS.VERSION;
 
   let isVisitor =
-    typeof window !== "undefined" ? localStorage.getItem("guest") : null;
+    typeof window !== 'undefined' ? localStorage.getItem('guest') : null;
   let guestToken =
-    typeof window !== "undefined" ? localStorage.getItem("guestToken") : null;
+    typeof window !== 'undefined' ? localStorage.getItem('guestToken') : null;
 
   const config = {
-    headers: {
-
-    },
+    headers: {},
   };
 
-  console.log("guestt token", guestToken);
+  console.log('guestt token', guestToken);
   raw_data = {
     version: version,
-    method: "existing_user_signin",
-    entity: "signin",
+    method: 'existing_user_signin',
+    entity: 'signin',
     usr: request.values.email,
     pwd: request.values.password,
     guest_token: isVisitor,
@@ -47,20 +45,20 @@ const CheckGuestLogin = async (request: any) => {
       { ...config, timeout: 5000 }
     )
     .then((res) => {
-      console.log("LOGIN API FILE visitor", res);
+      console.log('LOGIN API FILE visitor', res);
       response = res?.data?.data?.access_token;
-      if (response?.data?.data?.message === "Logged In") {
-        console.log("in update user");
-        localStorage.setItem("isLoggedIn", "true");
+      if (response?.data?.data?.message === 'Logged In') {
+        console.log('in update user');
+        localStorage.setItem('isLoggedIn', 'true');
       }
     })
     .catch((err) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

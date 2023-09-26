@@ -1,12 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../root-reducer";
-import getShippingAddress from "../../../services/api/checkout-page-api/customer-shipping-address-api";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../root-reducer';
+import getShippingAddress from '../../../services/api/checkout-page-api/customer-shipping-address-api';
 
 export const fetchShippingAddress: any = createAsyncThunk(
-  "shippingAddress/fetchShippingAddress",
+  'shippingAddress/fetchShippingAddress',
   async (token: any) => {
     const shippingData = await getShippingAddress(token);
-    console.log("shipping address", shippingData);
+    console.log('shipping address', shippingData);
     return shippingData;
   }
 );
@@ -14,40 +14,40 @@ interface RepoShippingAddState {
   items: any;
   error: string;
   initialShippingAddressID: any;
-  isLoading: "idle" | "pending" | "succeeded" | "failed";
+  isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
 const initialState: RepoShippingAddState = {
   items: [],
-  error: "",
-  initialShippingAddressID: "",
-  isLoading: "idle",
+  error: '',
+  initialShippingAddressID: '',
+  isLoading: 'idle',
 };
 
 export const ShippingAddressScreen = createSlice({
-  name: "shippingAddress",
+  name: 'shippingAddress',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchShippingAddress.pending, (state) => {
-      state.isLoading = "pending";
+      state.isLoading = 'pending';
       state.items = [];
     });
     builder.addCase(fetchShippingAddress.fulfilled, (state, action) => {
-      console.log("payload data in shipp", action.payload);
+      console.log('payload data in shipp', action.payload);
       if (action?.payload?.length > 0) {
-        state.isLoading = "succeeded";
+        state.isLoading = 'succeeded';
         state.items = action?.payload;
         state.initialShippingAddressID = action?.payload[0]?.address_id;
       } else {
-        state.isLoading = "failed";
+        state.isLoading = 'failed';
         state.items = [];
       }
     });
     builder.addCase(fetchShippingAddress.rejected, (state, action) => {
-      state.isLoading = "failed";
+      state.isLoading = 'failed';
       state.items = [];
-      state.error = "Unable to load brands";
+      state.error = 'Unable to load brands';
     });
   },
 });

@@ -3,10 +3,9 @@ const useWebPushNotificationHook = () => {
    * checks if Push notification and service workers are supported by your browser
    */
   function isPushNotificationSupported() {
-    // return "serviceWorker" in navigator && "PushManager" in window; 
-    if('serviceWorker' in navigator)
-    {
-        navigator.serviceWorker.register('sw.js');
+    // return "serviceWorker" in navigator && "PushManager" in window;
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
     }
   }
 
@@ -23,21 +22,21 @@ const useWebPushNotificationHook = () => {
    * shows a notification
    */
   function sendNotification() {
-    const img = "/images/jason-leung-HM6TMmevbZQ-unsplash.jpg";
-    const text = "Take a look at this brand new t-shirt!";
-    const title = "New Product Available";
+    const img = '/images/jason-leung-HM6TMmevbZQ-unsplash.jpg';
+    const text = 'Take a look at this brand new t-shirt!';
+    const title = 'New Product Available';
     const options = {
       body: text,
-      icon: "/images/jason-leung-HM6TMmevbZQ-unsplash.jpg",
+      icon: '/images/jason-leung-HM6TMmevbZQ-unsplash.jpg',
       vibrate: [200, 100, 200],
-      tag: "new-product",
+      tag: 'new-product',
       image: img,
-      badge: "https://spyna.it/icons/android-icon-192x192.png",
+      badge: 'https://spyna.it/icons/android-icon-192x192.png',
       actions: [
         {
-          action: "Detail",
-          title: "View",
-          icon: "https://via.placeholder.com/128/ff0000",
+          action: 'Detail',
+          title: 'View',
+          icon: 'https://via.placeholder.com/128/ff0000',
         },
       ],
     };
@@ -50,7 +49,7 @@ const useWebPushNotificationHook = () => {
    *
    */
   function registerServiceWorker() {
-    navigator.serviceWorker.register("/sw.js").then(function (swRegistration) {
+    navigator.serviceWorker.register('/sw.js').then(function (swRegistration) {
       //you can do something with the service wrker registration (swRegistration)
     });
   }

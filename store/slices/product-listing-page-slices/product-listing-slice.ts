@@ -1,11 +1,11 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchProductListing } from "../../../services/api/product-listing-page-api/get-product-list-api";
-import { RootState } from "../../root-reducer";
-import { ProductData } from "../../../interfaces/products-view-interface";
-import { MissingPartsAPI } from "../../../services/api/product-listing-page-api/missing-parts-api";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { fetchProductListing } from '../../../services/api/product-listing-page-api/get-product-list-api';
+import { RootState } from '../../root-reducer';
+import { ProductData } from '../../../interfaces/products-view-interface';
+import { MissingPartsAPI } from '../../../services/api/product-listing-page-api/missing-parts-api';
 
 export const ProductListingThunk = createAsyncThunk(
-  "product-listing-slice/fetchProductListing",
+  'product-listing-slice/fetchProductListing',
   async (params: any) => {
     const { storeUsefulParamsForFurtherProductListingApi } = params;
     const getProductListingData = await fetchProductListing(
@@ -14,7 +14,7 @@ export const ProductListingThunk = createAsyncThunk(
     if (
       getProductListingData?.data?.message?.data?.length === 0 &&
       storeUsefulParamsForFurtherProductListingApi.url_params?.hasOwnProperty(
-        "search_text"
+        'search_text'
       )
     ) {
       const missingPartsApiRes = await MissingPartsAPI(
@@ -32,55 +32,55 @@ interface ProductListingState {
   error: string;
   productListData: ProductData[];
   productsTotalCount: number;
-  loading: "idle" | "pending" | "succeeded" | "failed";
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
 const initialState = {
-  msg: "",
-  error: "",
+  msg: '',
+  error: '',
   productListData: [],
   productsTotalCount: 0,
-  loading: "idle",
+  loading: 'idle',
 } as ProductListingState;
 
 const productListingSlice = createSlice({
-  name: "product-listing-slice",
+  name: 'product-listing-slice',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(ProductListingThunk.pending, (state, action) => {
-      state.loading = "pending";
-      state.msg = "";
+      state.loading = 'pending';
+      state.msg = '';
       state.productListData = [];
       state.productsTotalCount = 0;
-      state.error = "";
+      state.error = '';
     });
     builder.addCase(ProductListingThunk.fulfilled, (state, action) => {
-      console.log("product listing success", action);
+      console.log('product listing success', action);
       if (
         action.payload.status === 200 &&
-        action.payload.data.hasOwnProperty("message") &&
-        action.payload.data.message.hasOwnProperty("data")
+        action.payload.data.hasOwnProperty('message') &&
+        action.payload.data.message.hasOwnProperty('data')
       ) {
-        state.loading = "succeeded";
-        state.msg = "success";
+        state.loading = 'succeeded';
+        state.msg = 'success';
         state.productListData = action.payload.data.message.data;
         state.productsTotalCount = action.payload.data.message.total_count;
-        state.error = "";
+        state.error = '';
       } else {
-        state.loading = "succeeded";
-        state.msg = "";
+        state.loading = 'succeeded';
+        state.msg = '';
         state.productListData = [];
         state.productsTotalCount = 0;
-        state.error = "Error Fetching Data";
+        state.error = 'Error Fetching Data';
       }
     });
     builder.addCase(ProductListingThunk.rejected, (state, action) => {
-      state.loading = "failed";
-      state.msg = "";
+      state.loading = 'failed';
+      state.msg = '';
       state.productListData = [];
       state.productsTotalCount = 0;
-      state.error = "Network Error";
+      state.error = 'Network Error';
     });
   },
 });

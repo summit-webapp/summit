@@ -1,18 +1,18 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import UserRoleGet from "./get_userrole_api";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import UserRoleGet from './get_userrole_api';
 
 const OtpLoginApi = async (request: any) => {
-  console.log("otp login req", request);
+  console.log('otp login req', request);
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "signin";
-  const entity = "signin";
-  const otpLogin = "true";
+  const method = 'signin';
+  const entity = 'signin';
+  const otpLogin = 'true';
   const params = `?version=${version}&method=${method}&entity=${entity}&usr=${request.values.email}&pwd=${request.values.password}&with_otp=${otpLogin}`;
   const config = {
     headers: {
-      Accept: "application/json",
+      Accept: 'application/json',
     },
   };
 
@@ -24,18 +24,18 @@ const OtpLoginApi = async (request: any) => {
     )
     .then((res: any) => {
       response = res?.data?.message?.data;
-      if (res?.data?.message?.msg === "success") {
-        localStorage.setItem("isLoggedIn", "true");
+      if (res?.data?.message?.msg === 'success') {
+        localStorage.setItem('isLoggedIn', 'true');
       }
       UserRoleGet(res?.data?.message?.data?.access_token);
     })
     .catch((err) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

@@ -1,12 +1,13 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import getHomeBannersList from "../../../services/api/home_page_api/home-banners-api";
-import { RootState } from "../../root-reducer";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import getHomeBannersList from '../../../services/api/home_page_api/home-banners-api';
+import { RootState } from '../../root-reducer';
 
 export const fetchHomeBannerDataFromAPI = createAsyncThunk(
-  "home-banner-slice/fetchHomeBannerDataStatus",
+  'home-banner-slice/fetchHomeBannerDataStatus',
   async (TokenFromStore: any) => {
-    const getHomeBannerAPIResponse: any = await getHomeBannersList(TokenFromStore);
-    console.log("home banner data in slice", getHomeBannerAPIResponse);
+    const getHomeBannerAPIResponse: any =
+      await getHomeBannersList(TokenFromStore);
+    console.log('home banner data in slice', getHomeBannerAPIResponse);
     return getHomeBannerAPIResponse;
   }
 );
@@ -30,55 +31,63 @@ interface HomeBannerState {
     data?: IndividualHomeBannerDataState[];
     err?: any;
   };
-  loading: "idle" | "pending" | "succeeded" | "failed";
-  err: string
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  err: string;
 }
 
 const initialState = {
   homeBannerData: {},
-  loading: "idle",
-  err: ""
+  loading: 'idle',
+  err: '',
 } as HomeBannerState;
 
 const homeBannerSlice = createSlice({
-  name: "home-banner-slice",
+  name: 'home-banner-slice',
   initialState,
   reducers: {
     // standard reducer logic, with auto-generated action types per reducer
   },
   extraReducers: (builder: any) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(fetchHomeBannerDataFromAPI.pending, (state: any, action: any) => {
-      console.log("home banner data in slice pending");
-      state.loading = "pending";
-      state.homeBannerData = {};
-    });
-    builder.addCase(fetchHomeBannerDataFromAPI.fulfilled, (state: any, action: any) => {
-      console.log("home banner data in slice success", action);
-      if (
-        action.payload.status === 200 &&
-        action.payload.data.message.hasOwnProperty("data")
-      ) {
-        state.loading = "succeeded";
-        state.homeBannerData = action.payload.data.message;
-      } else {
-        state.loading = "failed";
+    builder.addCase(
+      fetchHomeBannerDataFromAPI.pending,
+      (state: any, action: any) => {
+        console.log('home banner data in slice pending');
+        state.loading = 'pending';
         state.homeBannerData = {};
       }
-    });
-    builder.addCase(fetchHomeBannerDataFromAPI.rejected, (state: any, action: any) => {
-      console.log("home banner data in slice fail", action.payload);
-      if (action.payload === "Request timed out") {
-        state.loading = "failed";
-        state.err = action.payload;
-        state.homeBannerData = {};
+    );
+    builder.addCase(
+      fetchHomeBannerDataFromAPI.fulfilled,
+      (state: any, action: any) => {
+        console.log('home banner data in slice success', action);
+        if (
+          action.payload.status === 200 &&
+          action.payload.data.message.hasOwnProperty('data')
+        ) {
+          state.loading = 'succeeded';
+          state.homeBannerData = action.payload.data.message;
+        } else {
+          state.loading = 'failed';
+          state.homeBannerData = {};
+        }
       }
-      else {
-        state.loading = "failed";
-        state.err = "Something went wrong";
-        state.homeBannerData = {}
+    );
+    builder.addCase(
+      fetchHomeBannerDataFromAPI.rejected,
+      (state: any, action: any) => {
+        console.log('home banner data in slice fail', action.payload);
+        if (action.payload === 'Request timed out') {
+          state.loading = 'failed';
+          state.err = action.payload;
+          state.homeBannerData = {};
+        } else {
+          state.loading = 'failed';
+          state.err = 'Something went wrong';
+          state.homeBannerData = {};
+        }
       }
-    });
+    );
   },
 });
 

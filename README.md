@@ -6,7 +6,7 @@ Welcome to the Summit open-source repository! This repository contains the sourc
 
 **Fork the Repository**: In the top right corner of the repository page, click the "Fork" button. This will create a copy of the repository in your GitHub account.
 
- GitHub will take a moment to create the fork. Once it's done, you'll be redirected to your forked repository.
+GitHub will take a moment to create the fork. Once it's done, you'll be redirected to your forked repository.
 
 ## Cloning the Repository to Your Local System
 
@@ -17,6 +17,7 @@ Now that you have forked the repository, you'll need to clone it to your local m
 Before you begin working on this project, ensure you clone and install the theme repository. This repository contains the core functionalities of the E-commerce Application, while cloning the theme repository focuses on the UI/UX aspect of the application.
 
 Follow these steps to clone theme repository:
+
 1. Open your web browser and go to [https://github.com/orgs/summit-webapp-themes/repositories](https://github.com/orgs/summit-webapp-themes/repositories).
 2. Browse through the list of repositories and select the theme repository that corresponds to your project's requirements.
 3. Click on the selected theme repository to access its page.
@@ -25,23 +26,26 @@ Follow these steps to clone theme repository:
 6. Now, return to your local machine where you've forked the Summit open-source repository.
 7. Open a terminal or command prompt.
 8. Navigate to the themes directory inside the summit folder. Use the `cd` command to change directories. For example: `cd themes`.
-9.  Once you're inside the project directory, run the following command to clone the theme repository:
+9. Once you're inside the project directory, run the following command to clone the theme repository:
 
-   ```shell
-   git clone https://github.com/summit-webapp-themes/theme-repo.git
-  ```
+```shell
+git clone https://github.com/summit-webapp-themes/theme-repo.git
+```
+
 10. Navigate to the theme repo.
-   ```shell
-    cd theme-repo
-   ```
+
+```shell
+ cd theme-repo
+```
+
 11. Take checkout of main branch
     ```shell
     git checkout main
     ```
 12. After checking out from main branch, you need to install the theme by running the following command.
-     ```shell
-     /bin/bash install-theme.sh
-     ```
+    ```shell
+    /bin/bash install-theme.sh
+    ```
 13. After following the above steps, navigate back to summit repository
     ```shell
     cd ../../

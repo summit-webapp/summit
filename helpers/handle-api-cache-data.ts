@@ -1,10 +1,10 @@
 let cache: any = {};
 let expirationTime = 0; // Expiration time in seconds (1 hour)
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import {
   cache_data_state,
   setRevalidationTime,
-} from "../store/slices/general_slices/cache-slice";
+} from '../store/slices/general_slices/cache-slice';
 
 export const HandleAPIExpirationTime = (
   url: string,
@@ -13,7 +13,7 @@ export const HandleAPIExpirationTime = (
 ) => {
   const cache_data_selector: any = useSelector(cache_data_state);
   const dispatch = useDispatch();
-  console.log("cache in checking", cache_data_selector);
+  console.log('cache in checking', cache_data_selector);
 
   // let cache:any = {};
 
@@ -27,18 +27,18 @@ export const HandleAPIExpirationTime = (
       timestamp: Date.now(),
       response: response,
     };
-    console.log("cache in updating", cache);
+    console.log('cache in updating', cache);
     dispatch(setRevalidationTime(cache));
     return 0;
   }
 };
 
 export const handleUpdateCachingOfData = (url: any, response: any) => {
-  console.log("cache in updating", cache);
-  console.log("cache params", url, response);
+  console.log('cache in updating', cache);
+  console.log('cache params', url, response);
   cache[url] = {
     timestamp: Date.now(),
     response: response,
   };
-  console.log("cache in updating 2", cache);
+  console.log('cache in updating 2', cache);
 };

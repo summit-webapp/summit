@@ -2,7 +2,7 @@ importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
 
 firebase.initializeApp({
-    messagingSenderId: '418835235707',
+  messagingSenderId: '418835235707',
 });
 
 const messaging = firebase.messaging();
@@ -39,4 +39,3 @@ const messaging = firebase.messaging();
 //       console.log('ServiceWorker registered with scope:', registration.scope);
 //     });
 //   }
-  
