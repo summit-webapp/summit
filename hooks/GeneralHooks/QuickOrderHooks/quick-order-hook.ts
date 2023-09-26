@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   removeSingleItem,
   clearAllDataAddedToQuickOrderList,
   fetchQuickOrder,
   quick_order_state,
-} from "../../../store/slices/general_slices/quick-order-slice";
-import { get_access_token } from "../../../store/slices/auth/token-login-slice";
-import { currency_selector_state } from "../../../store/slices/general_slices/multi-currency-slice";
+} from '../../../store/slices/general_slices/quick-order-slice';
+import { get_access_token } from '../../../store/slices/auth/token-login-slice';
+import { currency_selector_state } from '../../../store/slices/general_slices/multi-currency-slice';
 
 export const useQuickOrder = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const useQuickOrder = () => {
   const token_value = TokenFromStore?.token;
   const selected_currency = currency_state_from_redux?.selected_currency;
 
-  const [partNumberInputField, setPartNumberInputField] = useState<string>("");
+  const [partNumberInputField, setPartNumberInputField] = useState<string>('');
   const [inputFieldCount, setInputFieldCount] = useState<number>(1);
 
   const [partNumbersData, setPartNumbersData] = useState<any>([]);
@@ -31,7 +31,7 @@ export const useQuickOrder = () => {
   const [itemNotFoundErr, setItemNotFoundErr] = useState(false);
   const handleKeyDown = async (e: any) => {
     // if (e.key === "Enter") {
-    if (partNumberInputField === "") {
+    if (partNumberInputField === '') {
       setIfInputEmptyErr(true);
       setTimeout(() => {
         setIfInputEmptyErr(false);
@@ -74,7 +74,7 @@ export const useQuickOrder = () => {
   useEffect(() => {
     // console.log("enter data from store", quickOrderDataFromStore);
     // dispatch(emptyStore());
-    if (quickOrderDataFromStore?.error === "Data Not Found") {
+    if (quickOrderDataFromStore?.error === 'Data Not Found') {
       setItemNotFoundErr(true);
       setTimeout(() => {
         setItemNotFoundErr(false);

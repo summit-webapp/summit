@@ -1,11 +1,11 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "./cookie-instance-api";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from './cookie-instance-api';
 
 const AddSubscriber = async (email: any, token: any) => {
   const version = CONSTANTS.VERSION;
-  const method = "add_subscriber";
-  const entity = "registration";
+  const method = 'add_subscriber';
+  const entity = 'registration';
   let response: any;
 
   const params = `?version=${version}&method=${method}&entity=${entity}`;
@@ -23,16 +23,16 @@ const AddSubscriber = async (email: any, token: any) => {
       { ...config, timeout: 5000 }
     )
     .then((res) => {
-      console.log("subs email in api", res);
+      console.log('subs email in api', res);
       response = res;
     })
     .catch((err) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

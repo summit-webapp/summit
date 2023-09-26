@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchWishlistUser,
   wishlist_state,
-} from "../../store/slices/wishlist-slice/wishlist-slice";
-import { get_access_token } from "../../store/slices/auth/token-login-slice";
+} from '../../store/slices/wishlist-slice/wishlist-slice';
+import { get_access_token } from '../../store/slices/auth/token-login-slice';
 
 const useWishlist = () => {
   const dispatch = useDispatch();
@@ -12,8 +12,8 @@ const useWishlist = () => {
   const wishlistStoreData: any = useSelector(wishlist_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
-  console.log("wishlist hookval", wishlistStoreData);
-  const [Loadings, setLoadings] = useState("");
+  console.log('wishlist hookval', wishlistStoreData);
+  const [Loadings, setLoadings] = useState('');
   const [wishlistData, setWishlistData] = useState<any>([]);
   const [wishlistCount, setWishlistCount] = useState<number>(0);
 
@@ -40,8 +40,8 @@ const useWishlist = () => {
     // setWishlistProduct([wishlistStoreData?.wishProduct]);
   }, [wishlistStoreData]);
 
-  console.log("wishlist count in hook LOADING", Loadings);
-  console.log("wishlistdata in hook end", wishlistData);
+  console.log('wishlist count in hook LOADING', Loadings);
+  console.log('wishlistdata in hook end', wishlistData);
   // console.log("wishlistProduct in hook end", wishlistProduct);
 
   return { wishlistData, wishlistCount, Loadings };

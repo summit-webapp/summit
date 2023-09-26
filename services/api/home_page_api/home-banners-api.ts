@@ -1,10 +1,10 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const fetchHomeBannerData = async (TokenFromStore: any) => {
   const version = CONSTANTS.VERSION;
-  const method = "get";
-  const entity = "banner";
+  const method = 'get';
+  const entity = 'banner';
   let response: any;
 
   const params = `?version=${version}&method=${method}&entity=${entity}`;
@@ -19,17 +19,17 @@ const fetchHomeBannerData = async (TokenFromStore: any) => {
   await axios
     .get(`${url}`, { ...config, timeout: 5000 })
     .then((res) => {
-      console.log("carousel api res without token", res);
+      console.log('carousel api res without token', res);
       response = res;
     })
     .catch((err) => {
-      console.log("carousel api res err", err);
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      console.log('carousel api res err', err);
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

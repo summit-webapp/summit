@@ -1,24 +1,24 @@
 // import firebase, { initializeApp } from 'firebase/app';
-import { initializeApp } from "firebase/app";
-import { getMessaging, getToken, deleteToken } from "firebase/messaging";
-import { requestPermission } from "firebase/messaging";
+import { initializeApp } from 'firebase/app';
+import { getMessaging, getToken, deleteToken } from 'firebase/messaging';
+import { requestPermission } from 'firebase/messaging';
 
 export const initializeFirebase = () => {
-  console.log("firebase app init", initializeApp);
+  console.log('firebase app init', initializeApp);
   const firebaseConfig = {
-    messagingSenderId: "418835235707",
-    projectId: "test-web-push-a2336",
-    apiKey: "AIzaSyDN4CdmegnU636eD7peIPctuPhM4UtaIq8",
-    appId: "1:418835235707:web:600b74e364068af64c73de",
-    authDomain: "test-web-push-a2336.firebaseapp.com",
-    storageBucket: "test-web-push-a2336.appspot.com",
-    measurementId: "G-61W9QD50GF",
+    messagingSenderId: '418835235707',
+    projectId: 'test-web-push-a2336',
+    apiKey: 'AIzaSyDN4CdmegnU636eD7peIPctuPhM4UtaIq8',
+    appId: '1:418835235707:web:600b74e364068af64c73de',
+    authDomain: 'test-web-push-a2336.firebaseapp.com',
+    storageBucket: 'test-web-push-a2336.appspot.com',
+    measurementId: 'G-61W9QD50GF',
   };
   initializeApp(firebaseConfig);
 };
 
 export const askForPermissionToReceiveNotifications = async () => {
-  console.log("Ask for permission");
+  console.log('Ask for permission');
   try {
     const messaging = getMessaging();
     const currentToken = await getToken(messaging);
@@ -30,11 +30,11 @@ export const askForPermissionToReceiveNotifications = async () => {
     // }
 
     // const newToken = await getToken(messaging);
-    console.log("New token:", currentToken);
+    console.log('New token:', currentToken);
 
     return newToken;
   } catch (error) {
-    console.log("Error:", error);
+    console.log('Error:', error);
   }
 };
 

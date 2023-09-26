@@ -1,16 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../root-reducer";
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../root-reducer';
 
 const initialState = {
-  view: "",
+  view: '',
 };
 
 const ProductListingViewSlice = createSlice({
-  name: "product-view-slice",
+  name: 'product-view-slice',
   initialState,
   reducers: {
     setProductsView(state, action) {
-      console.log("toggleProductListView payload",action.payload)
+      console.log('toggleProductListView payload', action.payload);
       state.view = action.payload;
     },
   },
@@ -18,7 +18,7 @@ const ProductListingViewSlice = createSlice({
 
 export const { setProductsView } = ProductListingViewSlice.actions;
 
-export const products_view_state = (state:RootState)=>
-state.ProductsViewScreen
+export const products_view_state = (state: RootState) =>
+  state.ProductsViewScreen;
 
 export default ProductListingViewSlice.reducer;

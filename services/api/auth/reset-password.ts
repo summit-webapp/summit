@@ -1,12 +1,12 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const ResetPasswordApi = async (request: any) => {
-  console.log("reset pswd api", request);
+  console.log('reset pswd api', request);
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "reset_password";
-  const entity = "registration";
+  const method = 'reset_password';
+  const entity = 'registration';
 
   const encodedPassword = encodeURIComponent(request.confirmPassword);
 
@@ -14,7 +14,7 @@ const ResetPasswordApi = async (request: any) => {
 
   const config = {
     headers: {
-      Accept: "application/json",
+      Accept: 'application/json',
     },
   };
   await axios
@@ -24,16 +24,16 @@ const ResetPasswordApi = async (request: any) => {
       config
     )
     .then((res: any) => {
-      console.log("res", res);
+      console.log('res', res);
       response = res;
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

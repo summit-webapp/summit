@@ -1,26 +1,26 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import {
   ProductListingThunk,
   product_listing_selector_state,
-} from "../../store/slices/product-listing-page-slices/product-listing-slice";
+} from '../../store/slices/product-listing-page-slices/product-listing-slice';
 import {
   FiltersThunk,
   filters_selector_state,
-} from "../../store/slices/product-listing-page-slices/filters-slice";
+} from '../../store/slices/product-listing-page-slices/filters-slice';
 import {
   products_view_state,
   setProductsView,
-} from "../../store/slices/product-listing-page-slices/view-slice";
-import { CONSTANTS } from "../../services/config/app-config";
-import { currency_selector_state } from "../../store/slices/general_slices/multi-currency-slice";
-import { get_access_token } from "../../store/slices/auth/token-login-slice";
+} from '../../store/slices/product-listing-page-slices/view-slice';
+import { CONSTANTS } from '../../services/config/app-config';
+import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
+import { get_access_token } from '../../store/slices/auth/token-login-slice';
 
 const useProductListing = () => {
   const router = useRouter();
   const { query }: any = useRouter();
-  console.log(router, "routers");
+  console.log(router, 'routers');
   const dispatch = useDispatch();
 
   const product_listing_state_from_redux: any = useSelector(
@@ -37,7 +37,7 @@ const useProductListing = () => {
   const [productsLoading, setProductsLoading] = useState<boolean>(false);
   const [filtersLoading, setFiltersLoading] = useState<boolean>(false);
   const [toggleProductListView, setToggleProductListView] =
-    useState("list-view");
+    useState('list-view');
   const [pageNo, setpageNo] = useState<number>(1);
 
   let [productListingData, setProductListingData] = useState<any>([]);
@@ -51,7 +51,7 @@ const useProductListing = () => {
     });
   };
 
-  console.log("product listing router",currency_state_from_redux);
+  console.log('product listing router', currency_state_from_redux);
 
   const handleApplyFilters = async (event: any) => {
     let duplicateFilters: any;
@@ -91,9 +91,9 @@ const useProductListing = () => {
     // console.log("night duplicate filters", duplicateFilters);
     const filterString = encodeURIComponent(JSON.stringify(duplicateFilters));
     let url = router.asPath;
-    const existingFilterIndex = url.indexOf("&filter=");
+    const existingFilterIndex = url.indexOf('&filter=');
     if (existingFilterIndex !== -1) {
-      const ampIndex = url.indexOf("&", existingFilterIndex + 1);
+      const ampIndex = url.indexOf('&', existingFilterIndex + 1);
       if (ampIndex !== -1) {
         url = url.slice(0, existingFilterIndex) + url.slice(ampIndex);
       } else {
@@ -112,29 +112,27 @@ const useProductListing = () => {
   };
   useEffect(() => {
     const catalogSlug = router.route.split('/')[1];
-    console.log(catalogSlug,"newSlug ")
-    if(catalogSlug === 'catalog') {
-      dispatch(setProductsView("grid-view"));
+    console.log(catalogSlug, 'newSlug ');
+    if (catalogSlug === 'catalog') {
+      dispatch(setProductsView('grid-view'));
+    } else {
+      dispatch(setProductsView('list-view'));
     }
-    else {
-      dispatch(setProductsView("list-view"));
-    }
-  
   }, []);
   const handleToggleProductsListingView = (view_value?: any) => {
-    if (view_value === "list-view") {
-      dispatch(setProductsView("list-view"));
+    if (view_value === 'list-view') {
+      dispatch(setProductsView('list-view'));
     } else {
-      dispatch(setProductsView("grid-view"));
+      dispatch(setProductsView('grid-view'));
     }
   };
   const checkFiltersValue = () => {
-    console.log("filters check", selectedFilters);
+    console.log('filters check', selectedFilters);
   };
   const handleProductListingForLoadMore = () => {
     if (CONSTANTS.ENABLE_LOAD_MORE) {
       console.log(
-        "product listing in grid hook",
+        'product listing in grid hook',
         product_listing_state_from_redux.productListData
       );
       setProductListingData(
@@ -146,7 +144,7 @@ const useProductListing = () => {
     }
     if (CONSTANTS.ENABLE_PAGINATION) {
       console.log(
-        "product listing in grid hook",
+        'product listing in grid hook',
         product_listing_state_from_redux.productListData
       );
       setProductListingData(
@@ -159,34 +157,35 @@ const useProductListing = () => {
   };
   useEffect(() => {
     // console.log("multi currency in prod list hook",currency_value_from_redux);
-    let storeUsefulParamsForFurtherProductListingApi
-    if(router.asPath==="/product-category"){
+    let storeUsefulParamsForFurtherProductListingApi;
+    if (router.asPath === '/product-category') {
       router.push({
-        query: { page: '1', currency: currency_state_from_redux?.selected_currency_value },
+        query: {
+          page: '1',
+          currency: currency_state_from_redux?.selected_currency_value,
+        },
       });
-     storeUsefulParamsForFurtherProductListingApi = {
-      router_origin: router.route.split("/")[1],
-      url_params: query,
-      filterDoctype: filters_state_from_redux?.doctype,
-      filterDocname: filters_state_from_redux?.docname.toLowerCase(),
-      token: TokenFromStore?.token,
-      listing_route:router.route
-    };
-  
-  }
-  else {
-    storeUsefulParamsForFurtherProductListingApi = {
-      router_origin: router.route.split("/")[1],
-      url_params: query,
-      filterDoctype: filters_state_from_redux?.doctype,
-      filterDocname: filters_state_from_redux?.docname.toLowerCase(),
-      token: TokenFromStore?.token,
-      listing_route:router.route
-    };
-  }
+      storeUsefulParamsForFurtherProductListingApi = {
+        router_origin: router.route.split('/')[1],
+        url_params: query,
+        filterDoctype: filters_state_from_redux?.doctype,
+        filterDocname: filters_state_from_redux?.docname.toLowerCase(),
+        token: TokenFromStore?.token,
+        listing_route: router.route,
+      };
+    } else {
+      storeUsefulParamsForFurtherProductListingApi = {
+        router_origin: router.route.split('/')[1],
+        url_params: query,
+        filterDoctype: filters_state_from_redux?.doctype,
+        filterDocname: filters_state_from_redux?.docname.toLowerCase(),
+        token: TokenFromStore?.token,
+        listing_route: router.route,
+      };
+    }
     console.log(
       storeUsefulParamsForFurtherProductListingApi,
-      "storeUsefulParamsForFurtherProductListingApi"
+      'storeUsefulParamsForFurtherProductListingApi'
     );
     dispatch(
       ProductListingThunk({
@@ -203,31 +202,31 @@ const useProductListing = () => {
     } else {
       dispatch(setProductsView(CONSTANTS.PRODUCT_LISTING_VIEW));
     }
-    if (router.query.hasOwnProperty("filter")) {
+    if (router.query.hasOwnProperty('filter')) {
       const encodedFilterString: any = router.query.filter;
       if (encodedFilterString !== undefined) {
         const decodedFilterString = decodeURIComponent(encodedFilterString);
         const decodedFilters = JSON.parse(decodedFilterString);
-        console.log("decoded filters", decodedFilters);
+        console.log('decoded filters', decodedFilters);
         setSelectedFilters([...decodedFilters]);
       }
     } else {
       setSelectedFilters([]);
     }
   }, [dispatch, query]);
-  console.log(router,"routers")
+  console.log(router, 'routers');
   useEffect(() => {
     setToggleProductListView(product_view_slice_from_redux?.view);
   }, [product_view_slice_from_redux?.view]);
   useEffect(() => {
     // console.log("cube in hook",prod)
     switch (product_listing_state_from_redux?.loading) {
-      case "pending":
+      case 'pending':
         setProductsLoading(true);
         setProductListingData([]);
         setProductListTotalCount(0);
         break;
-      case "succeeded":
+      case 'succeeded':
         if (product_listing_state_from_redux?.productListData?.length > 0) {
           handleProductListingForLoadMore();
           setProductListTotalCount(
@@ -239,29 +238,29 @@ const useProductListing = () => {
         }
         setProductsLoading(false);
         break;
-      case "failed":
+      case 'failed':
         setProductsLoading(false);
         setProductListingData([]);
         setProductListTotalCount(0);
         break;
     }
     switch (filters_state_from_redux?.loading) {
-      case "pending":
+      case 'pending':
         setFiltersLoading(true);
         setFiltersData([]);
         break;
-      case "succeeded":
+      case 'succeeded':
         setFiltersData([...filters_state_from_redux.filtersData]);
         setFiltersLoading(false);
         break;
-      case "failed":
+      case 'failed':
         setFiltersData([]);
         setFiltersLoading(false);
         break;
     }
     setToggleProductListView(product_view_slice_from_redux?.view);
   }, [product_listing_state_from_redux, filters_state_from_redux]);
-  console.log(query, "router");
+  console.log(query, 'router');
   return {
     productsLoading,
     productListingData,
@@ -276,7 +275,7 @@ const useProductListing = () => {
     handleLoadMore,
     handlePaginationBtn,
     currency_state_from_redux,
-    query
+    query,
   };
 };
 export default useProductListing;

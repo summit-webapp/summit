@@ -1,27 +1,27 @@
-import { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
+import { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import {
   ProductDetailPageThunk,
   product_detail_data_selector_state,
-} from "../../store/slices/product-detail-page-slices/product-detail-data-slice";
+} from '../../store/slices/product-detail-page-slices/product-detail-data-slice';
 import {
   ProductVariantsThunk,
   product_variants_selector_state,
-} from "../../store/slices/product-detail-page-slices/product-variants-data-slice";
-import { CONSTANTS } from "../../services/config/app-config";
+} from '../../store/slices/product-detail-page-slices/product-variants-data-slice';
+import { CONSTANTS } from '../../services/config/app-config';
 import {
   ProductMatchingItemOptions,
   product_matching_items_selector_state,
-} from "../../store/slices/product-detail-page-slices/product-item-options-slice";
-import getStockAvailability from "../../services/api/product-detail-page-api/product-stock-availability-api";
+} from '../../store/slices/product-detail-page-slices/product-item-options-slice';
+import getStockAvailability from '../../services/api/product-detail-page-api/product-stock-availability-api';
 import {
   fetchStockAvailability,
   stock_availability_state,
-} from "../../store/slices/product-detail-page-slices/product-stock-availability-slice";
-import useProductDetailFunctions from "./product-detail-functions-hook";
-import { get_access_token } from "../../store/slices/auth/token-login-slice";
-import { currency_selector_state } from "../../store/slices/general_slices/multi-currency-slice";
+} from '../../store/slices/product-detail-page-slices/product-stock-availability-slice';
+import useProductDetailFunctions from './product-detail-functions-hook';
+import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
 
 const useProductDetail = () => {
   const router = useRouter();
@@ -46,12 +46,12 @@ const useProductDetail = () => {
   const currency_state_from_redux: any = useSelector(currency_selector_state);
 
   console.log(
-    "product_variants_data_from_redux",
+    'product_variants_data_from_redux',
     product_variants_data_from_redux
   );
   let isDealer: any;
-  if (typeof window !== "undefined") {
-    isDealer = localStorage.getItem("isDealer");
+  if (typeof window !== 'undefined') {
+    isDealer = localStorage.getItem('isDealer');
   }
   const productID = router.query.product_id;
 
@@ -64,13 +64,13 @@ const useProductDetail = () => {
   const [productImages, setProductImages] = useState<any>([]);
   const [productQuantity, setProductQuantity] = useState<number>(1);
   const [newobjectState, setnewObjectState] = useState<any>([]);
-  let [minQty, setMinQty] = useState<any>("");
+  let [minQty, setMinQty] = useState<any>('');
   const [stockAvailabilityTextChanges, setstockAvailabilityTextChanges] =
     useState(false);
   const [checkStock, setCheckStock] = useState<boolean>(false);
   const [stockAvailability, setStockAvailability] = useState<any>([]);
   const [selectedVariantCodeForAddToCart, setSelectedVariantCodeForAddToCart] =
-    useState("");
+    useState('');
   const [productVariants, setProductVariants] = useState<any>({});
 
   let [selectedVariant, setSelectedVariant] = useState<any>({});
@@ -91,7 +91,7 @@ const useProductDetail = () => {
   // console.log("detail page router", stock_availability_data_from_redux);
 
   const handleCreationOfProductEnlargeImages = () => {
-    console.log("creation", productDetailData);
+    console.log('creation', productDetailData);
     let templateImages: any = [];
     if (productDetailData?.slide_img?.length > 0) {
       productDetailData?.slide_img?.map((imgs: any) => {
@@ -109,13 +109,13 @@ const useProductDetail = () => {
     let imgArr: any = [];
 
     if (Object.keys(selectedVariant).length > 0) {
-      console.log("rastafari 2", selectedVariant);
+      console.log('rastafari 2', selectedVariant);
       const matchedVariant = productVariants?.variants?.find((variant: any) =>
         Object.entries(selectedVariant).every(
           ([key, value]) => variant[key] === value
         )
       );
-      console.log("util format matched variant", matchedVariant);
+      console.log('util format matched variant', matchedVariant);
       if (matchedVariant !== undefined) {
         setDoesSelectedVariantDoesNotExists(false);
         if (matchedVariant?.stock) {
@@ -138,7 +138,7 @@ const useProductDetail = () => {
       // imgArr.push(productImages);
       setProductImages([...imgArr, ...templateImages]);
     }
-    console.log("creation", templateImages);
+    console.log('creation', templateImages);
   };
 
   const testBtn = () => {
@@ -178,9 +178,9 @@ const useProductDetail = () => {
   };
 
   const handleStockAvail = (item_code: any) => {
-    console.log("input qty object", newobjectState);
+    console.log('input qty object', newobjectState);
 
-    if (isDealer === "true") {
+    if (isDealer === 'true') {
       const params = {
         item_code: item_code,
         qty: newobjectState[0]?.quantity,
@@ -190,8 +190,8 @@ const useProductDetail = () => {
 
       setTimeout(() => {
         window.scrollTo({
-          top: document.getElementById("scroll_btn")?.offsetTop,
-          behavior: "smooth",
+          top: document.getElementById('scroll_btn')?.offsetTop,
+          behavior: 'smooth',
         });
       }, 100);
       setCheckStock(true);
@@ -206,8 +206,8 @@ const useProductDetail = () => {
 
       setTimeout(() => {
         window.scrollTo({
-          top: document.getElementById("scroll_btn")?.offsetTop,
-          behavior: "smooth",
+          top: document.getElementById('scroll_btn')?.offsetTop,
+          behavior: 'smooth',
         });
       }, 100);
       setCheckStock(true);
@@ -215,7 +215,7 @@ const useProductDetail = () => {
   };
 
   useEffect(() => {
-    console.log("currency in prod detail", query);
+    console.log('currency in prod detail', query);
     dispatch(
       ProductDetailPageThunk({
         productID: productID,
@@ -248,19 +248,19 @@ const useProductDetail = () => {
 
   useEffect(() => {
     switch (product_detail_data_from_redux?.loading) {
-      case "pending":
+      case 'pending':
         setProductDetailLoading(true);
         setProductImageLoading(true);
         setProductDetailData({});
         break;
-      case "succeeded":
-        if (product_detail_data_from_redux?.data?.hasOwnProperty("name")) {
+      case 'succeeded':
+        if (product_detail_data_from_redux?.data?.hasOwnProperty('name')) {
           setProductDetailData(product_detail_data_from_redux.data);
           const keysToExtract = [
-            "alternate",
-            "equivalent",
-            "suggested",
-            "mandatory",
+            'alternate',
+            'equivalent',
+            'suggested',
+            'mandatory',
           ];
           const filteredKeys = keysToExtract.filter(
             (key) => product_detail_data_from_redux?.data[key] === true
@@ -272,7 +272,7 @@ const useProductDetail = () => {
         setProductDetailLoading(false);
         setProductImageLoading(false);
         break;
-      case "failed":
+      case 'failed':
         setProductDetailLoading(false);
         setProductImageLoading(false);
         setProductDetailData({});
@@ -280,13 +280,13 @@ const useProductDetail = () => {
     }
 
     switch (product_variants_data_from_redux?.loading) {
-      case "pending":
+      case 'pending':
         setProductVariants({});
         break;
-      case "succeeded":
+      case 'succeeded':
         setProductVariants(product_variants_data_from_redux.data);
         break;
-      case "failed":
+      case 'failed':
         setProductVariants({});
         break;
     }

@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   display_tags,
   fetchDisplayTags,
   testReducer,
-} from "../../store/slices/home_page_slice/home-display-tag-slice";
-import { get_access_token } from "../../store/slices/auth/token-login-slice";
+} from '../../store/slices/home_page_slice/home-display-tag-slice';
+import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import {
   currency_selector_state,
   setCurrencyValue,
   setDefaultCurrencyValue,
-} from "../../store/slices/general_slices/multi-currency-slice";
+} from '../../store/slices/general_slices/multi-currency-slice';
 
 const useDisplayTagHooks = () => {
   const dispatch = useDispatch();

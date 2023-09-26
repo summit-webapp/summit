@@ -1,11 +1,11 @@
-import React from "react";
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
+import React from 'react';
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from '../general_apis/cookie-instance-api';
 const fetchBrands = async (token: any) => {
   const version = CONSTANTS.VERSION;
-  const method = "get";
-  const entity = "brand";
+  const method = 'get';
+  const entity = 'brand';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
   let response: any;
 
@@ -28,12 +28,12 @@ const fetchBrands = async (token: any) => {
       // });
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

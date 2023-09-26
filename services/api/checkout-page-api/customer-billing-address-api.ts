@@ -1,13 +1,13 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const fetchBillingAddress = async (token: any) => {
-  const guestid = localStorage.getItem("guestid");
+  const guestid = localStorage.getItem('guestid');
 
   const version = CONSTANTS.VERSION;
-  const method = "get";
-  const entity = "customer_address";
-  const type = "Billing";
+  const method = 'get';
+  const entity = 'customer_address';
+  const type = 'Billing';
   const params = `?version=${version}&method=${method}&entity=${entity}&type=${type}`;
 
   let response: any;
@@ -25,18 +25,18 @@ const fetchBillingAddress = async (token: any) => {
         { ...config, timeout: 5000 }
       )
       .then((res: any) => {
-        console.log("ress", res);
+        console.log('ress', res);
         response = res.data.message.data.sort(function (a: any, b: any) {
           return b.set_as_default - a.set_as_default;
         });
       })
       .catch((err: any) => {
-        if (err.code === "ECONNABORTED") {
-          response = "Request timed out";
-        } else if (err.code === "ERR_BAD_REQUEST") {
-          response = "Bad Request";
-        } else if (err.code === "ERR_INVALID_URL") {
-          response = "Invalid URL";
+        if (err.code === 'ECONNABORTED') {
+          response = 'Request timed out';
+        } else if (err.code === 'ERR_BAD_REQUEST') {
+          response = 'Bad Request';
+        } else if (err.code === 'ERR_INVALID_URL') {
+          response = 'Invalid URL';
         } else {
           response = err;
         }
@@ -49,14 +49,14 @@ const fetchBillingAddress = async (token: any) => {
         config
       )
       .then((res: any) => {
-        console.log("ress g", res);
+        console.log('ress g', res);
 
         response = res.data.message.data.sort(function (a: any, b: any) {
           return b.set_as_default - a.set_as_default;
         });
       })
       .catch((err: any) => {
-        console.log("err", err);
+        console.log('err', err);
       });
     return response;
   }

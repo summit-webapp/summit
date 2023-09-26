@@ -1,12 +1,12 @@
-import React from "react";
-import { CONSTANTS } from "../../config/app-config";
-import axios from "axios";
+import React from 'react';
+import { CONSTANTS } from '../../config/app-config';
+import axios from 'axios';
 
-const GetCatalogList = async (token:any) => {
+const GetCatalogList = async (token: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "get";
-  const entity = "catalog";
+  const method = 'get';
+  const entity = 'catalog';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
   const config = {
     headers: {

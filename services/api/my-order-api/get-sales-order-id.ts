@@ -1,11 +1,11 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const SalesOrderIdFetch = async (token?: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "get_order_id";
-  const entity = "order";
+  const method = 'get_order_id';
+  const entity = 'order';
 
   const params = `?version=${version}&method=${method}&entity=${entity}`;
 
@@ -24,12 +24,12 @@ const SalesOrderIdFetch = async (token?: any) => {
       response = res.data.message.data;
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }
