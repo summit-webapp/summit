@@ -1,10 +1,11 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import { useEffect } from "react";
-export const config = { amp: "hybrid" };
+
+export const config = { amp: 'hybrid' };
 export default function Document() {
   let isDealer;
-  if (typeof window !== "undefined") {
-    isDealer = localStorage.getItem("isDealer");
+  if (typeof window !== 'undefined') {
+    isDealer = localStorage.getItem('isDealer');
   }
   console.log(isDealer);
   console.log(typeof isDealer);
@@ -17,9 +18,9 @@ export default function Document() {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,0&display=swap"
             onLoad={(e) => {
-              console.log("Font Loaded Successfully");
+              console.log('Font Loaded Successfully');
               const linkElem = e.currentTarget as HTMLLinkElement;
-              linkElem.media = "all";
+              linkElem.media = 'all';
             }}
           />
           {/* <!-- Font Awesome Icons --> */}
@@ -27,9 +28,9 @@ export default function Document() {
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             onLoad={(e) => {
-              console.log("Font Loaded Successfully");
+              console.log('Font Loaded Successfully');
               const linkElem = e.currentTarget as HTMLLinkElement;
-              linkElem.media = "all";
+              linkElem.media = 'all';
             }}
           />
           {/* <!-- Google fonts --> */}
@@ -40,7 +41,7 @@ export default function Document() {
             rel="stylesheet"
             onLoad={(e) => {
               const target = e.target as HTMLLinkElement;
-              target.media = "all";
+              target.media = 'all';
             }}
           ></link>
 
@@ -52,15 +53,15 @@ export default function Document() {
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
-            crossOrigin={"anonymous"}
+            crossOrigin={'anonymous'}
           />
           <link
             href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@400;500;600;700&display=swap"
             rel="stylesheet"
             onLoad={(e) => {
-              console.log("Font Loaded Successfully");
+              console.log('Font Loaded Successfully');
               const linkElem = e.currentTarget as HTMLLinkElement;
-              linkElem.media = "all";
+              linkElem.media = 'all';
             }}
           />
           {/* <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,9 +70,9 @@ export default function Document() {
             href="https://fonts.googleapis.com/css2?family=Nunito&display=swap"
             rel="stylesheet"
             onLoad={(e) => {
-              console.log("Font Loaded Successfully");
+              console.log('Font Loaded Successfully');
               const linkElem = e.currentTarget as HTMLLinkElement;
-              linkElem.media = "all";
+              linkElem.media = 'all';
             }}
           />
         </>

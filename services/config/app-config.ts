@@ -1,10 +1,10 @@
-let ENV = "DEV";
+let ENV = 'DEV';
 
 export const CONSTANTS = {
   API_BASE_URL:
-    ENV === "PROD" ? "" : "https://digital-shelf.8848digitalerp.com",
-  API_MANDATE_PARAMS: "/api/method/summitapp.sdk.api",
-  VERSION: "v1",
+    ENV === 'PROD' ? '' : 'https://digital-shelf.8848digitalerp.com',
+  API_MANDATE_PARAMS: '/api/method/summitapp.sdk.api',
+  VERSION: 'v1',
   ENABLE_APPLY_COUPON_CODE: true,
   ENABLE_STORE_CREDIT: true,
   ENABLE_REDIRECT_FEATURE: false,
@@ -19,7 +19,7 @@ export const CONSTANTS = {
   ENABLE_MISSING_PARTS: true,
   ENABLE_PAGINATION: true,
   ENABLE_LOAD_MORE: false,
-  SHOW_MORE_ITEMS: "paginate",
+  SHOW_MORE_ITEMS: 'paginate',
   SHOW_FUTURE_STOCK_AVAILABILITY_TO_GUEST: true,
   ADD_TO_CART_FOR_GUEST: true,
   ALLOW_PAYMENT_GATEWAY: false,
@@ -28,10 +28,10 @@ export const CONSTANTS = {
   // "PRODUCT_LISTING_VIEW" IS A KEY WHOSE VALUE DECIDES WHETHER TO SHOW CARD VIEW OF LIST VIEW ON PRODUCT LISTING PAGE.
   // IT WILL CONTAIN TWO VALUES "list-view" or "grid-view"
   ENABLE_TOGGLE_PRODUCT_LISTING_VIEW: true,
-  PRODUCT_LISTING_VIEW: "grid-view",
+  PRODUCT_LISTING_VIEW: 'grid-view',
   ENABLE_META_TAGS: true,
   ENABLE_SEARCH_TEXT: false,
   ENABLE_PAYMENT_INTEGRATION: false,
-  DEFAULT_CURRENCY_VALUE: "rupee",
-  DEFAULT_LANGUAGE: "en",
+  DEFAULT_CURRENCY_VALUE: 'rupee',
+  DEFAULT_LANGUAGE: 'en',
 };

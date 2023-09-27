@@ -1,14 +1,14 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from '../general_apis/cookie-instance-api';
 
 const fetchShippingAddress = async (token: any) => {
-  const guestid = localStorage.getItem("guestId");
+  const guestid = localStorage.getItem('guestId');
 
   const version = CONSTANTS.VERSION;
-  const method = "get";
-  const entity = "customer_address";
-  const type = "Shipping";
+  const method = 'get';
+  const entity = 'customer_address';
+  const type = 'Shipping';
   const params = `?version=${version}&method=${method}&entity=${entity}&type=${type}`;
 
   let response: any;
@@ -26,18 +26,18 @@ const fetchShippingAddress = async (token: any) => {
         { ...config, timeout: 5000 }
       )
       .then((res: any) => {
-        console.log("shipping address api res guest", res);
+        console.log('shipping address api res guest', res);
         response = res?.data?.message?.data?.sort(function (a: any, b: any) {
           return b.set_as_default - a.set_as_default;
         });
       })
       .catch((err: any) => {
-        if (err.code === "ECONNABORTED") {
-          response = "Request timed out";
-        } else if (err.code === "ERR_BAD_REQUEST") {
-          response = "Bad Request";
-        } else if (err.code === "ERR_INVALID_URL") {
-          response = "Invalid URL";
+        if (err.code === 'ECONNABORTED') {
+          response = 'Request timed out';
+        } else if (err.code === 'ERR_BAD_REQUEST') {
+          response = 'Bad Request';
+        } else if (err.code === 'ERR_INVALID_URL') {
+          response = 'Invalid URL';
         } else {
           response = err;
         }
@@ -51,7 +51,7 @@ const fetchShippingAddress = async (token: any) => {
         config
       )
       .then((res: any) => {
-        console.log("shipping address api res", res);
+        console.log('shipping address api res', res);
         response = res?.data?.message?.data?.sort(function (a: any, b: any) {
           return b.set_as_default - a.set_as_default;
         });

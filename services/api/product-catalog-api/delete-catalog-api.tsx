@@ -1,12 +1,12 @@
-import React from "react";
-import { CONSTANTS } from "../../config/app-config";
-import axios from "axios";
+import React from 'react';
+import { CONSTANTS } from '../../config/app-config';
+import axios from 'axios';
 
-const deleteCatalog = async (catalogname:any,token:any) => {
+const deleteCatalog = async (catalogname: any, token: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
-  const method = "delete";
-  const entity = "catalog";
+  const method = 'delete';
+  const entity = 'catalog';
   const params = `?version=${version}&method=${method}&entity=${entity}&catalog_name=${catalogname}`;
   const config = {
     headers: {

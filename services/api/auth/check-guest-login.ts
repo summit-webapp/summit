@@ -1,5 +1,5 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const CheckGuestUser = async (token: any) => {
   let response: any;
@@ -16,19 +16,19 @@ const CheckGuestUser = async (token: any) => {
       timeout: 5000,
     })
     .then((res) => {
-      const saveGuest = res?.data?.message.includes("random");
-      console.log("guest login check gg", saveGuest);
+      const saveGuest = res?.data?.message.includes('random');
+      console.log('guest login check gg', saveGuest);
       if (saveGuest) {
-        localStorage.setItem("guest", res?.data?.message);
+        localStorage.setItem('guest', res?.data?.message);
       }
     })
     .catch((err) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

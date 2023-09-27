@@ -1,37 +1,37 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../root-reducer";
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../root-reducer';
 
 const initialState = {
-  msg: "",
-  bgColor: "",
+  msg: '',
+  bgColor: '',
   show: false,
-  data: "",
+  data: '',
 };
 
 export const notificationsSlice = createSlice({
-  name: "notifications",
+  name: 'notifications',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     successmsg: (state, action) => {
-      console.log(action.payload, "payload toast");
+      console.log(action.payload, 'payload toast');
 
       state.data = action?.payload;
-      state.bgColor = "green";
+      state.bgColor = 'green';
       state.show = true;
     },
     failmsg: (state, action) => {
-      console.log(action.payload, "payload toast");
+      console.log(action.payload, 'payload toast');
 
       state.data = action?.payload;
-      state.bgColor = "red";
+      state.bgColor = 'red';
       state.show = true;
     },
     hideToast: (state) => {
       state.show = false;
-      state.data = "";
-      state.bgColor = "";
+      state.data = '';
+      state.bgColor = '';
     },
   },
 });

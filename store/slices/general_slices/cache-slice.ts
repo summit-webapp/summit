@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../root-reducer";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../root-reducer';
 const initialState = {
   cacheData: {},
 };
 const cacheSlice = createSlice({
-  name: "cache-slice",
+  name: 'cache-slice',
   initialState,
   reducers: {
     setRevalidationTime(state, action) {

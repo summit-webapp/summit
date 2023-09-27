@@ -1,13 +1,13 @@
-import axios from "axios";
-import { CONSTANTS } from "../../config/app-config";
+import axios from 'axios';
+import { CONSTANTS } from '../../config/app-config';
 
 const getDealerLedger = async (request: any) => {
-  console.log("dealer ledger req", request)
+  console.log('dealer ledger req', request);
   let response: any;
-  let params: any
+  let params: any;
   const version = CONSTANTS.VERSION;
-  const method = "get_dealer_ledger";
-  const entity = "gl";
+  const method = 'get_dealer_ledger';
+  const entity = 'gl';
   const party = request.partyName;
   const month = request.month;
   const FromDate = request.fromDate;
@@ -17,7 +17,6 @@ const getDealerLedger = async (request: any) => {
     params = `?version=${version}&method=${method}&entity=${entity}&party=${party}&month=${month}`;
   } else {
     params = `?version=${version}&method=${method}&entity=${entity}&party=${party}&from_date=${FromDate}&to_date=${ToDate}`;
-
   }
 
   const config = {
@@ -31,21 +30,21 @@ const getDealerLedger = async (request: any) => {
       timeout: 5000,
     })
     .then((res: any) => {
-      console.log("dealer ledger api res", res);
+      console.log('dealer ledger api res', res);
       response = res;
     })
     .catch((err: any) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }
     });
-  return response
+  return response;
 };
 
 export default getDealerLedger;
