@@ -1,18 +1,18 @@
-import axios from "axios";
-import { API_CONFIG } from "../../config/api-config";
-import { CONSTANTS } from "../../config/app-config";
-import { client } from "../general_apis/cookie-instance-api";
+import axios from 'axios';
+import { API_CONFIG } from '../../config/api-config';
+import { CONSTANTS } from '../../config/app-config';
+import { client } from '../general_apis/cookie-instance-api';
 
 export const MissingPartsAPI = async (
-  token:any,
+  token: any,
   searchText: any,
-  descriptionValue: any,
+  descriptionValue: any
 ) => {
   let response: any;
   let url: any;
   const version = CONSTANTS.VERSION;
-  const method = "customer_inquiry";
-  const entity = "profile";
+  const method = 'customer_inquiry';
+  const entity = 'profile';
 
   const config = {
     headers: {
@@ -32,12 +32,12 @@ export const MissingPartsAPI = async (
       response = res;
     })
     .catch((err) => {
-      if (err.code === "ECONNABORTED") {
-        response = "Request timed out";
-      } else if (err.code === "ERR_BAD_REQUEST") {
-        response = "Bad Request";
-      } else if (err.code === "ERR_INVALID_URL") {
-        response = "Invalid URL";
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
       } else {
         response = err;
       }

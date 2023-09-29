@@ -1,25 +1,25 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../root-reducer";
-import RegistrationApi from "../../../services/api/auth/registration_api";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../root-reducer';
+import RegistrationApi from '../../../services/api/auth/registration_api';
 import {
   failmsg,
   hideToast,
   successmsg,
-} from "../general_slices/toast_notification_slice";
-import { showToast } from "../../../components/ToastNotificationNew";
+} from '../general_slices/toast_notification_slice';
+import { showToast } from '../../../components/ToastNotificationNew';
 
 export const getRegistrationData: any = createAsyncThunk(
-  "registrationData/getRegistrationData",
+  'registrationData/getRegistrationData',
   async (data, { dispatch }) => {
     const RegistrationValues = await RegistrationApi(data);
-    console.log(RegistrationValues, "RegistrationValues");
+    console.log(RegistrationValues, 'RegistrationValues');
     if (
       RegistrationValues.status === 200 &&
-      RegistrationValues?.data?.message?.msg === "success"
+      RegistrationValues?.data?.message?.msg === 'success'
     ) {
-      showToast("Registerd sucessfully", "success");
+      showToast('Registerd sucessfully', 'success');
     } else {
-      showToast(RegistrationValues?.data?.message?.error, "error");
+      showToast(RegistrationValues?.data?.message?.error, 'error');
     }
     return RegistrationValues;
   }
@@ -27,32 +27,32 @@ export const getRegistrationData: any = createAsyncThunk(
 interface RepoRegistrationState {
   items: any;
   error: string;
-  isLoading: "idle" | "pending" | "succeeded" | "failed";
+  isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
 const initialState: RepoRegistrationState = {
   items: {},
-  error: "",
-  isLoading: "idle",
+  error: '',
+  isLoading: 'idle',
 };
 
 export const RepoRegistrationScreen = createSlice({
-  name: "registrationData",
+  name: 'registrationData',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getRegistrationData.pending, (state) => {
-      state.isLoading = "pending";
+      state.isLoading = 'pending';
       state.items = {};
     });
     builder.addCase(getRegistrationData.fulfilled, (state, action) => {
-      state.isLoading = "succeeded";
+      state.isLoading = 'succeeded';
       state.items = action.payload;
     });
     builder.addCase(getRegistrationData.rejected, (state, action) => {
-      state.isLoading = "failed";
+      state.isLoading = 'failed';
       state.items = {};
-      state.error = "Unable to load brands";
+      state.error = 'Unable to load brands';
     });
   },
 });

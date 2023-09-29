@@ -1,21 +1,24 @@
-
-import { ISitemapField, getServerSideSitemap, getServerSideSitemapLegacy } from "next-sitemap";
-import axios from "axios";
-import { CONSTANTS } from "../services/config/app-config";
+import {
+  ISitemapField,
+  getServerSideSitemap,
+  getServerSideSitemapLegacy,
+} from 'next-sitemap';
+import axios from 'axios';
+import { CONSTANTS } from '../services/config/app-config';
 function generateSiteMap(urlsData: any) {
-  console.log("sitemap-urls-data", urlsData);
+  console.log('sitemap-urls-data', urlsData);
   return `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
        ${urlsData
-      .map((url: any) => {
-        return `
+         .map((url: any) => {
+           return `
          <url>
              <loc>${url.loc}</loc>
              <lastmod>${url.lastmod}</lastmod>
          </url>
        `;
-      })
-      .join("")}
+         })
+         .join('')}
      </urlset>
    `;
 }
@@ -25,15 +28,15 @@ function SiteMap() {
 }
 
 export const getServerSideProps = async ({ res }: any) => {
-  const method = "get_site_map";
-  const entity = "seo";
+  const method = 'get_site_map';
+  const entity = 'seo';
   const pageTypes = [
-    "product-category",
-    "product",
-    "brand",
-    "brand-product",
-    "catalog",
-    "catalog-product",
+    'product-category',
+    'product',
+    'brand',
+    'brand-product',
+    'catalog',
+    'catalog-product',
   ];
   let responseData: any = [];
 
@@ -64,7 +67,7 @@ export const getServerSideProps = async ({ res }: any) => {
     lastmod: `${item.lastmod}`,
   }));
 
-  console.log("sitemap", fields);
+  console.log('sitemap', fields);
   // return getServerSideSitemap(fields);
   //   // We make an API call to gather the URLs for our site
   //   const request = await fetch(EXTERNAL_DATA_URL);
@@ -72,12 +75,11 @@ export const getServerSideProps = async ({ res }: any) => {
 
   // We generate the XML sitemap with the posts data
   const sitemap = generateSiteMap(responseData);
-  console.log("sitemap-string", sitemap);
+  console.log('sitemap-string', sitemap);
 
   // return getServerSideSitemapLegacy(ctx, responseData);
 
-
-  res.setHeader("Content-Type", "text/xml");
+  res.setHeader('Content-Type', 'text/xml');
   // // we send the XML to the browser
   res.write(sitemap);
   res.end();

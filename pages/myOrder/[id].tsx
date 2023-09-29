@@ -1,5 +1,5 @@
-import React from "react";
-import OrderDetailComp from "../../components/OrderDetails/OrderDetail";
+import React from 'react';
+import OrderDetailComp from '../../components/OrderDetails/OrderDetail';
 
 const OrderDetail = () => {
   return (

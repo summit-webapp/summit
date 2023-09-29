@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../root-reducer";
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../root-reducer';
 
 interface selectedLangData {
   selectedLanguageData: any;
@@ -8,11 +8,11 @@ interface selectedLangData {
 
 const initialState: selectedLangData = {
   selectedLanguageData: [],
-  error: "",
+  error: '',
 };
 
 export const SelectedFilterLangData: any = createSlice({
-  name: "selectedLang",
+  name: 'selectedLang',
   initialState,
   reducers: {
     SelectedLangData: (state, action) => {

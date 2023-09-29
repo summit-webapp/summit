@@ -1,6 +1,6 @@
-import ProductDetailMaster from "../../../../components/ProductDetailComponents/ProductDetailMaster";
-import MetaTag from "../../../../services/api/general_apis/meta-tag-api";
-import { CONSTANTS } from "../../../../services/config/app-config";
+import ProductDetailMaster from '../../../../components/ProductDetailComponents/ProductDetailMaster';
+import MetaTag from '../../../../services/api/general_apis/meta-tag-api';
+import { CONSTANTS } from '../../../../services/config/app-config';
 
 const Index = () => {
   return (
@@ -13,12 +13,12 @@ const Index = () => {
 };
 
 export async function getServerSideProps(context: any) {
-  const method = "get_meta_tags";
-  const version = "v1";
-  const entity = "seo";
+  const method = 'get_meta_tags';
+  const version = 'v1';
+  const entity = 'seo';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
-  const url = `${context.resolvedUrl.split("?")[0]}`;
-  console.log("context url", url);
+  const url = `${context.resolvedUrl.split('?')[0]}`;
+  console.log('context url', url);
   if (CONSTANTS.ENABLE_META_TAGS) {
     let meta_data: any = await MetaTag(
       `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}&page_name=${url}`
