@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Welcome Issue
         if: github.event_name == 'issues'
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const issue = context.issue;
