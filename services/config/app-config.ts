@@ -4,7 +4,7 @@ export const CONSTANTS = {
   API_BASE_URL:
     ENV === 'PROD' ? '' : 'https://digital-shelf.8848digitalerp.com',
   API_MANDATE_PARAMS: '/api/method/summitapp.sdk.api',
-  VERSION: 'v1',
+  VERSION: 'v2',
   ENABLE_APPLY_COUPON_CODE: true,
   ENABLE_STORE_CREDIT: true,
   ENABLE_REDIRECT_FEATURE: false,

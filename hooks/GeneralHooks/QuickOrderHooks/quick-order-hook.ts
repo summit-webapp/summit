@@ -30,7 +30,9 @@ export const useQuickOrder = () => {
 
   const [itemNotFoundErr, setItemNotFoundErr] = useState(false);
   const handleKeyDown = async (e: any) => {
-    // if (e.key === "Enter") {
+    console.log(partNumberInputField,"partNumberInputField")
+    console.log("enter data from store", quickOrderDataFromStore);
+   if (e.key === "Enter") {
     if (partNumberInputField === '') {
       setIfInputEmptyErr(true);
       setTimeout(() => {
@@ -60,9 +62,19 @@ export const useQuickOrder = () => {
             setIfPartNumberExistsErr(false);
           }, 3000);
         }
+
+        // if(quickOrderDataFromStore?.itemList?.length === 0) {
+        //   setItemNotFoundErr(true);
+        //   setTimeout(() => {
+        //     setItemNotFoundErr(false);
+        //   }, 2000);
+        // }
       }
     }
-    // }
+  
+      setPartNumberInputField("")
+    
+     }
   };
   // console.log(quickOrderDataFromStore, "quick_order_state");
   const handleClearReduxStore = () => {
