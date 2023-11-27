@@ -34,6 +34,7 @@ import MultiLanguageReducer from './slices/general_slices/multilang-slice';
 import SelectedFilterLangDataScreen from './slices/general_slices/selected-multilanguage-slice';
 import DealerledgerSummary from './slices/dealer-ledger-slice/dealer-ledger-summary';
 import Dealerledger from './slices/dealer-ledger-slice/dealer-ledger-slice';
+import productOnHomeSlice from './slices/home_page_slice/get-product-list-on-home-slice';
 
 const appReducer = combineReducers({
   CacheScreen: CacheReducer,
@@ -71,6 +72,7 @@ const appReducer = combineReducers({
   SelectedFilterLangDataScreen: SelectedFilterLangDataScreen,
   DealerledgerSummaryScreen: DealerledgerSummary,
   DealerledgerScreen: Dealerledger,
+  productListOnHome:productOnHomeSlice
 });
 
 const rootReducer = (state: any, action: any) => {
