@@ -229,13 +229,13 @@ const useProductDetail = () => {
         token: TokenFromStore?.token,
       }) as any
     );
-    // dispatch(
-    //   ProductMatchingItemOptions({
-    //     productID: productID,
-    //     currency: query.currency,
-    //     token: TokenFromStore?.token,
-    //   }) as any
-    // );
+    dispatch(
+      ProductMatchingItemOptions({
+        productID: productID,
+        currency: query.currency,
+        token: TokenFromStore?.token,
+      }) as any
+    );
   }, [query]);
 
   useEffect(() => {
