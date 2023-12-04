@@ -1,10 +1,12 @@
-import React from 'react'
-import FirmwareComponent from '../components/Firmware/Firmware'
+import React from 'react';
+import FirmwareComponent from '../components/Firmware/Firmware';
 
-const index = () => {
+const Firmware = () => {
   return (
-    <div><FirmwareComponent/></div>
-  )
-}
+    <>
+      <FirmwareComponent />
+    </>
+  );
+};
 
-export default index
+export default Firmware;
