@@ -35,6 +35,10 @@ import SelectedFilterLangDataScreen from './slices/general_slices/selected-multi
 import DealerledgerSummary from './slices/dealer-ledger-slice/dealer-ledger-summary';
 import Dealerledger from './slices/dealer-ledger-slice/dealer-ledger-slice';
 import productOnHomeSlice from './slices/home_page_slice/get-product-list-on-home-slice';
+import WarrantySerailNoDetails from './slices/warranty-check-slice/get-serial-no-details-slice';
+import WarrantyGetClaim from './slices/warranty-check-slice/get-warranty-claim-slice';
+import getCustomerWarrantyDetailsSlice from './slices/warranty-check-slice/get-customer-warranty-details-slice';
+import WarrantySerialNoListSlice from './slices/warranty-check-slice/get-serial-no-list-slice';
 
 const appReducer = combineReducers({
   CacheScreen: CacheReducer,
@@ -72,7 +76,11 @@ const appReducer = combineReducers({
   SelectedFilterLangDataScreen: SelectedFilterLangDataScreen,
   DealerledgerSummaryScreen: DealerledgerSummary,
   DealerledgerScreen: Dealerledger,
-  productListOnHome:productOnHomeSlice
+  productListOnHome: productOnHomeSlice,
+  WarrantySerailNoDetailsSlice: WarrantySerailNoDetails,
+  WarrantyGetClaimSlice: WarrantyGetClaim,
+  GetCustomerWarrantyDetailsSlice: getCustomerWarrantyDetailsSlice,
+  WarrantySerialNoListSlice:WarrantySerialNoListSlice
 });
 
 const rootReducer = (state: any, action: any) => {
