@@ -39,6 +39,10 @@ import ProductListTestimonial from './slices/product-listing-page-slices/product
 import HomeMarque from './slices/home_page_slice/home-marque-slice';
 import CompanyMoto from './slices/home_page_slice/home-company-moto-slice';
 import ProductReview from './slices/product-detail-page-slices/product-review-slice/product-review-slice';
+import WarrantySerailNoDetails from './slices/warranty-check-slice/get-serial-no-details-slice';
+import WarrantyGetClaim from './slices/warranty-check-slice/get-warranty-claim-slice';
+import getCustomerWarrantyDetailsSlice from './slices/warranty-check-slice/get-customer-warranty-details-slice';
+import WarrantySerialNoListSlice from './slices/warranty-check-slice/get-serial-no-list-slice';
 
 const appReducer = combineReducers({
   CacheScreen: CacheReducer,
@@ -81,6 +85,10 @@ const appReducer = combineReducers({
   HomeMarque: HomeMarque,
   CompanyMoto: CompanyMoto,
   ProductReview: ProductReview,
+  WarrantySerailNoDetailsSlice: WarrantySerailNoDetails,
+  WarrantyGetClaimSlice: WarrantyGetClaim,
+  GetCustomerWarrantyDetailsSlice: getCustomerWarrantyDetailsSlice,
+  WarrantySerialNoListSlice: WarrantySerialNoListSlice
 });
 
 const rootReducer = (state: any, action: any) => {
