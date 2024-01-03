@@ -39,6 +39,7 @@ import WarrantySerailNoDetails from './slices/warranty-check-slice/get-serial-no
 import WarrantyGetClaim from './slices/warranty-check-slice/get-warranty-claim-slice';
 import getCustomerWarrantyDetailsSlice from './slices/warranty-check-slice/get-customer-warranty-details-slice';
 import WarrantySerialNoListSlice from './slices/warranty-check-slice/get-serial-no-list-slice';
+import productSpecificationScreen from './slices/product-detail-page-slices/product-specification-slice';
 
 const appReducer = combineReducers({
   CacheScreen: CacheReducer,
@@ -80,7 +81,8 @@ const appReducer = combineReducers({
   WarrantySerailNoDetailsSlice: WarrantySerailNoDetails,
   WarrantyGetClaimSlice: WarrantyGetClaim,
   GetCustomerWarrantyDetailsSlice: getCustomerWarrantyDetailsSlice,
-  WarrantySerialNoListSlice:WarrantySerialNoListSlice
+  WarrantySerialNoListSlice:WarrantySerialNoListSlice,
+  productSpecification:productSpecificationScreen,
 });
 
 const rootReducer = (state: any, action: any) => {
