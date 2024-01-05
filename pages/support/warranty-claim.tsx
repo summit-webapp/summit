@@ -1,5 +1,5 @@
 import React from 'react'
-import WarrantyCheck from '../components/WarrantyCheck/WarrantyCheck'
+import WarrantyCheck from '../../components/WarrantyCheck/WarrantyCheck'
 
 
 const index = () => {
