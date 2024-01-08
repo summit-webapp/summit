@@ -13,22 +13,22 @@ const usePincodeValidation = () => {
   const validatePincodeFromStore = useSelector(validate_pincode_state);
   console.log('pincode1 from store in hook ',validatePincodeFromStore)
   const [Loadings, setLoadings] = useState('');
-  const [ pincodeRes, setPincodeRes] = useState<any>([]);
+  const [ pincodeRes, setPincodeRes] = useState<any>(validatePincodeFromStore?.data || null);
   const [pincode , setPincode] = useState<any>()
   console.log('pincode1 ',pincode)
   useEffect(() => {
-    dispatch(fetchPincodeServiceableArea({pincode}));
+    if(pincode !== undefined && pincode.length > 5 )
+    {
+      dispatch(fetchPincodeServiceableArea({pincode}));
+    }
   }, [pincode]);
 
   useEffect(() => {
     setLoadings(validatePincodeFromStore.isLoading);
-
-    if(validatePincodeFromStore.data) {
-      setPincodeRes(validatePincodeFromStore?.data);
-    }
+      setPincodeRes(validatePincodeFromStore?.data); 
   }, [validatePincodeFromStore]);
 
-console.log('pincode res',pincodeRes)
+console.log('pincode res',pincodeRes , setPincodeRes)
   return {pincodeRes,setPincode,Loadings};
 };
 
