@@ -1,7 +1,7 @@
 import React from 'react';
-import useContactUs from '../../hooks/GeneralHooks/ContactUsHooks/contactus-hooks';
+import useContactUs from '../hooks/GeneralHooks/ContactUsHooks/contactus-hooks';
 import { constants } from 'buffer';
-import MasterContactUs from '../../components/ContactUs/MasterContactUs';
+import MasterContactUs from '../components/ContactUs/MasterContactUs';
 
 const ContactUs = () => {
   return (
