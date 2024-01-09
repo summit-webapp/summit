@@ -180,6 +180,8 @@ const useProductDetail = () => {
   const handleStockAvail = (item_code: any) => {
     console.log('input qty object', newobjectState);
 
+    const fixedOffset = 200; // Adjust this value as needed
+
     if (isDealer === 'true') {
       const params = {
         item_code: item_code,
@@ -190,7 +192,7 @@ const useProductDetail = () => {
 
       setTimeout(() => {
         window.scrollTo({
-          top: document.getElementById('scroll_btn')?.offsetTop,
+          top: fixedOffset,
           behavior: 'smooth',
         });
       }, 100);
@@ -206,13 +208,15 @@ const useProductDetail = () => {
 
       setTimeout(() => {
         window.scrollTo({
-          top: document.getElementById('scroll_btn')?.offsetTop,
+          top: fixedOffset,
           behavior: 'smooth',
         });
       }, 100);
       setCheckStock(true);
     }
-  };
+};
+
+
 
   useEffect(() => {
     console.log('currency in prod detail', query);
