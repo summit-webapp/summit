@@ -228,7 +228,15 @@ const useProductListing = () => {
         break;
       case 'succeeded':
         if (product_listing_state_from_redux?.productListData?.length > 0) {
-          handleProductListingForLoadMore();
+          if (productListingData.length === 0) {
+            setProductListingData(
+              (productListingData = [
+                ...product_listing_state_from_redux.productListData,
+              ])
+            );
+          } else {
+            handleProductListingForLoadMore();
+          }
           setProductListTotalCount(
             product_listing_state_from_redux.productsTotalCount
           );
