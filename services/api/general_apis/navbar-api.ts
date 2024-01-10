@@ -3,7 +3,7 @@ import { CONSTANTS } from '../../config/app-config';
 
 const fetchNavbarData = async (token: any) => {
   const version = CONSTANTS.VERSION;
-  const method = 'get';
+  const method = 'get_mega_menu';
   const entity = 'mega_menu';
   let response: any;
 
