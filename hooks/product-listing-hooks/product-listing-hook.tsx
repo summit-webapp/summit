@@ -147,12 +147,14 @@ const useProductListing = () => {
         'product listing in grid hook',
         product_listing_state_from_redux.productListData
       );
-      setProductListingData(
-        (productListingData = [
-          ...productListingData,
-          ...product_listing_state_from_redux.productListData,
-        ])
-      );
+      if (productListingData.length === 0) {
+        setProductListingData(
+          (productListingData = [
+            ...product_listing_state_from_redux.productListData,
+          ])
+        );
+      }
+     
     }
   };
   useEffect(() => {
