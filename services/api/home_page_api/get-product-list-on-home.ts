@@ -1,29 +1,29 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
 
-const fetchNavbarData = async (token: any) => {
+const fetchProductListDataOnHome = async () => {
   const version = CONSTANTS.VERSION;
-  const method = 'get_mega_menu';
-  const entity = 'mega_menu';
+  const method = 'get_list';
+  const entity = 'product';
   let response: any;
 
   const params = `?version=${version}&method=${method}&entity=${entity}`;
 
   const config = {
     headers: {
-      Authorization: token,
+    //   Authorization: TokenFromStore,
     },
   };
 
+  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`;
   await axios
-    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, {
-      ...config,
-    })
+    .get(`${url}`, { ...config, timeout: 5000 })
     .then((res) => {
-      console.log('navbar api in api file', res);
-      response = res;
+      console.log('carousel api res without token', res);
+      response = res?.data?.message?.data;
     })
     .catch((err) => {
+      console.log('carousel api res err', err);
       if (err.code === 'ECONNABORTED') {
         response = 'Request timed out';
       } else if (err.code === 'ERR_BAD_REQUEST') {
@@ -37,6 +37,6 @@ const fetchNavbarData = async (token: any) => {
   return response;
 };
 
-const getNavbarList = (token: any) => fetchNavbarData(token);
 
-export default getNavbarList;
+
+export default fetchProductListDataOnHome;
