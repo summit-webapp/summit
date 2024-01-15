@@ -22,4 +22,5 @@ export interface ProductCardProps {
   handleAddProduct?: any;
   handleSubmitCatalogName?: any;
   handleChange?: any;
+  min_order_qty?:any
 }

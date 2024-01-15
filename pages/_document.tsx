@@ -41,7 +41,6 @@ export default function Document() {
               target.media = 'all';
             }}
           ></link>
-
           <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             async
@@ -53,7 +52,7 @@ export default function Document() {
             crossOrigin={'anonymous'}
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@400;500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@400;500;600;700&family=Rubik:wght@300&display=swap"
             rel="stylesheet"
             onLoad={(e) => {
               console.log('Font Loaded Successfully');
