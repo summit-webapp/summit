@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
 
-const SendEmailVerifyOTP = async (email: any) => {
+const SendEmailVerifyOTP = async (otp:number,email: any) => {
     let response: any;
     const version = CONSTANTS.VERSION;
-    const method = 'send_otp';
+    const method = 'verify_otp';
     const entity = 'otp';
 
     const config = {
@@ -15,12 +15,12 @@ const SendEmailVerifyOTP = async (email: any) => {
 
     await axios
         .get(
-            `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&email=${email}`,
+            `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&otp=${otp}&email=${email}`,
             { ...config, timeout: 5000 }
             // config
         )
         .then((res: any) => {
-            console.log(res, "res email verify")
+            console.log(res, "res mobile verify")
             response = res;
 
 
