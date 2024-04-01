@@ -65,6 +65,7 @@ const UseCartPageHook = () => {
     if (updateCartAPI?.msg === 'success') {
       showToast('Your cart has been updated', 'success');
       dispatch(fetchOrderSummary(request));
+      dispatch(fetchCartListing(TokenFromStore?.token));
     }
   };
 
