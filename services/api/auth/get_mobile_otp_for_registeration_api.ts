@@ -4,7 +4,7 @@ import { CONSTANTS } from '../../config/app-config';
 const SendMobileOTP = async (mobile: any) => {
     let response: any;
     const version = CONSTANTS.VERSION;
-    const method = 'send_twilio_sms';
+    const method = 'send_pinnacle_sms';
     const entity = 'otp';
 
     const config = {
