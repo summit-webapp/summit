@@ -2,7 +2,8 @@ let ENV = 'DEV';
 
 export const CONSTANTS = {
   API_BASE_URL:
-    ENV === 'PROD' ? '' : 'https://digital-shelf.8848digitalerp.com',
+    // ENV === 'PROD' ? '' : 'https://digital-shelf.8848digitalerp.com',
+    ENV === 'PROD' ? '' : 'https://summit-v15.8848digitalerp.com/',
   API_MANDATE_PARAMS: '/api/method/summitapp.sdk.api',
   VERSION: 'v2',
   ENABLE_APPLY_COUPON_CODE: true,
@@ -29,7 +30,7 @@ export const CONSTANTS = {
   SHOW_MORE_ITEMS: 'paginate',
   SHOW_FUTURE_STOCK_AVAILABILITY_TO_GUEST: true,
   ADD_TO_CART_FOR_GUEST: true,
-  ALLOW_PAYMENT_GATEWAY: true,
+  ALLOW_PAYMENT_GATEWAY: false,
   SHOW_TRANSPORTERS_LIST_TO_DEALER: true,
   ALLOW_REQUEST_QUOTATION: true,
   // "PRODUCT_LISTING_VIEW" IS A KEY WHOSE VALUE DECIDES WHETHER TO SHOW CARD VIEW OF LIST VIEW ON PRODUCT LISTING PAGE.
