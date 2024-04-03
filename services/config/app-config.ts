@@ -2,7 +2,8 @@ let ENV = 'DEV';
 
 export const CONSTANTS = {
   API_BASE_URL:
-    ENV === 'PROD' ? '' : 'https://digital-shelf.8848digitalerp.com',
+    // ENV === 'PROD' ? '' : 'https://digital-shelf.8848digitalerp.com',
+    ENV === 'PROD' ? '' : 'https://summit-v15.8848digitalerp.com/',
   API_MANDATE_PARAMS: '/api/method/summitapp.sdk.api',
   VERSION: 'v2',
   ENABLE_APPLY_COUPON_CODE: true,
