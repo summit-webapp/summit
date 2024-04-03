@@ -52,7 +52,10 @@ const UseCartPageHook = () => {
       setArrayOfSelectedItems(updatedItems);
     }
   };
-
+  const request = {
+    quotationId: cart_listing_data_store?.data?.name,
+    token: TokenFromStore?.token,
+  };
   const callUpdateCartAPI = async () => {
     const updateCartAPI = await AddToCartApi(
       arrayofSelectedItems,
@@ -61,6 +64,8 @@ const UseCartPageHook = () => {
     );
     if (updateCartAPI?.msg === 'success') {
       showToast('Your cart has been updated', 'success');
+      dispatch(fetchOrderSummary(request));
+      dispatch(fetchCartListing(TokenFromStore?.token));
     }
   };
 
