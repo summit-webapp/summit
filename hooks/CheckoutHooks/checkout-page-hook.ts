@@ -269,6 +269,7 @@ const UseCheckoutPageHook = () => {
       if (paymentApiRes?.data?.message !== 'error') {
         response = paymentApiRes?.data?.message;
         window.location.href = `${paymentApiRes}`;
+        dispatch(fetchCartListing( TokenFromStore?.token))
       }
     } else {
       let res = await PlaceOrderApi(
@@ -289,6 +290,7 @@ const UseCheckoutPageHook = () => {
         response = res?.data?.message;
 
         Router.push(`/thankyou/${response}`);
+        dispatch(fetchCartListing( TokenFromStore?.token))
       }
     }
   };

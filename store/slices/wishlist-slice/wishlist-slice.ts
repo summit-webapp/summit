@@ -24,7 +24,7 @@ export const fetchWishlistUser: any = createAsyncThunk(
         // setTimeout(() => {
         //   dispatch(hideToast());
         // }, 500);
-        showToast('item added to wishlist', 'success');
+        showToast(userWishList.data, 'success');
       } else {
         showToast('Failed to add item in wishlist', 'error');
         // dispatch(failmsg("Error in adding item in wishlist"));
@@ -38,7 +38,9 @@ export const fetchWishlistUser: any = createAsyncThunk(
     } else if (request.deleteWishlist === true) {
       userWishList = await DeleteProductfromWishlist(request);
       if (userWishList.msg === 'success') {
-        dispatch(failmsg(userWishList.data));
+        showToast(`${userWishList.data}`, 'success');
+         console.log('wish@',userWishList.data)      
+        // dispatch(failmsg(userWishList.data));
         setTimeout(() => {
           dispatch(hideToast());
         }, 700);
