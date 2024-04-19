@@ -23,6 +23,17 @@ const useMultilangHook = () => {
   const [selectedLang, setSelectedLang] = useState<any>('en');
   const TokenFromStore: any = useSelector(get_access_token);
 
+  useEffect(() => {
+    // Retrieve the selected language from localStorage on component mount
+    const storedLang = localStorage.getItem('selectedLanguage');
+    if (storedLang) {
+      setSelectedLang(storedLang);
+    } else {
+      // If no language is stored in localStorage, set the default language to English
+      setSelectedLang('en');
+    }
+  }, []);
+
   // useEffect(() => {
   //   dispatch(fetchMultiLanguagesThunkAPI(TokenFromStore?.token) as any);
   // }, []);
@@ -36,12 +47,14 @@ const useMultilangHook = () => {
 
   const handleLanguageChange = (lang: any) => {
     console.log('selected lang', lang);
-    if (lang === "ar") {
-      document.documentElement.dir = "rtl";
+    if (lang === 'ar') {
+      document.documentElement.dir = 'rtl';
     } else {
-      document.documentElement.dir = "ltr";
+      document.documentElement.dir = 'ltr';
     }
     setSelectedLang(lang);
+
+    localStorage.setItem('selectedLanguage', lang);
   };
 
   useEffect(() => {
