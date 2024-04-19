@@ -3,7 +3,9 @@ import { CONSTANTS } from '../../config/app-config';
 import { client } from './cookie-instance-api';
 
 const QuickOrderFetch = async (request: any) => {
-  const part_number = { oem_part_number: `${request.partNumberInputField}` };
+  // const part_number = { oem_part_number: `${request.partNumberInputField}` };
+  const part_number = { item_code:`${request.partNumberInputField}`,oem_part_number:`${request.partNumberInputField}`};
+
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = 'get_list';
