@@ -23,7 +23,7 @@ const OtpLoginApi = async (request: any) => {
       { ...config, timeout: 5000 }
     )
     .then((res: any) => {
-      response = res?.data?.message?.data;
+      response = res?.data?.message;
       if (res?.data?.message?.msg === 'success') {
         localStorage.setItem('isLoggedIn', 'true');
       }

@@ -5,6 +5,7 @@ import CheckGuestLogin from './guest-login-api';
 
 import UserRoleGet from './get_userrole_api';
 import OtpLoginApi from './otp-login-api';
+import getGoogleLoginApi from './google_login_api';
 
 const getTokenLoginApi: any = async (values: any) => {
   console.log('token req', values);
@@ -31,6 +32,9 @@ const getTokenLoginApi: any = async (values: any) => {
   } else if (values.isOtpLogin === true) {
     const OtpLoginFunction: any = OtpLoginApi(values);
     return OtpLoginFunction;
+  } else if (values.isGoogleLogin) {
+    const googleLoginFuntion = getGoogleLoginApi(values);
+    return googleLoginFuntion;
   } else {
     await axios
       .post(
