@@ -16,7 +16,7 @@ const useDisplayTagHooks = () => {
   const dispatch = useDispatch();
 
   const currency_state_from_redux: any = useSelector(currency_selector_state);
-
+  console.log('currency value',currency_state_from_redux)
   const [allTagsData, setAllTagsData] = useState<any>([]);
 
   const TokenFromStore: any = useSelector(get_access_token);
@@ -31,12 +31,18 @@ const useDisplayTagHooks = () => {
 
     dispatch(setCurrencyValue(currency_value));
   };
-
   useEffect(() => {
-    fetchDisplayTagsDataFunction(
-      currency_state_from_redux?.selected_currency_value
-    );
-  }, []);
+    const fetchData = () => {
+      const currencyValue = currency_state_from_redux?.selected_currency_value !== "" ? 
+        currency_state_from_redux?.selected_currency_value :
+        currency_state_from_redux?.default_currency_value;
+  
+      fetchDisplayTagsDataFunction(currencyValue);
+    };
+  
+    fetchData();
+  }, [currency_state_from_redux]); 
+  
 
   return {
     allTagsData,
