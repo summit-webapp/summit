@@ -30,11 +30,13 @@ const useProductDetails = () => {
     const SelectedLangDataFromStore: any = useSelector(
         SelectedFilterLangDataFromStore
     );
-
     let isDealer: any;
-    if (typeof window !== 'undefined') {
-        isDealer = localStorage.getItem('isDealer');
+    let isLoggedIn:any;
+    if (typeof window !== "undefined") {
+      isLoggedIn = localStorage.getItem("isLoggedIn");
+      isDealer = localStorage.getItem("isDealer");
     }
+   
     const productID = query.product_id;
 
     // States
@@ -123,7 +125,10 @@ const useProductDetails = () => {
         handleQuantityDecrement,
         handleAddCartB2c,
         isLoading,
-        stockAvailabilityTextChanges
+        stockAvailabilityTextChanges,
+        singleProductForAddToCart, 
+        setSingleProductForAddToCart,
+        quantityOfSingleProduct
     } = useAddToCartHook(productID, currency_state_from_redux, token);
     // End Add to cart Functions Hook.
 
@@ -136,7 +141,7 @@ const useProductDetails = () => {
         if (isDealer === 'true') {
             const params = {
                 item_code: item_code,
-                qty: newobjectState[0]?.quantity,
+                qty: quantityOfSingleProduct[0],
                 token: token,
             };
             dispatch(fetchStockAvailability(params));
@@ -256,6 +261,7 @@ const useProductDetails = () => {
         productQuantity,
         stockAvailabilityTextChanges,
         isDealer,
+        isLoggedIn,
         checkStock,
         currency_state_from_redux,
         newobjectState,
@@ -268,7 +274,11 @@ const useProductDetails = () => {
         handleAddCartB2c,
         isLoading,
         thumbnailOfVariants,
-        selectedMultiLangData
+        selectedMultiLangData,
+        token,
+        singleProductForAddToCart, 
+        setSingleProductForAddToCart,
+        quantityOfSingleProduct
     }
 }
 

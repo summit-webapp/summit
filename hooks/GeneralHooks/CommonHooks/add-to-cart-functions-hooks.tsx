@@ -10,6 +10,9 @@ import { hideToast } from '../../../store/slices/general_slices/toast_notificati
 const useAddToCartHook = (productID:any, currency_state_from_redux:any,token:any) => {
     const [productQuantity, setProductQuantity] = useState<any>(1);
     const [stockAvailabilityTextChanges, setstockAvailabilityTextChanges] = useState(false);
+    const [singleProductForAddToCart, setSingleProductForAddToCart] = useState<any>([]);
+    const quantityOfSingleProduct: any = singleProductForAddToCart.map((product: any) => product.quantity);
+    console.log('input', singleProductForAddToCart, quantityOfSingleProduct[0])
     const profileData: any = useSelector(profileData_state);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
@@ -106,7 +109,11 @@ const useAddToCartHook = (productID:any, currency_state_from_redux:any,token:any
     handleQuantityDecrement,
     handleAddCartB2c,
     isLoading,
-    stockAvailabilityTextChanges
+    stockAvailabilityTextChanges,
+    singleProductForAddToCart, 
+    setSingleProductForAddToCart,
+    quantityOfSingleProduct
+
   }
    
 }
