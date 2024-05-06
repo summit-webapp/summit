@@ -17,7 +17,7 @@ export const fetchProductListing = async (query: any) => {
     page_no = query?.url_params?.page;
     limit = 12;
   }
-  const price_range = 'low_to_high';
+  // const price_range = 'low_to_high';
   const category: any = query.url_params.category;
 
   const url_params_key = Object.keys(query.url_params);
@@ -55,7 +55,7 @@ export const fetchProductListing = async (query: any) => {
     if (query.router_origin === 'product-category') {
       const method = 'get_list';
       const entity = 'product';
-      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&price_range=${price_range}&category=${category}&${modifiedParams}`;
+      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&price_range=${query.price_range}&category=${category}&${modifiedParams}`;
     } else if (query.router_origin === 'catalog') {
       const method = 'get_items';
       const entity = 'catalog';
@@ -69,7 +69,7 @@ export const fetchProductListing = async (query: any) => {
   } else {
     const method = 'get_list';
     const entity = 'product';
-    url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&price_range=${price_range}&${modifiedParams}`;
+    url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&price_range=${query.price_range}&${modifiedParams}`;
   }
 
   await axios

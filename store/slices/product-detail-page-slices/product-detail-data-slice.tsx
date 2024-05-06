@@ -49,11 +49,9 @@ const productDetailSlice = createSlice({
         console.log('detail payload', action.payload.data);
         state.loading = 'succeeded';
         state.msg = action.payload.data.message.msg;
-        state.data = Array.isArray(action?.payload?.data?.message?.data)
-          ? action?.payload?.data?.message?.data[0]
-          : action?.payload?.data?.message?.data;
+        state.data = action?.payload?.data?.message?.data;
 
-        state.min_qty = action?.payload?.data?.message?.data[0]?.min_order_qty;
+        state.min_qty = action?.payload?.data?.message?.data?.min_order_qty;
       } else {
         state.loading = 'succeeded';
         state.msg = '';
