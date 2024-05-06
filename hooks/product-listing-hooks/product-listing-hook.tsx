@@ -39,12 +39,16 @@ const useProductListing = () => {
   const [toggleProductListView, setToggleProductListView] =
     useState('list-view');
   const [pageNo, setpageNo] = useState<number>(1);
+  const [price, setPrice] = useState<string>("low_to_high");
 
   let [productListingData, setProductListingData] = useState<any>([]);
   const [productListTotalCount, setProductListTotalCount] = useState<number>(0);
   const [filtersData, setFiltersData] = useState<any>([]);
   const [selectedFilters, setSelectedFilters] = useState<any>([]);
-
+  const handlePrice = (e: any) => {
+    setPrice(e.target.value);
+   
+  };
   const handlePaginationBtn = (pageNo: any) => {
     router.push({
       query: { ...query, page: pageNo + 1 },
@@ -174,6 +178,7 @@ const useProductListing = () => {
         filterDocname: filters_state_from_redux?.docname.toLowerCase(),
         token: TokenFromStore?.token,
         listing_route: router.route,
+        price_range:price
       };
     } else {
       storeUsefulParamsForFurtherProductListingApi = {
@@ -183,6 +188,7 @@ const useProductListing = () => {
         filterDocname: filters_state_from_redux?.docname.toLowerCase(),
         token: TokenFromStore?.token,
         listing_route: router.route,
+        price_range:price
       };
     }
     console.log(
@@ -215,7 +221,7 @@ const useProductListing = () => {
     } else {
       setSelectedFilters([]);
     }
-  }, [dispatch, query]);
+  }, [dispatch, price , query]);
   console.log(router, 'routers');
   useEffect(() => {
     setToggleProductListView(product_view_slice_from_redux?.view);
@@ -286,6 +292,9 @@ const useProductListing = () => {
     handlePaginationBtn,
     currency_state_from_redux,
     query,
+    price,
+    handlePrice,
+    
   };
 };
 export default useProductListing;
