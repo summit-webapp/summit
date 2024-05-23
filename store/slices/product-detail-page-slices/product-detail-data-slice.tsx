@@ -5,14 +5,12 @@ import { fetchProductDetailData } from '../../../services/api/product-detail-pag
 export const ProductDetailPageThunk = createAsyncThunk(
   'product-detail-data-slice/fetchProductDetailData',
   async (params: any) => {
-    console.log('detail data params', params);
     const { productID, currency, token } = params;
     const getProductDetailData = await fetchProductDetailData(
       productID,
       currency,
       token
     );
-    console.log('detail data in slice', getProductDetailData);
     return getProductDetailData;
   }
 );
@@ -46,7 +44,6 @@ const productDetailSlice = createSlice({
         action.payload.data.hasOwnProperty('message') &&
         action.payload.data.message.msg !== 'error'
       ) {
-        console.log('detail payload', action.payload.data);
         state.loading = 'succeeded';
         state.msg = action.payload.data.message.msg;
         state.data = action?.payload?.data?.message?.data;

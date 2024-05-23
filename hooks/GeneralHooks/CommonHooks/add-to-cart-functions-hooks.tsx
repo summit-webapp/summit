@@ -12,7 +12,6 @@ const useAddToCartHook = (productID:any, currency_state_from_redux:any,token:any
     const [stockAvailabilityTextChanges, setstockAvailabilityTextChanges] = useState(false);
     const [singleProductForAddToCart, setSingleProductForAddToCart] = useState<any>([]);
     const quantityOfSingleProduct: any = singleProductForAddToCart.map((product: any) => product.quantity);
-    console.log('input', singleProductForAddToCart, quantityOfSingleProduct[0])
     const profileData: any = useSelector(profileData_state);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
@@ -84,9 +83,7 @@ const useAddToCartHook = (productID:any, currency_state_from_redux:any,token:any
                     "guest",
                     AddToCartProductRes?.data?.access_token
                 );
-                console.log("token api res", AddToCartProductRes);
-                if (AddToCartProductRes?.data?.access_token !== null) {
-                    console.log("token from api");
+                if (AddToCartProductRes?.data?.access_token !== null) {            
                     dispatch(fetchCartListing(AddToCartProductRes?.data?.access_token));
                 }
             } else {

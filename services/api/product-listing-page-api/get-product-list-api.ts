@@ -3,7 +3,6 @@ import { CONSTANTS } from '../../config/app-config';
 import { client } from '../general_apis/cookie-instance-api';
 
 export const fetchProductListing = async (query: any) => {
-  console.log(query, 'page query');
   let response: any;
   let url: any;
   let page_no: any;
@@ -23,9 +22,6 @@ export const fetchProductListing = async (query: any) => {
   const url_params_key = Object.keys(query.url_params);
   const url_params_values = Object.values(query.url_params);
 
-  console.log('search work', query);
-  // console.log("search work", url_params_values);
-
   const urlParams = Object.keys(query.url_params)
     .map((key) => {
       if (key === 'filter') {
@@ -42,8 +38,6 @@ export const fetchProductListing = async (query: any) => {
       (param) => !param.startsWith('page=') && !param.startsWith('category=')
     )
     .join('&');
-
-  // console.log("search work url params", modifiedParams);
 
   const config = {
     headers: {
@@ -75,7 +69,6 @@ export const fetchProductListing = async (query: any) => {
   await axios
     .get(`${url}`, { ...config, timeout: 5000 })
     .then((res) => {
-      console.log('product listing api res successful', res);
       response = res;
     })
     .catch((err) => {
