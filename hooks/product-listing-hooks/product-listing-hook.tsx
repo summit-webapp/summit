@@ -20,9 +20,7 @@ import { get_access_token } from '../../store/slices/auth/token-login-slice';
 const useProductListing = () => {
   const router = useRouter();
   const { query }: any = useRouter();
-  console.log(router, 'routers');
   const dispatch = useDispatch();
-
   const product_listing_state_from_redux: any = useSelector(
     product_listing_selector_state
   );
@@ -54,9 +52,6 @@ const useProductListing = () => {
       query: { ...query, page: pageNo + 1 },
     });
   };
-
-  console.log('product listing router', currency_state_from_redux);
-
   const handleApplyFilters = async (event: any) => {
     let duplicateFilters: any;
     const section = event.target.name;
@@ -92,7 +87,6 @@ const useProductListing = () => {
       duplicateFilters = [...updatedFilters];
       return updatedFilters;
     });
-    // console.log("night duplicate filters", duplicateFilters);
     const filterString = encodeURIComponent(JSON.stringify(duplicateFilters));
     let url = router.asPath;
     const existingFilterIndex = url.indexOf('&filter=');
@@ -116,7 +110,6 @@ const useProductListing = () => {
   };
   useEffect(() => {
     const catalogSlug = router.route.split('/')[1];
-    console.log(catalogSlug, 'newSlug ');
     if (catalogSlug === 'catalog') {
       dispatch(setProductsView('grid-view'));
     } else {
@@ -131,14 +124,9 @@ const useProductListing = () => {
     }
   };
   const checkFiltersValue = () => {
-    console.log('filters check', selectedFilters);
   };
   const handleProductListingForLoadMore = () => {
     if (CONSTANTS.ENABLE_LOAD_MORE) {
-      console.log(
-        'product listing in grid hook',
-        product_listing_state_from_redux.productListData
-      );
       setProductListingData(
         (productListingData = [
           ...productListingData,
@@ -147,10 +135,6 @@ const useProductListing = () => {
       );
     }
     if (CONSTANTS.ENABLE_PAGINATION) {
-      console.log(
-        'product listing in grid hook',
-        product_listing_state_from_redux.productListData
-      );
       if (productListingData.length === 0) {
         setProductListingData(
           (productListingData = [
@@ -162,7 +146,6 @@ const useProductListing = () => {
     }
   };
   useEffect(() => {
-    // console.log("multi currency in prod list hook",currency_value_from_redux);
     let storeUsefulParamsForFurtherProductListingApi;
     if (router.asPath === '/product-category') {
       router.push({
@@ -191,10 +174,7 @@ const useProductListing = () => {
         price_range:price
       };
     }
-    console.log(
-      storeUsefulParamsForFurtherProductListingApi,
-      'storeUsefulParamsForFurtherProductListingApi'
-    );
+
     dispatch(
       ProductListingThunk({
         storeUsefulParamsForFurtherProductListingApi,
@@ -215,19 +195,18 @@ const useProductListing = () => {
       if (encodedFilterString !== undefined) {
         const decodedFilterString = decodeURIComponent(encodedFilterString);
         const decodedFilters = JSON.parse(decodedFilterString);
-        console.log('decoded filters', decodedFilters);
         setSelectedFilters([...decodedFilters]);
       }
     } else {
       setSelectedFilters([]);
     }
   }, [dispatch, price , query]);
-  console.log(router, 'routers');
+
   useEffect(() => {
     setToggleProductListView(product_view_slice_from_redux?.view);
   }, [product_view_slice_from_redux?.view]);
+
   useEffect(() => {
-    // console.log("cube in hook",prod)
     switch (product_listing_state_from_redux?.loading) {
       case 'pending':
         setProductsLoading(true);
@@ -276,7 +255,7 @@ const useProductListing = () => {
     }
     setToggleProductListView(product_view_slice_from_redux?.view);
   }, [product_listing_state_from_redux, filters_state_from_redux]);
-  console.log(query, 'router');
+
   return {
     productsLoading,
     productListingData,

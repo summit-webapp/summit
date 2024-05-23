@@ -59,7 +59,6 @@ const useProductDetails = () => {
     // Language code 
 
     useEffect(() => {
-        console.log('currency in prod detail', query);
         dispatch(
             ProductDetailPageThunk({
                 productID: productID,
@@ -134,8 +133,6 @@ const useProductDetails = () => {
 
     //  Check Future Stock
     const handleStockAvail = (item_code: any) => {
-        console.log('input qty object', newobjectState);
-
         const fixedOffset = 200; // Adjust this value as needed
 
         if (isDealer === 'true') {
@@ -187,7 +184,6 @@ const useProductDetails = () => {
         if (productDetailData?.product_attributes) {
             setSelectedVariant(productDetailData.product_attributes);
         } else {
-            console.log("productDetailData.product_attributes is undefined or null");
         }
     }, [productDetailData]);
 
@@ -199,7 +195,6 @@ const useProductDetails = () => {
     };
     // Define a function to find the matching variant based on selected characteristics
     const findVariantCode = (variants: any, selectedVariant: any) => {
-        console.log('variant@ code...', variants);
         // Find the variant that matches all key-value pairs in selectedVariant
         if (Object.keys(selectedVariant).length !== 0) {
             const matchingVariant = variants?.find((variant: any) => {
@@ -211,8 +206,6 @@ const useProductDetails = () => {
 
             return matchingVariant ? matchingVariant.slug : null;
         }
-        //   console.log('variant@ code!!!ma',matchingVariant); // Output: '123'
-
         // Return the variant code if a match is found; otherwise, return null or undefined
         // return null
     };
@@ -221,14 +214,11 @@ const useProductDetails = () => {
     // Get the variant code for the selected variant
 
     const variantCode = findVariantCode(productDetailData.variants, selectedVariant);
-    console.log('variant@ code!!!', variantCode, doesSelectedVariantDoesNotExists); // Output: '123'
     useEffect(() => {
         // Check if the variant code is already in the query to avoid unnecessary updates
         if (variantCode === null) {
-            console.log("Setting variant DoesSelectedVariantDoesNotExists to true");
             setDoesSelectedVariantDoesNotExists(true);
         } else {
-            console.log("Setting variant DoesSelectedVariantDoesNotExists to true");
             setDoesSelectedVariantDoesNotExists(false);
         }
         if (variantCode && query.product_id !== variantCode) {
