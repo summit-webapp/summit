@@ -17,8 +17,6 @@ const useMatchingItemOptions = () => {
     const currency_state_from_redux: any = useSelector(currency_selector_state);
 
     useEffect(() => {
-        console.log('currency in prod detail', query);
-
         dispatch(
             ProductMatchingItemOptions({
                 productID: productId,
@@ -29,8 +27,6 @@ const useMatchingItemOptions = () => {
     }, [query]);
 
     useEffect(() => {
-        console.log('currency in prod detail', query);
-
         switch (product_matching_items_data_from_redux?.loading) {
             case 'pending':
                 setMatchingItemLoading(true);
