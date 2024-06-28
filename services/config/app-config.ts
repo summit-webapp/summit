@@ -1,9 +1,5 @@
-let ENV = 'DEV';
-
 export const CONSTANTS = {
-  API_BASE_URL:
-    // ENV === 'PROD' ? '' : 'https://digital-shelf.8848digitalerp.com',
-    ENV === 'PROD' ? '' : 'https://summit-v15.8848digitalerp.com/',
+  API_BASE_URL: process.env.NEXT_PUBLIC_API_URL,
   API_MANDATE_PARAMS: '/api/method/summitapp.sdk.api',
   VERSION: 'v2',
   ENABLE_APPLY_COUPON_CODE: true,
@@ -19,8 +15,8 @@ export const CONSTANTS = {
   DISPLAY_WISHLIST_ICON_ON_WEBNAVBAR: true,
   DISPLAY_CART_ON_WEBNAVBAR: true,
   DOES_PRODUCT_HAS_VARIANTS: false,
-  MAX_CARDS_PER_ROW_LISTING_PAGE:2,
-  DISPLAY_TAG_ON_PRODUCT_LISTING_CARD:true,
+  MAX_CARDS_PER_ROW_LISTING_PAGE: 2,
+  DISPLAY_TAG_ON_PRODUCT_LISTING_CARD: true,
   DOMAIN_NAME: '',
   // "SHOW_MORE_ITEMS" IS A KEY WHOSE VALUE DECIDES WHETHER TO SHOW LOAD MORE BUTTON OR PAGINATION.
   // IT WILL CONTAIN TWO VALUES "paginate" or "load-more"
@@ -43,5 +39,5 @@ export const CONSTANTS = {
   ENABLE_PAYMENT_INTEGRATION: false,
   DEFAULT_CURRENCY_VALUE: 'rupee',
   DEFAULT_LANGUAGE: 'en',
-  ENABLE_SHOP_ON_AMAZON:false,
+  ENABLE_SHOP_ON_AMAZON: false,
 };
