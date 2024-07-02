@@ -8,14 +8,10 @@ import {
   currency_selector_state,
   setCurrencyValue
 } from '../../../store/slices/general_slices/multi-currency-slice';
-import {
-  navbar_selector_state
-} from '../../../store/slices/general_slices/navbar_slice';
 const useNavbar = () => {
   const dispatch = useDispatch();
 
-  const { query, push }: any = useRouter();
-  const navbarReduxStoreData: any = useSelector(navbar_selector_state);
+  const { query, push }: any = useRouter(); 
 
   const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
@@ -25,11 +21,29 @@ const useNavbar = () => {
   const [isLoading, setIsLoading] = useState<string>('');
 
   const [selectedCurrencyValue, setSelectedCurrencyValue] = useState('');
-  console.log(getNavbarList, navbarData, 'newData');
+  console.log(getNavbarList, navbarData,TokenFromStore, 'newData');
   useEffect(() => {
     const getData = async () => {
-      const navbarDataAPI = getNavbarList(TokenFromStore);
-      console.log(navbarDataAPI, 'newData');
+      const navbarDataAPI = await getNavbarList('token 717050306808084:4d7b1daa1ee4cb3');
+      if (
+        navbarDataAPI?.message?.msg === "success" && navbarDataAPI?.message?.data?.length 
+      ) {
+        // BELOW CODE IS TO SORT NAVBAR DATA AND STORE IN THE STATE
+        setNavbarData(
+          [...navbarDataAPI?.message?.data].sort(function (
+            a: any,
+            b: any
+          ) {
+            return a.seq - b.seq;
+          })
+        );
+  
+        // setIsLoading(navbarReduxStoreData?.loading);
+      } else {
+        setNavbarData([]);
+        // setIsLoading(navbarReduxStoreData?.loading);
+      }
+      // console.log(navbarDataAPI, 'newData');
       dispatch(fetchCartListing(TokenFromStore?.token));
     };
     getData();
@@ -59,25 +73,7 @@ const useNavbar = () => {
       push(updatedUrl);
     }
 
-    if (
-      navbarReduxStoreData?.loading === 'succeeded' &&
-      navbarReduxStoreData.navbarData.data?.length
-    ) {
-      // BELOW CODE IS TO SORT NAVBAR DATA AND STORE IN THE STATE
-      setNavbarData(
-        [...navbarReduxStoreData?.navbarData?.data].sort(function (
-          a: any,
-          b: any
-        ) {
-          return a.seq - b.seq;
-        })
-      );
-
-      setIsLoading(navbarReduxStoreData?.loading);
-    } else {
-      setNavbarData([]);
-      setIsLoading(navbarReduxStoreData?.loading);
-    }
+    
 
     switch (currency_state_from_redux?.loading) {
       case 'pending':
