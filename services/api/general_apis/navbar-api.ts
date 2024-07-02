@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { callGetAPI } from '../../../utils';
 import { CONSTANTS } from '../../config/app-config';
 
 const fetchNavbarData = async (token: any) => {
@@ -8,33 +8,11 @@ const fetchNavbarData = async (token: any) => {
   let response: any;
 
   const params = `?version=${version}&method=${method}&entity=${entity}`;
-
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
-
-  await axios
-    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, {
-      ...config,
-    })
-    .then((res) => {
-      console.log('navbar api in api file', res);
-      response = res;
-    })
-    .catch((err) => {
-      if (err.code === 'ECONNABORTED') {
-        response = 'Request timed out';
-      } else if (err.code === 'ERR_BAD_REQUEST') {
-        response = 'Bad Request';
-      } else if (err.code === 'ERR_INVALID_URL') {
-        response = 'Invalid URL';
-      } else {
-        response = err;
-      }
-    });
-  return response;
+   response = callGetAPI(
+    `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`,
+    token
+  );
+  console.log(response, 'newData');
 };
 
 const getNavbarList = (token: any) => fetchNavbarData(token);

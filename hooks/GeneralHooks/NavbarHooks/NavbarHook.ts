@@ -1,23 +1,16 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchNavbarDataFromAPI,
-  navbar_selector_state,
-} from '../../../store/slices/general_slices/navbar_slice';
-import { selected_lang_selector_state } from '../../../store/slices/language-slice/selected-language-slice';
-import { MultiLingualSlice } from '../../../store/slices/language-slice/language-json-slice';
-import {
-  MultiCurrencyThunk,
-  currency_selector_state,
-  setCurrencyValue,
-} from '../../../store/slices/general_slices/multi-currency-slice';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import getNavbarList from '../../../services/api/general_apis/navbar-api';
+import { get_access_token } from '../../../store/slices/auth/token-login-slice';
 import { fetchCartListing } from '../../../store/slices/cart-listing-page-slice/cart-listing-slice';
 import {
-  fetchMultiLanguagesThunkAPI,
-  multiLanguageDataFromStore,
-} from '../../../store/slices/general_slices/multilang-slice';
-import { get_access_token } from '../../../store/slices/auth/token-login-slice';
+  currency_selector_state,
+  setCurrencyValue
+} from '../../../store/slices/general_slices/multi-currency-slice';
+import {
+  navbar_selector_state
+} from '../../../store/slices/general_slices/navbar_slice';
 const useNavbar = () => {
   const dispatch = useDispatch();
 
@@ -32,13 +25,14 @@ const useNavbar = () => {
   const [isLoading, setIsLoading] = useState<string>('');
 
   const [selectedCurrencyValue, setSelectedCurrencyValue] = useState('');
-
+  console.log(getNavbarList, navbarData, 'newData');
   useEffect(() => {
-    // console.log("multi currency in navbar 1st useEffect");
-    dispatch(fetchNavbarDataFromAPI(TokenFromStore?.token) as any);
-
-    dispatch(fetchCartListing(TokenFromStore?.token));
-    // dispatch(MultiCurrencyThunk(TokenFromStore?.token) as any);
+    const getData = async () => {
+      const navbarDataAPI = getNavbarList(TokenFromStore);
+      console.log(navbarDataAPI, 'newData');
+      dispatch(fetchCartListing(TokenFromStore?.token));
+    };
+    getData();
   }, []);
 
   const handleCurrencyValueChange = (curr: any) => {
@@ -47,7 +41,6 @@ const useNavbar = () => {
   };
 
   useEffect(() => {
-    console.log('multi currency in navbar ', currency_state_from_redux);
     const url = new URL(window.location.href);
 
     // Get the URLSearchParams object from the URL
@@ -63,7 +56,6 @@ const useNavbar = () => {
       const updatedUrl = `${url.origin}${
         url.pathname
       }?${searchParams.toString()}`;
-      // console.log("multi currency in navbar updatedURL", url, updatedUrl);
       push(updatedUrl);
     }
 
@@ -104,7 +96,7 @@ const useNavbar = () => {
         );
         return;
     }
-  }, [navbarReduxStoreData, currency_state_from_redux]);
+  }, [ currency_state_from_redux]);
 
   return {
     navbarData,
