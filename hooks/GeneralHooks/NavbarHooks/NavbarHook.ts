@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import getNavbarList from '../../../services/api/general_apis/navbar-api';
+import getNavbarDataFromAPI from '../../../services/api/general_apis/navbar-api';
 import { get_access_token } from '../../../store/slices/auth/token-login-slice';
 import { fetchCartListing } from '../../../store/slices/cart-listing-page-slice/cart-listing-slice';
 import { currency_selector_state } from '../../../store/slices/general_slices/multi-currency-slice';
@@ -17,10 +17,10 @@ const useNavbar = () => {
 
   const [selectedCurrencyValue, setSelectedCurrencyValue] = useState('');
 
-  const getNavbarDataFromAPI = async () => {
+  const fetchNavbarDataAPI = async () => {
     setIsLoading(true);
     try {
-      const navbarDataAPI: any = await getNavbarList(TokenFromStore?.token);
+      const navbarDataAPI: any = await getNavbarDataFromAPI(TokenFromStore?.token);
       if (
         navbarDataAPI?.data?.message?.msg === 'success' &&
         navbarDataAPI?.data?.message?.data?.length
@@ -43,7 +43,7 @@ const useNavbar = () => {
     dispatch(fetchCartListing(TokenFromStore?.token));
   };
   useEffect(() => {
-    getNavbarDataFromAPI();
+    fetchNavbarDataAPI();
   }, []);
 
   useEffect(() => {

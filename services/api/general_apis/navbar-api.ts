@@ -1,7 +1,7 @@
 import { callGetAPI } from '../../../utils/utils';
 import { CONSTANTS } from '../../config/app-config';
 
-const getNavbarList = async (token: any) => {
+const getNavbarDataFromAPI = async (token: any) => {
   const version = CONSTANTS.VERSION;
   const method = 'get_mega_menu';
   const entity = 'mega_menu';
@@ -15,4 +15,4 @@ const getNavbarList = async (token: any) => {
   return response
 };
 
-export default getNavbarList;
+export default getNavbarDataFromAPI;
