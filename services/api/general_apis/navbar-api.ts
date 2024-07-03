@@ -12,6 +12,7 @@ const getNavbarList = async (token: any) => {
     `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`,
     token
   );
+  return response
 };
 
 export default getNavbarList;

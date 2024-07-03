@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import getNavbarList from '../../../services/api/general_apis/navbar-api';
 import { get_access_token } from '../../../store/slices/auth/token-login-slice';
 import { fetchCartListing } from '../../../store/slices/cart-listing-page-slice/cart-listing-slice';
-import {
-  currency_selector_state
-} from '../../../store/slices/general_slices/multi-currency-slice';
+import { currency_selector_state } from '../../../store/slices/general_slices/multi-currency-slice';
 import useHandleStateUpdate from '../handle-state-update-hook';
 const useNavbar = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any =
@@ -24,18 +22,18 @@ const useNavbar = () => {
     try {
       const navbarDataAPI: any = await getNavbarList(TokenFromStore?.token);
       if (
-        navbarDataAPI?.message?.msg === 'success' &&
-        navbarDataAPI?.message?.data?.length
+        navbarDataAPI?.data?.message?.msg === 'success' &&
+        navbarDataAPI?.data?.message?.data?.length
       ) {
         // BELOW CODE IS TO SORT NAVBAR DATA AND STORE IN THE STATE
         setNavbarData(
-          [...navbarDataAPI?.message?.data].sort(function (a: any, b: any) {
+          [...navbarDataAPI?.data?.message?.data].sort(function (a: any, b: any) {
             return a.seq - b.seq;
           })
         );
       } else {
         setNavbarData([]);
-        setErrMessage(navbarDataAPI)
+        setErrMessage(navbarDataAPI);
       }
     } catch (error) {
       return;
@@ -53,7 +51,6 @@ const useNavbar = () => {
       currency_state_from_redux?.selected_currency_value
     );
   }, [currency_state_from_redux?.selected_currency_value]);
-
   return {
     navbarData,
     isLoading,
