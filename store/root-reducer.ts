@@ -1,6 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import CacheReducer from './slices/general_slices/cache-slice';
-import NavbarReducer from './slices/general_slices/navbar_slice';
 import HomeBannerReducer from './slices/home_page_slice/home-banners-slice';
 import HomeTopCategoriesReducer from './slices/home_page_slice/home-top-categories-slice';
 import HomeTopBrandReducer from './slices/home_page_slice/home-brand-slice';
@@ -52,7 +51,6 @@ import AboutUsSlice from './slices/general_slices/about-us-slice';
 
 const appReducer = combineReducers({
   CacheScreen: CacheReducer,
-  NavbarScreen: NavbarReducer,
   HomeBannerScreen: HomeBannerReducer,
   HomeTopCategoriesScreen: HomeTopCategoriesReducer,
   HomeTopBrandScreen: HomeTopBrandReducer,
