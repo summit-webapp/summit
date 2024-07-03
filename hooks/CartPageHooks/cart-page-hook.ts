@@ -1,13 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  cart_listing_state,
-  fetchCartListing,
-} from '../../store/slices/cart-listing-page-slice/cart-listing-slice';
+import { cart_listing_state, fetchCartListing } from '../../store/slices/cart-listing-page-slice/cart-listing-slice';
 import { useEffect, useState } from 'react';
-import {
-  fetchOrderSummary,
-  order_summary_state,
-} from '../../store/slices/checkoutPage-slice/order-summary';
+import { fetchOrderSummary, order_summary_state } from '../../store/slices/checkoutPage-slice/order-summary';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
 import AddToCartApi from '../../services/api/cart-page-api/add-to-cart-api';
@@ -57,11 +51,7 @@ const UseCartPageHook = () => {
     token: TokenFromStore?.token,
   };
   const callUpdateCartAPI = async () => {
-    const updateCartAPI = await AddToCartApi(
-      arrayofSelectedItems,
-      currency_state_from_redux?.selected_currency_value,
-      TokenFromStore?.token
-    );
+    const updateCartAPI = await AddToCartApi(arrayofSelectedItems, currency_state_from_redux?.selected_currency_value, TokenFromStore?.token);
     if (updateCartAPI?.msg === 'success') {
       showToast('Your cart has been updated', 'success');
       dispatch(fetchOrderSummary(request));

@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchWishlistUser,
-  wishlist_state,
-} from '../../store/slices/wishlist-slice/wishlist-slice';
+import { fetchWishlistUser, wishlist_state } from '../../store/slices/wishlist-slice/wishlist-slice';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 
 const useWishlist = () => {

@@ -3,14 +3,11 @@ import { RootState } from '../../root-reducer';
 import getOrderSummary from '../../../services/api/checkout-page-api/order-summary';
 import GetCatalogList from '../../../services/api/product-catalog-api/get-catalog-list-api';
 
-export const fetchCatalogList: any = createAsyncThunk(
-  'orderSummary/fetchOrderSummary',
-  async (token: any) => {
-    const catalogList = await GetCatalogList(token);
-    console.log('order summary in slice', catalogList);
-    return catalogList;
-  }
-);
+export const fetchCatalogList: any = createAsyncThunk('orderSummary/fetchOrderSummary', async (token: any) => {
+  const catalogList = await GetCatalogList(token);
+  console.log('order summary in slice', catalogList);
+  return catalogList;
+});
 
 interface RepoFetchCatalogListState {
   data: any;
@@ -54,7 +51,6 @@ export const CatalogListScreen = createSlice({
   },
 });
 
-export const catalog_summary_state = (state: RootState) =>
-  state.CatalogListScreen;
+export const catalog_summary_state = (state: RootState) => state.CatalogListScreen;
 
 export default CatalogListScreen.reducer;

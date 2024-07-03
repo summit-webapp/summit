@@ -3,11 +3,7 @@ import { API_CONFIG } from '../../config/api-config';
 import { CONSTANTS } from '../../config/app-config';
 import { client } from '../general_apis/cookie-instance-api';
 
-export const fetchProductDetailData = async (
-  product_id: any,
-  currency: any,
-  token: any
-) => {
+export const fetchProductDetailData = async (product_id: any, currency: any, token: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = 'get_details';

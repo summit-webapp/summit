@@ -2,14 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import getBrandsList from '../../../services/api/home_page_api/home-brand-api';
 import { RootState } from '../../root-reducer';
 
-export const fetchBrands: any = createAsyncThunk(
-  'brands/fetchBrands',
-  async (token: any) => {
-    const brandData = await getBrandsList(token);
-    console.log(brandData, ' brandData');
-    return brandData;
-  }
-);
+export const fetchBrands: any = createAsyncThunk('brands/fetchBrands', async (token: any) => {
+  const brandData = await getBrandsList(token);
+  console.log(brandData, ' brandData');
+  return brandData;
+});
 interface RepoBrandsState {
   items: any;
   error: string;

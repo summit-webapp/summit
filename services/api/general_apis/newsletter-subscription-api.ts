@@ -17,11 +17,7 @@ const AddSubscriber = async (email: any, token: any) => {
   };
 
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}&email=${email}`,
-      undefined,
-      { ...config, timeout: 5000 }
-    )
+    .post(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}&email=${email}`, undefined, { ...config, timeout: 5000 })
     .then((res) => {
       console.log('subs email in api', res);
       response = res;
@@ -39,6 +35,5 @@ const AddSubscriber = async (email: any, token: any) => {
     });
   return response;
 };
-const getSubscriber: any = (email: any, token: any) =>
-  AddSubscriber(email, token);
+const getSubscriber: any = (email: any, token: any) => AddSubscriber(email, token);
 export default getSubscriber;

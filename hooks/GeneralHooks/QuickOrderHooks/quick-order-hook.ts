@@ -25,56 +25,51 @@ export const useQuickOrder = () => {
   const [minQty, setMinQty] = useState<any>([]);
 
   const [ifInputEmptyErr, setIfInputEmptyErr] = useState<boolean>(false);
-  const [ifPartNumberExistsErr, setIfPartNumberExistsErr] =
-    useState<boolean>(false);
+  const [ifPartNumberExistsErr, setIfPartNumberExistsErr] = useState<boolean>(false);
 
   const [itemNotFoundErr, setItemNotFoundErr] = useState(false);
   const handleKeyDown = async (e: any) => {
-    console.log(partNumberInputField,"partNumberInputField")
-    console.log("enter data from store", quickOrderDataFromStore);
-   if (e.key === "Enter") {
-    if (partNumberInputField === '') {
-      setIfInputEmptyErr(true);
-      setTimeout(() => {
-        setIfInputEmptyErr(false);
-      }, 2000);
-    } else {
-      if (false) {
-        setIfPartNumberExistsErr(true);
+    console.log(partNumberInputField, 'partNumberInputField');
+    console.log('enter data from store', quickOrderDataFromStore);
+    if (e.key === 'Enter') {
+      if (partNumberInputField === '') {
+        setIfInputEmptyErr(true);
         setTimeout(() => {
-          setIfPartNumberExistsErr(false);
-        }, 3000);
+          setIfInputEmptyErr(false);
+        }, 2000);
       } else {
-        setInputFieldCount(inputFieldCount + 1);
-        const requestParams = {
-          partNumberInputField: partNumberInputField,
-          token: TokenFromStore?.token,
-        };
-        dispatch(fetchQuickOrder(requestParams));
-        const existingHsnCode = partNumbersData.filter(
-          (element: any, i: any) =>
-            element.oem_part_number === partNumberInputField
-        );
-        // console.log(existingHsnCode, "newval12");
-        if (existingHsnCode.length > 0) {
+        if (false) {
           setIfPartNumberExistsErr(true);
           setTimeout(() => {
             setIfPartNumberExistsErr(false);
           }, 3000);
-        }
+        } else {
+          setInputFieldCount(inputFieldCount + 1);
+          const requestParams = {
+            partNumberInputField: partNumberInputField,
+            token: TokenFromStore?.token,
+          };
+          dispatch(fetchQuickOrder(requestParams));
+          const existingHsnCode = partNumbersData.filter((element: any, i: any) => element.oem_part_number === partNumberInputField);
+          // console.log(existingHsnCode, "newval12");
+          if (existingHsnCode.length > 0) {
+            setIfPartNumberExistsErr(true);
+            setTimeout(() => {
+              setIfPartNumberExistsErr(false);
+            }, 3000);
+          }
 
-        // if(quickOrderDataFromStore?.itemList?.length === 0) {
-        //   setItemNotFoundErr(true);
-        //   setTimeout(() => {
-        //     setItemNotFoundErr(false);
-        //   }, 2000);
-        // }
+          // if(quickOrderDataFromStore?.itemList?.length === 0) {
+          //   setItemNotFoundErr(true);
+          //   setTimeout(() => {
+          //     setItemNotFoundErr(false);
+          //   }, 2000);
+          // }
+        }
       }
+
+      setPartNumberInputField('');
     }
-  
-      setPartNumberInputField("")
-    
-     }
   };
   // console.log(quickOrderDataFromStore, "quick_order_state");
   const handleClearReduxStore = () => {

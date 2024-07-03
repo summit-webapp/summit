@@ -2,14 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import getOrderSummary from '../../../services/api/checkout-page-api/order-summary';
 
-export const fetchOrderSummary: any = createAsyncThunk(
-  'orderSummary/fetchOrderSummary',
-  async (request: any) => {
-    console.log('order summary in slice', request);
-    const orderSummaryData = await getOrderSummary(request);
-    return orderSummaryData;
-  }
-);
+export const fetchOrderSummary: any = createAsyncThunk('orderSummary/fetchOrderSummary', async (request: any) => {
+  console.log('order summary in slice', request);
+  const orderSummaryData = await getOrderSummary(request);
+  return orderSummaryData;
+});
 
 interface RepoOrderSummaryState {
   data: any;
@@ -34,10 +31,7 @@ export const OrderSummaryScreen = createSlice({
     });
 
     builder.addCase(fetchOrderSummary.fulfilled, (state, action) => {
-      if (
-        action?.payload?.status === 200 &&
-        action?.payload?.data?.message?.msg === 'success'
-      ) {
+      if (action?.payload?.status === 200 && action?.payload?.data?.message?.msg === 'success') {
         state.isLoading = 'succeeded';
         state.data = action?.payload?.data?.message?.data;
       } else {
@@ -55,7 +49,6 @@ export const OrderSummaryScreen = createSlice({
   },
 });
 
-export const order_summary_state = (state: RootState) =>
-  state.OrderSummaryScreen;
+export const order_summary_state = (state: RootState) => state.OrderSummaryScreen;
 
 export default OrderSummaryScreen.reducer;

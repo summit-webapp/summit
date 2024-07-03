@@ -18,11 +18,7 @@ const ClearCartPostApi: any = async (quotation_id: any, token: any) => {
   };
 
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      undefined,
-      { ...config, timeout: 5000 }
-    )
+    .post(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, { ...config, timeout: 5000 })
     .then((res: any) => {
       console.log('clear cart res', res);
       response = res;
@@ -41,7 +37,6 @@ const ClearCartPostApi: any = async (quotation_id: any, token: any) => {
   return response;
 };
 
-const ClearCartApi = (quotation_id: any, token: any) =>
-  ClearCartPostApi(quotation_id, token);
+const ClearCartApi = (quotation_id: any, token: any) => ClearCartPostApi(quotation_id, token);
 
 export default ClearCartApi;

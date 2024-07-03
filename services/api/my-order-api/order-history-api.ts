@@ -19,10 +19,7 @@ const GetCartHistory = async (request: any) => {
 
   if (request.id) {
     await axios
-      .get(
-        `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${OrderIdParams}`,
-        { ...config, timeout: 5000 }
-      )
+      .get(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${OrderIdParams}`, { ...config, timeout: 5000 })
       .then((res) => {
         console.log('get orderid ', res);
         response = res?.data?.message?.data;
@@ -41,10 +38,7 @@ const GetCartHistory = async (request: any) => {
     return response;
   } else {
     await axios
-      .get(
-        `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${getOrderListParams}`,
-        { ...config, timeout: 5000 }
-      )
+      .get(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${getOrderListParams}`, { ...config, timeout: 5000 })
       .then((res) => {
         console.log('get orderlist ', res);
         response = res;

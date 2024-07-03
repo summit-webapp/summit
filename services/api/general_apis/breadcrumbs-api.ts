@@ -54,10 +54,7 @@ const FetchBreadCrumbsApi = async (request: any) => {
   }
 
   await axios
-    .get(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}${params}`,
-      config
-    )
+    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}${params}`, config)
     .then((res: any) => {
       breadcrumbs_data = res;
     })

@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  clearAllDataAddedToQuickOrderList,
-  fetchQuickOrder,
-  quick_order_state,
-} from '../../store/slices/general_slices/quick-order-slice';
+import { clearAllDataAddedToQuickOrderList, fetchQuickOrder, quick_order_state } from '../../store/slices/general_slices/quick-order-slice';
 import { QuickOrderAddToCart } from '../../services/api/cart-page-api/add-to-cart-api';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 
@@ -15,8 +11,7 @@ export const useQuickOrder = () => {
   const TokenFromStore: any = useSelector(get_access_token);
 
   const [partNumberInputField, setPartNumberInputField] = useState<string>('');
-  const [quickOrderPartNumbersData, setQuickOrderPartNumbersData] =
-    useState<any>([]);
+  const [quickOrderPartNumbersData, setQuickOrderPartNumbersData] = useState<any>([]);
 
   const handleKeyDown = async (e: any) => {
     if (e.key === 'Enter') {
@@ -64,15 +59,13 @@ export const useQuickOrder = () => {
   };
 
   const handleAddCartQuickOrder = async () => {
-    const add_to_cart_data_obj = quickOrderPartNumbersData?.map(
-      (quickOrderPartNumber: any) => {
-        return {
-          item_code: quickOrderPartNumber?.name,
-          quantity: quickOrderPartNumber?.min_order_qty,
-          token: TokenFromStore?.token,
-        };
-      }
-    );
+    const add_to_cart_data_obj = quickOrderPartNumbersData?.map((quickOrderPartNumber: any) => {
+      return {
+        item_code: quickOrderPartNumber?.name,
+        quantity: quickOrderPartNumber?.min_order_qty,
+        token: TokenFromStore?.token,
+      };
+    });
     console.log('uick order add cart', add_to_cart_data_obj);
 
     const quickOrderAddCart = await QuickOrderAddToCart(add_to_cart_data_obj);

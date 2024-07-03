@@ -1,16 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  display_tags,
-  fetchDisplayTags,
-  testReducer,
-} from '../../store/slices/home_page_slice/home-display-tag-slice';
+import { display_tags, fetchDisplayTags, testReducer } from '../../store/slices/home_page_slice/home-display-tag-slice';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import {
-  currency_selector_state,
-  setCurrencyValue,
-  setDefaultCurrencyValue,
-} from '../../store/slices/general_slices/multi-currency-slice';
+import { currency_selector_state, setCurrencyValue, setDefaultCurrencyValue } from '../../store/slices/general_slices/multi-currency-slice';
 
 const useDisplayTagHooks = () => {
   const dispatch = useDispatch();
@@ -30,16 +22,16 @@ const useDisplayTagHooks = () => {
     dispatch(setCurrencyValue(currency_value));
   };
   const fetchCurrencyValue = () => {
-    const currencyValue = currency_state_from_redux?.selected_currency_value !== "" ?
-      currency_state_from_redux?.selected_currency_value :
-      currency_state_from_redux?.default_currency_value;
+    const currencyValue =
+      currency_state_from_redux?.selected_currency_value !== ''
+        ? currency_state_from_redux?.selected_currency_value
+        : currency_state_from_redux?.default_currency_value;
 
     fetchDisplayTagsDataFunction(currencyValue);
   };
   useEffect(() => {
     fetchCurrencyValue();
   }, [currency_state_from_redux]);
-
 
   return {
     allTagsData,

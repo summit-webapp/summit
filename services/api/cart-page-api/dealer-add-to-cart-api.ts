@@ -8,8 +8,7 @@ const DealerAddToCartPostApi: any = async (item_data: any) => {
   const method = 'put_products';
   const entity = 'cart';
 
-  const token =
-    typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   const config = {
     headers: {
@@ -47,7 +46,6 @@ const DealerAddToCartPostApi: any = async (item_data: any) => {
   return response;
 };
 
-const DealerAddToCartApi = (item_data: any) =>
-  DealerAddToCartPostApi(item_data);
+const DealerAddToCartApi = (item_data: any) => DealerAddToCartPostApi(item_data);
 
 export default DealerAddToCartApi;

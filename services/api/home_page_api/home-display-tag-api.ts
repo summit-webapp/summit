@@ -59,6 +59,5 @@ const fetchDisplaytags = async (token: any, currencyValue: any) => {
   return getDisplayTagsProductsList;
 };
 
-const displayTagList = (token: any, currencyValue?: any) =>
-  fetchDisplaytags(token, currencyValue);
+const displayTagList = (token: any, currencyValue?: any) => fetchDisplaytags(token, currencyValue);
 export default displayTagList;

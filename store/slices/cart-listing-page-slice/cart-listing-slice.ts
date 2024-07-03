@@ -3,14 +3,11 @@ import getCartListing from '../../../services/api/cart-page-api/cart-listing-api
 import { RootState } from '../../root-reducer';
 import { stat } from 'fs';
 
-export const fetchCartListing: any = createAsyncThunk(
-  'CartListing/fetchCartListing',
-  async (token: any) => {
-    const response = await getCartListing(token);
-    console.log('cart res', response);
-    return response;
-  }
-);
+export const fetchCartListing: any = createAsyncThunk('CartListing/fetchCartListing', async (token: any) => {
+  const response = await getCartListing(token);
+  console.log('cart res', response);
+  return response;
+});
 
 interface RepoCartListingState {
   data: any;
@@ -40,15 +37,11 @@ export const CartListingScreen = createSlice({
     builder.addCase(fetchCartListing.fulfilled, (state, action) => {
       console.log('data payload', action?.payload);
 
-      if (
-        action?.payload?.status === 200 &&
-        action?.payload?.data?.message?.msg === 'success'
-      ) {
+      if (action?.payload?.status === 200 && action?.payload?.data?.message?.msg === 'success') {
         console.log('data set', action.payload.data);
         state.isLoading = 'succeeded';
         state.data = action?.payload?.data?.message?.data;
-        state.orderCount =
-          action?.payload?.data?.message?.data?.categories?.length;
+        state.orderCount = action?.payload?.data?.message?.data?.categories?.length;
       } else {
         state.isLoading = 'succeeded';
         state.data = [];

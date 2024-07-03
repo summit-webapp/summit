@@ -2,13 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import getDealerLedgerSummary from '../../../services/api/dealer-ledger-api/dealer-ledger-summary-api';
 
-export const fetchDealerLedgerSummary: any = createAsyncThunk(
-  'dealerLedgerSummary/fetchdealerSummary',
-  async (token: any) => {
-    const response = await getDealerLedgerSummary(token);
-    return response;
-  }
-);
+export const fetchDealerLedgerSummary: any = createAsyncThunk('dealerLedgerSummary/fetchdealerSummary', async (token: any) => {
+  const response = await getDealerLedgerSummary(token);
+  return response;
+});
 
 interface RepoDealerLedgerSummaryState {
   data: any;
@@ -46,7 +43,6 @@ export const DealerLedgerSummaryScreen = createSlice({
   },
 });
 
-export const dealer_ledger_summary: any = (state: RootState) =>
-  state.DealerledgerSummaryScreen;
+export const dealer_ledger_summary: any = (state: RootState) => state.DealerledgerSummaryScreen;
 
 export default DealerLedgerSummaryScreen.reducer;

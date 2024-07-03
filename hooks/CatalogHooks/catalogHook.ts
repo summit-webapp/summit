@@ -2,18 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import CreateCatalog from '../../services/api/product-catalog-api/create-catalog-api';
-import {
-  catalog_summary_state,
-  fetchCatalogList,
-} from '../../store/slices/catalog-page-slice/get-catalog-slice';
+import { catalog_summary_state, fetchCatalogList } from '../../store/slices/catalog-page-slice/get-catalog-slice';
 import deleteCatalog from '../../services/api/product-catalog-api/delete-catalog-api';
 import AddProductToCatalogList from '../../services/api/product-catalog-api/put-product-to-catalog-api';
 import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
-import {
-  failmsg,
-  hideToast,
-  successmsg,
-} from '../../store/slices/general_slices/toast_notification_slice';
+import { failmsg, hideToast, successmsg } from '../../store/slices/general_slices/toast_notification_slice';
 import { showToast } from '../../components/ToastNotificationNew';
 
 const useCatalogHook = () => {
@@ -50,10 +43,7 @@ const useCatalogHook = () => {
 
   useEffect(() => {
     setLoading(getcatalogList_reduxList?.isLoading);
-    if (
-      getcatalogList_reduxList.isLoading === 'succeeded' &&
-      getcatalogList_reduxList?.data?.length > 0
-    ) {
+    if (getcatalogList_reduxList.isLoading === 'succeeded' && getcatalogList_reduxList?.data?.length > 0) {
       setCatalogListItem(getcatalogList_reduxList?.data);
     } else {
       setCatalogListItem([]);

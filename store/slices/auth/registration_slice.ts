@@ -1,29 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import RegistrationApi from '../../../services/api/auth/registration_api';
-import {
-  failmsg,
-  hideToast,
-  successmsg,
-} from '../general_slices/toast_notification_slice';
+import { failmsg, hideToast, successmsg } from '../general_slices/toast_notification_slice';
 import { showToast } from '../../../components/ToastNotificationNew';
 
-export const getRegistrationData: any = createAsyncThunk(
-  'registrationData/getRegistrationData',
-  async (data, { dispatch }) => {
-    const RegistrationValues = await RegistrationApi(data);
-    console.log(RegistrationValues, 'RegistrationValues');
-    if (
-      RegistrationValues.status === 200 &&
-      RegistrationValues?.data?.message?.msg === 'success'
-    ) {
-      showToast('Registerd sucessfully', 'success');
-    } else {
-      showToast(RegistrationValues?.data?.message?.error, 'error');
-    }
-    return RegistrationValues;
+export const getRegistrationData: any = createAsyncThunk('registrationData/getRegistrationData', async (data, { dispatch }) => {
+  const RegistrationValues = await RegistrationApi(data);
+  console.log(RegistrationValues, 'RegistrationValues');
+  if (RegistrationValues.status === 200 && RegistrationValues?.data?.message?.msg === 'success') {
+    showToast('Registerd sucessfully', 'success');
+  } else {
+    showToast(RegistrationValues?.data?.message?.error, 'error');
   }
-);
+  return RegistrationValues;
+});
 interface RepoRegistrationState {
   items: any;
   error: string;
@@ -57,7 +47,6 @@ export const RepoRegistrationScreen = createSlice({
   },
 });
 
-export const registration_state = (state: RootState) =>
-  state.RepoRegistrationScreen;
+export const registration_state = (state: RootState) => state.RepoRegistrationScreen;
 
 export default RepoRegistrationScreen.reducer;

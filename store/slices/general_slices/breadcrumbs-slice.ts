@@ -2,14 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import getBreadCrumbs from '../../../services/api/general_apis/breadcrumbs-api';
 import { RootState } from '../../root-reducer';
 
-export const fetchBreadCrumbs: any = createAsyncThunk(
-  'breadcrumbs/fetchbreadcrumbs',
-  async (request) => {
-    const breadCrumbsData = await getBreadCrumbs(request);
-    console.log('breadcrumb resss', breadCrumbsData);
-    return breadCrumbsData;
-  }
-);
+export const fetchBreadCrumbs: any = createAsyncThunk('breadcrumbs/fetchbreadcrumbs', async (request) => {
+  const breadCrumbsData = await getBreadCrumbs(request);
+  console.log('breadcrumb resss', breadCrumbsData);
+  return breadCrumbsData;
+});
 
 interface RepoBreadCrumbsState {
   data: any;
@@ -35,10 +32,7 @@ export const BreadCrumbsScreen = createSlice({
     });
 
     builder.addCase(fetchBreadCrumbs.fulfilled, (state, action) => {
-      if (
-        action?.payload?.status === 200 &&
-        action?.payload?.data?.message?.msg === 'success'
-      ) {
+      if (action?.payload?.status === 200 && action?.payload?.data?.message?.msg === 'success') {
         state.isLoading = 'succeeded';
         state.data = action?.payload?.data?.message?.data;
         state.error = '';

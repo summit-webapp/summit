@@ -34,9 +34,7 @@ export async function getServerSideProps(context: any) {
   const url = `${context.resolvedUrl.split('?')[0]}`;
   console.log('context url', context.resolvedUrl);
   if (CONSTANTS.ENABLE_META_TAGS) {
-    let meta_data: any = await MetaTag(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}&page_name=${url}`
-    );
+    let meta_data: any = await MetaTag(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}&page_name=${url}`);
     if (meta_data !== null && Object.keys(meta_data).length > 0) {
       const metaData = meta_data?.data?.message?.data;
       // console.log("meta data in page server", metaData);

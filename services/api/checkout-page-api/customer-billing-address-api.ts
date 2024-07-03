@@ -20,10 +20,7 @@ const fetchBillingAddress = async (token: any) => {
 
   if (guestid !== null) {
     await axios
-      .get(
-        `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}&user_id=${guestid}`,
-        { ...config, timeout: 5000 }
-      )
+      .get(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}&user_id=${guestid}`, { ...config, timeout: 5000 })
       .then((res: any) => {
         console.log('ress', res);
         response = res.data.message.data.sort(function (a: any, b: any) {
@@ -44,10 +41,7 @@ const fetchBillingAddress = async (token: any) => {
     return response;
   } else {
     await axios
-      .get(
-        `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-        config
-      )
+      .get(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, config)
       .then((res: any) => {
         console.log('ress g', res);
 

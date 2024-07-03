@@ -13,14 +13,9 @@ const useProductReview = () => {
   console.log('product item router in details', query.product_id);
   const [reviewData, setReviewData] = useState<any>(null);
   const reviewDataFromStore = useSelector(product_review_from_store);
-  const product_detail_data_from_redux = useSelector(
-    product_detail_data_selector_state
-  );
+  const product_detail_data_from_redux = useSelector(product_detail_data_selector_state);
   console.log('product review data in hook', reviewDataFromStore);
-  console.log(
-    'product item details data',
-    product_detail_data_from_redux?.data?.name
-  );
+  console.log('product item details data', product_detail_data_from_redux?.data?.name);
   const item_code = product_detail_data_from_redux?.data?.name;
   useEffect(() => {
     dispatch(fetchProductReview(item_code) as any);

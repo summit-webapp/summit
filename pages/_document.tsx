@@ -41,16 +41,9 @@ export default function Document() {
               target.media = 'all';
             }}
           ></link>
-          <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-            async
-          ></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" async></script>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin={'anonymous'}
-          />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={'anonymous'} />
           <link
             href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@400;500;600;700&family=Rubik:wght@300&display=swap"
             rel="stylesheet"

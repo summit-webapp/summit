@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchShippingAddress,
-  shipping_address_state,
-} from '../../store/slices/checkoutPage-slice/customer-shipping-address-slice';
-import {
-  billing_address_state,
-  fetchBillingAddress,
-} from '../../store/slices/checkoutPage-slice/customer-billing-address-slice';
+import { fetchShippingAddress, shipping_address_state } from '../../store/slices/checkoutPage-slice/customer-shipping-address-slice';
+import { billing_address_state, fetchBillingAddress } from '../../store/slices/checkoutPage-slice/customer-billing-address-slice';
 import getTransportData from '../../services/api/checkout-page-api/transporter-code-api';
-import {
-  fetchOrderSummary,
-  order_summary_state,
-} from '../../store/slices/checkoutPage-slice/order-summary';
+import { fetchOrderSummary, order_summary_state } from '../../store/slices/checkoutPage-slice/order-summary';
 import getOrderSummary from '../../services/api/checkout-page-api/order-summary';
 import Router from 'next/router';
 import * as ga from '../../lib/ga';
@@ -25,10 +16,7 @@ import RedirectPayment from '../../services/api/checkout-page-api/redirect-payme
 
 import CouponCodePostApi from '../../services/api/checkout-page-api/coupon-code-api';
 import { CONSTANTS } from '../../services/config/app-config';
-import {
-  cart_listing_state,
-  fetchCartListing,
-} from '../../store/slices/cart-listing-page-slice/cart-listing-slice';
+import { cart_listing_state, fetchCartListing } from '../../store/slices/cart-listing-page-slice/cart-listing-slice';
 import axios from 'axios';
 import CheckGuestUser from '../../services/api/auth/check-guest-login';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
@@ -60,8 +48,7 @@ const UseCheckoutPageHook = () => {
   const [textState, setTextstate] = useState('');
   const [transportersCharges, settransportersCharges] = useState('');
   const [orderSummary, setorderSummary] = useState<any>([]);
-  const [currencySymbolForSummary, setCurrencySymbolForSummary] =
-    useState<any>('');
+  const [currencySymbolForSummary, setCurrencySymbolForSummary] = useState<any>('');
   const [quotationId, setquotationId] = useState<any>('');
   const [deleteCoupon, setdeleteCoupon] = useState<boolean>(false);
   const [couponCode, setCouponCode] = useState<any>('');
@@ -104,29 +91,19 @@ const UseCheckoutPageHook = () => {
   // }, []);
 
   useEffect(() => {
-    if (
-      customerShippingAddresses?.isLoading === 'succeeded' &&
-      customerShippingAddresses?.items?.length > 0
-    ) {
+    if (customerShippingAddresses?.isLoading === 'succeeded' && customerShippingAddresses?.items?.length > 0) {
       setShippingAddresses([...customerShippingAddresses?.items]);
 
-      setInitialShippingAddress(
-        customerShippingAddresses?.initialShippingAddressID
-      );
+      setInitialShippingAddress(customerShippingAddresses?.initialShippingAddressID);
     } else {
       setShippingAddresses([]);
 
       setIsShipLoading(customerShippingAddresses?.isLoading);
     }
 
-    if (
-      customerBillingAddresses?.isLoading === 'succeeded' &&
-      customerBillingAddresses?.items?.length > 0
-    ) {
+    if (customerBillingAddresses?.isLoading === 'succeeded' && customerBillingAddresses?.items?.length > 0) {
       setBillingAddresses([...customerBillingAddresses?.items]);
-      setInitialBillingAddress(
-        customerBillingAddresses?.initialBillingAddressID
-      );
+      setInitialBillingAddress(customerBillingAddresses?.initialBillingAddressID);
     } else {
       setBillingAddresses([]);
       setBillShipLoading(customerBillingAddresses?.isLoading);
@@ -181,11 +158,7 @@ const UseCheckoutPageHook = () => {
 
   const handleApplyCouponCode = async (e: any) => {
     console.log('coupon code bool', deleteCoupon, quotationId);
-    let res: any = await CouponCodePostApi(
-      quotationId,
-      couponCode,
-      TokenFromStore?.token
-    );
+    let res: any = await CouponCodePostApi(quotationId, couponCode, TokenFromStore?.token);
     console.log('coupon code res--', res);
     if (res?.data?.message?.msg !== 'error') {
       setCouponerr(false);
@@ -258,18 +231,13 @@ const UseCheckoutPageHook = () => {
     console.log('payment gateway ordersummary', orderSummary);
     if (CONSTANTS.ALLOW_PAYMENT_GATEWAY === true) {
       console.log('payment gateway');
-      let paymentApiRes = await RedirectPayment(
-        cartListingItems?.name,
-        orderSummary[10]?.value,
-        'Quotation',
-        TokenFromStore?.token
-      );
+      let paymentApiRes = await RedirectPayment(cartListingItems?.name, orderSummary[10]?.value, 'Quotation', TokenFromStore?.token);
 
       console.log('redirect payment', paymentApiRes);
       if (paymentApiRes?.data?.message !== 'error') {
         response = paymentApiRes?.data?.message;
         window.location.href = `${paymentApiRes}`;
-        dispatch(fetchCartListing( TokenFromStore?.token))
+        dispatch(fetchCartListing(TokenFromStore?.token));
       }
     } else {
       let res = await PlaceOrderApi(
@@ -290,7 +258,7 @@ const UseCheckoutPageHook = () => {
         response = res?.data?.message;
 
         Router.push(`/thankyou/${response}`);
-        dispatch(fetchCartListing( TokenFromStore?.token))
+        dispatch(fetchCartListing(TokenFromStore?.token));
       }
     }
   };
@@ -301,9 +269,7 @@ const UseCheckoutPageHook = () => {
       setInitialBillingAddress(initialShippingAddress);
     } else {
       setBillingCheckbox(!billingCheckbox);
-      setInitialBillingAddress(
-        customerBillingAddresses.initialBillingAddressID
-      );
+      setInitialBillingAddress(customerBillingAddresses.initialBillingAddressID);
     }
   };
 

@@ -19,10 +19,8 @@ const CheckGuestLogin = async (request: any) => {
   let raw_data: IRaw_Data;
   const version = CONSTANTS.VERSION;
 
-  let isVisitor =
-    typeof window !== 'undefined' ? localStorage.getItem('guest') : null;
-  let guestToken =
-    typeof window !== 'undefined' ? localStorage.getItem('guestToken') : null;
+  let isVisitor = typeof window !== 'undefined' ? localStorage.getItem('guest') : null;
+  let guestToken = typeof window !== 'undefined' ? localStorage.getItem('guestToken') : null;
 
   const config = {
     headers: {},
@@ -39,11 +37,7 @@ const CheckGuestLogin = async (request: any) => {
   };
 
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}`,
-      raw_data,
-      { ...config, timeout: 5000 }
-    )
+    .post(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}`, raw_data, { ...config, timeout: 5000 })
     .then((res) => {
       console.log('LOGIN API FILE visitor', res);
       response = res?.data?.data?.access_token;

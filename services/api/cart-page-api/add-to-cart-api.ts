@@ -1,12 +1,7 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
 
-const AddToCartPostApi: any = async (
-  item_code: any,
-  currencyVal?: any,
-  token?: any,
-  partyName?: any
-) => {
+const AddToCartPostApi: any = async (item_code: any, currencyVal?: any, token?: any, partyName?: any) => {
   console.log('add currency in api', token);
   let response: any;
   let version = CONSTANTS.VERSION;
@@ -94,11 +89,6 @@ export const QuickOrderAddToCart = async (item_data: any) => {
   return response;
 };
 
-const AddToCartApi = (
-  item_code: any,
-  currencyVal?: any,
-  token?: any,
-  partyName?: any
-) => AddToCartPostApi(item_code, currencyVal, token, partyName);
+const AddToCartApi = (item_code: any, currencyVal?: any, token?: any, partyName?: any) => AddToCartPostApi(item_code, currencyVal, token, partyName);
 
 export default AddToCartApi;

@@ -2,14 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import MultiLangApi from '../../../services/api/general_apis/multilanguage-api';
 import { RootState } from '../../root-reducer';
 
-export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk(
-  'multilanguage/fetchMultilanguage',
-  async (token: any) => {
-    const MultilanguageData = await MultiLangApi();
-    console.log('multilanguage res', MultilanguageData);
-    return MultilanguageData;
-  }
-);
+export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk('multilanguage/fetchMultilanguage', async (token: any) => {
+  const MultilanguageData = await MultiLangApi();
+  console.log('multilanguage res', MultilanguageData);
+  return MultilanguageData;
+});
 
 interface RepoDisplayTag {
   languageData: any;
@@ -56,7 +53,6 @@ export const MultiLanguageScreen = createSlice({
 
 export const { setMultiLingualData } = MultiLanguageScreen.actions;
 
-export const multiLanguageDataFromStore = (state: RootState) =>
-  state.MultilanguageScreen;
+export const multiLanguageDataFromStore = (state: RootState) => state.MultilanguageScreen;
 
 export default MultiLanguageScreen.reducer;

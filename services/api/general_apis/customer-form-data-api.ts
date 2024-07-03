@@ -15,10 +15,7 @@ export const FetchStateForAddressForm = async (token: any) => {
     },
   };
   await axios
-    .get(
-      `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${stateParams}`,
-      config
-    )
+    .get(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${stateParams}`, config)
     .then((res: any) => {
       response = res?.data?.message?.data;
     })
@@ -39,10 +36,7 @@ export const FetchCitiesForAddressForm = async (state: any, token: any) => {
     },
   };
   await axios
-    .get(
-      `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${citiesParams}`,
-      { ...config, timeout: 5000 }
-    )
+    .get(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${citiesParams}`, { ...config, timeout: 5000 })
     .then((res: any) => {
       response = res?.data?.message?.data;
     })

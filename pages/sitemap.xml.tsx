@@ -1,8 +1,4 @@
-import {
-  ISitemapField,
-  getServerSideSitemap,
-  getServerSideSitemapLegacy,
-} from 'next-sitemap';
+import { ISitemapField, getServerSideSitemap, getServerSideSitemapLegacy } from 'next-sitemap';
 import axios from 'axios';
 import { CONSTANTS } from '../services/config/app-config';
 function generateSiteMap(urlsData: any) {
@@ -30,14 +26,7 @@ function SiteMap() {
 export const getServerSideProps = async ({ res }: any) => {
   const method = 'get_site_map';
   const entity = 'seo';
-  const pageTypes = [
-    'product-category',
-    'product',
-    'brand',
-    'brand-product',
-    'catalog',
-    'catalog-product',
-  ];
+  const pageTypes = ['product-category', 'product', 'brand', 'brand-product', 'catalog', 'catalog-product'];
   let responseData: any = [];
 
   // Define an array of promises for fetching data

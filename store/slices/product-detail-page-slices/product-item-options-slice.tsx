@@ -2,18 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import { fetchProductMatchingItems } from '../../../services/api/product-detail-page-api/product-mandatory-items-api';
 
-export const ProductMatchingItemOptions = createAsyncThunk(
-  'product-matching-item-options-slice/fetchProductItemOptions',
-  async (params: any) => {
-    const { productID, currency, token } = params;
-    const getProductMatchingItemsOptionsData = await fetchProductMatchingItems(
-      productID,
-      currency,
-      token
-    );
-    return getProductMatchingItemsOptionsData;
-  }
-);
+export const ProductMatchingItemOptions = createAsyncThunk('product-matching-item-options-slice/fetchProductItemOptions', async (params: any) => {
+  const { productID, currency, token } = params;
+  const getProductMatchingItemsOptionsData = await fetchProductMatchingItems(productID, currency, token);
+  return getProductMatchingItemsOptionsData;
+});
 
 interface ProductMatchingItemsState {
   data: any;
@@ -44,6 +37,5 @@ const productMatchingItemsSlice = createSlice({
   },
 });
 
-export const product_matching_items_selector_state = (state: RootState) =>
-  state.ProductMatchingItemsScreen;
+export const product_matching_items_selector_state = (state: RootState) => state.ProductMatchingItemsScreen;
 export default productMatchingItemsSlice.reducer;

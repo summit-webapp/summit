@@ -23,7 +23,6 @@ const SelectedLanguage = createSlice({
   },
 });
 
-export const selected_lang_selector_state = (state: RootState) =>
-  state.SelectedLanguageScreen;
+export const selected_lang_selector_state = (state: RootState) => state.SelectedLanguageScreen;
 
 export default SelectedLanguage.reducer;

@@ -17,11 +17,7 @@ const OtpLoginApi = async (request: any) => {
   };
 
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      undefined,
-      { ...config, timeout: 5000 }
-    )
+    .post(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, { ...config, timeout: 5000 })
     .then((res: any) => {
       response = res?.data?.message;
       if (res?.data?.message?.msg === 'success') {

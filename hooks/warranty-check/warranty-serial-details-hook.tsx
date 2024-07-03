@@ -1,17 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  WarrantySerailNoDetails,
-  warranty_serial_details_from_store,
-} from '../../store/slices/warranty-check-slice/get-serial-no-details-slice';
+import { WarrantySerailNoDetails, warranty_serial_details_from_store } from '../../store/slices/warranty-check-slice/get-serial-no-details-slice';
 import { useRouter } from 'next/router';
 
 const useWarrantySerialDetails = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const warrantySerialDetailStoreData: any = useSelector(
-    warranty_serial_details_from_store
-  );
+  const warrantySerialDetailStoreData: any = useSelector(warranty_serial_details_from_store);
 
   //   const TokenFromStore: any = useSelector(get_access_token);
 

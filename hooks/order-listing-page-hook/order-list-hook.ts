@@ -37,10 +37,7 @@ const UseThankyou = () => {
       const getSalesOrderID = async () => {
         console.log('thank u b2b');
 
-        let ecommerce_enhanced_code = await ECommerceEnhancedCodeApi(
-          router?.query.id,
-          TokenFromStore?.token
-        );
+        let ecommerce_enhanced_code = await ECommerceEnhancedCodeApi(router?.query.id, TokenFromStore?.token);
 
         setEcommerceData({ ...ecommerce_enhanced_code });
         const requestParams = {

@@ -4,7 +4,7 @@ import { client } from './cookie-instance-api';
 
 const QuickOrderFetch = async (request: any) => {
   // const part_number = { oem_part_number: `${request.partNumberInputField}` };
-  const part_number = { item_code:`${request.partNumberInputField}`,oem_part_number:`${request.partNumberInputField}`};
+  const part_number = { item_code: `${request.partNumberInputField}`, oem_part_number: `${request.partNumberInputField}` };
 
   let response: any;
   const version = CONSTANTS.VERSION;
@@ -19,12 +19,7 @@ const QuickOrderFetch = async (request: any) => {
 
   const params = `?version=${version}&method=${method}&entity=${entity}`;
   await axios
-    .get(
-      `${CONSTANTS.API_BASE_URL}${
-        CONSTANTS.API_MANDATE_PARAMS
-      }${params}&or_filters=${JSON.stringify(part_number)}`,
-      { ...config, timeout: 5000 }
-    )
+    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}&or_filters=${JSON.stringify(part_number)}`, { ...config, timeout: 5000 })
     .then((res) => {
       console.log('enter quick order in api', res);
       response = res;

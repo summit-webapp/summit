@@ -2,11 +2,7 @@ import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
 import { client } from '../general_apis/cookie-instance-api';
 
-const CouponCodePostApi = async (
-  item_code: any,
-  coupon_code: any,
-  token: any
-) => {
+const CouponCodePostApi = async (item_code: any, coupon_code: any, token: any) => {
   let response: any;
 
   const version = CONSTANTS.VERSION;

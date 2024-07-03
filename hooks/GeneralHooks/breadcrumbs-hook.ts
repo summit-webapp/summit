@@ -1,8 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  breadcrumbs_state,
-  fetchBreadCrumbs,
-} from '../../store/slices/general_slices/breadcrumbs-slice';
+import { breadcrumbs_state, fetchBreadCrumbs } from '../../store/slices/general_slices/breadcrumbs-slice';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';

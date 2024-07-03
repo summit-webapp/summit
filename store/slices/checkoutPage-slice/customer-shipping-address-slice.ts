@@ -2,14 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import getShippingAddress from '../../../services/api/checkout-page-api/customer-shipping-address-api';
 
-export const fetchShippingAddress: any = createAsyncThunk(
-  'shippingAddress/fetchShippingAddress',
-  async (token: any) => {
-    const shippingData = await getShippingAddress(token);
-    console.log('shipping address', shippingData);
-    return shippingData;
-  }
-);
+export const fetchShippingAddress: any = createAsyncThunk('shippingAddress/fetchShippingAddress', async (token: any) => {
+  const shippingData = await getShippingAddress(token);
+  console.log('shipping address', shippingData);
+  return shippingData;
+});
 interface RepoShippingAddState {
   items: any;
   error: string;
@@ -52,7 +49,6 @@ export const ShippingAddressScreen = createSlice({
   },
 });
 
-export const shipping_address_state = (state: RootState) =>
-  state.ShippingAddressScreen;
+export const shipping_address_state = (state: RootState) => state.ShippingAddressScreen;
 
 export default ShippingAddressScreen.reducer;

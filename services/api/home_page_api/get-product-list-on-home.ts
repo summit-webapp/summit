@@ -11,7 +11,7 @@ const fetchProductListDataOnHome = async () => {
 
   const config = {
     headers: {
-    //   Authorization: TokenFromStore,
+      //   Authorization: TokenFromStore,
     },
   };
 
@@ -36,7 +36,5 @@ const fetchProductListDataOnHome = async () => {
     });
   return response;
 };
-
-
 
 export default fetchProductListDataOnHome;

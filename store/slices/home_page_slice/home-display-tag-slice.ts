@@ -2,15 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import displayTagList from '../../../services/api/home_page_api/home-display-tag-api';
 import { RootState } from '../../root-reducer';
 
-export const fetchDisplayTags: any = createAsyncThunk(
-  'displayTagsList/fetchDisplayTags',
-  async (params: any) => {
-    const { token, currencyValue } = params;
-    const displayTags = await displayTagList(token, currencyValue);
-    // console.log("display tags slice", displayTags);
-    return displayTags;
-  }
-);
+export const fetchDisplayTags: any = createAsyncThunk('displayTagsList/fetchDisplayTags', async (params: any) => {
+  const { token, currencyValue } = params;
+  const displayTags = await displayTagList(token, currencyValue);
+  // console.log("display tags slice", displayTags);
+  return displayTags;
+});
 interface RepoDisplayTag {
   tagData: any;
   error: string;

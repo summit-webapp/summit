@@ -1,9 +1,7 @@
 import * as Yup from 'yup';
 
 export const ShippingValidation = Yup.object().shape({
-  name: Yup.string()
-    .required('Name is a required field.')
-    .min(5, 'Name must be atleast 5 characters.'),
+  name: Yup.string().required('Name is a required field.').min(5, 'Name must be atleast 5 characters.'),
   address_1: Yup.string().required('The Street Address field is required.'),
   //   address_2: Yup.string().required("The Street Address field is required."),
   country: Yup.string().required('The Country field is required.'),

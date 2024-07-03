@@ -94,11 +94,11 @@ const appReducer = combineReducers({
   GetCustomerWarrantyDetailsSlice: getCustomerWarrantyDetailsSlice,
   WarrantySerialNoListSlice: WarrantySerialNoListSlice,
   productListOnHome: productOnHomeSlice,
-  productSpecification:productSpecificationScreen,
-  validatePincode:ValidatePincodeScreen,
+  productSpecification: productSpecificationScreen,
+  validatePincode: ValidatePincodeScreen,
   ContactUsSlice: contactusSlice,
-  HomeAboutScreen:homeAboutSlice,
-  AboutUsScreen:AboutUsSlice
+  HomeAboutScreen: homeAboutSlice,
+  AboutUsScreen: AboutUsSlice,
 });
 
 const rootReducer = (state: any, action: any) => {

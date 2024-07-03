@@ -37,7 +37,6 @@ const fetchHomeBannerData = async (TokenFromStore: any) => {
   return response;
 };
 
-const getHomeBannersList = (TokenFromStore: any) =>
-  fetchHomeBannerData(TokenFromStore);
+const getHomeBannersList = (TokenFromStore: any) => fetchHomeBannerData(TokenFromStore);
 
 export default getHomeBannersList;

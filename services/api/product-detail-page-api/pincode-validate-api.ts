@@ -2,10 +2,7 @@ import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
 import { client } from '../general_apis/cookie-instance-api';
 
-export const fetchPincodeApi = async (
-  pincode: any,
- 
-) => {
+export const fetchPincodeApi = async (pincode: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = 'validate_pincode';
@@ -15,9 +12,8 @@ export const fetchPincodeApi = async (
 
   const config = {
     headers: {
-        Accept: "application/json", 
+      Accept: 'application/json',
     },
-    
   };
 
   await axios
@@ -26,7 +22,7 @@ export const fetchPincodeApi = async (
       timeout: 5000,
     })
     .then((res: any) => {
-      console.log('@@product in api',res)
+      console.log('@@product in api', res);
       response = res;
     })
     .catch((err: any) => {
@@ -43,6 +39,5 @@ export const fetchPincodeApi = async (
   return response;
 };
 
-const getPincodeApi = (pincode: any) =>
-fetchPincodeApi(pincode);
+const getPincodeApi = (pincode: any) => fetchPincodeApi(pincode);
 export default getPincodeApi;

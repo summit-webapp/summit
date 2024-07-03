@@ -20,11 +20,7 @@ const GetQuotationPostApi = async (quotation_id: any, token: any) => {
   };
 
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      undefined,
-      { ...config, timeout: 5000 }
-    )
+    .post(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, { ...config, timeout: 5000 })
     .then((res: any) => {
       response = res;
     })
@@ -42,6 +38,5 @@ const GetQuotationPostApi = async (quotation_id: any, token: any) => {
   return response;
 };
 
-const getQuotationCart: any = (quotation_id: any, token: any) =>
-  GetQuotationPostApi(quotation_id, token);
+const getQuotationCart: any = (quotation_id: any, token: any) => GetQuotationPostApi(quotation_id, token);
 export default getQuotationCart;

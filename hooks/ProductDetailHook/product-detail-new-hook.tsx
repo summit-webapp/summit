@@ -1,23 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import {
-  ProductDetailPageThunk,
-  product_detail_data_selector_state,
-} from '../../store/slices/product-detail-page-slices/product-detail-data-slice';
-import {
-  ProductVariantsThunk,
-  product_variants_selector_state,
-} from '../../store/slices/product-detail-page-slices/product-variants-data-slice';
+import { ProductDetailPageThunk, product_detail_data_selector_state } from '../../store/slices/product-detail-page-slices/product-detail-data-slice';
+import { ProductVariantsThunk, product_variants_selector_state } from '../../store/slices/product-detail-page-slices/product-variants-data-slice';
 import { CONSTANTS } from '../../services/config/app-config';
 import {
   ProductMatchingItemOptions,
   product_matching_items_selector_state,
 } from '../../store/slices/product-detail-page-slices/product-item-options-slice';
-import {
-  fetchStockAvailability,
-  stock_availability_state,
-} from '../../store/slices/product-detail-page-slices/product-stock-availability-slice';
+import { fetchStockAvailability, stock_availability_state } from '../../store/slices/product-detail-page-slices/product-stock-availability-slice';
 import useProductDetailFunctions from './product-detail-functions-hook';
 
 const useProductDetailNewHook = () => {
@@ -25,24 +16,15 @@ const useProductDetailNewHook = () => {
 
   const dispatch = useDispatch();
 
-  const product_detail_data_from_redux = useSelector(
-    product_detail_data_selector_state
-  );
-  const product_variants_data_from_redux = useSelector(
-    product_variants_selector_state
-  );
-  const stock_availability_data_from_redux = useSelector(
-    stock_availability_state
-  );
+  const product_detail_data_from_redux = useSelector(product_detail_data_selector_state);
+  const product_variants_data_from_redux = useSelector(product_variants_selector_state);
+  const stock_availability_data_from_redux = useSelector(stock_availability_state);
 
-  const product_matching_items_data_from_redux = useSelector(
-    product_matching_items_selector_state
-  );
+  const product_matching_items_data_from_redux = useSelector(product_matching_items_selector_state);
 
   const productID = router.query.product_id;
 
-  const { handleSettingOfSelectedVariantsAndThumbnailOfVariants } =
-    useProductDetailFunctions();
+  const { handleSettingOfSelectedVariantsAndThumbnailOfVariants } = useProductDetailFunctions();
 
   const [productDetailData, setProductDetailData] = useState<any>({});
   const [productVariants, setProductVariants] = useState<any>({});
@@ -53,8 +35,7 @@ const useProductDetailNewHook = () => {
   const [productEnlargeImages, setProductEnlargeImages] = useState<any>([]);
   const [storeTemplateImages, setStoreTemplateImages] = useState<any>([]);
 
-  const [selectedVariantCodeForAddToCart, setSelectedVariantCodeForAddToCart] =
-    useState('');
+  const [selectedVariantCodeForAddToCart, setSelectedVariantCodeForAddToCart] = useState('');
   let [minQty, setMinQty] = useState<any>('');
 
   const handleCreationOfProductEnlargeImages = () => {
@@ -78,9 +59,7 @@ const useProductDetailNewHook = () => {
     if (Object.keys(selectedVariant).length > 0) {
       console.log('rastafari 2', selectedVariant);
       const matchedVariant = productVariants?.variants?.find((variant: any) =>
-        Object.entries(selectedVariant).every(
-          ([key, value]) => variant[key] === value
-        )
+        Object.entries(selectedVariant).every(([key, value]) => variant[key] === value)
       );
       console.log('util format matched variant', matchedVariant);
       setSelectedVariantCodeForAddToCart(matchedVariant?.variant_code);
@@ -144,19 +123,12 @@ const useProductDetailNewHook = () => {
         break;
     }
 
-    if (
-      product_variants_data_from_redux?.data?.variants?.length > 0 &&
-      product_variants_data_from_redux?.data?.attributes?.length > 0
-    ) {
-      const { generateSelectedVariants, generateThumbnailOfVariants } =
-        handleSettingOfSelectedVariantsAndThumbnailOfVariants(
-          product_variants_data_from_redux?.data
-        );
+    if (product_variants_data_from_redux?.data?.variants?.length > 0 && product_variants_data_from_redux?.data?.attributes?.length > 0) {
+      const { generateSelectedVariants, generateThumbnailOfVariants } = handleSettingOfSelectedVariantsAndThumbnailOfVariants(
+        product_variants_data_from_redux?.data
+      );
       setSelectedVariant({ ...generateSelectedVariants });
       setThumbnailOfVariants({ ...generateThumbnailOfVariants });
     }
-  }, [
-    product_variants_data_from_redux,
-    product_matching_items_data_from_redux,
-  ]);
+  }, [product_variants_data_from_redux, product_matching_items_data_from_redux]);
 };

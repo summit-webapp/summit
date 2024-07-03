@@ -5,8 +5,7 @@ import { RootState } from '../../root-reducer';
 export const fetchHomeTopCategoriesDataFromAPI = createAsyncThunk(
   'home-top-categories-slice/fetchHomeTopCategoriesDataStatus',
   async (token: any) => {
-    const getHomeTopCategoriesDataAPIResponse: any =
-      await getHomeTopCategoriesList(token);
+    const getHomeTopCategoriesDataAPIResponse: any = await getHomeTopCategoriesList(token);
     // console.log(
     //   "home top categories data in slice",
     //   getHomeTopCategoriesDataAPIResponse
@@ -32,42 +31,29 @@ export const homeTopCategoriesSlice = createSlice({
     // standard reducer logic, with auto-generated action types per reducer
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      fetchHomeTopCategoriesDataFromAPI.pending,
-      (state, action) => {
-        console.log('top categories in slice pending');
-        state.loading = 'pending';
-        state.homeTopCategoriesData = [];
-      }
-    );
-    builder.addCase(
-      fetchHomeTopCategoriesDataFromAPI.fulfilled,
-      (state, action) => {
-        console.log('top categories in slice success', action);
-        if (
-          action.payload.status === 200 &&
-          action.payload.data.message.length > 0
-        ) {
-          state.loading = 'succeeded';
-          state.homeTopCategoriesData = action.payload.data.message;
-        } else {
-          state.loading = 'failed';
-          state.homeTopCategoriesData = [];
-        }
-      }
-    );
-    builder.addCase(
-      fetchHomeTopCategoriesDataFromAPI.rejected,
-      (state, action) => {
-        console.log('top categories in slice fail');
+    builder.addCase(fetchHomeTopCategoriesDataFromAPI.pending, (state, action) => {
+      console.log('top categories in slice pending');
+      state.loading = 'pending';
+      state.homeTopCategoriesData = [];
+    });
+    builder.addCase(fetchHomeTopCategoriesDataFromAPI.fulfilled, (state, action) => {
+      console.log('top categories in slice success', action);
+      if (action.payload.status === 200 && action.payload.data.message.length > 0) {
+        state.loading = 'succeeded';
+        state.homeTopCategoriesData = action.payload.data.message;
+      } else {
         state.loading = 'failed';
         state.homeTopCategoriesData = [];
       }
-    );
+    });
+    builder.addCase(fetchHomeTopCategoriesDataFromAPI.rejected, (state, action) => {
+      console.log('top categories in slice fail');
+      state.loading = 'failed';
+      state.homeTopCategoriesData = [];
+    });
   },
 });
 
-export const home_top_categories_selector_state = (state: RootState) =>
-  state.HomeTopCategoriesScreen;
+export const home_top_categories_selector_state = (state: RootState) => state.HomeTopCategoriesScreen;
 
 export default homeTopCategoriesSlice.reducer;

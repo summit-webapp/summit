@@ -15,11 +15,7 @@ const CreateCatalog = async (catalogobj: any, token: any) => {
   };
 
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      undefined,
-      config
-    )
+    .post(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, config)
     .then((res) => (response = res.data))
     .catch((error) => console.log(error));
 

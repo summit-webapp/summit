@@ -34,9 +34,7 @@ export const fetchProductListing = async (query: any) => {
 
   const modifiedParams = urlParams
     .split('&')
-    .filter(
-      (param) => !param.startsWith('page=') && !param.startsWith('category=')
-    )
+    .filter((param) => !param.startsWith('page=') && !param.startsWith('category='))
     .join('&');
 
   const config = {

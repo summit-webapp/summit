@@ -2,14 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import getBillingAddress from '../../../services/api/checkout-page-api/customer-billing-address-api';
 
-export const fetchBillingAddress: any = createAsyncThunk(
-  'billingAddress/fetchBillingAddress',
-  async (token: any) => {
-    const billingData = await getBillingAddress(token);
-    console.log('billing data in store', billingData);
-    return billingData;
-  }
-);
+export const fetchBillingAddress: any = createAsyncThunk('billingAddress/fetchBillingAddress', async (token: any) => {
+  const billingData = await getBillingAddress(token);
+  console.log('billing data in store', billingData);
+  return billingData;
+});
 
 interface RepoBillingAddState {
   items: any;
@@ -58,7 +55,6 @@ export const BillingAddressScreen = createSlice({
   },
 });
 
-export const billing_address_state = (state: RootState) =>
-  state.BillingAddressScreen;
+export const billing_address_state = (state: RootState) => state.BillingAddressScreen;
 
 export default BillingAddressScreen.reducer;

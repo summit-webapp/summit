@@ -18,11 +18,7 @@ const ResetPasswordApi = async (request: any) => {
     },
   };
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      undefined,
-      config
-    )
+    .post(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, config)
     .then((res: any) => {
       console.log('res', res);
       response = res;

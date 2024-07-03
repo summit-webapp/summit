@@ -4,28 +4,21 @@ import { RootState } from '../../root-reducer';
 import { ProductData } from '../../../interfaces/products-view-interface';
 import { MissingPartsAPI } from '../../../services/api/product-listing-page-api/missing-parts-api';
 
-export const ProductListingThunk = createAsyncThunk(
-  'product-listing-slice/fetchProductListing',
-  async (params: any) => {
-    const { storeUsefulParamsForFurtherProductListingApi } = params;
-    const getProductListingData = await fetchProductListing(
-      storeUsefulParamsForFurtherProductListingApi
+export const ProductListingThunk = createAsyncThunk('product-listing-slice/fetchProductListing', async (params: any) => {
+  const { storeUsefulParamsForFurtherProductListingApi } = params;
+  const getProductListingData = await fetchProductListing(storeUsefulParamsForFurtherProductListingApi);
+  if (
+    getProductListingData?.data?.message?.data?.length === 0 &&
+    storeUsefulParamsForFurtherProductListingApi.url_params?.hasOwnProperty('search_text')
+  ) {
+    const missingPartsApiRes = await MissingPartsAPI(
+      storeUsefulParamsForFurtherProductListingApi?.token,
+      storeUsefulParamsForFurtherProductListingApi.url_params?.search_text,
+      null
     );
-    if (
-      getProductListingData?.data?.message?.data?.length === 0 &&
-      storeUsefulParamsForFurtherProductListingApi.url_params?.hasOwnProperty(
-        'search_text'
-      )
-    ) {
-      const missingPartsApiRes = await MissingPartsAPI(
-        storeUsefulParamsForFurtherProductListingApi?.token,
-        storeUsefulParamsForFurtherProductListingApi.url_params?.search_text,
-        null
-      );
-    }
-    return getProductListingData;
   }
-);
+  return getProductListingData;
+});
 
 interface ProductListingState {
   msg: string;
@@ -57,11 +50,7 @@ const productListingSlice = createSlice({
     });
     builder.addCase(ProductListingThunk.fulfilled, (state, action) => {
       console.log('product listing success', action);
-      if (
-        action.payload.status === 200 &&
-        action.payload.data.hasOwnProperty('message') &&
-        action.payload.data.message.hasOwnProperty('data')
-      ) {
+      if (action.payload.status === 200 && action.payload.data.hasOwnProperty('message') && action.payload.data.message.hasOwnProperty('data')) {
         state.loading = 'succeeded';
         state.msg = 'success';
         state.productListData = action.payload.data.message.data;
@@ -85,7 +74,6 @@ const productListingSlice = createSlice({
   },
 });
 
-export const product_listing_selector_state = (state: RootState) =>
-  state.ProductListingScreen;
+export const product_listing_selector_state = (state: RootState) => state.ProductListingScreen;
 
 export default productListingSlice.reducer;

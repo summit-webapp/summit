@@ -4,15 +4,12 @@ import { RootState } from '../../root-reducer';
 import getProductSpecification from '../../../services/api/product-detail-page-api/product-specification-api';
 import getPincodeApi from '../../../services/api/product-detail-page-api/pincode-validate-api';
 
-export const fetchPincodeServiceableArea: any = createAsyncThunk(
-  'productSpecification/fetchPincodeServiceableArea',
-  async (params) => {
-    const { pincode}: any = params;
-    console.log('pincode in slice',pincode)
-    const respnse = await getPincodeApi(pincode);
-    return respnse;
-  }
-);
+export const fetchPincodeServiceableArea: any = createAsyncThunk('productSpecification/fetchPincodeServiceableArea', async (params) => {
+  const { pincode }: any = params;
+  console.log('pincode in slice', pincode);
+  const respnse = await getPincodeApi(pincode);
+  return respnse;
+});
 
 interface RepoStockState {
   data: any;
@@ -37,10 +34,7 @@ export const ValidatePincodeScreen = createSlice({
     });
     builder.addCase(fetchPincodeServiceableArea.fulfilled, (state, action) => {
       {
-        if (
-          action?.payload?.status === 200 &&
-          action?.payload?.data?.hasOwnProperty('message')
-        ) {
+        if (action?.payload?.status === 200 && action?.payload?.data?.hasOwnProperty('message')) {
           state.isLoading = 'succeeded';
           state.data = action.payload.data.message.data;
         } else {
@@ -59,7 +53,6 @@ export const ValidatePincodeScreen = createSlice({
   },
 });
 
-export const validate_pincode_state = (state: RootState) =>
-  state.validatePincode;
+export const validate_pincode_state = (state: RootState) => state.validatePincode;
 
 export default ValidatePincodeScreen.reducer;

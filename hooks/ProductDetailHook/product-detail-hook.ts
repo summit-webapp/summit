@@ -1,24 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import {
-  ProductDetailPageThunk,
-  product_detail_data_selector_state,
-} from '../../store/slices/product-detail-page-slices/product-detail-data-slice';
-import {
-  ProductVariantsThunk,
-  product_variants_selector_state,
-} from '../../store/slices/product-detail-page-slices/product-variants-data-slice';
+import { ProductDetailPageThunk, product_detail_data_selector_state } from '../../store/slices/product-detail-page-slices/product-detail-data-slice';
+import { ProductVariantsThunk, product_variants_selector_state } from '../../store/slices/product-detail-page-slices/product-variants-data-slice';
 import { CONSTANTS } from '../../services/config/app-config';
 import {
   ProductMatchingItemOptions,
   product_matching_items_selector_state,
 } from '../../store/slices/product-detail-page-slices/product-item-options-slice';
 import getStockAvailability from '../../services/api/product-detail-page-api/product-stock-availability-api';
-import {
-  fetchStockAvailability,
-  stock_availability_state,
-} from '../../store/slices/product-detail-page-slices/product-stock-availability-slice';
+import { fetchStockAvailability, stock_availability_state } from '../../store/slices/product-detail-page-slices/product-stock-availability-slice';
 import useProductDetailFunctions from './product-detail-functions-hook';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
@@ -28,35 +19,23 @@ const useProductDetail = () => {
   const { query }: any = useRouter();
   const dispatch = useDispatch();
 
-  const product_detail_data_from_redux = useSelector(
-    product_detail_data_selector_state
-  );
-  const product_variants_data_from_redux = useSelector(
-    product_variants_selector_state
-  );
-  const stock_availability_data_from_redux = useSelector(
-    stock_availability_state
-  );
+  const product_detail_data_from_redux = useSelector(product_detail_data_selector_state);
+  const product_variants_data_from_redux = useSelector(product_variants_selector_state);
+  const stock_availability_data_from_redux = useSelector(stock_availability_state);
 
   const TokenFromStore: any = useSelector(get_access_token);
-  const product_matching_items_data_from_redux = useSelector(
-    product_matching_items_selector_state
-  );
+  const product_matching_items_data_from_redux = useSelector(product_matching_items_selector_state);
 
   const currency_state_from_redux: any = useSelector(currency_selector_state);
 
-  console.log(
-    'product_variants_data_from_redux',
-    product_variants_data_from_redux
-  );
+  console.log('product_variants_data_from_redux', product_variants_data_from_redux);
   let isDealer: any;
   if (typeof window !== 'undefined') {
     isDealer = localStorage.getItem('isDealer');
   }
   const productID = router.query.product_id;
 
-  const { handleSettingOfSelectedVariantsAndThumbnailOfVariants } =
-    useProductDetailFunctions();
+  const { handleSettingOfSelectedVariantsAndThumbnailOfVariants } = useProductDetailFunctions();
 
   const [productImageLoading, setProductImageLoading] = useState<any>(false);
   const [productDetailLoading, setProductDetailLoading] = useState<any>(false);
@@ -65,25 +44,17 @@ const useProductDetail = () => {
   const [productQuantity, setProductQuantity] = useState<number>(1);
   const [newobjectState, setnewObjectState] = useState<any>([]);
   let [minQty, setMinQty] = useState<any>('');
-  const [stockAvailabilityTextChanges, setstockAvailabilityTextChanges] =
-    useState(false);
+  const [stockAvailabilityTextChanges, setstockAvailabilityTextChanges] = useState(false);
   const [checkStock, setCheckStock] = useState<boolean>(false);
   const [stockAvailability, setStockAvailability] = useState<any>([]);
-  const [selectedVariantCodeForAddToCart, setSelectedVariantCodeForAddToCart] =
-    useState('');
+  const [selectedVariantCodeForAddToCart, setSelectedVariantCodeForAddToCart] = useState('');
   const [productVariants, setProductVariants] = useState<any>({});
 
   let [selectedVariant, setSelectedVariant] = useState<any>({});
   let [thumbnailOfVariants, setThumbnailOfVariants] = useState<any>({});
 
-  const [
-    doesSelectedVariantDoesNotExists,
-    setDoesSelectedVariantDoesNotExists,
-  ] = useState(false);
-  const [
-    stockDoesNotExistsForSelectedVariants,
-    setStockDoesNotExistsForSelectedVariants,
-  ] = useState(false);
+  const [doesSelectedVariantDoesNotExists, setDoesSelectedVariantDoesNotExists] = useState(false);
+  const [stockDoesNotExistsForSelectedVariants, setStockDoesNotExistsForSelectedVariants] = useState(false);
 
   const [productItemOptions, setProductItemOptions] = useState([]);
 
@@ -111,9 +82,7 @@ const useProductDetail = () => {
     if (Object.keys(selectedVariant).length > 0) {
       console.log('rastafari 2', selectedVariant);
       const matchedVariant = productVariants?.variants?.find((variant: any) =>
-        Object.entries(selectedVariant).every(
-          ([key, value]) => variant[key] === value
-        )
+        Object.entries(selectedVariant).every(([key, value]) => variant[key] === value)
       );
       console.log('util format matched variant', matchedVariant);
       if (matchedVariant !== undefined) {
@@ -214,9 +183,7 @@ const useProductDetail = () => {
       }, 100);
       setCheckStock(true);
     }
-};
-
-
+  };
 
   useEffect(() => {
     console.log('currency in prod detail', query);
@@ -260,15 +227,8 @@ const useProductDetail = () => {
       case 'succeeded':
         if (product_detail_data_from_redux?.data?.hasOwnProperty('name')) {
           setProductDetailData(product_detail_data_from_redux.data);
-          const keysToExtract = [
-            'alternate',
-            'equivalent',
-            'suggested',
-            'mandatory',
-          ];
-          const filteredKeys = keysToExtract.filter(
-            (key) => product_detail_data_from_redux?.data[key] === true
-          );
+          const keysToExtract = ['alternate', 'equivalent', 'suggested', 'mandatory'];
+          const filteredKeys = keysToExtract.filter((key) => product_detail_data_from_redux?.data[key] === true);
           // console.log("true keys", filteredKeys);
         } else {
           setProductDetailData({});
@@ -301,28 +261,22 @@ const useProductDetail = () => {
       setProductItemOptions([]);
     }
 
-    if (
-      product_variants_data_from_redux?.data?.variants?.length > 0 &&
-      product_variants_data_from_redux?.data?.attributes?.length > 0
-    ) {
-      const { generateSelectedVariants, generateThumbnailOfVariants } =
-        handleSettingOfSelectedVariantsAndThumbnailOfVariants(
-          product_variants_data_from_redux?.data
-        );
+    if (product_variants_data_from_redux?.data?.variants?.length > 0 && product_variants_data_from_redux?.data?.attributes?.length > 0) {
+      const { generateSelectedVariants, generateThumbnailOfVariants } = handleSettingOfSelectedVariantsAndThumbnailOfVariants(
+        product_variants_data_from_redux?.data
+      );
       setSelectedVariant({ ...generateSelectedVariants });
       setThumbnailOfVariants({ ...generateThumbnailOfVariants });
     } else {
       if (product_detail_data_from_redux?.data?.slide_img?.length > 0) {
         let temporaryStoreTemplateImages: any = [];
-        product_detail_data_from_redux.data?.slide_img?.map(
-          (templateImgs: any) => {
-            temporaryStoreTemplateImages.push({
-              original: `${CONSTANTS.API_BASE_URL}${templateImgs}`,
-              thumbnail: `${CONSTANTS.API_BASE_URL}${templateImgs}`,
-              variant_code: 0,
-            });
-          }
-        );
+        product_detail_data_from_redux.data?.slide_img?.map((templateImgs: any) => {
+          temporaryStoreTemplateImages.push({
+            original: `${CONSTANTS.API_BASE_URL}${templateImgs}`,
+            thumbnail: `${CONSTANTS.API_BASE_URL}${templateImgs}`,
+            variant_code: 0,
+          });
+        });
         // console.log("rastafari 1", temporaryStoreTemplateImages);
         if (temporaryStoreTemplateImages?.length > 0) {
           // console.log("rastafari images", temporaryStoreTemplateImages);
@@ -338,21 +292,12 @@ const useProductDetail = () => {
         setStockDoesNotExistsForSelectedVariants(false);
       }
 
-      setSelectedVariantCodeForAddToCart(
-        product_detail_data_from_redux?.data?.name
-      );
+      setSelectedVariantCodeForAddToCart(product_detail_data_from_redux?.data?.name);
     }
-  }, [
-    product_detail_data_from_redux,
-    product_matching_items_data_from_redux,
-    product_variants_data_from_redux,
-  ]);
+  }, [product_detail_data_from_redux, product_matching_items_data_from_redux, product_variants_data_from_redux]);
 
   useEffect(() => {
-    if (
-      stock_availability_data_from_redux?.data?.length > 0 &&
-      stock_availability_data_from_redux !== null
-    ) {
+    if (stock_availability_data_from_redux?.data?.length > 0 && stock_availability_data_from_redux !== null) {
       setStockAvailability(stock_availability_data_from_redux?.data);
     }
   }, [stock_availability_data_from_redux]);

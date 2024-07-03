@@ -36,20 +36,14 @@ const getTokenLoginApi: any = async (values: any) => {
     const googleLoginFuntion = getGoogleLoginApi(values);
     return googleLoginFuntion;
   } else {
-    await axios
-      .post(
-        `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-        undefined,
-        config
-      )
-      .then((res) => {
-        console.log('@@token login', res);
-        response = res?.data?.message;
-        if (values?.guest !== null) {
-          localStorage.setItem('guestToken', response.access_token);
-        }
-        UserRoleGet(res?.data?.message?.data?.access_token);
-      });
+    await axios.post(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, config).then((res) => {
+      console.log('@@token login', res);
+      response = res?.data?.message;
+      if (values?.guest !== null) {
+        localStorage.setItem('guestToken', response.access_token);
+      }
+      UserRoleGet(res?.data?.message?.data?.access_token);
+    });
     return response;
   }
 

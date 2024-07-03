@@ -6,8 +6,7 @@ import { fetchCartListing } from '../../../store/slices/cart-listing-page-slice/
 import { currency_selector_state } from '../../../store/slices/general_slices/multi-currency-slice';
 import useHandleStateUpdate from '../handle-state-update-hook';
 const useNavbar = () => {
-  const { isLoading, setIsLoading, errorMessage, setErrMessage }: any =
-    useHandleStateUpdate();
+  const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const dispatch = useDispatch();
 
   const currency_state_from_redux: any = useSelector(currency_selector_state);
@@ -21,10 +20,7 @@ const useNavbar = () => {
     setIsLoading(true);
     try {
       const navbarDataAPI: any = await getNavbarDataFromAPI(TokenFromStore?.token);
-      if (
-        navbarDataAPI?.data?.message?.msg === 'success' &&
-        navbarDataAPI?.data?.message?.data?.length
-      ) {
+      if (navbarDataAPI?.data?.message?.msg === 'success' && navbarDataAPI?.data?.message?.data?.length) {
         // BELOW CODE IS TO SORT NAVBAR DATA AND STORE IN THE STATE
         setNavbarData(
           [...navbarDataAPI?.data?.message?.data].sort(function (a: any, b: any) {
@@ -47,9 +43,7 @@ const useNavbar = () => {
   }, []);
 
   useEffect(() => {
-    setSelectedCurrencyValue(
-      currency_state_from_redux?.selected_currency_value
-    );
+    setSelectedCurrencyValue(currency_state_from_redux?.selected_currency_value);
   }, [currency_state_from_redux?.selected_currency_value]);
   return {
     navbarData,

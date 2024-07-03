@@ -8,11 +8,8 @@ const getNavbarDataFromAPI = async (token: any) => {
   let response: any;
 
   const params = `?version=${version}&method=${method}&entity=${entity}`;
-   response = await callGetAPI(
-    `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-    token
-  );
-  return response
+  response = await callGetAPI(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, token);
+  return response;
 };
 
 export default getNavbarDataFromAPI;

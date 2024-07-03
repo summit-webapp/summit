@@ -3,15 +3,12 @@ import getStockAvailability from '../../../services/api/product-detail-page-api/
 import { RootState } from '../../root-reducer';
 import getProductSpecification from '../../../services/api/product-detail-page-api/product-specification-api';
 
-export const fetchProductSpecifications: any = createAsyncThunk(
-  'productSpecification/fetchProductSpecifications',
-  async (params) => {
-    const { item_code}: any = params;
-    console.log('@@product in slice',item_code)
-    const respnse = await getProductSpecification(item_code);
-    return respnse;
-  }
-);
+export const fetchProductSpecifications: any = createAsyncThunk('productSpecification/fetchProductSpecifications', async (params) => {
+  const { item_code }: any = params;
+  console.log('@@product in slice', item_code);
+  const respnse = await getProductSpecification(item_code);
+  return respnse;
+});
 
 interface RepoStockState {
   data: any;
@@ -36,10 +33,7 @@ export const productSpecificationScreen = createSlice({
     });
     builder.addCase(fetchProductSpecifications.fulfilled, (state, action) => {
       {
-        if (
-          action?.payload?.status === 200 &&
-          action?.payload?.data?.hasOwnProperty('message')
-        ) {
+        if (action?.payload?.status === 200 && action?.payload?.data?.hasOwnProperty('message')) {
           state.isLoading = 'succeeded';
           state.data = action.payload.data.message.data;
         } else {
@@ -58,7 +52,6 @@ export const productSpecificationScreen = createSlice({
   },
 });
 
-export const product_specification_state = (state: RootState) =>
-  state.productSpecification;
+export const product_specification_state = (state: RootState) => state.productSpecification;
 
 export default productSpecificationScreen.reducer;

@@ -18,11 +18,7 @@ const AddProductToWishlistFetch = async (request: any) => {
   };
 
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      undefined,
-      { ...config, timeout: 5000 }
-    )
+    .post(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, { ...config, timeout: 5000 })
     .then((res) => {
       response = res.data.message;
       console.log('wishlist api res', response);
@@ -56,10 +52,7 @@ const GetWishlistDataFetch = async (request: any) => {
   };
 
   await axios
-    .get(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      config
-    )
+    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, config)
     .then((res) => {
       console.log('handle response', res);
       response = res;
@@ -86,10 +79,7 @@ const DeleteProductFromWishlistFetch = async (request: any) => {
   const version = CONSTANTS.VERSION;
   const params = `?version=${version}&method=${method}&entity=${entity}&item_code=${item_code}`;
   await axios
-    .get(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      config
-    )
+    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, config)
     .then((res) => {
       console.log('api res', res);
       response = res?.data?.message;
@@ -101,8 +91,6 @@ const DeleteProductFromWishlistFetch = async (request: any) => {
   return response;
 };
 
-export const AddProductToWishlist = (request: any) =>
-  AddProductToWishlistFetch(request);
+export const AddProductToWishlist = (request: any) => AddProductToWishlistFetch(request);
 export const GetWishlistData = (request: any) => GetWishlistDataFetch(request);
-export const DeleteProductfromWishlist = (request: any) =>
-  DeleteProductFromWishlistFetch(request);
+export const DeleteProductfromWishlist = (request: any) => DeleteProductFromWishlistFetch(request);

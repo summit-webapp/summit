@@ -15,10 +15,7 @@ const deleteItemFromCatalog = async (catalogParams: any) => {
   };
 
   await axios
-    .delete(
-      `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      config
-    )
+    .delete(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, config)
     .then((res) => (response = res.data))
     .catch((error) => console.log(error));
 

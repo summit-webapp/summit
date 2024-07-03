@@ -2,19 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import { fetchProductListingPageFilters } from '../../../services/api/product-listing-page-api/get-filters-api';
 import { Filters } from '../../../interfaces/filters-slice-interface';
-export const FiltersThunk = createAsyncThunk(
-  'filters-slice/fetchFilters',
-  async (request: any) => {
-    console.log('filters product listing filters thunk router', request);
-    const getFiltersOfProductListingPage =
-      await fetchProductListingPageFilters(request);
-    console.log(
-      'filters check product listing filters in thunk',
-      getFiltersOfProductListingPage
-    );
-    return getFiltersOfProductListingPage;
-  }
-);
+export const FiltersThunk = createAsyncThunk('filters-slice/fetchFilters', async (request: any) => {
+  console.log('filters product listing filters thunk router', request);
+  const getFiltersOfProductListingPage = await fetchProductListingPageFilters(request);
+  console.log('filters check product listing filters in thunk', getFiltersOfProductListingPage);
+  return getFiltersOfProductListingPage;
+});
 
 const initialState = {
   msg: '',
@@ -40,10 +33,7 @@ const filtersSlice = createSlice({
     });
     builder.addCase(FiltersThunk.fulfilled, (state, action) => {
       console.log('filters in fulfilled', action.payload);
-      if (
-        action.payload.status === 200 &&
-        action.payload.data.message.msg !== 'error'
-      ) {
+      if (action.payload.status === 200 && action.payload.data.message.msg !== 'error') {
         const apiData = action.payload.data;
         state.loading = 'succeeded';
         state.msg = apiData.message.msg;

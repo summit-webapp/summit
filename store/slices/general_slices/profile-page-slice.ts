@@ -2,14 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import { ProfileDataFetch } from '../../../services/api/general_apis/ProfilePageApi/profile-page-api';
 
-export const fetchprofileDataThunk: any = createAsyncThunk(
-  'profileData/fetchprofileDataThunk',
-  async (token: any) => {
-    const ProfileOrderData = await ProfileDataFetch(token);
-    console.log(ProfileOrderData, ' brandData');
-    return ProfileOrderData;
-  }
-);
+export const fetchprofileDataThunk: any = createAsyncThunk('profileData/fetchprofileDataThunk', async (token: any) => {
+  const ProfileOrderData = await ProfileDataFetch(token);
+  console.log(ProfileOrderData, ' brandData');
+  return ProfileOrderData;
+});
 interface RepofetchProfileDataState {
   partyName: any;
   items: any;
@@ -48,14 +45,10 @@ export const ProfileDataScreen = createSlice({
       state.items = [];
     });
     builder.addCase(fetchprofileDataThunk.fulfilled, (state, action) => {
-      console.log(
-        action?.payload?.data?.message?.data?.profile_details?.customer_name,
-        'datass'
-      );
+      console.log(action?.payload?.data?.message?.data?.profile_details?.customer_name, 'datass');
       if (action?.payload?.status === 200) {
         state.isLoading = 'succeeded';
-        state.partyName =
-          action?.payload?.data?.message?.data?.profile_details?.customer_name;
+        state.partyName = action?.payload?.data?.message?.data?.profile_details?.customer_name;
         state.items = action?.payload;
       } else {
         state.isLoading = 'failed';
@@ -74,7 +67,6 @@ export const ProfileDataScreen = createSlice({
 });
 
 export const profileData_state = (state: RootState) => state.ProfileDataScreen;
-export const { UpdatePartyName, ClearPartyName }: any =
-  ProfileDataScreen.actions;
+export const { UpdatePartyName, ClearPartyName }: any = ProfileDataScreen.actions;
 
 export default ProfileDataScreen.reducer;

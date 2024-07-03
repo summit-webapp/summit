@@ -38,7 +38,6 @@ const ResetPassword = async (values: any, hostName: any) => {
   return response;
 };
 
-const ResetPasswordLink = (values: any, hostName: any) =>
-  ResetPassword(values, hostName);
+const ResetPasswordLink = (values: any, hostName: any) => ResetPassword(values, hostName);
 
 export default ResetPasswordLink;

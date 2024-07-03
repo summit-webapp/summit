@@ -15,11 +15,7 @@ const getOtpFetch = async (emailval: any) => {
   const token = localStorage.getItem('token');
 
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      undefined,
-      { ...config, timeout: 5000 }
-    )
+    .post(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, { ...config, timeout: 5000 })
     .then((res) => {
       response = res;
     })

@@ -16,14 +16,11 @@ const initialState: ProductState = {
   error: null,
 };
 
-export const fetchProductListOnHome = createAsyncThunk(
-  'product/fetchProductListOnHome',
-  async () => {
-    const getProductListOnHome: any = await fetchProductListDataOnHome();
-    console.log('home banner data in slice', getProductListOnHome);
-    return getProductListOnHome;
-  }
-);
+export const fetchProductListOnHome = createAsyncThunk('product/fetchProductListOnHome', async () => {
+  const getProductListOnHome: any = await fetchProductListDataOnHome();
+  console.log('home banner data in slice', getProductListOnHome);
+  return getProductListOnHome;
+});
 
 const productOnHomeSlice = createSlice({
   name: 'productsOnHome',
@@ -46,7 +43,6 @@ const productOnHomeSlice = createSlice({
   },
 });
 
-export const product_list_on_home_state = (state: RootState) =>
-  state.productListOnHome;
+export const product_list_on_home_state = (state: RootState) => state.productListOnHome;
 
 export default productOnHomeSlice.reducer;

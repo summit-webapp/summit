@@ -4,11 +4,7 @@ import { RootState } from '../../root-reducer';
 import getLoginApi from '../../../services/api/auth/login_api';
 import getGoogleLoginApi from '../../../services/api/auth/google_login_api';
 import LogoutList from '../../../services/api/auth/logout_api';
-import {
-  failmsg,
-  hideToast,
-  successmsg,
-} from '../general_slices/toast_notification_slice';
+import { failmsg, hideToast, successmsg } from '../general_slices/toast_notification_slice';
 import UserRoleGet from '../../../services/api/auth/get_userrole_api';
 import { updateAccessToken } from './token-login-slice';
 
@@ -18,62 +14,59 @@ interface RepoLoginThunk {
   visitor: boolean;
   isOtpLogin: boolean;
 }
-export const fetchLoginUser: any = createAsyncThunk(
-  'login/fetchLoginUser',
-  async (request: any, { dispatch }) => {
-    console.log(request, 'kkk');
-    let userLogin: any;
-    if (request.isGoogleLogin === true) {
-      userLogin = await getGoogleLoginApi(request);
-      if (userLogin.data.message.msg === 'success') {
-        dispatch(successmsg('logged in sucessfully'));
-        setTimeout(() => {
-          dispatch(hideToast());
-        }, 1200);
-      } else {
-        dispatch(failmsg('Invalid Credential'));
-        setTimeout(() => {
-          dispatch(hideToast());
-        }, 1500);
-      }
-    } else if (request.isOtpLogin === true) {
-      userLogin = await getGoogleLoginApi(request);
-      if (userLogin.data.message.msg === 'success') {
-        console.log('otp login dispatch');
-        dispatch(successmsg('logged in sucessfully'));
-        setTimeout(() => {
-          dispatch(hideToast());
-        }, 1200);
-      } else {
-        dispatch(failmsg('Invalid Credential'));
-        setTimeout(() => {
-          dispatch(hideToast());
-        }, 1500);
-      }
-    } else if (request.Logouts === true) {
-      userLogin = await LogoutList();
+export const fetchLoginUser: any = createAsyncThunk('login/fetchLoginUser', async (request: any, { dispatch }) => {
+  console.log(request, 'kkk');
+  let userLogin: any;
+  if (request.isGoogleLogin === true) {
+    userLogin = await getGoogleLoginApi(request);
+    if (userLogin.data.message.msg === 'success') {
+      dispatch(successmsg('logged in sucessfully'));
+      setTimeout(() => {
+        dispatch(hideToast());
+      }, 1200);
     } else {
-      userLogin = await getLoginApi(request);
-      // const get_user_role = await UserRoleGet();
-
-      if (userLogin?.data?.message === 'Logged In') {
-        console.log('login dispatch', userLogin);
-        dispatch(successmsg('logged in sucessfully'));
-        setTimeout(() => {
-          dispatch(hideToast());
-        }, 800);
-        localStorage.removeItem('guest');
-      } else {
-        dispatch(failmsg('Invalid Credential'));
-        setTimeout(() => {
-          dispatch(hideToast());
-        }, 1500);
-      }
+      dispatch(failmsg('Invalid Credential'));
+      setTimeout(() => {
+        dispatch(hideToast());
+      }, 1500);
     }
-    console.log(userLogin, 'userLogin');
-    return userLogin;
+  } else if (request.isOtpLogin === true) {
+    userLogin = await getGoogleLoginApi(request);
+    if (userLogin.data.message.msg === 'success') {
+      console.log('otp login dispatch');
+      dispatch(successmsg('logged in sucessfully'));
+      setTimeout(() => {
+        dispatch(hideToast());
+      }, 1200);
+    } else {
+      dispatch(failmsg('Invalid Credential'));
+      setTimeout(() => {
+        dispatch(hideToast());
+      }, 1500);
+    }
+  } else if (request.Logouts === true) {
+    userLogin = await LogoutList();
+  } else {
+    userLogin = await getLoginApi(request);
+    // const get_user_role = await UserRoleGet();
+
+    if (userLogin?.data?.message === 'Logged In') {
+      console.log('login dispatch', userLogin);
+      dispatch(successmsg('logged in sucessfully'));
+      setTimeout(() => {
+        dispatch(hideToast());
+      }, 800);
+      localStorage.removeItem('guest');
+    } else {
+      dispatch(failmsg('Invalid Credential'));
+      setTimeout(() => {
+        dispatch(hideToast());
+      }, 1500);
+    }
   }
-);
+  console.log(userLogin, 'userLogin');
+  return userLogin;
+});
 
 interface RepoLoginState {
   user: any;
@@ -108,10 +101,7 @@ export const LoginScreen = createSlice({
     builder.addCase(fetchLoginUser.fulfilled, (state, action) => {
       console.log(' slice success12', action.payload);
       if (action.payload !== undefined) {
-        if (
-          action?.payload?.status === 200 &&
-          action?.payload?.data?.message === 'Logged In'
-        ) {
+        if (action?.payload?.status === 200 && action?.payload?.data?.message === 'Logged In') {
           localStorage.setItem('isLoggedIn', 'true');
           state.isLoading = 'succeeded';
           state.user = 'LoggedIn';

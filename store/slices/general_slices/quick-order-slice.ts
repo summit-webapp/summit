@@ -1,19 +1,12 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  configureStore,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, configureStore } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import getQuickOrder from '../../../services/api/general_apis/quick-order-api';
 
-export const fetchQuickOrder: any = createAsyncThunk(
-  'quickOrder/fetchQuickOrder',
-  async (request: any) => {
-    const QuickOrderData = await getQuickOrder(request);
-    // console.log("uick order", QuickOrderData);
-    return QuickOrderData;
-  }
-);
+export const fetchQuickOrder: any = createAsyncThunk('quickOrder/fetchQuickOrder', async (request: any) => {
+  const QuickOrderData = await getQuickOrder(request);
+  // console.log("uick order", QuickOrderData);
+  return QuickOrderData;
+});
 
 interface RepofetchQuickOrderState {
   items: any;
@@ -79,6 +72,5 @@ export const QuickOrderScreen = createSlice({
 
 export const quick_order_state = (state: RootState) => state.QuickOrderScreen;
 
-export const { removeSingleItem, clearAllDataAddedToQuickOrderList }: any =
-  QuickOrderScreen.actions;
+export const { removeSingleItem, clearAllDataAddedToQuickOrderList }: any = QuickOrderScreen.actions;
 export default QuickOrderScreen.reducer;

@@ -18,7 +18,6 @@ const ProductListingViewSlice = createSlice({
 
 export const { setProductsView } = ProductListingViewSlice.actions;
 
-export const products_view_state = (state: RootState) =>
-  state.ProductsViewScreen;
+export const products_view_state = (state: RootState) => state.ProductsViewScreen;
 
 export default ProductListingViewSlice.reducer;

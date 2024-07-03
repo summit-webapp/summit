@@ -4,24 +4,21 @@ import getTokenLoginApi from '../../../services/api/auth/token-login-api';
 import { showToast } from '../../../components/ToastNotificationNew';
 import { UpdatePartyName } from '../general_slices/profile-page-slice';
 
-export const getAccessToken: any = createAsyncThunk(
-  'accessToken/getAccessToken',
-  async (param: any, { dispatch }) => {
-    const AccessTokenData = await getTokenLoginApi(param);
-    console.log(AccessTokenData, 'AccessTokenData');
+export const getAccessToken: any = createAsyncThunk('accessToken/getAccessToken', async (param: any, { dispatch }) => {
+  const AccessTokenData = await getTokenLoginApi(param);
+  console.log(AccessTokenData, 'AccessTokenData');
 
-    if (AccessTokenData?.data?.hasOwnProperty('access_token')) {
-      localStorage.setItem('isLoggedIn', 'true');
-      dispatch(UpdatePartyName(AccessTokenData?.data?.full_name));
-      setTimeout(() => {
-        showToast('login successfully', 'success');
-      }, 1200);
-    } else {
-      showToast('Invalid Credential', 'error');
-    }
-    return AccessTokenData;
+  if (AccessTokenData?.data?.hasOwnProperty('access_token')) {
+    localStorage.setItem('isLoggedIn', 'true');
+    dispatch(UpdatePartyName(AccessTokenData?.data?.full_name));
+    setTimeout(() => {
+      showToast('login successfully', 'success');
+    }, 1200);
+  } else {
+    showToast('Invalid Credential', 'error');
   }
-);
+  return AccessTokenData;
+});
 interface RepoAccessTokenState {
   token: any;
   error: string;
@@ -70,9 +67,7 @@ export const GetAccessTokenScreen = createSlice({
   },
 });
 
-export const get_access_token = (state: RootState) =>
-  state.GetAccessTokenScreen;
-export const { ClearToken, updateAccessToken }: any =
-  GetAccessTokenScreen.actions;
+export const get_access_token = (state: RootState) => state.GetAccessTokenScreen;
+export const { ClearToken, updateAccessToken }: any = GetAccessTokenScreen.actions;
 
 export default GetAccessTokenScreen.reducer;

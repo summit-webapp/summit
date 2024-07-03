@@ -14,11 +14,7 @@ const AddProductToCatalogList = async (productData: any) => {
   };
 
   await axios
-    .put(
-      `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      undefined,
-      config
-    )
+    .put(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, config)
     .then((res) => ((response = res), console.log(response, 'response')))
     .catch((error) => console.log(error));
 

@@ -13,8 +13,7 @@ export const fetchProductListing = async (query: any) => {
   const price_range = 'low_to_high';
   const category: any = query.url_params.category;
 
-  const token =
-    typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   const config = {
     headers: {
@@ -23,13 +22,8 @@ export const fetchProductListing = async (query: any) => {
   };
 
   if (query.url_params.hasOwnProperty('filter')) {
-    const convertingFiltersFromStringToObj = JSON.parse(
-      query.url_params.filter
-    );
-    console.log(
-      'product listing thunk router in api json parse',
-      convertingFiltersFromStringToObj
-    );
+    const convertingFiltersFromStringToObj = JSON.parse(query.url_params.filter);
+    console.log('product listing thunk router in api json parse', convertingFiltersFromStringToObj);
     url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&price_range=${price_range}&category=${category}&filter={"${query.filterDoctype}":"${query.filterDocname}", "sections":${query.url_params.filter}}`;
   } else {
     url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&price_range=${price_range}&category=${category}`;

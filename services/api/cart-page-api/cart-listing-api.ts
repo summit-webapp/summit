@@ -16,13 +16,10 @@ const fetchCartListing = async (token: any) => {
       },
     };
     await axios
-      .get(
-        `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-        {
-          ...config,
-          timeout: 5000,
-        }
-      )
+      .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, {
+        ...config,
+        timeout: 5000,
+      })
       .then((res: any) => {
         response = res;
       })
@@ -40,12 +37,9 @@ const fetchCartListing = async (token: any) => {
     return response;
   } else {
     await axios
-      .get(
-        `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-        {
-          timeout: 5000,
-        }
-      )
+      .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, {
+        timeout: 5000,
+      })
       .then((res: any) => {
         response = res;
       })

@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchMultiLanguagesThunkAPI,
-  multiLanguageDataFromStore,
-} from '../../store/slices/general_slices/multilang-slice';
-import {
-  SelectedFilterLangDataFromStore,
-  SelectedLangData,
-} from '../../store/slices/general_slices/selected-multilanguage-slice';
+import { fetchMultiLanguagesThunkAPI, multiLanguageDataFromStore } from '../../store/slices/general_slices/multilang-slice';
+import { SelectedFilterLangDataFromStore, SelectedLangData } from '../../store/slices/general_slices/selected-multilanguage-slice';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 
 const useMultilangHook = () => {
   const dispatch = useDispatch();
   const MultiLanguageFromStore = useSelector(multiLanguageDataFromStore);
 
-  const SelectedLangDataFromStore = useSelector(
-    SelectedFilterLangDataFromStore
-  );
+  const SelectedLangDataFromStore = useSelector(SelectedFilterLangDataFromStore);
 
   // console.log("MultiLanguageFromStore hoooook", MultiLanguageFromStore);
   const [multiLanguagesData, SetMultiLanguagesData] = useState<any>([]);

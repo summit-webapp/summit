@@ -8,8 +8,7 @@ const AgeingReport = async () => {
   const method = 'ageing_report';
   const entity = 'profile';
 
-  const token =
-    typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   const config = {
     headers: {

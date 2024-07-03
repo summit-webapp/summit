@@ -8,8 +8,7 @@ export default async function QuickOrderAddCart() {
   const method = 'put_products';
   const entity = 'cart';
 
-  const token =
-    typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   const config = {
     headers: {

@@ -15,10 +15,7 @@ const GetCatalogList = async (token: any) => {
   };
 
   await axios
-    .get(
-      `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`,
-      config
-    )
+    .get(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, config)
     .then((res) => (response = res.data))
     .catch((error) => console.log(error));
 

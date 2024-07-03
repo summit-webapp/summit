@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import {
-  fetchprofileDataThunk,
-  profileData_state,
-} from '../../../store/slices/general_slices/profile-page-slice';
+import { fetchprofileDataThunk, profileData_state } from '../../../store/slices/general_slices/profile-page-slice';
 import { get_access_token } from '../../../store/slices/auth/token-login-slice';
 
 const useProfilePage = () => {

@@ -2,14 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import GetCartHistory from '../../../services/api/my-order-api/order-history-api';
 import { RootState } from '../../root-reducer';
 
-export const FetchOrderListing: any = createAsyncThunk(
-  'orderListing/fetchOrderListing',
-  async (request: any) => {
-    const response = await GetCartHistory(request);
-    console.log('order data', response);
-    return response;
-  }
-);
+export const FetchOrderListing: any = createAsyncThunk('orderListing/fetchOrderListing', async (request: any) => {
+  const response = await GetCartHistory(request);
+  console.log('order data', response);
+  return response;
+});
 
 interface RepoOrderListingState {
   data: any;
@@ -34,10 +31,7 @@ export const OrderListingScreen = createSlice({
     });
     builder.addCase(FetchOrderListing.fulfilled, (state: any, action: any) => {
       console.log('cart payload', action.payload);
-      if (
-        action?.payload?.status === 200 &&
-        action?.payload?.data?.message?.msg === 'success'
-      ) {
+      if (action?.payload?.status === 200 && action?.payload?.data?.message?.msg === 'success') {
         state.isLoading = 'succeeded';
         state.data = action?.payload?.data?.message?.data;
       } else {
@@ -54,7 +48,6 @@ export const OrderListingScreen = createSlice({
   },
 });
 
-export const order_listing_state = (state: RootState) =>
-  state.OrderListingScreen;
+export const order_listing_state = (state: RootState) => state.OrderListingScreen;
 
 export default OrderListingScreen.reducer;

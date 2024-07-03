@@ -1,18 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import {
-  ProductListingThunk,
-  product_listing_selector_state,
-} from '../../store/slices/product-listing-page-slices/product-listing-slice';
-import {
-  FiltersThunk,
-  filters_selector_state,
-} from '../../store/slices/product-listing-page-slices/filters-slice';
-import {
-  products_view_state,
-  setProductsView,
-} from '../../store/slices/product-listing-page-slices/view-slice';
+import { ProductListingThunk, product_listing_selector_state } from '../../store/slices/product-listing-page-slices/product-listing-slice';
+import { FiltersThunk, filters_selector_state } from '../../store/slices/product-listing-page-slices/filters-slice';
+import { products_view_state, setProductsView } from '../../store/slices/product-listing-page-slices/view-slice';
 import { CONSTANTS } from '../../services/config/app-config';
 import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
@@ -21,9 +12,7 @@ const useProductListing = () => {
   const router = useRouter();
   const { query }: any = useRouter();
   const dispatch = useDispatch();
-  const product_listing_state_from_redux: any = useSelector(
-    product_listing_selector_state
-  );
+  const product_listing_state_from_redux: any = useSelector(product_listing_selector_state);
   const tokens = useSelector(get_access_token);
   const currency_state_from_redux: any = useSelector(currency_selector_state);
 
@@ -34,10 +23,9 @@ const useProductListing = () => {
 
   const [productsLoading, setProductsLoading] = useState<boolean>(false);
   const [filtersLoading, setFiltersLoading] = useState<boolean>(false);
-  const [toggleProductListView, setToggleProductListView] =
-    useState('list-view');
+  const [toggleProductListView, setToggleProductListView] = useState('list-view');
   const [pageNo, setpageNo] = useState<number>(1);
-  const [price, setPrice] = useState<string>("low_to_high");
+  const [price, setPrice] = useState<string>('low_to_high');
 
   let [productListingData, setProductListingData] = useState<any>([]);
   const [productListTotalCount, setProductListTotalCount] = useState<number>(0);
@@ -45,7 +33,6 @@ const useProductListing = () => {
   const [selectedFilters, setSelectedFilters] = useState<any>([]);
   const handlePrice = (e: any) => {
     setPrice(e.target.value);
-   
   };
   const handlePaginationBtn = (pageNo: any) => {
     router.push({
@@ -61,24 +48,15 @@ const useProductListing = () => {
     await setSelectedFilters((prevFilters: any) => {
       let updatedFilters = [...prevFilters];
 
-      const existingSectionIndex = prevFilters.findIndex(
-        (filter: any) => filter.name === section
-      );
+      const existingSectionIndex = prevFilters.findIndex((filter: any) => filter.name === section);
 
       if (existingSectionIndex !== -1) {
         if (isChecked) {
-          updatedFilters[existingSectionIndex].value = [
-            ...updatedFilters[existingSectionIndex].value,
-            filterValue,
-          ];
+          updatedFilters[existingSectionIndex].value = [...updatedFilters[existingSectionIndex].value, filterValue];
         } else {
-          updatedFilters[existingSectionIndex].value = updatedFilters[
-            existingSectionIndex
-          ].value.filter((val: any) => val !== filterValue);
+          updatedFilters[existingSectionIndex].value = updatedFilters[existingSectionIndex].value.filter((val: any) => val !== filterValue);
           if (updatedFilters[existingSectionIndex].value.length === 0) {
-            updatedFilters = updatedFilters.filter(
-              (filter) => filter.name !== section
-            );
+            updatedFilters = updatedFilters.filter((filter) => filter.name !== section);
           }
         }
       } else if (isChecked) {
@@ -123,26 +101,15 @@ const useProductListing = () => {
       dispatch(setProductsView('grid-view'));
     }
   };
-  const checkFiltersValue = () => {
-  };
+  const checkFiltersValue = () => {};
   const handleProductListingForLoadMore = () => {
     if (CONSTANTS.ENABLE_LOAD_MORE) {
-      setProductListingData(
-        (productListingData = [
-          ...productListingData,
-          ...product_listing_state_from_redux.productListData,
-        ])
-      );
+      setProductListingData((productListingData = [...productListingData, ...product_listing_state_from_redux.productListData]));
     }
     if (CONSTANTS.ENABLE_PAGINATION) {
       if (productListingData.length === 0) {
-        setProductListingData(
-          (productListingData = [
-            ...product_listing_state_from_redux.productListData,
-          ])
-        );
+        setProductListingData((productListingData = [...product_listing_state_from_redux.productListData]));
       }
-     
     }
   };
   useEffect(() => {
@@ -161,7 +128,7 @@ const useProductListing = () => {
         filterDocname: filters_state_from_redux?.docname.toLowerCase(),
         token: TokenFromStore?.token,
         listing_route: router.route,
-        price_range:price
+        price_range: price,
       };
     } else {
       storeUsefulParamsForFurtherProductListingApi = {
@@ -171,7 +138,7 @@ const useProductListing = () => {
         filterDocname: filters_state_from_redux?.docname.toLowerCase(),
         token: TokenFromStore?.token,
         listing_route: router.route,
-        price_range:price
+        price_range: price,
       };
     }
 
@@ -200,7 +167,7 @@ const useProductListing = () => {
     } else {
       setSelectedFilters([]);
     }
-  }, [dispatch, price , query]);
+  }, [dispatch, price, query]);
 
   useEffect(() => {
     setToggleProductListView(product_view_slice_from_redux?.view);
@@ -216,17 +183,11 @@ const useProductListing = () => {
       case 'succeeded':
         if (product_listing_state_from_redux?.productListData?.length > 0) {
           if (productListingData.length === 0) {
-            setProductListingData(
-              (productListingData = [
-                ...product_listing_state_from_redux.productListData,
-              ])
-            );
+            setProductListingData((productListingData = [...product_listing_state_from_redux.productListData]));
           } else {
             handleProductListingForLoadMore();
           }
-          setProductListTotalCount(
-            product_listing_state_from_redux.productsTotalCount
-          );
+          setProductListTotalCount(product_listing_state_from_redux.productsTotalCount);
         } else {
           setProductListingData([]);
           setProductListTotalCount(0);
@@ -273,7 +234,6 @@ const useProductListing = () => {
     query,
     price,
     handlePrice,
-    
   };
 };
 export default useProductListing;

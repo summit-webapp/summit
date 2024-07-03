@@ -2,11 +2,7 @@ import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
 import { client } from '../general_apis/cookie-instance-api';
 
-export const fetchStockAvailability = async (
-  item_code: any,
-  qty: any,
-  token: any
-) => {
+export const fetchStockAvailability = async (item_code: any, qty: any, token: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = 'check_availability';
@@ -42,6 +38,5 @@ export const fetchStockAvailability = async (
   return response;
 };
 
-const getStockAvailability = (item_code: any, qty: any, token: any) =>
-  fetchStockAvailability(item_code, qty, token);
+const getStockAvailability = (item_code: any, qty: any, token: any) => fetchStockAvailability(item_code, qty, token);
 export default getStockAvailability;

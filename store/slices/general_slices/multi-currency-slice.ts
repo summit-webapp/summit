@@ -2,14 +2,11 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import { getMultiCurrencyValue } from '../../../services/api/general_apis/default-currency-api';
 
-export const MultiCurrencyThunk = createAsyncThunk(
-  'multi-currency-slice/fetchMultiCurrency',
-  async (token: any) => {
-    const getDefaultCurrencyValueFromAPI = await getMultiCurrencyValue();
-    console.log('multi currency in thunk', getDefaultCurrencyValueFromAPI);
-    return getDefaultCurrencyValueFromAPI;
-  }
-);
+export const MultiCurrencyThunk = createAsyncThunk('multi-currency-slice/fetchMultiCurrency', async (token: any) => {
+  const getDefaultCurrencyValueFromAPI = await getMultiCurrencyValue();
+  console.log('multi currency in thunk', getDefaultCurrencyValueFromAPI);
+  return getDefaultCurrencyValueFromAPI;
+});
 interface DefaultCurrencyState {
   default_currency_value: string;
   selected_currency_value: string;
@@ -74,10 +71,8 @@ const MultiCurrencySlice = createSlice({
   // },
 });
 
-export const { setDefaultCurrencyValue, setCurrencyValue } =
-  MultiCurrencySlice.actions;
+export const { setDefaultCurrencyValue, setCurrencyValue } = MultiCurrencySlice.actions;
 
-export const currency_selector_state = (state: RootState) =>
-  state.CurrencyScreen;
+export const currency_selector_state = (state: RootState) => state.CurrencyScreen;
 
 export default MultiCurrencySlice.reducer;
