@@ -5,7 +5,7 @@ export const callGetAPI = async (url: string, token: any) => {
   const API_CONFIG = {
     headers: {
       Accept: 'application/json',
-      // Authorization: token,
+      Authorization: 'token 717050306808084:4d7b1daa1ee4cb3',
     },
   };
   await axios
