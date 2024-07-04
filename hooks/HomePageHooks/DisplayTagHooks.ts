@@ -1,23 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { display_tags, fetchDisplayTags, testReducer } from '../../store/slices/home_page_slice/home-display-tag-slice';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import { currency_selector_state, setCurrencyValue, setDefaultCurrencyValue } from '../../store/slices/general_slices/multi-currency-slice';
+import { currency_selector_state, setCurrencyValue } from '../../store/slices/general_slices/multi-currency-slice';
+import getDisplaytagsDataFromAPI from '../../services/api/home_page_api/home-display-tag-api';
 
 const useDisplayTagHooks = () => {
   const dispatch = useDispatch();
   const currency_state_from_redux: any = useSelector(currency_selector_state);
   const [allTagsData, setAllTagsData] = useState<any>([]);
 
-  const TokenFromStore: any = useSelector(get_access_token);
+  const tokenFromStore: any = useSelector(get_access_token);
 
-  const fetchDisplayTagsDataFunction = (currency_value: any) => {
-    dispatch(
-      fetchDisplayTags({
-        token: TokenFromStore?.token,
-        currencyValue: currency_value,
-      })
-    );
+  const fetchDisplayTagsDataFunction = async (currency_value: any) => {
+    let getDisplayTagsData: any = await getDisplaytagsDataFromAPI(tokenFromStore?.token, currency_value);
+    console.log('getDisplayTagData', getDisplayTagsData);
+    setAllTagsData(getDisplayTagsData);
 
     dispatch(setCurrencyValue(currency_value));
   };
