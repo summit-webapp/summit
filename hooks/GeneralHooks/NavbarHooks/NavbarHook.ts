@@ -29,7 +29,7 @@ const useNavbar = () => {
         );
       } else {
         setNavbarData([]);
-        setErrMessage(navbarDataAPI);
+        setErrMessage(navbarDataAPI?.data?.message?.error);
       }
     } catch (error) {
       return;
