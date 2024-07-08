@@ -2,6 +2,7 @@ export const CONSTANTS = {
   API_BASE_URL: process.env.NEXT_PUBLIC_API_URL,
   API_MANDATE_PARAMS: '/api/method/summitapp.sdk.api',
   VERSION: 'v2',
+  ALLOW_GUEST_TO_ACCESS_SITE_EVEN_WITHOUT_AUTHENTICATION: false,
   ENABLE_META_TAGS: false,
   ENABLE_LOGIN_USING_OTP: false,
   ENABLE_LOGIN_USING_GOOGLE_ID: false,

@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
-import getTokenLoginApi from '../../../services/api/auth/token-login-api';
+import getTokenLoginApi from '../../../services/api/auth/get-token-from-login-api';
 import { showToast } from '../../../components/ToastNotificationNew';
 import { UpdatePartyName } from '../general_slices/profile-page-slice';
 
 export const getAccessToken: any = createAsyncThunk('accessToken/getAccessToken', async (param: any, { dispatch }) => {
   const AccessTokenData = await getTokenLoginApi(param);
-  console.log(AccessTokenData, 'AccessTokenData');
 
   if (AccessTokenData?.data?.hasOwnProperty('access_token')) {
     localStorage.setItem('isLoggedIn', 'true');
@@ -35,13 +34,18 @@ export const GetAccessTokenScreen = createSlice({
   name: 'accessToken',
   initialState,
   reducers: {
+    storeToken(state: any, action: any) {
+      console.log('token in slice', action?.payload);
+      state.token = action?.payload?.access_token;
+      state.error = '';
+      state.isLoading = 'succeeded';
+    },
     ClearToken(state?: any, action?: any) {
       state.token = '';
       state.error = '';
       state.isLoading = 'idle';
     },
     updateAccessToken(state?: any, action?: any) {
-      console.log('new access token payload', action.payload);
       state.token = action?.payload;
       state.error = '';
       state.isLoading = 'idle';
@@ -53,7 +57,6 @@ export const GetAccessTokenScreen = createSlice({
       state.token = '';
     });
     builder.addCase(getAccessToken.fulfilled, (state, action) => {
-      console.log('token payload', action?.payload);
       if (action?.payload?.data?.hasOwnProperty('access_token')) {
         state.token = action?.payload?.data?.access_token;
         state.isLoading = 'succeeded';
@@ -68,6 +71,6 @@ export const GetAccessTokenScreen = createSlice({
 });
 
 export const get_access_token = (state: RootState) => state.GetAccessTokenScreen;
-export const { ClearToken, updateAccessToken }: any = GetAccessTokenScreen.actions;
+export const { storeToken, ClearToken, updateAccessToken }: any = GetAccessTokenScreen.actions;
 
 export default GetAccessTokenScreen.reducer;
