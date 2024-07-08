@@ -12,8 +12,7 @@ const useDisplayTagHooks = () => {
   const tokenFromStore: any = useSelector(get_access_token);
 
   const fetchDisplayTagsDataFunction = async (currency_value: any) => {
-    let getDisplayTagsData: any = await getDisplaytagsDataFromAPI('token 717050306808084:4d7b1daa1ee4cb3', currency_value);
-    console.log('getDisplayTagData', getDisplayTagsData);
+    let getDisplayTagsData: any = await getDisplaytagsDataFromAPI(tokenFromStore.token, currency_value);
     if (getDisplayTagsData?.length > 0) {
       setAllTagsData(getDisplayTagsData);
     }
