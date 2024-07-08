@@ -3,6 +3,8 @@ export const CONSTANTS = {
   API_MANDATE_PARAMS: '/api/method/summitapp.sdk.api',
   VERSION: 'v2',
   ENABLE_META_TAGS: false,
+  ENABLE_LOGIN_USING_OTP: false,
+  ENABLE_LOGIN_USING_GOOGLE_ID: false,
   ENABLE_BULK_ORDER: false,
   ENABLE_APPLY_COUPON_CODE: false,
   ENABLE_STORE_CREDIT: false,
