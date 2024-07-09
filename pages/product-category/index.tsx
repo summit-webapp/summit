@@ -1,4 +1,3 @@
-import { version } from 'os';
 import MetaTag from '../../services/api/general_apis/meta-tag-api';
 import { CONSTANTS } from '../../services/config/app-config';
 import ProductListingMaster from '../../components/ProductListingComponents/ProductListingMaster';
