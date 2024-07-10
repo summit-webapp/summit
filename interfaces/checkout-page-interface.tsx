@@ -24,6 +24,7 @@ export interface CheckoutPageInterface {
   textState?: any;
   transportersCharges?: any;
   orderSummary?: any;
+  currencySymbolForSummary?: any;
   handlePlaceOrder?: any;
   handleApplyCouponCode?: any;
   handleDeleteCouponCode?: any;
@@ -32,7 +33,8 @@ export interface CheckoutPageInterface {
   setCouponCode?: any;
   couponCodeApiRes?: any;
   couponError?: any;
-  setStoreCredit?:any;
-  handleStoreCredit?:any;
-  state?:any
+  setStoreCredit?: any;
+  handleStoreCredit?: any;
+  state?: any;
+  selectedMultiLangData?: any;
 }

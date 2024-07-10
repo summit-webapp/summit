@@ -16,4 +16,11 @@ export interface ProductCardProps {
   wishlistData?: any;
   currency_state_from_redux?: any;
   selectLangData?: any;
+  selectedMultiLangData?: any;
+  query?: any;
+  catalogListItem?: any;
+  handleAddProduct?: any;
+  handleSubmitCatalogName?: any;
+  handleChange?: any;
+  min_order_qty?: any;
 }
