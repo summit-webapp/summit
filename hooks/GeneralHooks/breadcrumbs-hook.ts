@@ -23,7 +23,7 @@ const UseBreadCrumbsHook = () => {
         setBreadCrumbData(breadcrumbDataAPI?.data?.message?.data);
       } else {
         setBreadCrumbData([]);
-        setErrMessage(breadcrumbDataAPI?.data?.message?.data?.error);
+        setErrMessage(breadcrumbDataAPI?.data?.message?.error);
       }
     } catch (error) {
       return;
