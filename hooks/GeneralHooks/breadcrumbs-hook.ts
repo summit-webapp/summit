@@ -1,40 +1,46 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { breadcrumbs_state, fetchBreadCrumbs } from '../../store/slices/general_slices/breadcrumbs-slice';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import getBreadcrumbsDataFromAPI from '../../services/api/general_apis/breadcrumbs-api';
+import useHandleStateUpdate from './handle-state-update-hook';
 
 const UseBreadCrumbsHook = () => {
+  const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const router = useRouter();
   const { query }: any = useRouter();
-  const dispatch = useDispatch();
   const [breadCrumbData, setBreadCrumbData] = useState([]);
-  const breadCrumbs_data_from_store = useSelector(breadcrumbs_state);
-  console.log('breadcrumb data from store', breadCrumbs_data_from_store);
   const TokenFromStore: any = useSelector(get_access_token);
 
   const url = router.asPath;
   const splitURL = url.split('/').join(',').split('%20').join(',').split(',');
-  // console.log("breadcrumb router", splitURL);
+
+  const fetchBreadcrumbDataAPI = async (requestParams: any) => {
+    setIsLoading(true);
+    try {
+      const breadcrumbDataAPI: any = await getBreadcrumbsDataFromAPI(requestParams);
+      if (breadcrumbDataAPI?.data?.message?.msg === 'success' && breadcrumbDataAPI?.data?.message?.data?.length) {
+        setBreadCrumbData(breadcrumbDataAPI?.data?.message?.data);
+      } else {
+        setBreadCrumbData([]);
+        setErrMessage(breadcrumbDataAPI?.data?.message?.error);
+      }
+    } catch (error) {
+      return;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    console.log('fetch breadcrumb');
     const requestParams = {
       url: splitURL,
       token: TokenFromStore?.token,
     };
-    dispatch(fetchBreadCrumbs(requestParams));
-  }, [dispatch, query]);
+    fetchBreadcrumbDataAPI(requestParams);
+  }, [ query]);
 
-  useEffect(() => {
-    if (breadCrumbs_data_from_store?.data?.length > 0) {
-      setBreadCrumbData(breadCrumbs_data_from_store?.data);
-    } else {
-      setBreadCrumbData([]);
-    }
-  }, [breadCrumbs_data_from_store]);
-
-  return { breadCrumbData };
+  return { breadCrumbData, isLoading, errorMessage };
 };
 
 export default UseBreadCrumbsHook;

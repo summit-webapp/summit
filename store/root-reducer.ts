@@ -22,7 +22,6 @@ import OrderListingReducer from './slices/order-listing-page-slice/order-listing
 import WishlistReducer from './slices/wishlist-slice/wishlist-slice';
 import SelectedLanguageReducer from './slices/language-slice/selected-language-slice';
 import LanguageReducer from './slices/language-slice/language-json-slice';
-import BreadCrumbsReducer from './slices/general_slices/breadcrumbs-slice';
 import CurrencyReducer from './slices/general_slices/multi-currency-slice';
 import QuickOrderReducer from './slices/general_slices/quick-order-slice';
 import GetAccessTokenReducer from './slices/auth/token-login-slice';
@@ -72,7 +71,6 @@ const appReducer = combineReducers({
   SelectedLanguageScreen: SelectedLanguageReducer,
   LanguagesScreen: LanguageReducer,
   CurrencyScreen: CurrencyReducer,
-  BreadCrumbsScreen: BreadCrumbsReducer,
   QuickOrderScreen: QuickOrderReducer,
   GetAccessTokenScreen: GetAccessTokenReducer,
   CatalogListScreen: CatalogListReducer,
