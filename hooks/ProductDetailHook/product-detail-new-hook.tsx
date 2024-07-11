@@ -4,10 +4,7 @@ import { useRouter } from 'next/router';
 import { ProductDetailPageThunk, product_detail_data_selector_state } from '../../store/slices/product-detail-page-slices/product-detail-data-slice';
 import { ProductVariantsThunk, product_variants_selector_state } from '../../store/slices/product-detail-page-slices/product-variants-data-slice';
 import { CONSTANTS } from '../../services/config/app-config';
-import {
-  ProductMatchingItemOptions,
-  product_matching_items_selector_state,
-} from '../../store/slices/product-detail-page-slices/product-item-options-slice';
+import { ProductMatchingItemOptions, product_matching_items_selector_state } from '../../store/slices/product-detail-page-slices/product-item-options-slice';
 import { fetchStockAvailability, stock_availability_state } from '../../store/slices/product-detail-page-slices/product-stock-availability-slice';
 import useProductDetailFunctions from './product-detail-functions-hook';
 
@@ -58,9 +55,7 @@ const useProductDetailNewHook = () => {
 
     if (Object.keys(selectedVariant).length > 0) {
       console.log('rastafari 2', selectedVariant);
-      const matchedVariant = productVariants?.variants?.find((variant: any) =>
-        Object.entries(selectedVariant).every(([key, value]) => variant[key] === value)
-      );
+      const matchedVariant = productVariants?.variants?.find((variant: any) => Object.entries(selectedVariant).every(([key, value]) => variant[key] === value));
       console.log('util format matched variant', matchedVariant);
       setSelectedVariantCodeForAddToCart(matchedVariant?.variant_code);
       matchedVariant?.image?.map((imgs: any) => {

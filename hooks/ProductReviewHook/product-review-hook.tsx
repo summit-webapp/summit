@@ -2,10 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { product_detail_data_selector_state } from '../../store/slices/product-detail-page-slices/product-detail-data-slice';
-import {
-  fetchProductReview,
-  product_review_from_store,
-} from '../../store/slices/product-detail-page-slices/product-review-slice/product-review-slice';
+import { fetchProductReview, product_review_from_store } from '../../store/slices/product-detail-page-slices/product-review-slice/product-review-slice';
 
 const useProductReview = () => {
   const dispatch = useDispatch();

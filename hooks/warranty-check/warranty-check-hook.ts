@@ -6,21 +6,13 @@ import {
   warranty_serial_details_from_store,
 } from '../../store/slices/warranty-check-slice/get-serial-no-details-slice';
 import { useRouter } from 'next/router';
-import {
-  ClearWarrantyClaim,
-  WarrantyGetClaim,
-  warranty_get_claim_from_store,
-} from '../../store/slices/warranty-check-slice/get-warranty-claim-slice';
+import { ClearWarrantyClaim, WarrantyGetClaim, warranty_get_claim_from_store } from '../../store/slices/warranty-check-slice/get-warranty-claim-slice';
 import {
   ClearWarrantyCustomer,
   GetCustomerWarrantyDetails,
   warranty_customer_details_from_store,
 } from '../../store/slices/warranty-check-slice/get-customer-warranty-details-slice';
-import {
-  ClearWarrantyList,
-  WarrantySerialNoList,
-  warranty_serial_list_from_store,
-} from '../../store/slices/warranty-check-slice/get-serial-no-list-slice';
+import { ClearWarrantyList, WarrantySerialNoList, warranty_serial_list_from_store } from '../../store/slices/warranty-check-slice/get-serial-no-list-slice';
 
 const useWarrantyCheck = () => {
   const router = useRouter();
