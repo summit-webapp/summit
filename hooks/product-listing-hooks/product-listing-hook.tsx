@@ -7,13 +7,15 @@ import { products_view_state, setProductsView } from '../../store/slices/product
 import { CONSTANTS } from '../../services/config/app-config';
 import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import fetchProductListingFromAPI from '../../services/api/product-listing-page-api/get-product-list-api';
 
 const useProductListing = () => {
+  const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const router = useRouter();
   const { query }: any = useRouter();
   const dispatch = useDispatch();
   const product_listing_state_from_redux: any = useSelector(product_listing_selector_state);
-  const tokens = useSelector(get_access_token);
   const currency_state_from_redux: any = useSelector(currency_selector_state);
 
   const filters_state_from_redux: any = useSelector(filters_selector_state);
@@ -24,10 +26,9 @@ const useProductListing = () => {
   const [productsLoading, setProductsLoading] = useState<boolean>(false);
   const [filtersLoading, setFiltersLoading] = useState<boolean>(false);
   const [toggleProductListView, setToggleProductListView] = useState('list-view');
-  const [pageNo, setpageNo] = useState<number>(1);
   const [price, setPrice] = useState<string>('low_to_high');
 
-  let [productListingData, setProductListingData] = useState<any>([]);
+  const [productListingData, setProductListingData] = useState<any>([]);
   const [productListTotalCount, setProductListTotalCount] = useState<number>(0);
   const [filtersData, setFiltersData] = useState<any>([]);
   const [selectedFilters, setSelectedFilters] = useState<any>([]);
@@ -103,15 +104,31 @@ const useProductListing = () => {
   };
   const checkFiltersValue = () => {};
   const handleProductListingForLoadMore = () => {
-    if (CONSTANTS.ENABLE_LOAD_MORE) {
-      setProductListingData((productListingData = [...productListingData, ...product_listing_state_from_redux.productListData]));
-    }
-    if (CONSTANTS.ENABLE_PAGINATION) {
-      if (productListingData.length === 0) {
-        setProductListingData((productListingData = [...product_listing_state_from_redux.productListData]));
-      }
+    if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
+      setProductListingData((prevData: any) => [...prevData, ...product_listing_state_from_redux.productListData]);
+    } else if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate' && productListingData.length === 0) {
+      setProductListingData(product_listing_state_from_redux.productListData);
     }
   };
+  const fetchProductListDataAPI = async (params:any) => {
+    setIsLoading(true);
+    try {
+      const productListDataAPI: any = await fetchProductListingFromAPI(params);
+      console.log(productListDataAPI,'@product')
+      if (productListDataAPI?.data?.message?.msg === 'success' && productListDataAPI?.data?.message?.data?.length) {
+        setProductListingData(productListDataAPI?.data?.message?.data);
+        setErrMessage('')
+      } else {
+        setProductListingData([]);
+        setErrMessage(productListDataAPI?.data?.message?.error);
+      }
+    } catch (error) {
+      return;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  console.log(errorMessage,'@product')
   useEffect(() => {
     let storeUsefulParamsForFurtherProductListingApi;
     if (router.asPath === '/product-category') {
@@ -141,12 +158,13 @@ const useProductListing = () => {
         price_range: price,
       };
     }
-
-    dispatch(
-      ProductListingThunk({
-        storeUsefulParamsForFurtherProductListingApi,
-      }) as any
-    );
+    console.log(storeUsefulParamsForFurtherProductListingApi, 'product');
+    // dispatch(
+    //   ProductListingThunk({
+    //     storeUsefulParamsForFurtherProductListingApi,
+    //   }) as any
+    // );
+    fetchProductListDataAPI(storeUsefulParamsForFurtherProductListingApi)
     const requestParams = {
       query: query,
       token: TokenFromStore?.token,
@@ -183,7 +201,7 @@ const useProductListing = () => {
       case 'succeeded':
         if (product_listing_state_from_redux?.productListData?.length > 0) {
           if (productListingData.length === 0) {
-            setProductListingData((productListingData = [...product_listing_state_from_redux.productListData]));
+            setProductListingData(product_listing_state_from_redux.productListData);
           } else {
             handleProductListingForLoadMore();
           }

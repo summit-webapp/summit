@@ -6,6 +6,7 @@ import { MissingPartsAPI } from '../../../services/api/product-listing-page-api/
 
 export const ProductListingThunk = createAsyncThunk('product-listing-slice/fetchProductListing', async (params: any) => {
   const { storeUsefulParamsForFurtherProductListingApi } = params;
+  console.log(params,'product')
   const getProductListingData = await fetchProductListing(storeUsefulParamsForFurtherProductListingApi);
   if (
     getProductListingData?.data?.message?.data?.length === 0 &&
