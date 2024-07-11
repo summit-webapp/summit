@@ -1,16 +1,10 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  ProductDetailPageThunk,
-  product_detail_data_selector_state,
-} from '../../../store/slices/product-detail-page-slices/product-detail-data-slice';
+import { ProductDetailPageThunk, product_detail_data_selector_state } from '../../../store/slices/product-detail-page-slices/product-detail-data-slice';
 import { fetchStockAvailability, stock_availability_state } from '../../../store/slices/product-detail-page-slices/product-stock-availability-slice';
 import { get_access_token, updateAccessToken } from '../../../store/slices/auth/token-login-slice';
-import {
-  ProductMatchingItemOptions,
-  product_matching_items_selector_state,
-} from '../../../store/slices/product-detail-page-slices/product-item-options-slice';
+import { ProductMatchingItemOptions, product_matching_items_selector_state } from '../../../store/slices/product-detail-page-slices/product-item-options-slice';
 import { currency_selector_state } from '../../../store/slices/general_slices/multi-currency-slice';
 import { CONSTANTS } from '../../../services/config/app-config';
 import useAddToCartHook from '../../GeneralHooks/CommonHooks/add-to-cart-functions-hooks';
