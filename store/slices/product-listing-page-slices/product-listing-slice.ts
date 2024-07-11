@@ -8,10 +8,7 @@ export const ProductListingThunk = createAsyncThunk('product-listing-slice/fetch
   const { storeUsefulParamsForFurtherProductListingApi } = params;
   console.log(params,'product')
   const getProductListingData = await fetchProductListing(storeUsefulParamsForFurtherProductListingApi);
-  if (
-    getProductListingData?.data?.message?.data?.length === 0 &&
-    storeUsefulParamsForFurtherProductListingApi.url_params?.hasOwnProperty('search_text')
-  ) {
+  if (getProductListingData?.data?.message?.data?.length === 0 && storeUsefulParamsForFurtherProductListingApi.url_params?.hasOwnProperty('search_text')) {
     const missingPartsApiRes = await MissingPartsAPI(
       storeUsefulParamsForFurtherProductListingApi?.token,
       storeUsefulParamsForFurtherProductListingApi.url_params?.search_text,

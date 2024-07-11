@@ -2,17 +2,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import getHomeTopCategoriesList from '../../../services/api/home_page_api/home-top-categories-api';
 import { RootState } from '../../root-reducer';
 
-export const fetchHomeTopCategoriesDataFromAPI = createAsyncThunk(
-  'home-top-categories-slice/fetchHomeTopCategoriesDataStatus',
-  async (token: any) => {
-    const getHomeTopCategoriesDataAPIResponse: any = await getHomeTopCategoriesList(token);
-    // console.log(
-    //   "home top categories data in slice",
-    //   getHomeTopCategoriesDataAPIResponse
-    // );
-    return getHomeTopCategoriesDataAPIResponse;
-  }
-);
+export const fetchHomeTopCategoriesDataFromAPI = createAsyncThunk('home-top-categories-slice/fetchHomeTopCategoriesDataStatus', async (token: any) => {
+  const getHomeTopCategoriesDataAPIResponse: any = await getHomeTopCategoriesList(token);
+  // console.log(
+  //   "home top categories data in slice",
+  //   getHomeTopCategoriesDataAPIResponse
+  // );
+  return getHomeTopCategoriesDataAPIResponse;
+});
 
 interface HomeTopCategoriesInterface {
   homeTopCategoriesData: any;
