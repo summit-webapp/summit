@@ -7,7 +7,7 @@ import { callGetAPI } from '../../../utils/utils';
   let limit: any;
   const version = CONSTANTS.VERSION;
   if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
-    page_no = 1;
+    page_no = query?.url_params?.page;
     limit = 4 * Number(query.url_params.page);
   }
   if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
