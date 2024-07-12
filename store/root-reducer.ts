@@ -9,9 +9,7 @@ import ShippinAddressReducer from './slices/checkoutPage-slice/customer-shipping
 import BillingAddressReducer from './slices/checkoutPage-slice/customer-billing-address-slice';
 import OrderSummaryReducer from './slices/checkoutPage-slice/order-summary';
 import StoreAddressReducer from './slices/checkoutPage-slice/store-customer-address-slice';
-import ProductListingReducer from './slices/product-listing-page-slices/product-listing-slice';
 import FiltersReducer from './slices/product-listing-page-slices/filters-slice';
-import ProductsViewReducer from './slices/product-listing-page-slices/view-slice';
 import ProductDetailDataReducer from './slices/product-detail-page-slices/product-detail-data-slice';
 import ProductVariantsDataReducer from './slices/product-detail-page-slices/product-variants-data-slice';
 import ProductMatchingItemsReducer from './slices/product-detail-page-slices/product-item-options-slice';
@@ -57,9 +55,7 @@ const appReducer = combineReducers({
   BillingAddressScreen: BillingAddressReducer,
   OrderSummaryScreen: OrderSummaryReducer,
   StoreAddressScreen: StoreAddressReducer,
-  ProductListingScreen: ProductListingReducer,
   FiltersScreen: FiltersReducer,
-  ProductsViewScreen: ProductsViewReducer,
   ProductDetailDataScreen: ProductDetailDataReducer,
   ProductVariantsDataScreen: ProductVariantsDataReducer,
   StockAvailabilityScreen: StockAvailabilityReducer,

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import fetchProductListingFromAPI from '../../services/api/product-listing-page-api/get-product-list-api';
+import { useSelector } from 'react-redux';
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import fetchProductListingFromAPI from '../../services/api/product-listing-page-api/get-product-list-api';
 import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
@@ -16,7 +16,6 @@ const useProductListing = () => {
 
   const [toggleProductListView, setToggleProductListView] = useState('list-view');
   const [price, setPrice] = useState<string>('low_to_high');
-  const [selectedFilters, setSelectedFilters] = useState<any>([]);
   const [productListingData, setProductListingData] = useState<any>([]);
   const [productListTotalCount, setProductListTotalCount] = useState<number>(0);
   const handlePrice = (e: any) => {
@@ -24,7 +23,7 @@ const useProductListing = () => {
   };
   const handlePaginationBtn = (pageNo: any) => {
     router.push({
-      query: { ...query, page: pageNo + 1 },
+      query: { ...query, page: pageNo.selected + 1 },
     });
   };
   const handleLoadMore = () => {
@@ -96,21 +95,11 @@ const useProductListing = () => {
       price_range: price,
     };
     fetchProductListDataAPI(storeUsefulParamsForFurtherProductListingApi);
-    if (router.query.hasOwnProperty('filter')) {
-      const encodedFilterString: any = router.query.filter;
-      if (encodedFilterString !== undefined) {
-        const decodedFilterString = decodeURIComponent(encodedFilterString);
-        const decodedFilters = JSON.parse(decodedFilterString);
-        setSelectedFilters([...decodedFilters]);
-      }
-    } else {
-      setSelectedFilters([]);
-    }
+    
   }, [price, router.asPath]);
   return {
     productListingData,
     productListTotalCount,
-    selectedFilters,
     toggleProductListView,
     handleToggleProductsListingView,
     handleLoadMore,
