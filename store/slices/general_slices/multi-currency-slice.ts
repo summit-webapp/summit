@@ -4,7 +4,7 @@ import { getMultiCurrencyValue } from '../../../services/api/general_apis/defaul
 
 export const MultiCurrencyThunk = createAsyncThunk('multi-currency-slice/fetchMultiCurrency', async (token: any) => {
   const getDefaultCurrencyValueFromAPI = await getMultiCurrencyValue();
-  console.log('multi currency in thunk', getDefaultCurrencyValueFromAPI);
+  // console.log('multi currency in thunk', getDefaultCurrencyValueFromAPI);
   return getDefaultCurrencyValueFromAPI;
 });
 interface DefaultCurrencyState {
@@ -24,7 +24,7 @@ const MultiCurrencySlice = createSlice({
   initialState,
   reducers: {
     setDefaultCurrencyValue(state, action) {
-      console.log('multi currency in reducer default slice', action);
+      // console.log('multi currency in reducer default slice', action);
       if (Object.keys(action.payload).length > 0) {
         state.loading = 'succeeded';
         state.default_currency_value = action.payload.default_currency;
@@ -36,7 +36,7 @@ const MultiCurrencySlice = createSlice({
       }
     },
     setCurrencyValue(state, action) {
-      console.log('multi currency in reducer', action.payload);
+      // console.log('multi currency in reducer', action.payload);
       state.selected_currency_value = action.payload;
     },
   },

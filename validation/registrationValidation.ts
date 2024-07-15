@@ -4,7 +4,10 @@ export const RegistrationValidation = Yup.object().shape({
   email: Yup.string().email().required('Please enter valid email'),
   contact: Yup.string()
     .typeError("That doesn't look like a phone number")
-    .matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid')
+    .matches(
+      /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+      'Phone number is not valid'
+    )
     .min(10)
     .max(10)
     .required('A phone number is required'),

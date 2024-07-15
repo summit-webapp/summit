@@ -12,9 +12,11 @@ const getDisplaytagsDataFromAPI = async (token: any, currencyValue: any) => {
     const getDisplayTagsProductsList: any = await Promise.all(
       displayTagsList?.data?.data?.length > 0 &&
         displayTagsList?.data?.data.map(async (tag: any) => {
-          const res = await callGetAPI(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}&tag=${tag.name}&currency=${currencyValue}`, token);
-
-          return { tag_name: tag.name, value: res?.data?.message?.data };
+          const res = await callGetAPI(
+            `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}&tag=${tag.name}&currency=${currencyValue}`,
+            token
+          );
+          return { tag_name: tag.name, value: res?.data };
         })
     );
 
