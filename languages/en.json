@@ -1,0 +1,9 @@
+{
+  "products": "PRODUCTS",
+  "add_to_cart": "ADD TO CART",
+  "check_future_stock_availability": "CHECK FUTURE STOCK AVAILABILITY",
+  "check_stock_availability_to_get_delivery_date": "Check Dates To Get Future Stock Availability of This Product",
+  "brand": "Brand",
+  "item_out_of_stock": "Item is out of stock",
+  "currently_unavailable": "Currently Unavailable"
+}

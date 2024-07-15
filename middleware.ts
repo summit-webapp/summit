@@ -22,7 +22,6 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         return NextResponse.next();
       }
     } else {
-      console.log('Redirect feature is disabled.');
     }
   } catch (err) {
     console.error('Error fetching redirect data:', err);
