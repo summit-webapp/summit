@@ -12,7 +12,7 @@ const useProductListingFilterHook = () => {
   const tokenFromStore: any = useSelector(get_access_token);
 
   const [filtersData, setFiltersData] = useState<any>([]);
-  const [selectedFilters, setSelectedFilters] = useState<any>({});
+  const [selectedFilters, setSelectedFilters] = useState<any>();
 
   const fetchFiltersDataFunction = async () => {
     setIsLoading(true);
@@ -61,22 +61,26 @@ const useProductListingFilterHook = () => {
     const isChecked = event.target.checked;
 
     await setSelectedFilters((prevFilters: any) => {
-      let updatedFilters = { ...prevFilters };
+      let updatedFilters = [...prevFilters];
 
-      if (isChecked) {
-        updatedFilters[section] = [...(prevFilters[section] || []), filterValue];
-      } else {
-        updatedFilters[section] = (prevFilters[section] || []).filter((val: any) => val !== filterValue);
-        if (updatedFilters[section].length === 0) {
-          delete updatedFilters[section];
+      const existingSectionIndex = prevFilters.findIndex((filter: any) => filter.name === section);
+
+      if (existingSectionIndex !== -1) {
+        if (isChecked) {
+          updatedFilters[existingSectionIndex].value = [...updatedFilters[existingSectionIndex].value, filterValue];
+        } else {
+          updatedFilters[existingSectionIndex].value = updatedFilters[existingSectionIndex].value.filter((val: any) => val !== filterValue);
+          if (updatedFilters[existingSectionIndex].value.length === 0) {
+            updatedFilters = updatedFilters.filter((filter) => filter.name !== section);
+          }
         }
+      } else if (isChecked) {
+        updatedFilters.push({ name: section, value: [filterValue] });
       }
-
-      duplicateFilters = { ...updatedFilters };
+      duplicateFilters = [...updatedFilters];
       return updatedFilters;
     });
-
-    const filterString = encodeURIComponent(JSON.stringify(duplicateFilters));
+    const filterString = duplicateFilters.length > 0 ? `&filter=${encodeURIComponent(JSON.stringify(duplicateFilters))}` : '';
     let url = router.asPath;
     const existingFilterIndex = url.indexOf('&filter=');
     if (existingFilterIndex !== -1) {
@@ -87,7 +91,11 @@ const useProductListingFilterHook = () => {
         url = url.slice(0, existingFilterIndex);
       }
     }
-    url += `&filter=${filterString}`;
+
+    if (filterString) {
+      url += filterString;
+    }
+
     await router.push(url);
   };
 
