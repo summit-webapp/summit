@@ -23,7 +23,7 @@ const useProductListing = () => {
   };
   const handlePaginationBtn = (pageNo: any) => {
     router.push({
-      query: { ...query, page: pageNo.selected + 1 },
+      query: { ...query, page: pageNo + 1 },
     });
   };
   const handleLoadMore = () => {
