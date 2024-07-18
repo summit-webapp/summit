@@ -100,6 +100,11 @@ const useProductListing = () => {
     };
     fetchProductListDataAPI(storeUsefulParamsForFurtherProductListingApi);
   }, [router.asPath, sortBy]);
+  useEffect(()=>{
+    router.push({
+      query: { ...query, page: 1 },
+    });
+  },[sortBy])
   return {
     productListingData,
     productListTotalCount,
