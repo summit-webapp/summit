@@ -15,15 +15,18 @@ const useProductListing = () => {
   const TokenFromStore: any = useSelector(get_access_token);
 
   const [toggleProductListView, setToggleProductListView] = useState('list-view');
-  const [price, setPrice] = useState<string>('low_to_high');
   const [productListingData, setProductListingData] = useState<any>([]);
   const [productListTotalCount, setProductListTotalCount] = useState<number>(0);
-  const handlePrice = (e: any) => {
-    setPrice(e.target.value);
+  const [sortBy, setSortBy] = useState('latest');
+  const handleSortBy = (value: any) => {
+    setSortBy(value);
+    router.push({
+      query: { ...query, sort_by: value },
+    });
   };
   const handlePaginationBtn = (pageNo: any) => {
     router.push({
-      query: { ...query, page: pageNo.selected + 1 },
+      query: { ...query, page: pageNo + 1 },
     });
   };
   const handleLoadMore = () => {
@@ -82,6 +85,7 @@ const useProductListing = () => {
         query: {
           page: '1',
           currency: currency_state_from_redux?.selected_currency_value,
+          sort_by: sortBy,
         },
       });
     }
@@ -92,11 +96,10 @@ const useProductListing = () => {
       filterDocname: query?.category,
       token: TokenFromStore?.token,
       listing_route: router.route,
-      price_range: price,
+      sort_by: sortBy,
     };
     fetchProductListDataAPI(storeUsefulParamsForFurtherProductListingApi);
-    
-  }, [price, router.asPath]);
+  }, [router.asPath, sortBy]);
   return {
     productListingData,
     productListTotalCount,
@@ -106,10 +109,10 @@ const useProductListing = () => {
     handlePaginationBtn,
     currency_state_from_redux,
     query,
-    price,
-    handlePrice,
     isLoading,
     errorMessage,
+    sortBy,
+    handleSortBy,
   };
 };
 export default useProductListing;
