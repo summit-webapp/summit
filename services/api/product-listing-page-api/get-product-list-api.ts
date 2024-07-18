@@ -35,7 +35,7 @@ const fetchProductListingFromAPI = async (query: any) => {
     if (query.router_origin === 'product-category') {
       const method = 'get_list';
       const entity = 'product';
-      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&price_range=${query.price_range}&category=${category}&${modifiedParams}`;
+      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&sort_by=${query.sort_by}&category=${category}&${modifiedParams}`;
     } else if (query.router_origin === 'catalog') {
       const method = 'get_items';
       const entity = 'catalog';
@@ -48,7 +48,7 @@ const fetchProductListingFromAPI = async (query: any) => {
   } else {
     const method = 'get_list';
     const entity = 'product';
-    url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&price_range=${query.price_range}&${modifiedParams}`;
+    url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&sort_by=${query.sort_by}&${modifiedParams}`;
   }
   const response = await callGetAPI(url, query.token);
   return response;
