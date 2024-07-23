@@ -17,6 +17,7 @@ const useProductListing = () => {
   const [toggleProductListView, setToggleProductListView] = useState('list-view');
   const [productListingData, setProductListingData] = useState<any>([]);
   const [productListTotalCount, setProductListTotalCount] = useState<number>(0);
+  const [searchFilterValue, setSearchFilterValue] = useState<any>();
   const [sortBy, setSortBy] = useState('latest');
   const handleSortBy = (value: any) => {
     setSortBy(value);
@@ -99,7 +100,26 @@ const useProductListing = () => {
       sort_by: sortBy,
     };
     fetchProductListDataAPI(storeUsefulParamsForFurtherProductListingApi);
+
+    setSearchFilterValue(router.query.search_text);
   }, [router.asPath, sortBy]);
+
+  const handleFilterSearchFun: any = (e: any) => {
+    setSearchFilterValue(e.target.value);
+  };
+
+  const handleFilterSearchBtn: any = () => {
+    const currentQuery = router.query;
+
+    currentQuery.search_text = searchFilterValue;
+    const newUrl = {
+      pathname: router.pathname,
+      query: currentQuery,
+    };
+
+    router.push(newUrl);
+  };
+
   return {
     productListingData,
     productListTotalCount,
@@ -113,6 +133,9 @@ const useProductListing = () => {
     errorMessage,
     sortBy,
     handleSortBy,
+    handleFilterSearchFun,
+    handleFilterSearchBtn,
+    searchFilterValue,
   };
 };
 export default useProductListing;
