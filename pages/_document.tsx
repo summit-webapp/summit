@@ -5,8 +5,6 @@ export default function Document() {
   if (typeof window !== 'undefined') {
     isDealer = localStorage.getItem('isDealer');
   }
-  console.log(isDealer);
-  console.log(typeof isDealer);
   return (
     <Html>
       <Head>
@@ -33,15 +31,6 @@ export default function Document() {
           {/* <!-- Google fonts --> */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            onLoad={(e) => {
-              const target = e.target as HTMLLinkElement;
-              target.media = 'all';
-            }}
-          ></link>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" async></script>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={'anonymous'} />
           <link
