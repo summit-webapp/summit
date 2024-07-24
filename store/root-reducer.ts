@@ -42,6 +42,7 @@ import ValidatePincodeScreen from './slices/product-detail-page-slices/pincode-v
 import contactusSlice from './slices/general_slices/contactus-slice';
 import homeAboutSlice from './slices/home_page_slice/home-about-slice';
 import AboutUsSlice from './slices/general_slices/about-us-slice';
+import totalCartCountReducer from './slices/general_slices/cart-count-slice'
 
 const appReducer = combineReducers({
   CacheScreen: CacheReducer,
@@ -87,6 +88,7 @@ const appReducer = combineReducers({
   ContactUsSlice: contactusSlice,
   HomeAboutScreen: homeAboutSlice,
   AboutUsScreen: AboutUsSlice,
+  totalCartCountScreen: totalCartCountReducer
 });
 
 const rootReducer = (state: any, action: any) => {
