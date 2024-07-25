@@ -1,5 +1,5 @@
-import { callGetAPI } from '../../../utils/utils';
 import { CONSTANTS } from '../../config/app-config';
+import { callGetAPI } from '../../../utils/utils';
 
 export const fetchProductVariant = async (product_id: any, token: any) => {
   let response: any;
