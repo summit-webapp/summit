@@ -91,9 +91,11 @@ const useProductListingFilterHook = () => {
         url = url.slice(0, existingFilterIndex);
       }
     }
-
+    
     if (filterString) {
-      url += filterString;
+      url = `${url.split('?')[0]}?&page=1${filterString}`;
+    } else {
+      url = `${url.split('?')[0]}?page=1`;
     }
 
     await router.push(url);
