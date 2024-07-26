@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { currency_selector_state, setCurrencyValue } from '../../store/slices/general_slices/multi-currency-slice';
-import getDisplaytagsDataFromAPI from '../../services/api/home_page_api/home-display-tag-api';
+import getDisplaytagsDataFromAPI from '../../services/api/home-page-apis/home-display-tag-api';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
 const useDisplayTagHooks = () => {
