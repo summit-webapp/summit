@@ -16,5 +16,5 @@
     "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "hooks/LanguageHook/multilingual-hook.ts"],
-  "exclude": ["node_modules", "themes", "package.json", "package-lock","next"]
+  "exclude": ["node_modules", "themes"]
 }
