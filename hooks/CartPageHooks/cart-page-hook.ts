@@ -1,14 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { cart_listing_state, fetchCartListing } from '../../store/slices/cart-listing-page-slice/cart-listing-slice';
 import { useEffect, useState } from 'react';
-import { fetchOrderSummary, order_summary_state } from '../../store/slices/checkoutPage-slice/order-summary';
-import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
+import { useDispatch, useSelector } from 'react-redux';
 import AddToCartApi from '../../services/api/cart-page-api/add-to-cart-api';
+import fetchCartListingAPI from '../../services/api/cart-page-api/cart-listing-api';
+import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import { fetchOrderSummary, order_summary_state } from '../../store/slices/checkoutPage-slice/order-summary';
+import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
+import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
-import { showToast } from '../../components/ToastNotificationNew';
-
-const UseCartPageHook = () => {
+const useCartPageHook = () => {
   const dispatch = useDispatch();
   const orderSummaryStore: any = useSelector(order_summary_state);
   const [cartListingItems, setCartListingItems] = useState<any>([]);
@@ -16,17 +15,13 @@ const UseCartPageHook = () => {
   const [orderSummaryForCart, setOrderSummaryForCart] = useState<any>([]);
   const [Loadings, setLoadings] = useState('');
 
-  const cart_listing_data_store = useSelector(cart_listing_state);
+  const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
 
   const currency_state_from_redux: any = useSelector(currency_selector_state);
-  console.log('cart Listing from store', cart_listing_data_store);
-
-  const TokenFromStore: any = useSelector(get_access_token);
-  console.log('cart token', TokenFromStore);
+  const tokenFromStore: any = useSelector(get_access_token);
 
   const updateCart = (item_code: string, input_value: string) => {
     if (input_value === '') {
-      console.log('update empty');
       const updatedItems = arrayofSelectedItems?.map((item: any) => {
         if (item.item_code === item_code) {
           return { ...item, quantity: '' };
@@ -46,46 +41,64 @@ const UseCartPageHook = () => {
       setArrayOfSelectedItems(updatedItems);
     }
   };
-  const request = {
-    quotationId: cart_listing_data_store?.data?.name,
-    token: TokenFromStore?.token,
-  };
+
+
   const callUpdateCartAPI = async () => {
-    const updateCartAPI = await AddToCartApi(arrayofSelectedItems, currency_state_from_redux?.selected_currency_value, TokenFromStore?.token);
+    const updateCartAPI = await AddToCartApi(arrayofSelectedItems, currency_state_from_redux?.selected_currency_value, tokenFromStore?.token);
     if (updateCartAPI?.msg === 'success') {
-      showToast('Your cart has been updated', 'success');
-      dispatch(fetchOrderSummary(request));
-      dispatch(fetchCartListing(TokenFromStore?.token));
+      // showToast('Your cart has been updated', 'success');
+      fetchCartListingData()
     }
   };
 
-  useEffect(() => {
-    dispatch(fetchCartListing(TokenFromStore?.token));
-    if (Object.keys(cart_listing_data_store?.data).length > 0) {
-      const request = {
-        quotationId: cart_listing_data_store?.data?.name,
-        token: TokenFromStore?.token,
+  const fetchCartListingData: any = async () => {
+    setIsLoading(true)
+    try {
+      let cartListingData: any = await fetchCartListingAPI(tokenFromStore.token)
+
+      if (cartListingData.data.message.msg === "success") {
+        setCartListingItems(cartListingData?.data?.message?.data)
+        setIsLoading(false);
+      } else {
+        setCartListingItems([])
+        setIsLoading(false);
+        setErrMessage(cartListingData?.data?.message?.error);
+      }
+
+      const orderSummaryParams = {
+        quotationId: cartListingData.data?.message?.data?.name,
+        token: tokenFromStore?.token,
       };
-      dispatch(fetchOrderSummary(request));
+      dispatch(fetchOrderSummary(orderSummaryParams));
+
+      return cartListingData
+    } catch (error) {
+      return
+    } finally {
+      setIsLoading(false)
     }
+  }
+
+  useEffect(() => {
+    fetchCartListingData()
   }, []);
 
-  useEffect(() => {
-    setLoadings(cart_listing_data_store?.isLoading);
-    if (cart_listing_data_store?.data !== '') {
-      setCartListingItems(cart_listing_data_store?.data);
-      let storeItemCodeAndItemQty: any = [];
-      cart_listing_data_store?.data?.categories?.map((category: any) => {
-        category?.orders?.map((order: any) => {
-          storeItemCodeAndItemQty.push({
-            item_code: order?.item_code,
-            quantity: order?.qty,
-          });
-        });
-      });
-      setArrayOfSelectedItems([...storeItemCodeAndItemQty]);
-    }
-  }, [cart_listing_data_store]);
+  // useEffect(() => {
+  //   setLoadings(cart_listing_data_store?.isLoading);
+  //   if (cart_listing_data_store?.data !== '') {
+  //     setCartListingItems(cart_listing_data_store?.data);
+  //     let storeItemCodeAndItemQty: any = [];
+  //     cart_listing_data_store?.data?.categories?.map((category: any) => {
+  //       category?.orders?.map((order: any) => {
+  //         storeItemCodeAndItemQty.push({
+  //           item_code: order?.item_code,
+  //           quantity: order?.qty,
+  //         });
+  //       });
+  //     });
+  //     setArrayOfSelectedItems([...storeItemCodeAndItemQty]);
+  //   }
+  // }, [cart_listing_data_store]);
 
   useEffect(() => {
     if (orderSummaryStore?.data?.values.length > 0) {
@@ -101,7 +114,9 @@ const UseCartPageHook = () => {
     orderSummaryForCart,
     setCartListingItems,
     Loadings,
+    isLoading,
+    errorMessage
   };
 };
 
-export default UseCartPageHook;
+export default useCartPageHook;
