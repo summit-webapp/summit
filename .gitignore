@@ -50,6 +50,3 @@ next-env.d.ts
 /pages/support/*
 /pages/warranty
 /services/config/theme-config.ts
-package-lock.json
-package.json
-next.config.js
