@@ -24,6 +24,7 @@ const useBanner = () => {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     fetchBannerDataFunction();
   }, []);
