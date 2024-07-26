@@ -30,6 +30,8 @@ const useLoginHook = () => {
     if (tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
       localStorage.setItem('isLoggedIn', 'true');
       dispatch(storeToken(tokenData?.data));
+      localStorage.setItem("user", JSON.stringify(values.usr));
+      localStorage.setItem("party_name", JSON.stringify(tokenData?.data?.full_name));
       router.push('/');
       setTimeout(() => {
         // showToast('Login Successfully', 'success');
