@@ -6,12 +6,8 @@ const getBannerAPI = async (token: any) => {
   const method = 'get';
   const entity = 'banner';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
-  const bannerList: any = await callGetAPI(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, token);
-  if (bannerList?.data?.data?.length > 0) {
-    return bannerList;
-  } else {
-    return bannerList;
-  }
+  const response: any = await callGetAPI(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, token);
+  return response;
 };
 
 export default getBannerAPI;
