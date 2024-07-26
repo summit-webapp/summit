@@ -1,48 +1,30 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
+import { callPostAPI } from '../../../utils/utils';
 
-const AddToCartPostApi: any = async (item_code: any, currencyVal?: any, token?: any, partyName?: any) => {
-  console.log('add currency in api', token);
-  let response: any;
+const AddToCartPostApi: any = async (params:any, token?: any) => {
   let version = CONSTANTS.VERSION;
   const method = 'put_products';
   const entity = 'cart';
 
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
-
-  let body = {
+  const body = {
     version: version,
     method: method,
     entity: entity,
-    item_list: item_code,
-    currency: currencyVal,
-    party_name: partyName,
+    item_code: params?.item_code,
+    party_name: params?.party_name,
+    purity: params?.purity,
+    cust_name: params?.cust_name,
+    colour: params?.colour,
+    wastage: params?.wastage,
+    qty_size_list: params?.qty_size_list,
+    remark: params?.remark,
+    user: params?.user,
   };
 
-  await axios
-    .post(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}`, body, {
-      ...config,
-      timeout: 5000,
-    })
-    .then((res: any) => {
-      console.log('add to cart res', res);
-      response = res.data.message;
-    })
-    .catch((err: any) => {
-      if (err.code === 'ECONNABORTED') {
-        response = 'Request timed out';
-      } else if (err.code === 'ERR_BAD_REQUEST') {
-        response = 'Bad Request';
-      } else if (err.code === 'ERR_INVALID_URL') {
-        response = 'Invalid URL';
-      } else {
-        response = err;
-      }
-    });
+  const url = `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}`;
+
+  const response = await callPostAPI(url, body, token);
   return response;
 };
 
@@ -89,6 +71,6 @@ export const QuickOrderAddToCart = async (item_data: any) => {
   return response;
 };
 
-const AddToCartApi = (item_code: any, currencyVal?: any, token?: any, partyName?: any) => AddToCartPostApi(item_code, currencyVal, token, partyName);
+const AddToCartApi = (params:any, token?: any) => AddToCartPostApi(params,token);
 
 export default AddToCartApi;
