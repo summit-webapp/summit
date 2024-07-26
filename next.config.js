@@ -9,4 +9,3 @@ const nextConfig = {
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
-module.exports = nextConfig;
