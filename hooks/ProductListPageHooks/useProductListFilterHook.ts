@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import { fetchProductListingPageFilters } from '../../services/api/product-listing-page-api/get-filters-api';
+import { fetchProductListingPageFilters } from '../../services/api/product-listing-page-apis/get-filters-api';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 

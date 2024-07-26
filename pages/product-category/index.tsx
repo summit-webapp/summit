@@ -1,4 +1,4 @@
-import MetaTag from '../../services/api/general_apis/meta-tag-api';
+import MetaTag from '../../services/api/general-apis/meta-tag-api';
 import { CONSTANTS } from '../../services/config/app-config';
 import ProductListingMaster from '../../components/ProductListingComponents/ProductListingMaster';
 import PageMetaData from '../../components/PageMetaData/PageMetaData';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import getNavbarDataFromAPI from '../../../services/api/general_apis/navbar-api';
+import getNavbarDataFromAPI from '../../../services/api/general-apis/navbar-api';
 import { get_access_token } from '../../../store/slices/auth/token-login-slice';
 // import { fetchCartListing } from '../../../store/slices/cart-listing-page-slice/cart-listing-slice';
 import { currency_selector_state } from '../../../store/slices/general_slices/multi-currency-slice';

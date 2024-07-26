@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import fetchProductListingFromAPI from '../../services/api/product-listing-page-api/get-product-list-api';
+import fetchProductListingFromAPI from '../../services/api/product-listing-page-apis/get-product-list-api';
 import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
