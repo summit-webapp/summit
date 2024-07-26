@@ -28,7 +28,7 @@ const fetchProductListingFromAPI = async (query: any) => {
 
   const modifiedParams = urlParams
     .split('&')
-    .filter((param) => !param.startsWith('page=') && !param.startsWith('category='))
+    .filter((param) => !param.startsWith('page=') && !param.startsWith('category=') && !param.startsWith('sort_by='))
     .join('&');
 
   if (query?.url_params?.hasOwnProperty('category')) {

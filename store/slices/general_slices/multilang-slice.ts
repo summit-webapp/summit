@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import MultiLangApi from '../../../services/api/general_apis/multilanguage-api';
+import MultiLangApi from '../../../services/api/general-apis/multilanguage-api';
 import { RootState } from '../../root-reducer';
 
 export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk('multilanguage/fetchMultilanguage', async (token: any) => {
