@@ -5,10 +5,12 @@ import UserRoleGet from './get_userrole_api';
 const OtpLoginApi = async (request: any) => {
   console.log('otp login req', request);
   let response: any;
-  const version = CONSTANTS.VERSION;
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'signin';
   const entity = 'signin';
   const otpLogin = 'true';
+  const apiSDKName = CONSTANTS.CUSTOM_API_SDK;
+
   const params = `?version=${version}&method=${method}&entity=${entity}&usr=${request.values.email}&pwd=${request.values.password}&with_otp=${otpLogin}`;
   const config = {
     headers: {
@@ -17,7 +19,7 @@ const OtpLoginApi = async (request: any) => {
   };
 
   await axios
-    .post(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, { ...config, timeout: 5000 })
+    .post(`${CONSTANTS.API_BASE_URL}${apiSDKName}${params}`, undefined, { ...config, timeout: 5000 })
     .then((res: any) => {
       response = res?.data?.message;
       if (res?.data?.message?.msg === 'success') {
