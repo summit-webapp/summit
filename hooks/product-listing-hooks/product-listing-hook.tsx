@@ -22,7 +22,7 @@ const useProductListing = () => {
   const handleSortBy = (value: any) => {
     setSortBy(value);
     router.push({
-      query: { ...query, sort_by: value },
+      query: { ...query, sort_by: value, page: 1 },
     });
   };
   const handlePaginationBtn = (pageNo: any) => {
