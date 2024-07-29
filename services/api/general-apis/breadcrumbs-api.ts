@@ -10,7 +10,7 @@ const getBreadcrumbsDataFromAPI = async (request: any) => {
   const listingCategory = categoryUrl.split('?page')[0];
   product = product?.split('?currency')[0];
 
-  const version = CONSTANTS.VERSION;
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'breadcrums';
   const entity = 'mega_menu';
   const listingProductType = 'listing';

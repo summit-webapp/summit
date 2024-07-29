@@ -3,9 +3,10 @@ import { CONSTANTS } from '../../config/app-config';
 
 const UserRoleFetch = async (token: any) => {
   let response: any;
-  const version = CONSTANTS.VERSION;
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'get_user_profile';
   const entity = 'signin';
+  const apiSDKName = CONSTANTS.SUMMIT_API_SDK;
 
   const config = {
     headers: {
@@ -15,7 +16,7 @@ const UserRoleFetch = async (token: any) => {
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}`,
+      `${CONSTANTS.API_BASE_URL}${apiSDKName}?version=${version}&method=${method}&entity=${entity}`,
       { ...config, timeout: 5000 }
       // config
     )

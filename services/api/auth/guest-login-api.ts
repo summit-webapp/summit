@@ -15,7 +15,8 @@ interface IRaw_Data {
 const CheckGuestLogin = async (request: any) => {
   let response: any;
   let raw_data: IRaw_Data;
-  const version = CONSTANTS.VERSION;
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
+  const apiSDKName = CONSTANTS.CUSTOM_API_SDK;
 
   let isVisitor = typeof window !== 'undefined' ? localStorage.getItem('guest') : null;
 
@@ -32,7 +33,7 @@ const CheckGuestLogin = async (request: any) => {
   };
 
   await axios
-    .post(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}`, raw_data, { ...config, timeout: 5000 })
+    .post(`${CONSTANTS.API_BASE_URL}${apiSDKName}`, raw_data, { ...config, timeout: 5000 })
     .then((res) => {
       response = res?.data?.data?.access_token;
       if (response?.data?.data?.message === 'Logged In') {

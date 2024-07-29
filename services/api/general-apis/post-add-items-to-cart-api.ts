@@ -3,7 +3,7 @@ import { CONSTANTS } from '../../config/app-config';
 import { callPostAPI } from '../../../utils/utils';
 
 const AddToCartPostApi: any = async (params: any, token?: any) => {
-  let version = CONSTANTS.VERSION;
+  let version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'put_products';
   const entity = 'cart';
 
