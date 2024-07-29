@@ -15,14 +15,20 @@ const useProductDetail = () => {
   const TokenFromStore: any = useSelector(get_access_token);
 
   const [productDetailData, setProductDetailData] = useState([]);
+  // Set if product detail data is variant that has opened. If Variant then check what's its template and set it.
+  const [variantOf, setVariantOf] = useState<string>('');
   const [productVariantData, setProductVariantData] = useState([]);
 
   const fetchProductDetailDataAPI = async () => {
     setIsLoading(true);
     try {
-      const productDetailAPI: any = await fetchProductDetailData(query?.product_id, currency_state_from_redux, TokenFromStore?.token);
+      const productDetailAPI: any = await fetchProductDetailData(query?.productId, currency_state_from_redux, TokenFromStore?.token);
       if (productDetailAPI?.data?.message?.msg === 'Success' && productDetailAPI?.data?.message?.data?.length) {
         setProductDetailData(productDetailAPI?.data?.message?.data[0]);
+        if (productDetailAPI?.data?.message?.data[0]?.variant_of) {
+          setVariantOf(productDetailAPI?.data?.message?.data[0]?.variant_of);
+          fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data[0]?.variant_of);
+        }
       } else {
         setProductDetailData([]);
         setErrMessage(productDetailAPI?.data?.message?.data?.error);
@@ -33,9 +39,9 @@ const useProductDetail = () => {
       setIsLoading(false);
     }
   };
-  const fetchProductVariantDataAPI = async () => {
-    const item_code = (query?.product_id as string)?.split('-')[0];
-    const productVariantAPI: any = await fetchProductVariant(item_code, TokenFromStore?.token);
+  const fetchProductVariantDataAPI = async (templateName: string) => {
+    const productVariantAPI: any = await fetchProductVariant(templateName, TokenFromStore?.token);
+    console.log('var data', productVariantAPI);
     if (productVariantAPI?.data?.message?.msg === 'success') {
       setProductVariantData(productVariantAPI?.data?.message?.data);
     } else {
@@ -44,8 +50,7 @@ const useProductDetail = () => {
   };
   useEffect(() => {
     fetchProductDetailDataAPI();
-    fetchProductVariantDataAPI();
-  }, [query?.product_id]);
+  }, [query?.productId]);
   return {
     productDetailData,
     productVariantData,

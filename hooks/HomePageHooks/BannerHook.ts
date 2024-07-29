@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import getBannerAPI from '../../services/api/home_page_api/banner-api';
+import getBannerAPI from '../../services/api/home-page-apis/banner-api';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
