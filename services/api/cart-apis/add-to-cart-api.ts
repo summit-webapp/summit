@@ -28,7 +28,6 @@ export const PostAddToCartAPI: any = async (apiBody: any, token?: any) => {
       timeout: 5000,
     })
     .then((res: any) => {
-      console.log('add to cart res', res);
       response = res.data.message;
     })
     .catch((err: any) => {
@@ -72,7 +71,6 @@ export const PostQuickOrderAddToCart = async (item_data: any) => {
       timeout: 5000,
     })
     .then((res: any) => {
-      console.log('uick order add to cart res', res);
       response = res.data.message;
     })
     .catch((err: any) => {

@@ -5,7 +5,6 @@ import { get_access_token } from '../../store/slices/auth/token-login-slice';
 const useAddToCartHook = () => {
   const TokenFromStore: any = useSelector(get_access_token);
   const addToCartItem = async (params: any) => {
-    console.log('add cart params', params);
     const postDataInCart = await PostAddToCartAPI(params, TokenFromStore?.token);
   };
 

@@ -15,8 +15,6 @@ interface IRaw_Data {
 }
 
 const GoogleLoginFetch = async (request: any) => {
-  console.log('google@', request?.values);
-  console.log('google@', request?.values?.email);
   let response: any;
   let raw_data: IRaw_Data;
   const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
@@ -25,7 +23,6 @@ const GoogleLoginFetch = async (request: any) => {
   const apiSDKName = CONSTANTS.SUMMIT_API_SDK;
 
   const params = `?version=${version}&method=${method}&entity=${entity}&usr=${request.values.email}&via_google=${request.isGoogleLogin}`;
-  console.log('otp req', request);
 
   const config = {
     headers: {
@@ -50,16 +47,12 @@ const GoogleLoginFetch = async (request: any) => {
     })
     .catch((err) => {
       if (err.code === 'ECONNABORTED') {
-        console.log('req time out');
         response = 'Request timed out';
       } else if (err.code === 'ERR_BAD_REQUEST') {
-        console.log('bad request');
         response = 'Bad Request';
       } else if (err.code === 'ERR_INVALID_URL') {
-        console.log('invalid url');
         response = 'Invalid URL';
       } else {
-        console.log('navbar api res err', err);
         response = err;
       }
     });
