@@ -20,7 +20,7 @@ const useProductDetail = () => {
   const fetchProductDetailDataAPI = async () => {
     setIsLoading(true);
     try {
-      const productDetailAPI: any = await fetchProductDetailData( query?.product_id, currency_state_from_redux, TokenFromStore?.token);
+      const productDetailAPI: any = await fetchProductDetailData(query?.product_id, currency_state_from_redux, TokenFromStore?.token);
       if (productDetailAPI?.data?.message?.msg === 'Success' && productDetailAPI?.data?.message?.data?.length) {
         setProductDetailData(productDetailAPI?.data?.message?.data[0]);
       } else {
@@ -45,9 +45,9 @@ const useProductDetail = () => {
   useEffect(() => {
     fetchProductDetailDataAPI();
   }, [query]);
-  useEffect(()=>{
+  useEffect(() => {
     fetchProductVariantDataAPI();
-  },[])
+  }, []);
   return {
     productDetailData,
     productVariantData,
