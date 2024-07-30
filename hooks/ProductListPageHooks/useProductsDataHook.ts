@@ -11,7 +11,7 @@ const useProductListing = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const router = useRouter();
   const { query }: any = useRouter();
-  const currency_state_from_redux: any = useSelector(currency_selector_state);
+  // const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
   const [toggleProductListView, setToggleProductListView] = useState('list-view');
@@ -85,7 +85,7 @@ const useProductListing = () => {
       router.push({
         query: {
           page: '1',
-          currency: currency_state_from_redux?.selected_currency_value,
+          currency: 'INR',
           sort_by: sortBy,
         },
       });
@@ -127,7 +127,7 @@ const useProductListing = () => {
     handleToggleProductsListingView,
     handleLoadMore,
     handlePaginationBtn,
-    currency_state_from_redux,
+    // currency_state_from_redux,
     query,
     isLoading,
     errorMessage,

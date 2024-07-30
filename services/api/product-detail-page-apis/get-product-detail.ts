@@ -3,11 +3,11 @@ import { callGetAPI } from '../../../utils/utils';
 
 const fetchProductDetailData = async (product_id: any, currency: any, token: any) => {
   let response: any;
-  const version = CONSTANTS.VERSION;
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'get_details';
   const entity = 'product';
 
-  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&item=${product_id}&currency=${currency}`;
+  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${method}&entity=${entity}&item=${product_id}&currency=${currency}`;
 
   response = await callGetAPI(url, token);
   return response;

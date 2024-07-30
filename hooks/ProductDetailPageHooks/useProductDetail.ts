@@ -11,7 +11,7 @@ const useProductDetail = () => {
   const { query } = useRouter();
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
 
-  const currency_state_from_redux: any = useSelector(currency_selector_state);
+  // const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
   const [productDetailData, setProductDetailData] = useState([]);
@@ -22,12 +22,15 @@ const useProductDetail = () => {
   const fetchProductDetailDataAPI = async () => {
     setIsLoading(true);
     try {
-      const productDetailAPI: any = await fetchProductDetailData(query?.productId, currency_state_from_redux, TokenFromStore?.token);
+      const productDetailAPI: any = await fetchProductDetailData(query?.productId, 'INR', TokenFromStore?.token);
       if (productDetailAPI?.data?.message?.msg === 'Success' && productDetailAPI?.data?.message?.data?.length) {
         setProductDetailData(productDetailAPI?.data?.message?.data[0]);
         if (productDetailAPI?.data?.message?.data[0]?.variant_of) {
           setVariantOf(productDetailAPI?.data?.message?.data[0]?.variant_of);
-          fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data[0]?.variant_of);
+
+          if (productVariantData === null || productVariantData?.length === 0) {
+            fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data[0]?.variant_of);
+          }
         }
       } else {
         setProductDetailData([]);
