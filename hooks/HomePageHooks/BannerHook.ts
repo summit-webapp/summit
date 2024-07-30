@@ -13,8 +13,9 @@ const useBanner = () => {
     setIsLoading(true);
     try {
       const getBannerData = await getBannerAPI(tokenFromStore?.token);
-      if (getBannerData?.data?.message?.data?.length > 0) {
-        setAllBannerData(getBannerData?.data?.message?.data);
+      console.log('banner', getBannerData);
+      if (getBannerData?.status === 200 && getBannerData?.data?.status === 'Success') {
+        setAllBannerData(getBannerData?.data?.data);
       } else {
         setAllBannerData([]);
       }

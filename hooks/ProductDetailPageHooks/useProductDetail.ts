@@ -23,7 +23,7 @@ const useProductDetail = () => {
     setIsLoading(true);
     try {
       const productDetailAPI: any = await fetchProductDetailData(query?.productId, currency_state_from_redux, TokenFromStore?.token);
-      if (productDetailAPI?.data?.message?.msg === 'Success' && productDetailAPI?.data?.message?.data?.length) {
+      if (productDetailAPI?.status === 200 && productDetailAPI?.data?.message?.msg === 'Success') {
         setProductDetailData(productDetailAPI?.data?.message?.data[0]);
         if (productDetailAPI?.data?.message?.data[0]?.variant_of) {
           setVariantOf(productDetailAPI?.data?.message?.data[0]?.variant_of);
@@ -40,18 +40,27 @@ const useProductDetail = () => {
     }
   };
   const fetchProductVariantDataAPI = async (templateName: string) => {
-    const productVariantAPI: any = await fetchProductVariant(templateName, TokenFromStore?.token);
-    console.log('var data', productVariantAPI);
-    if (productVariantAPI?.data?.message?.msg === 'success') {
-      setProductVariantData(productVariantAPI?.data?.message?.data);
-    } else {
-      setProductVariantData([]);
+    setIsLoading(true);
+    try {
+      const productVariantAPI: any = await fetchProductVariant(templateName, TokenFromStore?.token);
+      console.log('var data', productVariantAPI);
+      if (productVariantAPI?.status === 200 && productVariantAPI?.data?.message?.msg === 'success') {
+        setProductVariantData(productVariantAPI?.data?.message?.data);
+      } else {
+        setProductVariantData([]);
+        setErrMessage(productVariantAPI);
+      }
+    } catch (error) {
+      return;
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
     fetchProductDetailDataAPI();
   }, [query?.productId]);
   return {
+    errorMessage,
     productDetailData,
     productVariantData,
     fetchProductDetailDataAPI,
