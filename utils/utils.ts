@@ -30,20 +30,20 @@ export const callGetAPI = async (url: string, token: any) => {
 
   return response;
 };
-export const callPostAPI = async (url:string,body:any,token:any) =>{
-  let response : any;
+export const callPostAPI = async (url: string, body: any, token: any) => {
+  let response: any;
   const API_CONFIG = {
     headers: {
       Authorization: token,
     },
   };
   await axios
-    .post(url, body,{
+    .post(url, body, {
       ...API_CONFIG,
       timeout: 5000,
     })
     .then((res: any) => {
-      response = res.data.message;
+      response = res;
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {
@@ -57,4 +57,4 @@ export const callPostAPI = async (url:string,body:any,token:any) =>{
       }
     });
   return response;
-}
+};
