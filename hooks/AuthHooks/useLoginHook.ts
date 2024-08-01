@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { TypeLoginAPIParams, TypeLoginForm } from '../../interfaces/login-params-interface';
 import getTokenFromLoginAPI from '../../services/api/auth/get-token-from-login-api';
-import sendOTPToUserAPI from '../../services/api/auth/get-otp-api';
 import { storeToken } from '../../store/slices/auth/token-login-slice';
 
 const useLoginHook = () => {

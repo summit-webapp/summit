@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import MultiLangApi from '../../../services/api/general_apis/multilanguage-api';
+import MultiLangApi from '../../../services/api/general-apis/multilanguage-api';
 import { RootState } from '../../root-reducer';
 
 export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk('multilanguage/fetchMultilanguage', async (token: any) => {
   const MultilanguageData = await MultiLangApi();
-  console.log('multilanguage res', MultilanguageData);
+  // console.log('multilanguage res', MultilanguageData);
   return MultilanguageData;
 });
 
@@ -25,7 +25,7 @@ export const MultiLanguageScreen = createSlice({
   initialState,
   reducers: {
     setMultiLingualData(state, action) {
-      console.log('check data of server obj multi - lingugal values', action);
+      console.log('check data of server obj multi - lingugal values', action.payload);
       state.isLoading = 'succeeded';
       state.languageData = [...action.payload];
       state.error = '';

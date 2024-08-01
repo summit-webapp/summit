@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { get_access_token } from '../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../services/config/app-config';
-import MetaTag from '../services/api/general_apis/meta-tag-api';
+import MetaTag from '../services/api/general-apis/meta-tag-api';
 import LoginComponent from '../components/Auth/LoginComponent';
 
 const login = () => {

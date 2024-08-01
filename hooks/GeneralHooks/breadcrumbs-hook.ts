@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import getBreadcrumbsDataFromAPI from '../../services/api/general_apis/breadcrumbs-api';
+import getBreadcrumbsDataFromAPI from '../../services/api/general-apis/breadcrumbs-api';
 import useHandleStateUpdate from './handle-state-update-hook';
 
 const UseBreadCrumbsHook = () => {
@@ -38,7 +38,7 @@ const UseBreadCrumbsHook = () => {
       token: TokenFromStore?.token,
     };
     fetchBreadcrumbDataAPI(requestParams);
-  }, [ query]);
+  }, [query]);
 
   return { breadCrumbData, isLoading, errorMessage };
 };

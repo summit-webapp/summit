@@ -2,19 +2,19 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import getTokenLoginApi from '../../../services/api/auth/get-token-from-login-api';
 import { showToast } from '../../../components/ToastNotificationNew';
-import { UpdatePartyName } from '../general_slices/profile-page-slice';
+// import { UpdatePartyName } from '../general_slices/profile-page-slice';
 
 export const getAccessToken: any = createAsyncThunk('accessToken/getAccessToken', async (param: any, { dispatch }) => {
   const AccessTokenData = await getTokenLoginApi(param);
 
   if (AccessTokenData?.data?.hasOwnProperty('access_token')) {
     localStorage.setItem('isLoggedIn', 'true');
-    dispatch(UpdatePartyName(AccessTokenData?.data?.full_name));
-    setTimeout(() => {
-      showToast('login successfully', 'success');
-    }, 1200);
+    // dispatch(UpdatePartyName(AccessTokenData?.data?.full_name));
+    // setTimeout(() => {
+    //   showToast('login successfully', 'success');
+    // }, 1200);
   } else {
-    showToast('Invalid Credential', 'error');
+    // showToast('Invalid Credential', 'error');
   }
   return AccessTokenData;
 });

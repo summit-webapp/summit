@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { currency_selector_state, setCurrencyValue } from '../../store/slices/general_slices/multi-currency-slice';
-import getDisplaytagsDataFromAPI from '../../services/api/home_page_api/home-display-tag-api';
+import getDisplaytagsDataFromAPI from '../../services/api/home-page-apis/home-display-tag-api';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
 const useDisplayTagHooks = () => {
@@ -16,14 +16,17 @@ const useDisplayTagHooks = () => {
 
   const fetchDisplayTagsDataFunction = async (currency_value: any) => {
     setIsLoading(true);
-
     try {
       const getDisplayTagsData = await getDisplaytagsDataFromAPI(tokenFromStore?.token, currency_value);
+      console.log('getDisplaytagsDataFromAPI', getDisplayTagsData);
       if (getDisplayTagsData?.length > 0) {
         const tagsDataArray = getDisplayTagsData
           .map((data: any) => {
             if (data?.value?.message?.msg === 'success') {
-              return { tag_name: data.tag_name, value: data?.value?.message?.data };
+              return {
+                tag_name: data.tag_name,
+                value: data?.value?.message?.data,
+              };
             } else {
               setErrMessage(data?.value?.message?.error);
               return null;

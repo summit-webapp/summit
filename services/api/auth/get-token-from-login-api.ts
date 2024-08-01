@@ -25,9 +25,11 @@ const getTokenFromLoginAPI: any = async (loginParams: TypeLoginAPIParams) => {
 const getAccessTokenFromAPI = async (loginParams: TypeLoginAPIParams) => {
   const usr = loginParams.values.usr;
   const pwd = encodeURIComponent(loginParams.values.pwd);
-  const version = CONSTANTS.VERSION;
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'get_access_token';
   const entity = 'access_token';
+  const apiSDKName = CONSTANTS.CUSTOM_API_SDK;
+
   let response: any;
 
   const config = {
@@ -37,7 +39,7 @@ const getAccessTokenFromAPI = async (loginParams: TypeLoginAPIParams) => {
   };
 
   const params = `?version=${version}&method=${method}&entity=${entity}&usr=${usr}&pwd=${pwd}`;
-  await axios.post(`${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}`, undefined, config).then((res) => {
+  await axios.post(`${CONSTANTS.API_BASE_URL}${apiSDKName}${params}`, undefined, config).then((res) => {
     response = res?.data?.message;
     UserRoleGet(res?.data?.message?.data?.access_token);
   });
