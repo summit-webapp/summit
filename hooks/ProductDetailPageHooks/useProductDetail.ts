@@ -23,7 +23,11 @@ const useProductDetail = () => {
     setIsLoading(true);
     try {
       const productDetailAPI: any = await fetchProductDetailData(query?.productId, 'INR', TokenFromStore?.token);
-      if (productDetailAPI?.data?.message?.msg === 'Success' && productDetailAPI?.data?.message?.data?.length) {
+      if (
+        productDetailAPI?.status === 200 &&
+        productDetailAPI?.data?.message?.msg === 'Success' &&
+        productDetailAPI?.data?.message?.data?.length
+      ) {
         setProductDetailData(productDetailAPI?.data?.message?.data[0]);
         if (productDetailAPI?.data?.message?.data[0]?.variant_of) {
           setVariantOf(productDetailAPI?.data?.message?.data[0]?.variant_of);
@@ -58,6 +62,7 @@ const useProductDetail = () => {
     productDetailData,
     productVariantData,
     fetchProductDetailDataAPI,
+    errorMessage
   };
 };
 

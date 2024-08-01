@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchWishlistUser, wishlist_state } from '../../store/slices/wishlist-slices/wishlist-slice';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import { addWishList } from '../../store/slices/wishlist-slices/wishlist-local-slice';
+import { fetchWishlistUser, wishlist_state } from '../../store/slices/wishlist-slices/wishlist-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
 const useWishlist = () => {
@@ -23,13 +24,16 @@ const useWishlist = () => {
     };
     dispatch(fetchWishlistUser(wishListRequest));
   }, []);
-
   useEffect(() => {
     setWishlistCount(wishlistStoreData?.user?.wishlist_count);
     setIsLoading(wishlistStoreData?.isLoading);
-    setErrMessage(wishlistStoreData?.error)
+    setErrMessage(wishlistStoreData?.error);
     if (wishlistStoreData?.user?.data?.length > 0) {
-      setWishlistData([...wishlistStoreData?.user?.data]);
+      setWishlistData([...wishlistStoreData?.user?.data]); 
+      if( typeof(wishlistStoreData?.user?.data) === 'object' )   {
+
+        dispatch(addWishList(wishlistStoreData?.user));
+      }
     } else {
       if (wishlistStoreData?.user?.data?.length === 0) {
         setWishlistData([]);
