@@ -18,7 +18,7 @@ export const callGetAPI = async (url: string, token: any) => {
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {
-        response = 'Request timed out';
+        response = 'Request timed out. API took too long to return response.';
       } else if (err.code === 'ERR_BAD_REQUEST') {
         response = err?.response?.data?.exception ?? 'Bad Request';
       } else if (err.code === 'ERR_INVALID_URL') {
@@ -47,7 +47,7 @@ export const callPostAPI = async (url: string, body: any, token: any) => {
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {
-        response = 'Request timed out';
+        response = 'Request timed out. API took too long to return response.';
       } else if (err.code === 'ERR_BAD_REQUEST') {
         response = 'Bad Request';
       } else if (err.code === 'ERR_INVALID_URL') {
