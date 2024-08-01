@@ -43,18 +43,27 @@ const useProductDetail = () => {
     }
   };
   const fetchProductVariantDataAPI = async (templateName: string) => {
-    const productVariantAPI: any = await fetchProductVariant(templateName, TokenFromStore?.token);
-    console.log('var data', productVariantAPI);
-    if (productVariantAPI?.data?.message?.msg === 'success') {
-      setProductVariantData(productVariantAPI?.data?.message?.data);
-    } else {
-      setProductVariantData([]);
+    setIsLoading(true);
+    try {
+      const productVariantAPI: any = await fetchProductVariant(templateName, TokenFromStore?.token);
+      console.log('var data', productVariantAPI);
+      if (productVariantAPI?.status === 200 && productVariantAPI?.data?.message?.msg === 'success') {
+        setProductVariantData(productVariantAPI?.data?.message?.data);
+      } else {
+        setProductVariantData([]);
+        setErrMessage(productVariantAPI);
+      }
+    } catch (error) {
+      return;
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
     fetchProductDetailDataAPI();
   }, [query?.productId]);
   return {
+    errorMessage,
     productDetailData,
     productVariantData,
     fetchProductDetailDataAPI,
