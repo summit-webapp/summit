@@ -1,11 +1,7 @@
 import { CONSTANTS } from '../../config/app-config';
 import { callGetAPI } from '../../../utils/utils';
 
-<<<<<<< HEAD:services/api/product-listing-page-api/get-product-list-api.ts
- const fetchProductListingFromAPI = async (query: any) => {
-=======
 const fetchProductListingFromAPI = async (query: any) => {
->>>>>>> 9914735fe90ff98e90b07f6c4075ffe4ca9de7e3:services/api/product-listing-page-apis/get-product-list-api.ts
   let url: any;
   let page_no: any;
   let limit: any;
@@ -57,8 +53,4 @@ const fetchProductListingFromAPI = async (query: any) => {
   const response = await callGetAPI(url, query.token);
   return response;
 };
-<<<<<<< HEAD:services/api/product-listing-page-api/get-product-list-api.ts
-export default fetchProductListingFromAPI
-=======
 export default fetchProductListingFromAPI;
->>>>>>> 9914735fe90ff98e90b07f6c4075ffe4ca9de7e3:services/api/product-listing-page-apis/get-product-list-api.ts
