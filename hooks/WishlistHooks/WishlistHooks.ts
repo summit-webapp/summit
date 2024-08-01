@@ -1,37 +1,43 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchWishlistUser, wishlist_state } from '../../store/slices/wishlist-slices/wishlist-slice';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import { GetWishlistDataFetch } from '../../services/api/wishlist-apis/wishlist-api';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
 const useWishlist = () => {
-  const TokenFromStore: any = useSelector(get_access_token);
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
-  const [wishlistData, setWishlistData] = useState([]);
-  const fetchWishlistDataFun = async () => {
-    const params = {
+  const dispatch = useDispatch();
+
+  const wishlistStoreData: any = useSelector(wishlist_state);
+  const TokenFromStore: any = useSelector(get_access_token);
+
+  const [wishlistData, setWishlistData] = useState<any>([]);
+  const [wishlistCount, setWishlistCount] = useState<number>(0);
+
+  useEffect(() => {
+    const wishListRequest = {
+      getWishlist: true,
+      deleteWishlist: false,
+      addTowishlist: false,
       token: TokenFromStore?.token,
     };
-    setIsLoading(true);
-    try {
-      const getWishlistApi: any = await GetWishlistDataFetch(params);
-      if (getWishlistApi?.data?.message?.msg === "success") {
-        setWishlistData(getWishlistApi?.data?.message?.data);
-        setErrMessage([]);
-      } else {
-        setWishlistData([]);
-        setErrMessage(getWishlistApi?.data?.message?.data?.error);
-      }
-    } catch (error) {
-      return;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchWishlistDataFun();
+    dispatch(fetchWishlistUser(wishListRequest));
   }, []);
-  return {isLoading, wishlistData, errorMessage };
+
+  useEffect(() => {
+    setWishlistCount(wishlistStoreData?.user?.wishlist_count);
+    setIsLoading(wishlistStoreData?.isLoading);
+    setErrMessage(wishlistStoreData?.error)
+    if (wishlistStoreData?.user?.data?.length > 0) {
+      setWishlistData([...wishlistStoreData?.user?.data]);
+    } else {
+      if (wishlistStoreData?.user?.data?.length === 0) {
+        setWishlistData([]);
+      }
+    }
+  }, [wishlistStoreData]);
+
+  return { wishlistData, wishlistCount, isLoading, errorMessage };
 };
 
 export default useWishlist;

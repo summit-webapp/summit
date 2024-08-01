@@ -2,7 +2,7 @@ import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
 import { callGetAPI, callPostAPI } from '../../../utils/utils';
 
-export const AddProductToWishlistFetch = async (request: any) => {
+export const AddProductToWishlist = async (request: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = 'add_to_wishlist';
@@ -14,7 +14,7 @@ export const AddProductToWishlistFetch = async (request: any) => {
   return response;
 };
 
-export const GetWishlistDataFetch = async (request: any) => {
+export const GetWishlistData = async (request: any) => {
   let response: any;
   const version = CONSTANTS.VERSION;
   const method = 'get_wishlist_items';
@@ -25,7 +25,7 @@ export const GetWishlistDataFetch = async (request: any) => {
   return response;
 };
 
-export const DeleteProductFromWishlistFetch = async (request: any) => {
+export const DeleteProductFromWishlist = async (request: any) => {
   let response: any;
 
   const config = {
@@ -41,7 +41,6 @@ export const DeleteProductFromWishlistFetch = async (request: any) => {
   await axios
     .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, config)
     .then((res) => {
-      console.log('api res', res);
       response = res?.data?.message;
     })
     .catch((err) => {
