@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import fetchProductDetailData from '../../services/api/product-detail-page-apis/get-product-detail';
 import fetchProductVariant from '../../services/api/product-detail-page-apis/get-product-variants';
@@ -66,6 +66,7 @@ const useProductDetail = () => {
     fetchProductDetailDataAPI();
   }, [query?.productId]);
   return {
+    isLoading,
     errorMessage,
     productDetailData,
     productVariantData,

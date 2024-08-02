@@ -1,6 +1,6 @@
 import React from 'react';
-import CartListing from '../components/Cart/CartListing';
 import { CONSTANTS } from '../services/config/app-config';
+import CartListing from '../components/Cart/CartListing';
 import MetaTag from '../services/api/general-apis/meta-tag-api';
 
 const Cart = () => {
