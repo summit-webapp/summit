@@ -48,7 +48,6 @@ const useProductDetail = () => {
   };
   const fetchProductVariantDataAPI = async (templateName: string) => {
     const productVariantAPI: any = await fetchProductVariant(templateName, TokenFromStore?.token);
-    console.log('var data', productVariantAPI);
     if (productVariantAPI?.data?.message?.msg === 'success') {
       setProductVariantData(productVariantAPI?.data?.message?.data);
     } else {
