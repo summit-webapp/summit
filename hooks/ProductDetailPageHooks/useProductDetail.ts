@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
-import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
-import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import fetchProductDetailData from '../../services/api/product-detail-page-apis/get-product-detail';
 import fetchProductVariant from '../../services/api/product-detail-page-apis/get-product-variants';
+import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
 const useProductDetail = () => {
   const { query } = useRouter();
@@ -47,21 +46,30 @@ const useProductDetail = () => {
     }
   };
   const fetchProductVariantDataAPI = async (templateName: string) => {
-    const productVariantAPI: any = await fetchProductVariant(templateName, TokenFromStore?.token);
-    if (productVariantAPI?.data?.message?.msg === 'success') {
-      setProductVariantData(productVariantAPI?.data?.message?.data);
-    } else {
-      setProductVariantData([]);
+    setIsLoading(true);
+    try {
+      const productVariantAPI: any = await fetchProductVariant(templateName, TokenFromStore?.token);
+      console.log('var data', productVariantAPI);
+      if (productVariantAPI?.status === 200 && productVariantAPI?.data?.message?.msg === 'success') {
+        setProductVariantData(productVariantAPI?.data?.message?.data);
+      } else {
+        setProductVariantData([]);
+        setErrMessage(productVariantAPI);
+      }
+    } catch (error) {
+      return;
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
     fetchProductDetailDataAPI();
   }, [query?.productId]);
   return {
+    errorMessage,
     productDetailData,
     productVariantData,
     fetchProductDetailDataAPI,
-    errorMessage
   };
 };
 
