@@ -5,7 +5,7 @@ const fetchProductListingFromAPI = async (query: any) => {
   let url: any;
   let page_no: any;
   let limit: any;
-  const version = CONSTANTS.VERSION;
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
     page_no = query?.url_params?.page;
     limit = 4 * Number(query.url_params.page);
@@ -35,20 +35,20 @@ const fetchProductListingFromAPI = async (query: any) => {
     if (query.router_origin === 'product-category') {
       const method = 'get_list';
       const entity = 'product';
-      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&sort_by=${query.sort_by}&category=${category}&${modifiedParams}`;
+      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&sort_by=${query.sort_by}&category=${category}&${modifiedParams}`;
     } else if (query.router_origin === 'catalog') {
       const method = 'get_items';
       const entity = 'catalog';
-      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&catalog_slug=${category}`;
+      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&catalog_slug=${category}`;
     } else if (query.router_origin === 'brand') {
       const method = 'get_list';
       const entity = 'product';
-      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&brand=${category}`;
+      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&brand=${category}`;
     }
   } else {
     const method = 'get_list';
     const entity = 'product';
-    url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&sort_by=${query.sort_by}&${modifiedParams}`;
+    url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&sort_by=${query.sort_by}&${modifiedParams}`;
   }
   const response = await callGetAPI(url, query.token);
   return response;
