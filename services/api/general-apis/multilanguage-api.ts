@@ -3,13 +3,13 @@ import { CONSTANTS } from '../../config/app-config';
 
 const MultiLangApi = async () => {
   let response: any;
-  const version = CONSTANTS.VERSION;
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'get_languages';
   const entity = 'translation';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
 
   const MultiLanguagesList = await axios
-    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, {
+    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}${params}`, {
       timeout: 5000,
     })
     .then((res: any) => {
@@ -40,7 +40,7 @@ const MultiLangApi = async () => {
         console.log('MultiLanguagesList langname', lang);
         try {
           const res = await axios.get(
-            `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${langTransmethod}&entity=${langTransentity}&language_code=${lang.language_code}`,
+            `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${langTransmethod}&entity=${langTransentity}&language_code=${lang.language_code}`,
             { timeout: 5000 }
           );
 

@@ -28,7 +28,7 @@ const getAccessTokenFromAPI = async (loginParams: TypeLoginAPIParams) => {
   const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'get_access_token';
   const entity = 'access_token';
-  const apiSDKName = CONSTANTS.CUSTOM_API_SDK;
+  const apiSDKName = CONSTANTS.SUMMIT_API_SDK;
 
   let response: any;
 

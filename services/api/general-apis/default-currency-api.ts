@@ -4,12 +4,12 @@ import { CONSTANTS } from '../../config/app-config';
 export const getMultiCurrencyValue = async () => {
   let response: any;
 
-  const version = CONSTANTS.VERSION;
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'get_default_currency';
   const entity = 'product';
   const params = `version=${version}&method=${method}&entity=${entity}`;
 
-  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?${params}`;
+  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?${params}`;
   console.log('default multi currency url', url);
   await axios
     .get(`${url}`, { timeout: 5000 })

@@ -25,12 +25,12 @@ const login = () => {
 
 export async function getServerSideProps(context: any) {
   const method = 'get_meta_tags';
-  const version = 'v1';
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const entity = 'seo';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
   const url = `${context.resolvedUrl.split('?')[0]}`;
   if (CONSTANTS.ENABLE_META_TAGS) {
-    let meta_data: any = await MetaTag(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}&page_name=${url}`);
+    let meta_data: any = await MetaTag(`${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}${params}&page_name=${url}`);
     if (meta_data !== null && Object.keys(meta_data).length > 0) {
       const metaData = meta_data?.data?.message?.data;
       return { props: { metaData } };

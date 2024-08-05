@@ -2,7 +2,7 @@ import { callGetAPI } from '../../../utils/utils';
 import { CONSTANTS } from '../../config/app-config';
 
 const getDisplaytagsDataFromAPI = async (token: any, currencyValue: any) => {
-  const version = CONSTANTS.VERSION;
+  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'get_tagged_products';
   const entity = 'product';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
@@ -13,7 +13,7 @@ const getDisplaytagsDataFromAPI = async (token: any, currencyValue: any) => {
       displayTagsList?.data?.data?.length > 0 &&
         displayTagsList?.data?.data.map(async (tag: any) => {
           const res = await callGetAPI(
-            `${CONSTANTS.API_BASE_URL}/${CONSTANTS.API_MANDATE_PARAMS}${params}&tag=${tag.name}&currency=${currencyValue}`,
+            `${CONSTANTS.API_BASE_URL}/${CONSTANTS.SUMMIT_API_SDK}${params}&tag=${tag.name}&currency=${currencyValue}`,
             token
           );
           return { tag_name: tag.name, value: res?.data };

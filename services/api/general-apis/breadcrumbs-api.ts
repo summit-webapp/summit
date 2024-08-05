@@ -40,7 +40,7 @@ const getBreadcrumbsDataFromAPI = async (request: any) => {
     params = `&method=${method}&entity=${entity}&product_type=${catalogProductType}&category=${category}`;
   }
 
-  const response = await callGetAPI(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}${params}`, request?.token);
+  const response = await callGetAPI(`${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}${params}`, request?.token);
   return response;
 };
 
