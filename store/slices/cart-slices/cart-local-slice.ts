@@ -24,12 +24,15 @@ const cartSlice = createSlice({
       state.cartCount = state?.items?.length;
     },
     addItemToCart: (state, action: PayloadAction<any>) => {
+      if (!state.items) {
+        state.items = [];
+      }
       const existingItem = state.items?.find((item) => item === action.payload.name);
       if (existingItem) {
         return;
       } else {
         state.items.push(action.payload); // Add new item to cart
-        state.cartCount = state.cartCount + 1;
+        state.cartCount = state.cartCount + 1 || 1;
       }
       state.error = null;
     },

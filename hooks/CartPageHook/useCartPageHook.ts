@@ -43,6 +43,7 @@ const useCartPage = () => {
 
   return {
     cartListingItems,
+    setCartListingItems,
     isLoading,
     errorMessage,
     cartCount
