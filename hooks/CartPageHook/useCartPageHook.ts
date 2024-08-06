@@ -25,6 +25,7 @@ const useCartPage = () => {
         let cartData = extractProductCodes(cartListingData?.data?.message?.data?.categories)
         dispatch(addCartList(cartData))
         setIsLoading(false);
+        setErrMessage('')
       } else {
         setCartListingItems([])
         setIsLoading(false);
@@ -43,9 +44,11 @@ const useCartPage = () => {
 
   return {
     cartListingItems,
+    setCartListingItems,
     isLoading,
     errorMessage,
-    cartCount
+    cartCount,
+    fetchCartListingData
   };
 };
 export default useCartPage;

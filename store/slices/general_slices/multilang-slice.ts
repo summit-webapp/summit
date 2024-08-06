@@ -31,24 +31,6 @@ export const MultiLanguageScreen = createSlice({
       state.error = '';
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(fetchMultiLanguagesThunkAPI.pending, (state) => {
-  //     state.languageData = [];
-  //     state.isLoading = "pending";
-  //     state.error = "";
-  //   });
-  //   builder.addCase(fetchMultiLanguagesThunkAPI.fulfilled, (state, action) => {
-  //     console.log("languagedata payload", action.payload);
-  //     state.languageData = action.payload;
-  //     state.isLoading = "pending";
-  //     state.error = "";
-  //   });
-  //   builder.addCase(fetchMultiLanguagesThunkAPI.rejected, (state) => {
-  //     state.isLoading = "failed";
-  //     state.error = "Network error";
-  //     state.languageData = [];
-  //   });
-  // },
 });
 
 export const { setMultiLingualData } = MultiLanguageScreen.actions;

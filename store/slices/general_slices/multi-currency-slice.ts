@@ -40,35 +40,6 @@ const MultiCurrencySlice = createSlice({
       state.selected_currency_value = action.payload;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(MultiCurrencyThunk.pending, (state, action) => {
-  //     state.loading = "pending";
-  //     state.default_currency_value = "INR";
-  //     state.selected_currency_value = "INR";
-  //   });
-  //   builder.addCase(MultiCurrencyThunk.fulfilled, (state, action) => {
-  //     console.log("multi currency in extra reducer from api", action);
-  //     if (
-  //       action.payload.status === 200 &&
-  //       action.payload.data.hasOwnProperty("data")
-  //     ) {
-  //       state.loading = "succeeded";
-  //       state.default_currency_value =
-  //         action.payload?.data?.data[0]?.default_currency;
-  //       state.selected_currency_value =
-  //         action.payload?.data?.data[0]?.default_currency;
-  //     } else {
-  //       state.loading = "succeeded";
-  //       state.default_currency_value = "INR";
-  //       state.selected_currency_value = "INR";
-  //     }
-  //   });
-  //   builder.addCase(MultiCurrencyThunk.rejected, (state, action) => {
-  //     state.loading = "pending";
-  //     state.default_currency_value = "INR";
-  //     state.selected_currency_value = "INR";
-  //   });
-  // },
 });
 
 export const { setDefaultCurrencyValue, setCurrencyValue } = MultiCurrencySlice.actions;

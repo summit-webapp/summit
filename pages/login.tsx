@@ -1,23 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { get_access_token } from '../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../services/config/app-config';
 import MetaTag from '../services/api/general-apis/meta-tag-api';
 import LoginComponent from '../components/Auth/LoginComponent';
+import checkAuthorizedUser from '../utils/auth';
 
 const login = () => {
-  const TokenFromStore: any = useSelector(get_access_token);
   const router = useRouter();
   function checkIfUserIsAuthorized() {
-    if (TokenFromStore?.token !== '') {
+    const checkUserStatus = checkAuthorizedUser();
+    if (checkUserStatus) {
       router.push('/');
     } else {
-      return (
-        <>
-          <LoginComponent />
-        </>
-      );
+      return <LoginComponent />;
     }
   }
   return <>{CONSTANTS?.ALLOW_GUEST_TO_ACCESS_SITE_EVEN_WITHOUT_AUTHENTICATION ? <LoginComponent /> : checkIfUserIsAuthorized()}</>;
