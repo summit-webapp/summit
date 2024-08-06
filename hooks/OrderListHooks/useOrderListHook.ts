@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import getOrderListAPI from '../../services/api/order-apis/order-list-api';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import getCompletedOrderListAPI from '../../services/api/order-apis/completed-orders-list-api';
-import getCancelledOrderListAPI from '../../services/api/order-apis/cancelled-orders-list-api';
+import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
 const useOrderListHook = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
@@ -44,7 +42,7 @@ const useOrderListHook = () => {
         break;
 
       case '/orders/completed-orders':
-        getOrderListingData = await getCompletedOrderListAPI(tokenFromStore.token);
+        getOrderListingData = await getOrderListAPI(tokenFromStore.token, 'Completed');
         if (getOrderListingData?.status === 200) {
           getOrderListingApiRes(getOrderListingData);
         } else {
@@ -52,7 +50,7 @@ const useOrderListHook = () => {
         }
         break;
       case '/orders/cancelled-orders':
-        getOrderListingData = await getCancelledOrderListAPI(tokenFromStore.token);
+        getOrderListingData = await getOrderListAPI(tokenFromStore.token, 'Cancelled');
         if (getOrderListingData?.status === 200) {
           getOrderListingApiRes(getOrderListingData);
         } else {
