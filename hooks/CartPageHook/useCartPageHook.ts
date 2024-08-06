@@ -25,6 +25,7 @@ const useCartPage = () => {
         let cartData = extractProductCodes(cartListingData?.data?.message?.data?.categories)
         dispatch(addCartList(cartData))
         setIsLoading(false);
+        setErrMessage('')
       } else {
         setCartListingItems([])
         setIsLoading(false);
