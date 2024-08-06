@@ -46,7 +46,8 @@ const useCartPage = () => {
     setCartListingItems,
     isLoading,
     errorMessage,
-    cartCount
+    cartCount,
+    fetchCartListingData
   };
 };
 export default useCartPage;
