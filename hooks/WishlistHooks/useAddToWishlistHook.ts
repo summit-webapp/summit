@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { AddProductToWishlist, DeleteProductFromWishlist } from '../../services/api/wishlist-apis/wishlist-api';
 import { addItemToWishlist, removeItemFromWishlist } from '../../store/slices/wishlist-slices/wishlist-local-slice';
-import { toast } from 'react-toastify';
 
 const useAddToWishlist = () => {
   const dispatch = useDispatch();
