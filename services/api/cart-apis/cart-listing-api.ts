@@ -3,7 +3,6 @@ import { callGetAPI } from '../../../utils/utils';
 const fetchCartListingAPI = async (token: any) => {
   const version = CONSTANTS.CUSTOM_API_SDK_VERSION;
   const method = 'get_list';
-  console.log('fetchCartListingAPI');
   const entity = 'cart';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
   const url: any = `${CONSTANTS.API_BASE_URL}${CONSTANTS.CUSTOM_API_SDK}${params}`;
