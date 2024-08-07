@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Get the list of staged files, excluding the .husky/pre-commit file
+staged_files=$(git diff --cached --name-only --diff-filter=d | grep -v ".husky/pre-commit")
+
+# Loop through each staged file
+for file in $staged_files; do
+    # Check if the file contains console logs or console.error
+    if grep -qE 'console.log|console.error' "$file"; then
+        echo "Error: Found console logs or console.error in $file"
+        exit 1
+    fi
+done
+
+exit 0
