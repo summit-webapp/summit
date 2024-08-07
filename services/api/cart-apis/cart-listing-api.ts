@@ -5,14 +5,8 @@ const fetchCartListingAPI = async (token: any) => {
   const method = 'get_list';
   const entity = 'cart';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
-  if (Object?.keys(token)?.length > 0) {
-    const url: any = `${CONSTANTS.API_BASE_URL}${CONSTANTS.CUSTOM_API_SDK}${params}`
-    const response = await callGetAPI(url, token);
-    return response;
-  } else {
-    const url: any = `${CONSTANTS.API_BASE_URL}${CONSTANTS.CUSTOM_API_SDK}${params}`
-    const response = await callGetAPI(url, token);
-    return response;
-  }
+  const url: any = `${CONSTANTS.API_BASE_URL}${CONSTANTS.CUSTOM_API_SDK}${params}`;
+  const response = await callGetAPI(url, token);
+  return response;
 };
 export default fetchCartListingAPI;
