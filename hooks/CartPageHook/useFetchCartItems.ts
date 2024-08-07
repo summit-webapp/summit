@@ -18,12 +18,10 @@ const useFetchCartItems = () => {
     setIsLoading(true);
     try {
       let cartListingData: any = await fetchCartListingAPI(tokenFromStore.token);
-      console.log('cartListingData', cartListingData);
       if (cartListingData?.status === 200 && cartListingData?.data?.message?.msg === 'success') {
         if (Object.keys(cartListingData?.data?.message?.data).length !== 0) {
           setCartListingItems(cartListingData?.data?.message?.data);
           let cartData = extractProductCodes(cartListingData?.data?.message?.data?.categories);
-          console.log('cartData', cartData);
           dispatch(addCartList(cartData));
         } else {
           setCartListingItems([]);
