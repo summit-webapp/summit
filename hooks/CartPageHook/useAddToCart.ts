@@ -44,10 +44,10 @@ const useAddToCartHook = () => {
   };
   const placeOrderAPIFunc = async (params: any,setCartListingItems:any) => {
     const placeOrder = await postPlaceOrderAPI(params, TokenFromStore?.token);
-    if (placeOrder?.status === 200) {
+    if (placeOrder?.data?.message?.msg === 'success') {
       dispatch(clearCart());
       toast.success('Order placed successfully!');
-      setCartListingItems([])
+      setCartListingItems({})
     } else {
       toast.error('Failed to place order.');
     }
