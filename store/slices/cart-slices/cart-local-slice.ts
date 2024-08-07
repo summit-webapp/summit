@@ -27,7 +27,7 @@ const cartSlice = createSlice({
       if (!state.items) {
         state.items = [];
       }
-      const existingItem = state.items?.find((item) => item === action.payload.name);
+      const existingItem = state.items?.find((item) => item === action.payload);
       if (existingItem) {
         return;
       } else {
@@ -57,6 +57,7 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.items = [];
       state.error = null;
+      state.cartCount = 0
     },
   },
 });
