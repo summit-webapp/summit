@@ -42,7 +42,7 @@ const useAddToCartHook = () => {
       toast.error('Failed to add product to Cart.');
     }
   };
-  const placeOrderAPIFunc = async (params: any,setCartListingItems:any) => {
+  const placeOrderAPIFunc = async (params: any, setCartListingItems: any) => {
     const placeOrder = await postPlaceOrderAPI(params, TokenFromStore?.token);
     if (placeOrder?.data?.message?.msg === 'success') {
       dispatch(clearCart());

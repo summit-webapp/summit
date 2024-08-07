@@ -14,7 +14,7 @@ const appReducer = combineReducers({
   MultilanguageScreen: MultiLanguageReducer,
   SelectedFilterLangDataScreen: SelectedFilterLangDataScreen,
   wishlistSlice: wishlistSlice,
-  cartSlice:cartLocalSlice
+  cart: cartLocalSlice,
 });
 
 const rootReducer = (state: any, action: any) => {
