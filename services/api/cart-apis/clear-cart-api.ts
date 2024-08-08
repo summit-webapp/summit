@@ -19,7 +19,6 @@ export const DeleteClearCart = async (quotation_id: any, token: any) => {
       response = res;
     })
     .catch((err) => {
-      console.log(err);
     });
   return response;
 };
