@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import getTokenLoginApi from '../../../services/api/auth/get-token-from-login-api';
-import { showToast } from '../../../components/ToastNotificationNew';
-// import { UpdatePartyName } from '../general_slices/profile-page-slice';
 
 export const getAccessToken: any = createAsyncThunk('accessToken/getAccessToken', async (param: any, { dispatch }) => {
   const AccessTokenData = await getTokenLoginApi(param);
@@ -35,7 +33,6 @@ export const GetAccessTokenScreen = createSlice({
   initialState,
   reducers: {
     storeToken(state: any, action: any) {
-      console.log('token in slice', action?.payload);
       state.token = action?.payload?.access_token;
       state.error = '';
       state.isLoading = 'succeeded';

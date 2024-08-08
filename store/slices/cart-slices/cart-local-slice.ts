@@ -27,7 +27,7 @@ const cartSlice = createSlice({
       if (!state.items) {
         state.items = [];
       }
-      const existingItem = state.items?.find((item) => item === action.payload.name);
+      const existingItem = state.items?.find((item) => item === action.payload);
       if (existingItem) {
         return;
       } else {
@@ -57,12 +57,13 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.items = [];
       state.error = null;
+      state.cartCount = 0;
     },
   },
 });
 
 export const { addItemToCart, removeItemFromCart, updateItemQuantity, setLoading, setError, clearCart, addCartList } = cartSlice.actions;
 
-export const selectCart = (state: RootState) => state.cartSlice;
+export const selectCart = (state: RootState) => state.cart;
 
 export default cartSlice.reducer;
