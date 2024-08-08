@@ -13,10 +13,11 @@ const useProductDetail = () => {
   // const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
-  const [productDetailData, setProductDetailData] = useState([]);
+  const [productDetailData, setProductDetailData] = useState({});
   // Set if product detail data is variant that has opened. If Variant then check what's its template and set it.
   const [variantOf, setVariantOf] = useState<string>('');
   const [productVariantData, setProductVariantData] = useState([]);
+  const [variantLoading, setVariantLoading] =useState<boolean>(false)
 
   const fetchProductDetailDataAPI = async () => {
     setIsLoading(true);
@@ -34,9 +35,11 @@ const useProductDetail = () => {
           if (productVariantData === null || productVariantData?.length === 0) {
             fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data[0]?.variant_of);
           }
+        }else{
+          setProductVariantData([])
         }
       } else {
-        setProductDetailData([]);
+        setProductDetailData({});
         setErrMessage(productDetailAPI?.data?.message?.data?.error);
       }
     } catch (error) {
@@ -46,10 +49,9 @@ const useProductDetail = () => {
     }
   };
   const fetchProductVariantDataAPI = async (templateName: string) => {
-    setIsLoading(true);
+    setVariantLoading(true);
     try {
       const productVariantAPI: any = await fetchProductVariant(templateName, TokenFromStore?.token);
-      console.log('var data', productVariantAPI);
       if (productVariantAPI?.status === 200 && productVariantAPI?.data?.message?.msg === 'success') {
         setProductVariantData(productVariantAPI?.data?.message?.data);
       } else {
@@ -59,7 +61,7 @@ const useProductDetail = () => {
     } catch (error) {
       return;
     } finally {
-      setIsLoading(false);
+      setVariantLoading(false);
     }
   };
   useEffect(() => {
@@ -71,6 +73,7 @@ const useProductDetail = () => {
     productDetailData,
     productVariantData,
     fetchProductDetailDataAPI,
+    variantLoading
   };
 };
 
