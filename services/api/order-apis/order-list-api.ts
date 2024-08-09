@@ -18,7 +18,7 @@ const getOrderListAPI = async (appName: string, token: any, status?: string): Pr
   const response = await fetchDataFromAPI(
     appName,
     'order-list-api',
-    'get_orderssss',
+    'get_orders',
     'order',
     token,
     additionalParams // Pass additional parameters if needed
