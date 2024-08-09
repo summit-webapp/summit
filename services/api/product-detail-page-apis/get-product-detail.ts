@@ -1,5 +1,5 @@
 import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI } from '../../../utils/utils';
+import { callGetAPI } from '../../../utils/http-methods';
 
 const fetchProductDetailData = async (product_id: any, currency: any, token: any) => {
   let response: any;
