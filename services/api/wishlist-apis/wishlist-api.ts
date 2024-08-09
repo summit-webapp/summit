@@ -43,8 +43,6 @@ export const DeleteProductFromWishlist = async (request: any) => {
     .then((res) => {
       response = res?.data?.message;
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
   return response;
 };
