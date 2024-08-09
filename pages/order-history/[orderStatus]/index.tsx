@@ -1,7 +1,7 @@
 import React from 'react';
-import OrderList from '../../components/Orders/OrderList';
-import { CONSTANTS } from '../../services/config/app-config';
-import MetaTag from '../../services/api/general-apis/meta-tag-api';
+import OrderList from '../../../components/Orders/OrderList';
+import { CONSTANTS } from '../../../services/config/app-config';
+import MetaTag from '../../../services/api/general-apis/meta-tag-api';
 
 const Index = () => {
   return <OrderList />;

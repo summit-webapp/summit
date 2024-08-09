@@ -1,4 +1,4 @@
-import { callGetAPI } from '../../../utils/utils';
+import { callGetAPI } from '../../../utils/http-methods';
 import { CONSTANTS } from '../../config/app-config';
 
 const getBannerAPI = async (token: any) => {
