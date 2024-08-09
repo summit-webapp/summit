@@ -6,7 +6,7 @@ import { addCartList, selectCart } from '../../store/slices/cart-slices/cart-loc
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 const useFetchCartItems = () => {
   const dispatch = useDispatch();
-  const [cartListingItems, setCartListingItems] = useState<any>([]);
+  const [cartListingItems, setCartListingItems] = useState<any>({});
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
   const { cartCount } = useSelector(selectCart);
@@ -22,12 +22,13 @@ const useFetchCartItems = () => {
         if (Object.keys(cartListingData?.data?.message?.data).length !== 0) {
           setCartListingItems(cartListingData?.data?.message?.data);
           let cartData = extractProductCodes(cartListingData?.data?.message?.data?.categories);
-          dispatch(addCartList(cartData));
+          let quotationId = cartListingData?.data?.message?.data?.name
+          dispatch(addCartList({cartData,quotationId}));
         } else {
-          setCartListingItems([]);
+          setCartListingItems({});
         }
       } else {
-        setCartListingItems([]);
+        setCartListingItems({});
         setErrMessage(cartListingData?.data?.message?.error);
       }
     } catch (error) {

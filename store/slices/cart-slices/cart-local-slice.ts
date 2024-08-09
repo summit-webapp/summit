@@ -3,9 +3,10 @@ import { RootState } from '../../root-reducer';
 
 interface CartState {
   items: any[];
-  cartCount: number;
+  cartCount: any;
   error: string | null;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  quotation_Id : string
 }
 
 const initialState: CartState = {
@@ -13,15 +14,17 @@ const initialState: CartState = {
   cartCount: 0,
   error: null,
   isLoading: 'idle',
+  quotation_Id :''
 };
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addCartList: (state, action) => {
-      state.items = action.payload;
+    addCartList: (state, action,) => {
+      state.items = action.payload?.cartData;
       state.cartCount = state?.items?.length;
+      state.quotation_Id = action?.payload?.quotationId
     },
     addItemToCart: (state, action: PayloadAction<any>) => {
       if (!state.items) {
@@ -31,7 +34,7 @@ const cartSlice = createSlice({
       if (existingItem) {
         return;
       } else {
-        state.items.push(action.payload); // Add new item to cart
+        state.items.push(action.payload); 
         state.cartCount = state.cartCount + 1 || 1;
       }
       state.error = null;
