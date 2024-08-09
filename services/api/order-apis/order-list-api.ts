@@ -1,15 +1,29 @@
-import { callGetAPI } from '../../../utils/utils';
-import { CONSTANTS } from '../../config/app-config';
+import { fetchDataFromAPI } from '../../../utils/http-methods';
 
-const getOrderListAPI = async (token: any, status?: any) => {
-  const user = localStorage.getItem('user');
+/**
+ * Fetches Order History data from the API using the given parameters.
+ *
+ * @async
+ * @function getOrderListAPI
+ * @param {string} appName - The name of the application.
+ * @param {string} token - The authentication token.
+ * @param {string} [status] - Optional status filter for the order listing.
+ * @returns {Promise<any>} - The response from the API call.
+ * @throws {Error} Throws an error if the API call fails.
+ */
+const getOrderListAPI = async (appName: string, token: any, status?: string): Promise<any> => {
+  const user = localStorage.getItem('user') || '';
+  let additionalParams = { user, ...(status && { status }) };
+  // Use fetchDataFromAPI to handle GET Request logic
+  const response = await fetchDataFromAPI(
+    appName,
+    'order-list-api',
+    'get_orderssss',
+    'order',
+    token,
+    additionalParams // Pass additional parameters if needed
+  );
 
-  const version = CONSTANTS.CUSTOM_API_SDK_VERSION;
-  const method = 'get_orders';
-  const entity = 'order';
-
-  const params = `?version=${version}&method=${method}&entity=${entity}&user=${user}${status !== undefined ? `&status=${status}` : ''}`;
-  const response: any = await callGetAPI(`${CONSTANTS.API_BASE_URL}${CONSTANTS.CUSTOM_API_SDK}${params}`, token);
   return response;
 };
 

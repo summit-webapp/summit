@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI, callPostAPI } from '../../../utils/utils';
+import { callGetAPI, callPostAPI } from '../../../utils/http-methods';
 
 export const AddProductToWishlist = async (request: any) => {
   let response: any;

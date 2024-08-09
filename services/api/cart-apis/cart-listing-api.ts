@@ -1,5 +1,5 @@
 import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI } from '../../../utils/utils';
+import { callGetAPI } from '../../../utils/http-methods';
 const fetchCartListingAPI = async (token: any) => {
   const version = CONSTANTS.CUSTOM_API_SDK_VERSION;
   const method = 'get_list';

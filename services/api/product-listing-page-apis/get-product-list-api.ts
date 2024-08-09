@@ -1,5 +1,5 @@
 import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI } from '../../../utils/utils';
+import { callGetAPI } from '../../../utils/http-methods';
 
 const fetchProductListingFromAPI = async (query: any) => {
   let url: any;
