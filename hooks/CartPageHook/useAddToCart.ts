@@ -6,6 +6,7 @@ import { addCartList, addItemToCart, clearCart, removeItemFromCart } from '../..
 import postPlaceOrderAPI from '../../services/api/cart-apis/place-order-api';
 import { DeleteItemFromCart } from '../../services/api/cart-apis/remove-item-api';
 import fetchCartListingAPI from '../../services/api/cart-apis/cart-listing-api';
+import { DeleteClearCart } from '../../services/api/cart-apis/clear-cart-api';
 
 const useAddToCartHook = () => {
   const dispatch = useDispatch();
@@ -19,9 +20,10 @@ const useAddToCartHook = () => {
       if (cartListingData.data.message.msg === 'success') {
         setCartListingItems(cartListingData?.data?.message?.data);
         let cartData = extractProductCodes(cartListingData?.data?.message?.data?.categories);
-        dispatch(addCartList(cartData));
+        let quotationId = cartListingData?.data?.message?.data?.name
+        dispatch(addCartList({cartData,quotationId}));
       } else {
-        setCartListingItems([]);
+        setCartListingItems({});
       }
       return cartListingData;
     } catch (error) {
@@ -44,10 +46,10 @@ const useAddToCartHook = () => {
   };
   const placeOrderAPIFunc = async (params: any, setCartListingItems: any) => {
     const placeOrder = await postPlaceOrderAPI(params, TokenFromStore?.token);
-    if (placeOrder?.status === 200) {
+    if (placeOrder?.data?.message?.msg === 'success') {
       dispatch(clearCart());
       toast.success('Order placed successfully!');
-      setCartListingItems([]);
+      setCartListingItems({});
     } else {
       toast.error('Failed to place order.');
     }
@@ -62,7 +64,16 @@ const useAddToCartHook = () => {
       toast.error('Failed to remove product from cart');
     }
   };
+  const cLearCartAPIFunc = async (quotation_id: any) => {
+    const clearCartfunc = await DeleteClearCart(quotation_id, TokenFromStore?.token);
+    if(clearCartfunc?.status === 200){
+      dispatch(clearCart());
+      toast.success('Cart cleared sucessfully!')
+    }else{
+      toast.error('Failed to clear cart.')
+    }
+  };
 
-  return { addToCartItem, placeOrderAPIFunc, RemoveItemCartAPIFunc };
+  return { addToCartItem, placeOrderAPIFunc, RemoveItemCartAPIFunc, cLearCartAPIFunc };
 };
 export default useAddToCartHook;

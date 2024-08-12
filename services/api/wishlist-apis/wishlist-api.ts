@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI, callPostAPI } from '../../../utils/utils';
+import { callGetAPI, callPostAPI } from '../../../utils/http-methods';
 
 export const AddProductToWishlist = async (request: any) => {
   let response: any;
@@ -43,8 +43,6 @@ export const DeleteProductFromWishlist = async (request: any) => {
     .then((res) => {
       response = res?.data?.message;
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
   return response;
 };

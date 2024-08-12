@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import getNavbarDataFromAPI from '../../../services/api/general-apis/navbar-api';
 import { get_access_token } from '../../../store/slices/auth/token-login-slice';
 import { currency_selector_state } from '../../../store/slices/general_slices/multi-currency-slice';
 import useHandleStateUpdate from '../handle-state-update-hook';
+import { CONSTANTS } from '../../../services/config/app-config';
 const useNavbar = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
-
+  const { SUMMIT_API_SDK }: any = CONSTANTS;
   const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
@@ -17,7 +18,7 @@ const useNavbar = () => {
   const fetchNavbarDataAPI = async () => {
     setIsLoading(true);
     try {
-      const navbarDataAPI: any = await getNavbarDataFromAPI(TokenFromStore?.token);
+      const navbarDataAPI: any = await getNavbarDataFromAPI(SUMMIT_API_SDK, TokenFromStore?.token);
       if (navbarDataAPI?.data?.message?.msg === 'success' && navbarDataAPI?.data?.message?.data?.length) {
         // BELOW CODE IS TO SORT NAVBAR DATA AND STORE IN THE STATE
         setNavbarData(
