@@ -1,4 +1,4 @@
-import { callGetAPI } from '../../../utils/utils';
+import { callGetAPI } from '../../../utils/http-methods';
 import { CONSTANTS } from '../../config/app-config';
 
 const getOrderReportAPI = async (token: any, user: any, methods: any) => {

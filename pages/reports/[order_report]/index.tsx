@@ -1,13 +1,16 @@
-import React from 'react';
-import DispatchOrderReportComponent from '../../components/OrderReport/DispatchOrderReportComponent';
-import { CONSTANTS } from '../../services/config/app-config';
-import MetaTag from '../../services/api/general-apis/meta-tag-api';
+import OrderReportComponent from '../../../components/OrderReport/OrderReportComponent';
+import PageMetaData from '../../../components/PageMetaData/PageMetaData';
+import MetaTag from '../../../services/api/general-apis/meta-tag-api';
+import { CONSTANTS } from '../../../services/config/app-config';
 
-const DispatchedOrdersReport = () => {
+const Index = ({ metaData }: any) => {
   return (
-    <div>
-      <DispatchOrderReportComponent />
-    </div>
+    <>
+      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
+      <>
+        <OrderReportComponent />
+      </>
+    </>
   );
 };
 
@@ -19,7 +22,6 @@ export async function getServerSideProps(context: any) {
   const url = `${context.resolvedUrl.split('?')[0]}`;
   if (CONSTANTS.ENABLE_META_TAGS) {
     let meta_data: any = await MetaTag(`${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}${params}&page_name=${url}`);
-
     if (meta_data !== null && Object.keys(meta_data).length > 0) {
       const metaData = meta_data?.data?.message?.data;
       return { props: { metaData } };
@@ -30,4 +32,4 @@ export async function getServerSideProps(context: any) {
     return { props: {} };
   }
 }
-export default DispatchedOrdersReport;
+export default Index;
