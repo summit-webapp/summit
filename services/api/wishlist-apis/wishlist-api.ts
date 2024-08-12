@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI, callPostAPI } from '../../../utils/http-methods';
+import { callGetAPI, callPostAPI, fetchDataFromAPI } from '../../../utils/http-methods';
 
 export const AddProductToWishlist = async (request: any) => {
   let response: any;
@@ -14,14 +14,18 @@ export const AddProductToWishlist = async (request: any) => {
   return response;
 };
 
-export const GetWishlistData = async (request: any) => {
-  let response: any;
-  const version = CONSTANTS.VERSION;
-  const method = 'get_wishlist_items';
-  const entity = 'wishlist';
-  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}`;
+export const GetWishlistData = async (appName: any, request: any) => {
+  const additionalParams = {}; // Add additional parameters if needed
+  // Use fetchDataFromAPI to handle GET Request logic
+  const response = await fetchDataFromAPI(
+    appName,
+    'wishlist-api',
+    'get_wishlist_items',
+    'wishlist',
+    request.token,
+    additionalParams // Pass additional parameters if needed
+  );
 
-  response = callGetAPI(url, request.token);
   return response;
 };
 

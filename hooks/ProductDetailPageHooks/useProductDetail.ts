@@ -5,11 +5,12 @@ import fetchProductDetailData from '../../services/api/product-detail-page-apis/
 import fetchProductVariant from '../../services/api/product-detail-page-apis/get-product-variants';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import { CONSTANTS } from '../../services/config/app-config';
 
 const useProductDetail = () => {
   const { query } = useRouter();
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
-
+  const { SUMMIT_API_SDK }: any = CONSTANTS;
   // const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
@@ -17,12 +18,12 @@ const useProductDetail = () => {
   // Set if product detail data is variant that has opened. If Variant then check what's its template and set it.
   const [variantOf, setVariantOf] = useState<string>('');
   const [productVariantData, setProductVariantData] = useState([]);
-  const [variantLoading, setVariantLoading] =useState<boolean>(false)
+  const [variantLoading, setVariantLoading] = useState<boolean>(false);
 
   const fetchProductDetailDataAPI = async () => {
     setIsLoading(true);
     try {
-      const productDetailAPI: any = await fetchProductDetailData(query?.productId, 'INR', TokenFromStore?.token);
+      const productDetailAPI: any = await fetchProductDetailData(SUMMIT_API_SDK, query?.productId, 'INR', TokenFromStore?.token);
       if (
         productDetailAPI?.status === 200 &&
         productDetailAPI?.data?.message?.msg === 'Success' &&
@@ -35,8 +36,8 @@ const useProductDetail = () => {
           if (productVariantData === null || productVariantData?.length === 0) {
             fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data[0]?.variant_of);
           }
-        }else{
-          setProductVariantData([])
+        } else {
+          setProductVariantData([]);
         }
       } else {
         setProductDetailData({});
@@ -51,7 +52,7 @@ const useProductDetail = () => {
   const fetchProductVariantDataAPI = async (templateName: string) => {
     setVariantLoading(true);
     try {
-      const productVariantAPI: any = await fetchProductVariant(templateName, TokenFromStore?.token);
+      const productVariantAPI: any = await fetchProductVariant(SUMMIT_API_SDK, templateName, TokenFromStore?.token);
       if (productVariantAPI?.status === 200 && productVariantAPI?.data?.message?.msg === 'success') {
         setProductVariantData(productVariantAPI?.data?.message?.data);
       } else {
@@ -73,7 +74,7 @@ const useProductDetail = () => {
     productDetailData,
     productVariantData,
     fetchProductDetailDataAPI,
-    variantLoading
+    variantLoading,
   };
 };
 

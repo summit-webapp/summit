@@ -1,12 +1,17 @@
-import { callGetAPI } from '../../../utils/http-methods';
-import { CONSTANTS } from '../../config/app-config';
+import { fetchDataFromAPI } from '../../../utils/http-methods';
 
-const getBannerAPI = async (token: any) => {
-  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
-  const method = 'get';
-  const entity = 'banner';
-  const params = `?version=${version}&method=${method}&entity=${entity}`;
-  const response: any = await callGetAPI(`${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}${params}`, token);
+const getBannerAPI = async (appName: string, token: any) => {
+  const additionalParams = {}; // Add additional parameters if needed
+  // Use fetchDataFromAPI to handle GET Request logic
+  const response = await fetchDataFromAPI(
+    appName,
+    'banner-api',
+    'get',
+    'banner',
+    token,
+    additionalParams // Pass additional parameters if needed
+  );
+
   return response;
 };
 

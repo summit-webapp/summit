@@ -3,17 +3,19 @@ import { useSelector } from 'react-redux';
 import getBannerAPI from '../../services/api/home-page-apis/banner-api';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import { CONSTANTS } from '../../services/config/app-config';
 
 const useBanner = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
+  const { SUMMIT_API_SDK }: any = CONSTANTS;
   const [allBannerData, setAllBannerData] = useState<any>([]);
   const tokenFromStore: any = useSelector(get_access_token);
 
   const fetchBannerDataFunction = async () => {
     setIsLoading(true);
     try {
-      const getBannerData = await getBannerAPI(tokenFromStore?.token);
-      console.log('banner', getBannerData);
+      const getBannerData = await getBannerAPI(SUMMIT_API_SDK, tokenFromStore?.token);
+
       if (getBannerData?.status === 200 && getBannerData?.data?.status === 'Success') {
         setAllBannerData(getBannerData?.data?.data);
       } else {
