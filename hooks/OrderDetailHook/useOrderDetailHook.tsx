@@ -4,11 +4,12 @@ import { useSelector } from 'react-redux';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import getOrderDetailAPI from '../../services/api/order-detail-apis/order-detail-api';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import { CONSTANTS } from '../../services/config/app-config';
 
 const useOrderDetailHook = () => {
   const { query } = useRouter();
+  const { SUMMIT_API_SDK }: any = CONSTANTS;
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
-
   const tokenFromStore: any = useSelector(get_access_token);
 
   const [orderData, setOrderData] = useState<any>({});
@@ -16,7 +17,7 @@ const useOrderDetailHook = () => {
   const fetchOrderData: any = async () => {
     setIsLoading(true);
     try {
-      let orderDetailData: any = await getOrderDetailAPI(tokenFromStore.token, query.orderId);
+      let orderDetailData: any = await getOrderDetailAPI(SUMMIT_API_SDK, tokenFromStore.token, query.orderId);
 
       if (orderDetailData?.data?.message?.message === 'Success' && orderDetailData?.status === 200) {
         setOrderData(orderDetailData?.data?.message);
