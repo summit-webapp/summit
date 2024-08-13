@@ -3,13 +3,12 @@ import { CONSTANTS } from '../../config/app-config';
 import UserRoleGet from './get_userrole_api';
 
 const OtpLoginApi = async (request: any) => {
-  console.log('otp login req', request);
   let response: any;
   const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'signin';
   const entity = 'signin';
   const otpLogin = 'true';
-  const apiSDKName = CONSTANTS.CUSTOM_API_SDK;
+  const apiSDKName = CONSTANTS.SUMMIT_API_SDK_VERSION;
 
   const params = `?version=${version}&method=${method}&entity=${entity}&usr=${request.values.email}&pwd=${request.values.password}&with_otp=${otpLogin}`;
   const config = {

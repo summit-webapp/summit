@@ -5,15 +5,16 @@ const apiSdkRegistry: any = {
   'navbar-api': '',
   'banner-api': '',
   'display-tags-api': '',
-  'order-list-api': CUSTOM_API_SDK,
-  'cart-list-api': CUSTOM_API_SDK,
   'breadcrums-api': '',
-  'product-list-api': '',
   'get-listing-filters-api': '',
+  'product-list-api': '',
   'product-detail-api': '',
   'product-variants-api': '',
-  'order-detail-api': CUSTOM_API_SDK,
   'wishlist-api': '',
+  'cart-list-api': CUSTOM_API_SDK,
+  'order-list-api': CUSTOM_API_SDK,
+  'order-detail-api': CUSTOM_API_SDK,
+  'order-reports-api': CUSTOM_API_SDK,
 };
 
 export default apiSdkRegistry;

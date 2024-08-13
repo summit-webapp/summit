@@ -16,7 +16,7 @@ const CheckGuestLogin = async (request: any) => {
   let response: any;
   let raw_data: IRaw_Data;
   const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
-  const apiSDKName = CONSTANTS.CUSTOM_API_SDK;
+  const apiSDKName = CONSTANTS.SUMMIT_API_SDK_VERSION;
 
   let isVisitor = typeof window !== 'undefined' ? localStorage.getItem('guest') : null;
 
