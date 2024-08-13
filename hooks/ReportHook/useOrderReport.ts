@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { useSelector } from 'react-redux';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import getOrderReportAPI from '../../services/api/order-report-apis/pending-order-report-api';
+import getOrderReportAPI from '../../services/api/order-report-apis/order-report-api';
 import { useRouter } from 'next/router';
-import { AnyAsyncThunk } from '@reduxjs/toolkit/dist/matchers';
+import { CONSTANTS } from '../../services/config/app-config';
 
 const useOrderReport = () => {
+  const { SUMMIT_API_SDK }: any = CONSTANTS;
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const [OrderReportData, setOrderReportData] = useState<any>([]);
   const tokenFromStore: any = useSelector(get_access_token);
@@ -36,7 +37,7 @@ const useOrderReport = () => {
     }
     setIsLoading(true);
     try {
-      const getDispatchOrderData = await getOrderReportAPI(tokenFromStore?.token, userId, paramsValue);
+      const getDispatchOrderData = await getOrderReportAPI(SUMMIT_API_SDK, tokenFromStore?.token, userId, paramsValue);
       if (getDispatchOrderData?.status === 200 && getDispatchOrderData?.data?.message?.msg === 'success') {
         setOrderReportData(getDispatchOrderData?.data?.message?.data);
       } else {
