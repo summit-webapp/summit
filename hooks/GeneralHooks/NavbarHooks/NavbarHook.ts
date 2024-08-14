@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import getNavbarDataFromAPI from '../../../services/api/general-apis/navbar-api';
-import { get_access_token } from '../../../store/slices/auth/token-login-slice';
+import { clearToken, get_access_token } from '../../../store/slices/auth/token-login-slice';
 import { currency_selector_state } from '../../../store/slices/general_slices/multi-currency-slice';
-import useHandleStateUpdate from '../handle-state-update-hook';
 import { CONSTANTS } from '../../../services/config/app-config';
+import logoutUser from '../../../services/api/auth/logout-api';
+import useHandleStateUpdate from '../handle-state-update-hook';
+import { useRouter } from 'next/router';
+import { resetStore } from '../../../store/slices/auth/logout-slice';
 const useNavbar = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const { SUMMIT_API_SDK }: any = CONSTANTS;
   const currency_state_from_redux: any = useSelector(currency_selector_state);
@@ -14,6 +20,19 @@ const useNavbar = () => {
   const [navbarData, setNavbarData] = useState<any>(null);
 
   const [selectedCurrencyValue, setSelectedCurrencyValue] = useState('');
+
+  const handleLogoutUser = async () => {
+    let logoutAPIResponse: any;
+    try {
+      logoutAPIResponse = await logoutUser(null, TokenFromStore?.token);
+      if (logoutAPIResponse?.status === 200) {
+        dispatch(resetStore());
+        router.push('/login');
+      }
+    } catch (error) {
+      toast.error("Couldn't log out. Please try back in sometime");
+    }
+  };
 
   const fetchNavbarDataAPI = async () => {
     setIsLoading(true);
@@ -48,6 +67,7 @@ const useNavbar = () => {
     isLoading,
     errorMessage,
     selectedCurrencyValue,
+    handleLogoutUser,
   };
 };
 

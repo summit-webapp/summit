@@ -1,21 +1,22 @@
 import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI } from '../../../utils/http-methods';
+import { fetchDataFromAPI } from '../../../utils/http-methods';
 
-const fetchProductListingFromAPI = async (query: any) => {
-  let url: any;
-  let page_no: any;
-  let limit: any;
-  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
+const fetchProductListingFromAPI = async (appName: any, query: any) => {
+  let page_no: number | undefined;
+  let limit: number | undefined;
+
+  // Determine the page number and limit based on the pagination method
   if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
     page_no = query?.url_params?.page;
     limit = 4 * Number(query.url_params.page);
-  }
-  if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
+  } else if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
     page_no = query?.url_params?.page;
     limit = 12;
   }
+
   const category: any = query.url_params.category;
 
+  // Construct URL parameters
   const urlParams = Object.keys(query.url_params)
     .map((key) => {
       if (key === 'filter') {
@@ -26,31 +27,54 @@ const fetchProductListingFromAPI = async (query: any) => {
     })
     .join('&');
 
+  // Filter out unwanted parameters
   const modifiedParams = urlParams
     .split('&')
     .filter((param) => !param.startsWith('page=') && !param.startsWith('category=') && !param.startsWith('sort_by='))
     .join('&');
 
-  if (query?.url_params?.hasOwnProperty('category')) {
-    if (query.router_origin === 'product-category') {
-      const method = 'get_list';
-      const entity = 'product';
-      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&sort_by=${query.sort_by}&category=${category}&${modifiedParams}`;
-    } else if (query.router_origin === 'catalog') {
-      const method = 'get_items';
-      const entity = 'catalog';
-      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&catalog_slug=${category}`;
-    } else if (query.router_origin === 'brand') {
-      const method = 'get_list';
-      const entity = 'product';
-      url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&brand=${category}`;
-    }
-  } else {
-    const method = 'get_list';
-    const entity = 'product';
-    url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${method}&entity=${entity}&page_no=${page_no}&limit=${limit}&sort_by=${query.sort_by}&${modifiedParams}`;
+  // Initialize the additionalParams object
+  let additionalParams: Record<string, any> = {
+    page_no,
+    limit,
+    ...(query.sort_by && { sort_by: query.sort_by }),
+    ...modifiedParams.split('&').reduce(
+      (acc, param) => {
+        const [key, value] = param.split('=');
+        acc[key] = value;
+        return acc;
+      },
+      {} as Record<string, string>
+    ),
+  };
+
+  // Determine the method and entity based on the router origin
+  let method = 'get_list';
+  let entity = 'product';
+
+  if (query.router_origin === 'product-category') {
+    additionalParams = {
+      ...additionalParams,
+      category,
+    };
+  } else if (query.router_origin === 'catalog') {
+    method = 'get_items';
+    entity = 'catalog';
+    additionalParams = {
+      ...additionalParams,
+      catalog_slug: category,
+    };
+  } else if (query.router_origin === 'brand') {
+    additionalParams = {
+      ...additionalParams,
+      brand: category,
+    };
   }
-  const response = await callGetAPI(url, query.token);
+
+  // Call the API using fetchDataFromAPI
+  const response = await fetchDataFromAPI(appName, 'product-list-api', method, entity, query.token, additionalParams);
+
   return response;
 };
+
 export default fetchProductListingFromAPI;

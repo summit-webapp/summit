@@ -1,17 +1,16 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import fetchProductListingFromAPI from '../../services/api/product-listing-page-apis/get-product-list-api';
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import fetchProductListingFromAPI from '../../services/api/product-listing-page-apis/get-product-list-api';
-import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
 const useProductListing = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const router = useRouter();
+  const { SUMMIT_API_SDK }: any = CONSTANTS;
   const { query }: any = useRouter();
-  // const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
   const [toggleProductListView, setToggleProductListView] = useState('list-view');
@@ -55,7 +54,7 @@ const useProductListing = () => {
   const fetchProductListDataAPI = async (params: any) => {
     setIsLoading(true);
     try {
-      const productListDataAPI: any = await fetchProductListingFromAPI(params);
+      const productListDataAPI: any = await fetchProductListingFromAPI(SUMMIT_API_SDK, params);
       if (productListDataAPI?.data?.message?.msg === 'success' && productListDataAPI?.data?.message?.data?.length) {
         if (productListDataAPI?.length === 0) {
           setProductListingData(productListDataAPI?.data?.message?.data);

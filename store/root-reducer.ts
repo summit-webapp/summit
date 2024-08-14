@@ -6,6 +6,7 @@ import MultiLanguageReducer from './slices/general_slices/multilang-slice';
 import SelectedFilterLangDataScreen from './slices/general_slices/selected-multilanguage-slice';
 import wishlistSlice from './slices/wishlist-slices/wishlist-local-slice';
 import cartLocalSlice from './slices/cart-slices/cart-local-slice';
+import { resetStore } from './slices/auth/logout-slice';
 
 const appReducer = combineReducers({
   LanguagesScreen: LanguageReducer,
@@ -18,10 +19,8 @@ const appReducer = combineReducers({
 });
 
 const rootReducer = (state: any, action: any) => {
-  if (action.type === 'Login/LogoutSuccess') {
-    state = undefined;
-
-    state = {} as RootState;
+  if (action.type === resetStore.type) {
+    state = {}; // Clear the entire state
   }
   return appReducer(state, action);
 };
