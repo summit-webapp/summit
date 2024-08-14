@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { addItemToCart } from '../../store/slices/cart-slices/cart-local-slice';
-import getCustomerItemAPI from '../../services/api/quick-order-apis/get-customer-item-name';
-import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import { addItemToCart } from '../../store/slices/cart-slices/cart-local-slice';
+import { CONSTANTS } from '../../services/config/app-config';
+import getCustomerItemAPI from '../../services/api/quick-order-apis/get-customer-item-name';
 import postQuickOrderAPI from '../../services/api/quick-order-apis/post-quick-order';
 
 const useQuickOrder = () => {
