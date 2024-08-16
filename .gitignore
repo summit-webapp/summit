@@ -42,6 +42,7 @@ next-env.d.ts
 /pages/index.tsx
 /pages/dealer-ledger.tsx
 /pages/quick-order.tsx
+/pages/bulk-order.tsx
 /pages/sales-register.tsx
 /pages/firmware.tsx
 /pages/contact-us.tsx

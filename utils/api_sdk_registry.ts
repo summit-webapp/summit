@@ -15,6 +15,7 @@ const apiSdkRegistry: any = {
   'order-list-api': CUSTOM_API_SDK,
   'order-detail-api': CUSTOM_API_SDK,
   'order-reports-api': CUSTOM_API_SDK,
+  'customer-item-api':CUSTOM_API_SDK,
 };
 
 export default apiSdkRegistry;
