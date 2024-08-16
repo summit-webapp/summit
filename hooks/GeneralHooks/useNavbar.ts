@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import getNavbarDataFromAPI from '../../../services/api/general-apis/navbar-api';
-import { clearToken, get_access_token } from '../../../store/slices/auth/token-login-slice';
-import { currency_selector_state } from '../../../store/slices/general_slices/multi-currency-slice';
-import { CONSTANTS } from '../../../services/config/app-config';
-import logoutUser from '../../../services/api/auth/logout-api';
-import useHandleStateUpdate from '../handle-state-update-hook';
+import getNavbarDataFromAPI from '../../services/api/general-apis/navbar-api';
+import { clearToken, get_access_token } from '../../store/slices/auth/token-login-slice';
+import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
+import { CONSTANTS } from '../../services/config/app-config';
+import logoutUser from '../../services/api/auth/logout-api';
+import useHandleStateUpdate from './handle-state-update-hook';
 import { useRouter } from 'next/router';
-import { resetStore } from '../../../store/slices/auth/logout-slice';
+import { resetStore } from '../../store/slices/auth/logout-slice';
 const useNavbar = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -35,10 +35,11 @@ const useNavbar = () => {
   };
 
   const fetchNavbarDataAPI = async () => {
+    let navbarDataAPI: any;
     setIsLoading(true);
     try {
-      const navbarDataAPI: any = await getNavbarDataFromAPI(SUMMIT_API_SDK, TokenFromStore?.token);
-      if (navbarDataAPI?.data?.message?.msg === 'success' && navbarDataAPI?.data?.message?.data?.length) {
+      navbarDataAPI = await getNavbarDataFromAPI(SUMMIT_API_SDK, TokenFromStore?.token);
+      if (navbarDataAPI?.data?.message?.msg === 'success' && navbarDataAPI?.data?.message?.data?.length > 0) {
         // BELOW CODE IS TO SORT NAVBAR DATA AND STORE IN THE STATE
         setNavbarData(
           [...navbarDataAPI?.data?.message?.data].sort(function (a: any, b: any) {
@@ -47,10 +48,10 @@ const useNavbar = () => {
         );
       } else {
         setNavbarData([]);
-        setErrMessage(navbarDataAPI?.data?.message?.data?.error);
+        setErrMessage(navbarDataAPI?.data?.message?.error);
       }
     } catch (error) {
-      return;
+      setErrMessage(navbarDataAPI?.data?.message?.error);
     } finally {
       setIsLoading(false);
     }
