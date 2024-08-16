@@ -12,17 +12,17 @@ const useBanner = () => {
   const tokenFromStore: any = useSelector(get_access_token);
 
   const fetchBannerDataFunction = async () => {
+    let getBannerData: any;
     setIsLoading(true);
     try {
-      const getBannerData = await getBannerAPI(SUMMIT_API_SDK, tokenFromStore?.token);
-
+      getBannerData = await getBannerAPI(SUMMIT_API_SDK, tokenFromStore?.token);
       if (getBannerData?.status === 200 && getBannerData?.data?.status === 'Success') {
         setAllBannerData(getBannerData?.data?.data);
       } else {
-        setAllBannerData([]);
+        setErrMessage(getBannerData?.data?.message?.error);
       }
     } catch (error) {
-      return;
+      setErrMessage(getBannerData?.data?.message?.error);
     } finally {
       setIsLoading(false);
     }
