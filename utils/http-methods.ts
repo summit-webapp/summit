@@ -2,6 +2,7 @@ import axios from 'axios';
 import fetchAPISDK from '../utils/get-api-sdk';
 import fetchFrappeAppVersion from '../utils/get-frappe-app-version';
 import { CONSTANTS } from '../services/config/app-config';
+import APP_CONFIG from '../interfaces/app-config-interface';
 /**
  * Fetches data from an API by handling repetitive steps like fetching SDK names,
  * getting the Frappe app version, constructing the API URL, and making the call.
@@ -49,7 +50,25 @@ export const fetchDataFromAPI = async (
   return response;
 };
 
-export const callGetAPI = async (url: string, token: any) => {
+export const executePOSTAPI = async (frappeAppConfig: APP_CONFIG, apiName: string, apiBody: any, token?: any) => {
+  /* GET all the required information about frappe app i.e it's version, method and entity.
+    If version is empty use frappe app's version else version. 
+  */
+  const sdkInfo = fetchAPISDK(apiName);
+  const { version, method, entity } = sdkInfo;
+  const sdkVersion = version ? version : frappeAppConfig.version;
+  const body = {
+    version: sdkVersion,
+    method,
+    entity,
+    ...apiBody,
+  };
+  const url: string = `${CONSTANTS.API_BASE_URL}${frappeAppConfig.app_name}`;
+  const response = await callPostAPI(url, body, token);
+  return response;
+};
+
+export const callGetAPI = async (url: string, token?: any) => {
   let response: any;
   const API_CONFIG = {
     headers: {
@@ -79,11 +98,11 @@ export const callGetAPI = async (url: string, token: any) => {
 
   return response;
 };
-export const callPostAPI = async (url: string, body: any, token: any) => {
+export const callPostAPI = async (url: string, body: any, token?: any) => {
   let response: any;
   const API_CONFIG = {
     headers: {
-      Authorization: token,
+      ...(token ? { Authorization: token } : {}),
     },
   };
   await axios
