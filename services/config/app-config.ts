@@ -1,6 +1,14 @@
 export const CONSTANTS = {
   API_BASE_URL: process.env.NEXT_PUBLIC_API_URL,
   API_MANDATE_PARAMS: '/api/method/summitapp.sdk.api',
+  SUMMIT_APP_CONFIG: {
+    app_name: '/api/method/summitapp.sdk.api',
+    version: 'v2',
+  },
+  ARC_APP_CONFIG: {
+    app_name: '/api/method/arcapp.sdk.api',
+    version: 'v1',
+  },
   SUMMIT_API_SDK: '/api/method/summitapp.sdk.api',
   CUSTOM_API_SDK: '/api/method/arcapp.sdk.api',
   VERSION: 'v2',
