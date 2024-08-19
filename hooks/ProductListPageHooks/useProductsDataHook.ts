@@ -36,14 +36,14 @@ const useProductListing = () => {
       query: { ...query, page: nextPage },
     });
   };
-  useEffect(() => {
-    const catalogSlug = router.route.split('/')[1];
-    if (catalogSlug === 'catalog') {
-      setToggleProductListView('grid-view');
-    } else {
-      setToggleProductListView('list-view');
-    }
-  }, []);
+  const handleFilterSearchFun: any = (e: any) => {
+    setSearchFilterValue(e.target.value);
+  };
+
+  const handleFilterSearchBtn: any = () => {
+    router.push({ query: { ...query, search_text: searchFilterValue } });
+  };
+
   const handleToggleProductsListingView = (view_value?: any) => {
     if (view_value === 'list-view') {
       setToggleProductListView('list-view');
@@ -52,32 +52,39 @@ const useProductListing = () => {
     }
   };
   const fetchProductListDataAPI = async (params: any) => {
+    let productListDataAPI: any;
     setIsLoading(true);
     try {
-      const productListDataAPI: any = await fetchProductListingFromAPI(SUMMIT_API_SDK, params);
-      if (productListDataAPI?.data?.message?.msg === 'success' && productListDataAPI?.data?.message?.data?.length) {
-        if (productListDataAPI?.length === 0) {
+      productListDataAPI = await fetchProductListingFromAPI(SUMMIT_API_SDK, params);
+      if (productListDataAPI?.data?.message?.msg === 'success' && productListDataAPI?.data?.message?.data?.length > 0) {
+        if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
+          setProductListingData((prevData: any) => [...prevData, ...productListDataAPI?.data?.message?.data]);
+        } else if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
           setProductListingData(productListDataAPI?.data?.message?.data);
-        } else {
-          if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
-            setProductListingData((prevData: any) => [...prevData, ...productListDataAPI?.data?.message?.data]);
-          } else if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
-            setProductListingData(productListDataAPI?.data?.message?.data);
-          }
         }
         setProductListTotalCount(productListDataAPI?.data?.message?.total_count);
-        setErrMessage('');
       } else {
         setProductListingData([]);
         setProductListTotalCount(0);
-        setErrMessage(productListDataAPI?.data?.message?.error);
+        setErrMessage(productListDataAPI?.data?.message?.error || 'An unknown error occured.');
       }
     } catch (error) {
-      return;
+      setProductListingData([]);
+      setErrMessage(productListDataAPI?.data?.message?.error || 'An unknown error occured.');
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const catalogSlug = router.route.split('/')[1];
+    if (catalogSlug === 'catalog') {
+      setToggleProductListView('grid-view');
+    } else {
+      setToggleProductListView('list-view');
+    }
+  }, []);
+
   useEffect(() => {
     let storeUsefulParamsForFurtherProductListingApi;
     if (router.asPath === '/product-category') {
@@ -101,23 +108,7 @@ const useProductListing = () => {
     fetchProductListDataAPI(storeUsefulParamsForFurtherProductListingApi);
 
     setSearchFilterValue(router.query.search_text);
-  }, [router.asPath, sortBy]);
-
-  const handleFilterSearchFun: any = (e: any) => {
-    setSearchFilterValue(e.target.value);
-  };
-
-  const handleFilterSearchBtn: any = () => {
-    const currentQuery = router.query;
-
-    currentQuery.search_text = searchFilterValue;
-    const newUrl = {
-      pathname: router.pathname,
-      query: currentQuery,
-    };
-
-    router.push(newUrl);
-  };
+  }, [query]);
 
   return {
     productListingData,
