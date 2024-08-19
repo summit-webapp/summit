@@ -1,9 +1,9 @@
-import { fetchDataFromAPI } from '../../../utils/http-methods';
+import { executeGETAPI } from '../../../utils/http-methods';
 
 const getBannerAPI = async (appName: string, token: any) => {
   const additionalParams = {}; // Add additional parameters if needed
-  // Use fetchDataFromAPI to handle GET Request logic
-  const response = await fetchDataFromAPI(
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
     appName,
     'banner-api',
     'get',

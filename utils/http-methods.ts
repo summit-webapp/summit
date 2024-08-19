@@ -8,7 +8,7 @@ import APP_CONFIG from '../interfaces/app-config-interface';
  * getting the Frappe app version, constructing the API URL, and making the call.
  *
  * @async
- * @function fetchDataFromAPI
+ * @function executeGETAPI
  * @param {string} appName - The name of the Frappe App default its SUMMIT_API_SDK.
  * @param {string} apiName - The specific API name to fetch from the SDK.
  * @param {string} method - The method name to be used in the API call.
@@ -18,7 +18,7 @@ import APP_CONFIG from '../interfaces/app-config-interface';
  * @returns {Promise<any>} - The response from the API call.
  * @throws {Error} Throws an error if the API call fails.
  */
-export const fetchDataFromAPI = async (
+export const executeGETAPI = async (
   appName: string,
   apiName: string,
   method: string,

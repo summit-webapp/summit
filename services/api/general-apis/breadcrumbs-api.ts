@@ -1,4 +1,4 @@
-import { fetchDataFromAPI } from '../../../utils/http-methods';
+import { executeGETAPI } from '../../../utils/http-methods';
 
 const fetchBreadcrumbsDataFromAPI = async (appName: string, request: any) => {
   const paramURL = [...request.url];
@@ -64,8 +64,8 @@ const fetchBreadcrumbsDataFromAPI = async (appName: string, request: any) => {
     };
   }
 
-  // Constructing the API call with fetchDataFromAPI
-  const response = await fetchDataFromAPI(
+  // Constructing the API call with executeGETAPI
+  const response = await executeGETAPI(
     appName,
     'breadcrums-api',
     'breadcrums',

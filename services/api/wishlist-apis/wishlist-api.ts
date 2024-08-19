@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI, callPostAPI, fetchDataFromAPI } from '../../../utils/http-methods';
+import { callGetAPI, callPostAPI, executeGETAPI } from '../../../utils/http-methods';
 
 export const AddProductToWishlist = async (request: any) => {
   let response: any;
@@ -16,8 +16,8 @@ export const AddProductToWishlist = async (request: any) => {
 
 export const GetWishlistData = async (appName: any, request: any) => {
   const additionalParams = {}; // Add additional parameters if needed
-  // Use fetchDataFromAPI to handle GET Request logic
-  const response = await fetchDataFromAPI(
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
     appName,
     'wishlist-api',
     'get_wishlist_items',
