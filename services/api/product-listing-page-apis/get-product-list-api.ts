@@ -1,5 +1,5 @@
 import { CONSTANTS } from '../../config/app-config';
-import { fetchDataFromAPI } from '../../../utils/http-methods';
+import { executeGETAPI } from '../../../utils/http-methods';
 
 const fetchProductListingFromAPI = async (appName: any, query: any) => {
   let page_no: number | undefined;
@@ -71,8 +71,8 @@ const fetchProductListingFromAPI = async (appName: any, query: any) => {
     };
   }
 
-  // Call the API using fetchDataFromAPI
-  const response = await fetchDataFromAPI(appName, 'product-list-api', method, entity, query.token, additionalParams);
+  // Call the API using executeGETAPI
+  const response = await executeGETAPI(appName, 'product-list-api', method, entity, query.token, additionalParams);
 
   return response;
 };

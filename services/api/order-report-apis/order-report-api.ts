@@ -1,9 +1,9 @@
-import { callGetAPI, fetchDataFromAPI } from '../../../utils/http-methods';
+import { callGetAPI, executeGETAPI } from '../../../utils/http-methods';
 import { CONSTANTS } from '../../config/app-config';
 
 const getOrderReportAPI = async (appName: string, token: any, user: any, methods: any) => {
   let additionalParams = { user };
-  const response = await fetchDataFromAPI(
+  const response = await executeGETAPI(
     appName,
     'order-reports-api',
     methods,

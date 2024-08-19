@@ -1,10 +1,10 @@
 import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI, fetchDataFromAPI } from '../../../utils/http-methods';
+import { callGetAPI, executeGETAPI } from '../../../utils/http-methods';
 
 const fetchCartListingAPI = async (appName: string, token: any) => {
   const additionalParams = {}; // Add additional parameters if needed
-  // Use fetchDataFromAPI to handle GET Request logic
-  const response = await fetchDataFromAPI(
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
     appName,
     'cart-list-api',
     'get_list',

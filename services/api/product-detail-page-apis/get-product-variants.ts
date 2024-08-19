@@ -1,9 +1,9 @@
-import { fetchDataFromAPI } from '../../../utils/http-methods';
+import { executeGETAPI } from '../../../utils/http-methods';
 
 const fetchProductVariant = async (appName: string, product_id: any, token: any) => {
   const additionalParams = { item: product_id }; // Add additional parameters if needed
-  // Use fetchDataFromAPI to handle GET Request logic
-  const response = await fetchDataFromAPI(
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
     appName,
     'product-variants-api',
     'get_variants',

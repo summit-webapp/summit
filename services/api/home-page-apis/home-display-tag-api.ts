@@ -1,4 +1,4 @@
-import { callGetAPI, fetchDataFromAPI } from '../../../utils/http-methods';
+import { callGetAPI, executeGETAPI } from '../../../utils/http-methods';
 import { CONSTANTS } from '../../config/app-config';
 
 const getDisplaytagsDataFromAPI = async (appName: any, token: any, currencyValue: any) => {
@@ -13,7 +13,7 @@ const getDisplaytagsDataFromAPI = async (appName: any, token: any, currencyValue
             currency: currencyValue,
           };
 
-          const res = await fetchDataFromAPI(appName, 'display-tags-api', 'get_tagged_products', 'product', token, additionalParams);
+          const res = await executeGETAPI(appName, 'display-tags-api', 'get_tagged_products', 'product', token, additionalParams);
 
           return { tag_name: tag.name, value: res?.data };
         })

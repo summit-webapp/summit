@@ -1,9 +1,9 @@
-import { fetchDataFromAPI } from '../../../utils/http-methods';
+import { executeGETAPI } from '../../../utils/http-methods';
 
 const fetchProductListingPageFilters = async (appName: string, request: any) => {
   const additionalParams = { doctype: 'Category', docname: request.query.category }; // Add additional parameters if needed
-  // Use fetchDataFromAPI to handle GET Request logic
-  const response = await fetchDataFromAPI(
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
     appName,
     'get-listing-filters-api',
     'get_filters',

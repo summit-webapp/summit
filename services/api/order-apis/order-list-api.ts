@@ -1,4 +1,4 @@
-import { fetchDataFromAPI } from '../../../utils/http-methods';
+import { executeGETAPI } from '../../../utils/http-methods';
 
 /**
  * Fetches Order History data from the API using the given parameters.
@@ -14,8 +14,8 @@ import { fetchDataFromAPI } from '../../../utils/http-methods';
 const getOrderListAPI = async (appName: string, token: any, status?: string): Promise<any> => {
   const user = localStorage.getItem('user') || '';
   let additionalParams = { user, ...(status && { status }) };
-  // Use fetchDataFromAPI to handle GET Request logic
-  const response = await fetchDataFromAPI(
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
     appName,
     'order-list-api',
     'get_orders',
