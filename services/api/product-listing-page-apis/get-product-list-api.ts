@@ -8,7 +8,7 @@ const fetchProductListingFromAPI = async (appName: any, query: any) => {
   // Determine the page number and limit based on the pagination method
   if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
     page_no = query?.url_params?.page;
-    limit = 4 * Number(query.url_params.page);
+    limit = 12 * Number(query.url_params.page);
   } else if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
     page_no = query?.url_params?.page;
     limit = 12;
