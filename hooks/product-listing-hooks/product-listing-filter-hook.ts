@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import { fetchProductListingPageFilters } from '../../services/api/product-listing-page-api/get-filters-api';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import { CONSTANTS } from '../../services/config/app-config';
+import fetchProductListingPageFilters from '../../services/api/product-listing-page-apis/get-filters-api';
 
 const useProductListingFilterHook = () => {
   const router: any = useRouter();
   const { query } = useRouter();
+  const { SUMMIT_API_SDK }: any = CONSTANTS;
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
 
@@ -22,7 +24,7 @@ const useProductListingFilterHook = () => {
         query: query,
         token: tokenFromStore?.token,
       };
-      const getFiltersData: any = await fetchProductListingPageFilters(reqParams);
+      const getFiltersData: any = await fetchProductListingPageFilters(SUMMIT_API_SDK, reqParams);
       if (getFiltersData?.data?.message?.msg === 'success') {
         setFiltersData(getFiltersData?.data?.message?.data);
         setIsLoading(false);
@@ -91,7 +93,7 @@ const useProductListingFilterHook = () => {
         url = url.slice(0, existingFilterIndex);
       }
     }
-    
+
     if (filterString) {
       url = `${url.split('?')[0]}?&page=1${filterString}`;
     } else {
