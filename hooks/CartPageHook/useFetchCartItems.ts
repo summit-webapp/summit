@@ -7,7 +7,7 @@ import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
 const useFetchCartItems = () => {
   const dispatch = useDispatch();
-  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
+  const { SUMMIT_API_SDK }: any = CONSTANTS;
   const [cartListingItems, setCartListingItems] = useState<any>({});
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
@@ -19,7 +19,7 @@ const useFetchCartItems = () => {
   const fetchCartListingData: any = async () => {
     setIsLoading(true);
     try {
-      let cartListingData: any = await fetchCartListingAPI(SUMMIT_APP_CONFIG, tokenFromStore.token);
+      let cartListingData: any = await fetchCartListingAPI(SUMMIT_API_SDK, tokenFromStore.token);
       if (cartListingData?.status === 200 && cartListingData?.data?.message?.msg === 'success') {
         if (Object.keys(cartListingData?.data?.message?.data).length !== 0) {
           setCartListingItems(cartListingData?.data?.message?.data);
