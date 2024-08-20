@@ -21,7 +21,7 @@ export const DeleteItemFromCart = async (request: any, token: any) => {
       response = res;
     })
     .catch((err) => {
-      console.log(err);
+
     });
   return response;
 };

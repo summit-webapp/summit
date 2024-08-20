@@ -13,7 +13,7 @@ const MultiLangApi = async () => {
       timeout: 5000,
     })
     .then((res: any) => {
-      console.log('multilanguage list', res?.data?.message);
+
       return res?.data?.message;
     })
     .catch((err: any) => {
@@ -28,8 +28,6 @@ const MultiLangApi = async () => {
       }
     });
 
-  // console.log("MultiLanguagesList", MultiLanguagesList);
-
   const langTransmethod = 'get_translation_text';
   const langTransentity = 'translation';
 
@@ -37,7 +35,7 @@ const MultiLangApi = async () => {
     MultiLanguagesList?.length > 0 &&
     (await Promise.all(
       MultiLanguagesList.map(async (lang: any) => {
-        console.log('MultiLanguagesList langname', lang);
+
         try {
           const res = await axios.get(
             `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?version=${version}&method=${langTransmethod}&entity=${langTransentity}&language_code=${lang.language_code}`,

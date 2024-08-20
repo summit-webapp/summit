@@ -10,11 +10,11 @@ export const getMultiCurrencyValue = async () => {
   const params = `version=${version}&method=${method}&entity=${entity}`;
 
   const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?${params}`;
-  console.log('default multi currency url', url);
+
   await axios
     .get(`${url}`, { timeout: 5000 })
     .then((res: any) => {
-      // console.log("multi currenct default value api", res);
+
       response = res;
     })
     .catch((err: any) => {
