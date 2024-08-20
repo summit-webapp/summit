@@ -9,7 +9,7 @@ import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 const useProductListing = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const router = useRouter();
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { query }: any = useRouter();
   const TokenFromStore: any = useSelector(get_access_token);
 
@@ -55,7 +55,7 @@ const useProductListing = () => {
     let productListDataAPI: any;
     setIsLoading(true);
     try {
-      productListDataAPI = await fetchProductListingFromAPI(SUMMIT_API_SDK, params);
+      productListDataAPI = await fetchProductListingFromAPI(SUMMIT_APP_CONFIG, params);
       if (productListDataAPI?.data?.message?.msg === 'success' && productListDataAPI?.data?.message?.data?.length > 0) {
         if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
           setProductListingData((prevData: any) => [...prevData, ...productListDataAPI?.data?.message?.data]);

@@ -8,7 +8,7 @@ import { CONSTANTS } from '../../services/config/app-config';
 
 const useOrderDetailHook = () => {
   const { query } = useRouter();
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
 
@@ -17,7 +17,7 @@ const useOrderDetailHook = () => {
   const fetchOrderData: any = async () => {
     setIsLoading(true);
     try {
-      let orderDetailData: any = await getOrderDetailAPI(SUMMIT_API_SDK, tokenFromStore.token, query.orderId);
+      let orderDetailData: any = await getOrderDetailAPI(SUMMIT_APP_CONFIG, tokenFromStore.token, query.orderId);
 
       if (orderDetailData?.data?.message?.message === 'Success' && orderDetailData?.status === 200) {
         setOrderData(orderDetailData?.data?.message);

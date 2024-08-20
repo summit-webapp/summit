@@ -8,7 +8,7 @@ import getCustomerItemAPI from '../../services/api/quick-order-apis/get-customer
 import postQuickOrderAPI from '../../services/api/quick-order-apis/post-quick-order';
 
 const useQuickOrder = () => {
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const tokenFromStore: any = useSelector(get_access_token);
   const dispatch = useDispatch()
   const [inputValue, setInputValue] = useState('');
@@ -30,7 +30,7 @@ const useQuickOrder = () => {
   };
 
   const handleCustomerName: any = async () => {
-    let refCodesList: any = await getCustomerItemAPI(SUMMIT_API_SDK, tokenFromStore?.token, customerName);
+    let refCodesList: any = await getCustomerItemAPI(SUMMIT_APP_CONFIG, tokenFromStore?.token, customerName);
     if (refCodesList?.data?.message?.msg === 'success' && refCodesList?.data?.message?.data?.length > 0) {
       setRefCodesList(refCodesList?.data?.message?.data);
       setDisabledInputField(false);
@@ -66,9 +66,9 @@ const useQuickOrder = () => {
     };
     let createQuickOrderRecord: any = await postQuickOrderAPI(values);
     if (createQuickOrderRecord?.data?.message?.msg === 'success' && createQuickOrderRecord?.data?.message?.data?.includes('Quotation')) {
-      const item_codes = quickOrderData?.map((item:any)=>item.item_code)
+      const item_codes = quickOrderData?.map((item: any) => item.item_code)
       setQuickOrderData([]);
-      item_codes?.map((code:any)=> dispatch(addItemToCart(code)))
+      item_codes?.map((code: any) => dispatch(addItemToCart(code)))
       toast.success('Quotation Created Successfully!');
     } else {
       toast.error('Something went wrong while creating Quotation. Please try again.');

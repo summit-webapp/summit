@@ -10,7 +10,7 @@ import { CONSTANTS } from '../../services/config/app-config';
 const useProductDetail = () => {
   const { query } = useRouter();
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   // const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
@@ -23,7 +23,7 @@ const useProductDetail = () => {
   const fetchProductDetailDataAPI = async () => {
     setIsLoading(true);
     try {
-      const productDetailAPI: any = await fetchProductDetailData(SUMMIT_API_SDK, query?.productId, 'INR', TokenFromStore?.token);
+      const productDetailAPI: any = await fetchProductDetailData(SUMMIT_APP_CONFIG, query?.productId, 'INR', TokenFromStore?.token);
       if (
         productDetailAPI?.status === 200 &&
         productDetailAPI?.data?.message?.msg === 'Success' &&
@@ -52,7 +52,7 @@ const useProductDetail = () => {
   const fetchProductVariantDataAPI = async (templateName: string) => {
     setVariantLoading(true);
     try {
-      const productVariantAPI: any = await fetchProductVariant(SUMMIT_API_SDK, templateName, TokenFromStore?.token);
+      const productVariantAPI: any = await fetchProductVariant(SUMMIT_APP_CONFIG, templateName, TokenFromStore?.token);
       if (productVariantAPI?.status === 200 && productVariantAPI?.data?.message?.msg === 'success') {
         setProductVariantData(productVariantAPI?.data?.message?.data);
       } else {

@@ -9,7 +9,7 @@ import { CONSTANTS } from '../../services/config/app-config';
 const useWishlist = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const dispatch = useDispatch();
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const wishlistCount: any = useSelector(selectWishlist)?.wislistCount;
   const TokenFromStore: any = useSelector(get_access_token);
 
@@ -18,7 +18,7 @@ const useWishlist = () => {
   const fetchWishlistgData: any = async () => {
     setIsLoading(true);
     try {
-      const cartListingData: any = await GetWishlistData(SUMMIT_API_SDK, TokenFromStore);
+      const cartListingData: any = await GetWishlistData(SUMMIT_APP_CONFIG, TokenFromStore);
       if (cartListingData?.data?.message?.msg === 'success') {
         dispatch(addWishList(cartListingData?.data?.message));
         setIsLoading(false);

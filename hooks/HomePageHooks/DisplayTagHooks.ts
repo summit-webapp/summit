@@ -10,7 +10,7 @@ const useDisplayTagHooks = () => {
   const dispatch = useDispatch();
   const currency_state_from_redux: any = useSelector(currency_selector_state);
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
 
   const [allTagsData, setAllTagsData] = useState<any>([]);
 
@@ -19,7 +19,7 @@ const useDisplayTagHooks = () => {
   const fetchDisplayTagsDataFunction = async (currency_value: any) => {
     setIsLoading(true);
     try {
-      const getDisplayTagsData = await getDisplaytagsDataFromAPI(SUMMIT_API_SDK, tokenFromStore?.token, currency_value);
+      const getDisplayTagsData = await getDisplaytagsDataFromAPI(SUMMIT_APP_CONFIG, tokenFromStore?.token, currency_value);
 
       if (getDisplayTagsData?.length > 0) {
         const tagsDataArray = getDisplayTagsData

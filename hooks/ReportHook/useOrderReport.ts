@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { CONSTANTS } from '../../services/config/app-config';
 
 const useOrderReport = () => {
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const [OrderReportData, setOrderReportData] = useState<any>([]);
   const tokenFromStore: any = useSelector(get_access_token);
@@ -37,7 +37,7 @@ const useOrderReport = () => {
     }
     setIsLoading(true);
     try {
-      const getDispatchOrderData = await getOrderReportAPI(SUMMIT_API_SDK, tokenFromStore?.token, userId, paramsValue);
+      const getDispatchOrderData = await getOrderReportAPI(SUMMIT_APP_CONFIG, tokenFromStore?.token, userId, paramsValue);
       if (getDispatchOrderData?.status === 200 && getDispatchOrderData?.data?.message?.msg === 'success') {
         setOrderReportData(getDispatchOrderData?.data?.message?.data);
       } else {
