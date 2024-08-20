@@ -58,11 +58,15 @@ const useBulkOrder = () => {
     formData,
     setFormData
   );
-  const {errMsgBuchOrder,
+  const {
+    errMsgBuchOrder,
     addBunchOrderRow,
     deleteBunchOrderRow,
     handleChangeBunchOrder,
-    isBunchWeightDisabled}=useBunchOrder(formData,setFormData)
+    isBunchWeightDisabled,
+    fetchItemDetails,
+    totalEstimateWeight,
+  } = useBunchOrder(formData, setFormData);
 
   // Function to handle changes in input fields
   const handleChange = (e: any) => {
@@ -113,6 +117,8 @@ const useBulkOrder = () => {
     deleteBunchOrderRow,
     handleChangeBunchOrder,
     isBunchWeightDisabled,
+    fetchItemDetails,
+    totalEstimateWeight
   };
 };
 
