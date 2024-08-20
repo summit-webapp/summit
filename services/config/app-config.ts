@@ -1,6 +1,14 @@
 export const CONSTANTS = {
   API_BASE_URL: process.env.NEXT_PUBLIC_API_URL,
   API_MANDATE_PARAMS: '/api/method/summitapp.sdk.api',
+  SUMMIT_APP_CONFIG: {
+    app_name: '/api/method/summitapp.sdk.api',
+    version: 'v2',
+  },
+  ARC_APP_CONFIG: {
+    app_name: '/api/method/arcapp.sdk.api',
+    version: 'v1',
+  },
   SUMMIT_API_SDK: '/api/method/summitapp.sdk.api',
   CUSTOM_API_SDK: '/api/method/arcapp.sdk.api',
   VERSION: 'v2',
@@ -17,8 +25,6 @@ export const CONSTANTS = {
   ENABLE_PRODUCT_ENQUIRY_FEATURE: false,
   USE_SINGLE_ENQUIRY: false,
   DOES_PRODUCT_HAS_VARIANTS: false,
-  // "SHOW_MORE_ITEMS" IS A KEY WHOSE VALUE DECIDES WHETHER TO SHOW LOAD MORE BUTTON OR PAGINATION.
-  // IT WILL CONTAIN TWO VALUES "paginate" or "load-more"
   SHOW_MORE_ITEMS: 'paginate',
   ENABLE_MISSING_PARTS: false,
   SHOW_FUTURE_STOCK_AVAILABILITY_TO_GUEST: false,

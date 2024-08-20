@@ -1,17 +1,18 @@
-import { callGetAPI } from '../../../utils/utils';
-import { CONSTANTS } from '../../config/app-config';
+import { executeGETAPI } from '../../../utils/http-methods';
 
-export const fetchProductListingPageFilters = async (request: any) => {
-  const version = CONSTANTS.VERSION;
-  const method = 'get_filters';
-  const entity = 'filter';
-  const doctype = 'Category';
+const fetchProductListingPageFilters = async (appName: string, request: any) => {
+  const additionalParams = { doctype: 'Category', docname: request.query.category }; // Add additional parameters if needed
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
+    appName,
+    'get-listing-filters-api',
+    'get_filters',
+    'filter',
+    request.token,
+    additionalParams // Pass additional parameters if needed
+  );
 
-  // we are passing category in docname variable because in erpnext it checks whether that category is present in docname
-  const docname = request.query.category;
-
-  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&doctype=${doctype}&docname=${docname}`;
-
-  const response = await callGetAPI(url, request.token);
   return response;
 };
+
+export default fetchProductListingPageFilters;

@@ -1,7 +1,6 @@
-import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI } from '../../../utils/utils';
+import { executeGETAPI } from '../../../utils/http-methods';
 
-const getBreadcrumbsDataFromAPI = async (request: any) => {
+const fetchBreadcrumbsDataFromAPI = async (appName: string, request: any) => {
   const paramURL = [...request.url];
   paramURL.shift();
 
@@ -10,38 +9,72 @@ const getBreadcrumbsDataFromAPI = async (request: any) => {
   const listingCategory = categoryUrl.split('?page')[0];
   product = product?.split('?currency')[0];
 
-  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
   const method = 'breadcrums';
   const entity = 'mega_menu';
   const listingProductType = 'listing';
   const listingBrandType = 'brand';
   const catalogProductType = 'catalog';
-  let params: string = '';
+
+  // Initializing additionalParams object
+  let additionalParams: Record<string, string> = {};
 
   if (prodType === 'product-category') {
-    if (prodType && category) {
-      params = `&method=${method}&entity=${entity}&product_type=${listingProductType}&category=${listingCategory}`;
-    } else {
-      params = `&method=${method}&entity=${entity}&product_type=${listingProductType}`;
-    }
+    additionalParams = {
+      method,
+      entity,
+      product_type: listingProductType,
+      ...(category && { category: listingCategory }),
+    };
   } else if (prodType === 'product') {
-    if (product) {
-      params = `&method=${method}&entity=${entity}&product_type=${listingProductType}&category=${category}&product=${product}`;
-    } else {
-      params = `&method=${method}&entity=${entity}&product_type=${listingProductType}&product=${category}`;
-    }
+    additionalParams = {
+      method,
+      entity,
+      product_type: listingProductType,
+      category: category,
+      ...(product && { product }),
+    };
   } else if (prodType === 'brand') {
-    params = `&method=${method}&entity=${entity}&product_type=${listingBrandType}&brand=${listingCategory}`;
+    additionalParams = {
+      method,
+      entity,
+      product_type: listingBrandType,
+      brand: listingCategory,
+    };
   } else if (prodType === 'brand-product') {
-    params = `&method=${method}&entity=${entity}&product_type=${listingBrandType}&brand=${listingCategory}&product=${product}`;
+    additionalParams = {
+      method,
+      entity,
+      product_type: listingBrandType,
+      brand: listingCategory,
+      ...(product && { product }),
+    };
   } else if (prodType === 'catalog') {
-    params = `&method=${method}&entity=${entity}&product_type=${catalogProductType}&category=${category}`;
+    additionalParams = {
+      method,
+      entity,
+      product_type: catalogProductType,
+      category,
+    };
   } else if (prodType === 'catalog-product') {
-    params = `&method=${method}&entity=${entity}&product_type=${catalogProductType}&category=${category}`;
+    additionalParams = {
+      method,
+      entity,
+      product_type: catalogProductType,
+      category,
+    };
   }
 
-  const response = await callGetAPI(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}${params}`, request?.token);
+  // Constructing the API call with executeGETAPI
+  const response = await executeGETAPI(
+    appName,
+    'breadcrums-api',
+    'breadcrums',
+    'mega_menu',
+    request?.token,
+    additionalParams // Pass additional parameters here
+  );
+
   return response;
 };
 
-export default getBreadcrumbsDataFromAPI;
+export default fetchBreadcrumbsDataFromAPI;

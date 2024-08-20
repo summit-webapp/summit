@@ -1,15 +1,17 @@
-import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI } from '../../../utils/utils';
+import { executeGETAPI } from '../../../utils/http-methods';
 
-const fetchProductVariant = async (product_id: any, token: any) => {
-  let response: any;
-  const version = CONSTANTS.VERSION;
-  const method = 'get_variants';
-  const entity = 'variant';
+const fetchProductVariant = async (appName: string, product_id: any, token: any) => {
+  const additionalParams = { item: product_id }; // Add additional parameters if needed
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
+    appName,
+    'product-variants-api',
+    'get_variants',
+    'variant',
+    token,
+    additionalParams // Pass additional parameters if needed
+  );
 
-  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&item=${product_id}`;
-
-  response = await callGetAPI(url, token);
   return response;
 };
 

@@ -1,14 +1,17 @@
-import { callGetAPI } from '../../../utils/utils';
-import { CONSTANTS } from '../../config/app-config';
+import { executeGETAPI } from '../../../utils/http-methods';
 
-const getNavbarDataFromAPI = async (token: any) => {
-  const version = CONSTANTS.VERSION;
-  const method = 'get_mega_menu';
-  const entity = 'mega_menu';
-  let response: any;
+const getNavbarDataFromAPI = async (appName: string, token: any) => {
+  const additionalParams = {}; // Add additional parameters if needed
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
+    appName,
+    'navbar-api',
+    'get_mega_menu',
+    'mega_menu',
+    token,
+    additionalParams // Pass additional parameters if needed
+  );
 
-  const params = `?version=${version}&method=${method}&entity=${entity}`;
-  response = await callGetAPI(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, token);
   return response;
 };
 

@@ -1,17 +1,16 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import fetchProductListingFromAPI from '../../services/api/product-listing-page-apis/get-product-list-api';
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import fetchProductListingFromAPI from '../../services/api/product-listing-page-apis/get-product-list-api';
-import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
 const useProductListing = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const router = useRouter();
+  const { SUMMIT_API_SDK }: any = CONSTANTS;
   const { query }: any = useRouter();
-  const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
   const [toggleProductListView, setToggleProductListView] = useState('list-view');
@@ -37,14 +36,14 @@ const useProductListing = () => {
       query: { ...query, page: nextPage },
     });
   };
-  useEffect(() => {
-    const catalogSlug = router.route.split('/')[1];
-    if (catalogSlug === 'catalog') {
-      setToggleProductListView('grid-view');
-    } else {
-      setToggleProductListView('list-view');
-    }
-  }, []);
+  const handleFilterSearchFun: any = (e: any) => {
+    setSearchFilterValue(e.target.value);
+  };
+
+  const handleFilterSearchBtn: any = () => {
+    router.push({ query: { ...query, search_text: searchFilterValue } });
+  };
+
   const handleToggleProductsListingView = (view_value?: any) => {
     if (view_value === 'list-view') {
       setToggleProductListView('list-view');
@@ -53,39 +52,46 @@ const useProductListing = () => {
     }
   };
   const fetchProductListDataAPI = async (params: any) => {
+    let productListDataAPI: any;
     setIsLoading(true);
     try {
-      const productListDataAPI: any = await fetchProductListingFromAPI(params);
-      if (productListDataAPI?.data?.message?.msg === 'success' && productListDataAPI?.data?.message?.data?.length) {
-        if (productListDataAPI?.length === 0) {
+      productListDataAPI = await fetchProductListingFromAPI(SUMMIT_API_SDK, params);
+      if (productListDataAPI?.data?.message?.msg === 'success' && productListDataAPI?.data?.message?.data?.length > 0) {
+        if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
+          setProductListingData((prevData: any) => [...prevData, ...productListDataAPI?.data?.message?.data]);
+        } else if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
           setProductListingData(productListDataAPI?.data?.message?.data);
-        } else {
-          if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
-            setProductListingData((prevData: any) => [...prevData, ...productListDataAPI?.data?.message?.data]);
-          } else if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
-            setProductListingData(productListDataAPI?.data?.message?.data);
-          }
         }
         setProductListTotalCount(productListDataAPI?.data?.message?.total_count);
-        setErrMessage('');
       } else {
         setProductListingData([]);
         setProductListTotalCount(0);
-        setErrMessage(productListDataAPI?.data?.message?.error);
+        setErrMessage(productListDataAPI?.data?.message?.error || 'An unknown error occured.');
       }
     } catch (error) {
-      return;
+      setProductListingData([]);
+      setErrMessage(productListDataAPI?.data?.message?.error || 'An unknown error occured.');
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const catalogSlug = router.route.split('/')[1];
+    if (catalogSlug === 'catalog') {
+      setToggleProductListView('grid-view');
+    } else {
+      setToggleProductListView('list-view');
+    }
+  }, []);
+
   useEffect(() => {
     let storeUsefulParamsForFurtherProductListingApi;
     if (router.asPath === '/product-category') {
       router.push({
         query: {
           page: '1',
-          currency: currency_state_from_redux?.selected_currency_value,
+          currency: 'INR',
           sort_by: sortBy,
         },
       });
@@ -102,23 +108,7 @@ const useProductListing = () => {
     fetchProductListDataAPI(storeUsefulParamsForFurtherProductListingApi);
 
     setSearchFilterValue(router.query.search_text);
-  }, [router.asPath, sortBy]);
-
-  const handleFilterSearchFun: any = (e: any) => {
-    setSearchFilterValue(e.target.value);
-  };
-
-  const handleFilterSearchBtn: any = () => {
-    const currentQuery = router.query;
-
-    currentQuery.search_text = searchFilterValue;
-    const newUrl = {
-      pathname: router.pathname,
-      query: currentQuery,
-    };
-
-    router.push(newUrl);
-  };
+  }, [query]);
 
   return {
     productListingData,
@@ -127,7 +117,7 @@ const useProductListing = () => {
     handleToggleProductsListingView,
     handleLoadMore,
     handlePaginationBtn,
-    currency_state_from_redux,
+    // currency_state_from_redux,
     query,
     isLoading,
     errorMessage,
