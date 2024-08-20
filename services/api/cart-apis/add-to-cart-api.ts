@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
+import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-export const PostAddToCartAPI: any = async (apiBody: any, token?: any) => {
-  console.log('add currency in api', token);
+export const PostAddToCartAPI: any = async (appConfig: APP_CONFIG, apiBody: any, token?: any) => {
   let response: any;
-  let version = CONSTANTS.CUSTOM_API_SDK_VERSION;
+  let version = appConfig.version;
   const method = 'put_products';
   const entity = 'cart';
-  const apiSDKName = CONSTANTS.CUSTOM_API_SDK;
+  const apiSDKName = appConfig.app_name;
 
   const config = {
     headers: {
@@ -44,13 +44,12 @@ export const PostAddToCartAPI: any = async (apiBody: any, token?: any) => {
   return response;
 };
 
-export const PostQuickOrderAddToCart = async (item_data: any) => {
-  console.log('uick order add cart api', item_data);
+export const PostQuickOrderAddToCart = async (appConfig: APP_CONFIG, item_data: any) => {
   let response: any;
-  let version = CONSTANTS.SUMMIT_API_SDK_VERSION;
+  let version = appConfig.version;
   const method = 'put_products';
   const entity = 'cart';
-  const apiSDKName = CONSTANTS.CUSTOM_API_SDK;
+  const apiSDKName = appConfig.app_name;
 
   const config = {
     headers: {

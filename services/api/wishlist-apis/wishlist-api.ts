@@ -4,11 +4,12 @@ import { callGetAPI, callPostAPI, executeGETAPI } from '../../../utils/http-meth
 
 export const AddProductToWishlist = async (request: any) => {
   let response: any;
+  const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const version = CONSTANTS.VERSION;
   const method = 'add_to_wishlist';
   const entity = 'wishlist';
   const item_code = request.prod_id;
-  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}?version=${version}&method=${method}&entity=${entity}&item_code=${item_code}`;
+  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_APP_CONFIG.app_name}?version=${version}&method=${method}&entity=${entity}&item_code=${item_code}`;
 
   response = await callPostAPI(url, undefined, request?.token);
   return response;
@@ -31,7 +32,7 @@ export const GetWishlistData = async (appName: any, request: any) => {
 
 export const DeleteProductFromWishlist = async (request: any) => {
   let response: any;
-
+  const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const config = {
     headers: {
       Authorization: request.token,
@@ -43,7 +44,7 @@ export const DeleteProductFromWishlist = async (request: any) => {
   const version = CONSTANTS.VERSION;
   const params = `?version=${version}&method=${method}&entity=${entity}&item_code=${item_code}`;
   await axios
-    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.API_MANDATE_PARAMS}${params}`, config)
+    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_APP_CONFIG.app_name}${params}`, config)
     .then((res) => {
       response = res?.data?.message;
     })

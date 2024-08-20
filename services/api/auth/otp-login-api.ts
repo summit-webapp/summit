@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
 import UserRoleGet from './get_userrole_api';
+import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-const OtpLoginApi = async (request: any) => {
+const OtpLoginApi = async (appConfig: APP_CONFIG, request: any) => {
   let response: any;
-  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
+  const version = appConfig.version;
   const method = 'signin';
   const entity = 'signin';
   const otpLogin = 'true';
-  const apiSDKName = CONSTANTS.SUMMIT_API_SDK_VERSION;
+  const apiSDKName = appConfig.app_name;
 
   const params = `?version=${version}&method=${method}&entity=${entity}&usr=${request.values.email}&pwd=${request.values.password}&with_otp=${otpLogin}`;
   const config = {
@@ -24,7 +25,7 @@ const OtpLoginApi = async (request: any) => {
       if (res?.data?.message?.msg === 'success') {
         localStorage.setItem('isLoggedIn', 'true');
       }
-      UserRoleGet(res?.data?.message?.data?.access_token);
+      UserRoleGet(appConfig, res?.data?.message?.data?.access_token);
     })
     .catch((err) => {
       if (err.code === 'ECONNABORTED') {

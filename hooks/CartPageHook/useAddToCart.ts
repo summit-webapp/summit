@@ -13,13 +13,13 @@ const useAddToCartHook = () => {
   const dispatch = useDispatch();
   const tokenFromStore: any = useSelector(get_access_token);
 
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const extractProductCodes = (data: any[]) => {
     return data?.flatMap((category) => category.orders.map((order: any) => order.item_code));
   };
   const getCartList = async (setCartListingItems: any) => {
     try {
-      let cartListingData: any = await fetchCartListingAPI(SUMMIT_API_SDK, tokenFromStore.token);
+      let cartListingData: any = await fetchCartListingAPI(SUMMIT_APP_CONFIG, tokenFromStore.token);
       if (cartListingData.data.message.msg === 'success') {
         setCartListingItems(cartListingData?.data?.message?.data);
         let cartData = extractProductCodes(cartListingData?.data?.message?.data?.categories);
@@ -34,7 +34,7 @@ const useAddToCartHook = () => {
     }
   };
   const addToCartItem = async (params: any, setCartListingItems?: any) => {
-    const postDataInCart = await PostAddToCartAPI(params, tokenFromStore?.token);
+    const postDataInCart = await PostAddToCartAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
     if (postDataInCart?.msg === 'success') {
       dispatch(addItemToCart(params?.item_code));
       if (setCartListingItems) {
