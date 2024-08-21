@@ -3,6 +3,20 @@ import fetchAPISDK from '../utils/get-api-sdk';
 import fetchFrappeAppVersion from '../utils/get-frappe-app-version';
 import { CONSTANTS } from '../services/config/app-config';
 import APP_CONFIG from '../interfaces/app-config-interface';
+
+/**
+ * @function getVME - VME stands for Version, Method and Entity for that API function.
+ */
+const getVME = (frappeAppConfig: APP_CONFIG, apiName: string) => {
+  const sdkInfo = fetchAPISDK(apiName);
+  const { version, method, entity } = sdkInfo;
+  const sdkVersion = version ? version : frappeAppConfig.version;
+  return {
+    sdkVersion,
+    method,
+    entity,
+  };
+};
 /**
  * Fetches data from an API by handling repetitive steps like fetching SDK names,
  * getting the Frappe app version, constructing the API URL, and making the call.
@@ -11,52 +25,54 @@ import APP_CONFIG from '../interfaces/app-config-interface';
  * @function executeGETAPI
  * @param {string} appName - The name of the Frappe App default its SUMMIT_API_SDK.
  * @param {string} apiName - The specific API name to fetch from the SDK.
- * @param {string} method - The method name to be used in the API call.
- * @param {string} entity - The entity name to be fetched.
  * @param {string} token - The authentication token.
  * @param {Object} additionalParams - Additional parameters to be appended to the API call.
  * @returns {Promise<any>} - The response from the API call.
  * @throws {Error} Throws an error if the API call fails.
  */
 export const executeGETAPI = async (
-  appName: string,
+  frappeAppConfig: APP_CONFIG | undefined,
   apiName: string,
-  method: string,
-  entity: string,
-  token: any,
-  additionalParams: Record<string, any> = {}
+  token: any | undefined,
+  additionalParams: Record<string, any> = {},
+  path?: any
 ): Promise<any> => {
-  // Fetch the API SDK name
-  const sdkName = fetchAPISDK(apiName);
-  const frappeAppName = sdkName !== '' ? sdkName : appName;
+  let baseURL: string;
+  let storeParams: any;
+  if (frappeAppConfig) {
+    const { sdkVersion, method, entity } = getVME(frappeAppConfig, apiName);
+    const params = new URLSearchParams({
+      version: sdkVersion,
+      method,
+      entity,
+      ...additionalParams, // Add additional parameters if provided
+    });
+    storeParams = params.toString();
+    baseURL = `${CONSTANTS.API_BASE_URL}${frappeAppConfig.app_name}?${storeParams}`;
+  } else if (path) {
+    const params = new URLSearchParams({
+      ...additionalParams, // Add additional parameters if provided
+    });
+    storeParams = params.toString();
 
-  // Fetch the Frappe App version
-  const appVersion = fetchFrappeAppVersion(frappeAppName);
-  if (appVersion === '0.0.0') {
-    return 'Invalid App. Please check the app name.';
+    // Construct the API parameters
+    if (Object.keys(additionalParams).length !== 0) {
+      baseURL = `${CONSTANTS.API_BASE_URL}${path}?${storeParams}`;
+    } else {
+      baseURL = `${CONSTANTS.API_BASE_URL}${path}`;
+    }
+  } else {
+    throw new Error('Either frappeAppConfig or path must be provided.');
   }
-
-  // Construct the API parameters
-  const params = new URLSearchParams({
-    version: appVersion,
-    method,
-    entity,
-    ...additionalParams, // Add additional parameters if provided
-  });
-  const storeParams = params.toString();
-  const baseURL = `${CONSTANTS.API_BASE_URL}${frappeAppName}?${storeParams}`;
   // Make the API call
   const response = await callGetAPI(`${baseURL}`, token);
   return response;
 };
 
 export const executePOSTAPI = async (frappeAppConfig: APP_CONFIG, apiName: string, apiBody: any, token?: any) => {
-  /* GET all the required information about frappe app i.e it's version, method and entity.
-    If version is empty use frappe app's version else version. 
-  */
-  const sdkInfo = fetchAPISDK(apiName);
-  const { version, method, entity } = sdkInfo;
-  const sdkVersion = version ? version : frappeAppConfig.version;
+  /* GET all the required information about frappe app i.e it's version, method and entity.*/
+  const { sdkVersion, method, entity } = getVME(frappeAppConfig, apiName);
+
   const body = {
     version: sdkVersion,
     method,

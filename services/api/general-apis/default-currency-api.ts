@@ -1,32 +1,15 @@
-import axios from 'axios';
-import { CONSTANTS } from '../../config/app-config';
+import { executeGETAPI } from '../../../utils/http-methods';
+import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-export const getMultiCurrencyValue = async () => {
-  let response: any;
+export const getMultiCurrencyValue = async (appConfig: APP_CONFIG) => {
+  const additionalParams = {}; // Add additional parameters if needed
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
+    appConfig,
+    'default-currency-api',
+    undefined,
+    additionalParams // Pass additional parameters if needed
+  );
 
-  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
-  const method = 'get_default_currency';
-  const entity = 'product';
-  const params = `version=${version}&method=${method}&entity=${entity}`;
-
-  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}?${params}`;
-  console.log('default multi currency url', url);
-  await axios
-    .get(`${url}`, { timeout: 5000 })
-    .then((res: any) => {
-      // console.log("multi currenct default value api", res);
-      response = res;
-    })
-    .catch((err: any) => {
-      if (err.code === 'ECONNABORTED') {
-        response = 'Request timed out';
-      } else if (err.code === 'ERR_BAD_REQUEST') {
-        response = 'Bad Request';
-      } else if (err.code === 'ERR_INVALID_URL') {
-        response = 'Invalid URL';
-      } else {
-        response = err;
-      }
-    });
   return response;
 };

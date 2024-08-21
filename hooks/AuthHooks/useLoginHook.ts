@@ -4,8 +4,10 @@ import { useRouter } from 'next/router';
 import { TypeLoginAPIParams, TypeLoginForm } from '../../interfaces/login-params-interface';
 import getTokenFromLoginAPI from '../../services/api/auth/get-token-from-login-api';
 import { storeToken } from '../../store/slices/auth/token-login-slice';
+import { CONSTANTS } from '../../services/config/app-config';
 
 const useLoginHook = () => {
+  const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const dispatch = useDispatch();
   const router = useRouter();
   const [loginForm, setLoginForm] = useState<TypeLoginForm>({ usr: '', pwd: '' });
@@ -18,14 +20,13 @@ const useLoginHook = () => {
   };
 
   const fetchToken = async (values: TypeLoginForm) => {
-    console.log('value', values);
     const userParams: TypeLoginAPIParams = {
       values: { ...values },
       isGuest: false,
       loginViaOTP: false,
       LoginViaGoogle: false,
     };
-    const tokenData = await getTokenFromLoginAPI(userParams);
+    const tokenData = await getTokenFromLoginAPI(SUMMIT_APP_CONFIG, userParams);
     if (tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
       localStorage.setItem('isLoggedIn', 'true');
       dispatch(storeToken(tokenData?.data));

@@ -4,7 +4,7 @@ import { executePOSTAPI } from '../../../utils/http-methods';
 
 const registrationAPI = async (appConfig: APP_CONFIG, userFormData: typeRegistrationProps) => {
   let response: any;
-  response = await executePOSTAPI(appConfig, 'registration-api', userFormData);
+  response = await executePOSTAPI(appConfig, 'registration-api', userFormData, undefined);
   return response;
 };
 export default registrationAPI;

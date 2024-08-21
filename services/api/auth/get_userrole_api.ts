@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
+import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-const UserRoleFetch = async (token: any) => {
+const UserRoleFetch = async (appConfig: APP_CONFIG, token: any) => {
   let response: any;
-  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
+  const version = appConfig.version;
   const method = 'get_user_profile';
   const entity = 'signin';
-  const apiSDKName = CONSTANTS.SUMMIT_API_SDK;
+  const apiSDKName = appConfig.app_name;
 
   const config = {
     headers: {
@@ -30,16 +31,12 @@ const UserRoleFetch = async (token: any) => {
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {
-        console.log('req time out');
         response = 'Request timed out';
       } else if (err.code === 'ERR_BAD_REQUEST') {
-        console.log('bad request');
         response = 'Bad Request';
       } else if (err.code === 'ERR_INVALID_URL') {
-        console.log('invalid url');
         response = 'Invalid URL';
       } else {
-        console.log('navbar api res err', err);
         response = err;
       }
     });
@@ -47,6 +44,6 @@ const UserRoleFetch = async (token: any) => {
   return response;
 };
 
-const UserRoleGet = (token: any) => UserRoleFetch(token);
+const UserRoleGet = (appConfig: APP_CONFIG, token: any) => UserRoleFetch(appConfig, token);
 
 export default UserRoleGet;

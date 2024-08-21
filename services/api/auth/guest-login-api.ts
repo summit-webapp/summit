@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
+import APP_CONFIG from '../../../interfaces/app-config-interface';
 
 interface IRaw_Data {
   version?: string;
@@ -12,11 +13,11 @@ interface IRaw_Data {
   redirect?: boolean;
   guest_token?: any;
 }
-const CheckGuestLogin = async (request: any) => {
+const CheckGuestLogin = async (appConfig: APP_CONFIG, request: any) => {
   let response: any;
   let raw_data: IRaw_Data;
-  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
-  const apiSDKName = CONSTANTS.SUMMIT_API_SDK_VERSION;
+  const version = appConfig.version;
+  const apiSDKName = appConfig.app_name;
 
   let isVisitor = typeof window !== 'undefined' ? localStorage.getItem('guest') : null;
 

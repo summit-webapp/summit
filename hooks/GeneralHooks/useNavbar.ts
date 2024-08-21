@@ -13,7 +13,7 @@ const useNavbar = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
@@ -38,7 +38,7 @@ const useNavbar = () => {
     let navbarDataAPI: any;
     setIsLoading(true);
     try {
-      navbarDataAPI = await getNavbarDataFromAPI(SUMMIT_API_SDK, TokenFromStore?.token);
+      navbarDataAPI = await getNavbarDataFromAPI(SUMMIT_APP_CONFIG, TokenFromStore?.token);
       if (navbarDataAPI?.data?.message?.msg === 'success' && navbarDataAPI?.data?.message?.data?.length > 0) {
         // BELOW CODE IS TO SORT NAVBAR DATA AND STORE IN THE STATE
         setNavbarData(

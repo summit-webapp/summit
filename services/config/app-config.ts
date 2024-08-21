@@ -1,19 +1,9 @@
 export const CONSTANTS = {
   API_BASE_URL: process.env.NEXT_PUBLIC_API_URL,
-  API_MANDATE_PARAMS: '/api/method/summitapp.sdk.api',
   SUMMIT_APP_CONFIG: {
     app_name: '/api/method/summitapp.sdk.api',
     version: 'v2',
   },
-  ARC_APP_CONFIG: {
-    app_name: '/api/method/arcapp.sdk.api',
-    version: 'v1',
-  },
-  SUMMIT_API_SDK: '/api/method/summitapp.sdk.api',
-  CUSTOM_API_SDK: '/api/method/arcapp.sdk.api',
-  VERSION: 'v2',
-  SUMMIT_API_SDK_VERSION: 'v2',
-  CUSTOM_API_SDK_VERSION: 'v1',
   ALLOW_GUEST_TO_ACCESS_SITE_EVEN_WITHOUT_AUTHENTICATION: false,
   ENABLE_META_TAGS: false,
   ENABLE_LOGIN_USING_OTP: false,

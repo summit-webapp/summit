@@ -8,7 +8,7 @@ import { CONSTANTS } from '../../services/config/app-config';
 
 const useOrderListHook = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { query }: any = useRouter();
   const [orderListData, setOrderListData] = useState<any>([]);
   const tokenFromStore: any = useSelector(get_access_token);
@@ -32,14 +32,14 @@ const useOrderListHook = () => {
      *
      * @async
      * @function getOrderListAPI
-     * @param {Object} SUMMIT_API_SDK - The Summit API SDK object used to interact with the API.
+     * @param {Object} SUMMIT_APP_CONFIG - The Summit API SDK object used to interact with the API.
      * @param {string} token - The authentication token obtained from the store.
      * @param {string} status - The order status to filter the listing data. Could be any of 3 values 1. Completed 2.Cancelled or 3. ''.
      * @returns {Promise<void>} - Resolves when the API response is handled.
      * @throws {Error} Throws an error if the API call fails.
      */
     try {
-      getOrderListingData = await getOrderListAPI(SUMMIT_API_SDK, tokenFromStore.token, status);
+      getOrderListingData = await getOrderListAPI(SUMMIT_APP_CONFIG, status, tokenFromStore.token);
       if (getOrderListingData?.data?.message?.msg === 'success') {
         setOrderListData(getOrderListingData?.data?.message?.data);
       } else {

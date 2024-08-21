@@ -7,37 +7,38 @@ import { useRouter } from 'next/router';
 import { CONSTANTS } from '../../services/config/app-config';
 
 const useOrderReport = () => {
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const [OrderReportData, setOrderReportData] = useState<any>([]);
   const tokenFromStore: any = useSelector(get_access_token);
   const router: any = useRouter();
-  let paramsValue: any;
-  const userId = localStorage.getItem('user');
+  let reportStatus: any;
+  const user = localStorage.getItem('user');
   const fetchOrderReportDataFunction = async () => {
     switch (router?.query?.order_report) {
       case 'due-date-reminder-report':
-        paramsValue = 'due_date_orders_list';
+        reportStatus = 'due_date_orders_list';
         break;
       case 'review-report':
-        paramsValue = 'review_dispatched_orders_list';
+        reportStatus = 'review_dispatched_orders_list';
         break;
       case 'pending-order':
-        paramsValue = 'pending_orders_list';
+        reportStatus = 'pending_orders_list';
         break;
       case 'dispatched-orders-report':
-        paramsValue = 'dispatched_orders_list';
+        reportStatus = 'dispatched_orders_list';
         break;
       case 'in-process-orders-report':
-        paramsValue = 'in_process_orders_list';
+        reportStatus = 'in_process_orders_list';
         break;
       case 'late-orders-report':
-        paramsValue = 'late_orders_list';
+        reportStatus = 'late_orders_list';
         break;
     }
     setIsLoading(true);
+    const requestParams = { user, reportStatus };
     try {
-      const getDispatchOrderData = await getOrderReportAPI(SUMMIT_API_SDK, tokenFromStore?.token, userId, paramsValue);
+      const getDispatchOrderData = await getOrderReportAPI(SUMMIT_APP_CONFIG, requestParams, tokenFromStore?.token);
       if (getDispatchOrderData?.status === 200 && getDispatchOrderData?.data?.message?.msg === 'success') {
         setOrderReportData(getDispatchOrderData?.data?.message?.data);
       } else {
