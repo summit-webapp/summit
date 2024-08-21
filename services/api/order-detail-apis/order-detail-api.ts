@@ -1,6 +1,5 @@
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 import { executeGETAPI } from '../../../utils/http-methods';
-import { CONSTANTS } from '../../config/app-config';
 
 const getOrderDetailAPI = async (appConfig: APP_CONFIG, name: any, token: any) => {
   let additionalParams = { ...(name && { name }) }; // Add additional parameters if needed

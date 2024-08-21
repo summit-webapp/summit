@@ -1,6 +1,5 @@
 import APP_CONFIG from '../../../interfaces/app-config-interface';
-import { callGetAPI, executeGETAPI } from '../../../utils/http-methods';
-import { CONSTANTS } from '../../config/app-config';
+import { executeGETAPI } from '../../../utils/http-methods';
 
 const getDisplaytagsDataFromAPI = async (appConfig: APP_CONFIG, currencyValue: any, token: any) => {
   // const displayTagsList = await callGetAPI(`${CONSTANTS.API_BASE_URL}/api/resource/Tag`, token);

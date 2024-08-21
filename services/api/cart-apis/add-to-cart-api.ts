@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { CONSTANTS } from '../../config/app-config';
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 import { executePOSTAPI } from '../../../utils/http-methods';
 
