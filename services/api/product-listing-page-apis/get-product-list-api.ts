@@ -1,7 +1,8 @@
 import { CONSTANTS } from '../../config/app-config';
 import { executeGETAPI } from '../../../utils/http-methods';
 
-const fetchProductListingFromAPI = async (appName: any, query: any) => {
+const fetchProductListingFromAPI = async (appName: any, query: any, token: any) => {
+  let response: any;
   let page_no: number | undefined;
   let limit: number | undefined;
 
@@ -48,31 +49,25 @@ const fetchProductListingFromAPI = async (appName: any, query: any) => {
     ),
   };
 
-  // Determine the method and entity based on the router origin
-  let method = 'get_list';
-  let entity = 'product';
-
   if (query.router_origin === 'product-category') {
     additionalParams = {
       ...additionalParams,
       category,
     };
+    response = await executeGETAPI(appName, 'product-list-api', token, additionalParams);
   } else if (query.router_origin === 'catalog') {
-    method = 'get_items';
-    entity = 'catalog';
     additionalParams = {
       ...additionalParams,
       catalog_slug: category,
     };
+    response = await executeGETAPI(appName, 'catalog-product-list-api', token, additionalParams);
   } else if (query.router_origin === 'brand') {
     additionalParams = {
       ...additionalParams,
       brand: category,
     };
+    response = await executeGETAPI(appName, 'brand-product-list-api', token, additionalParams);
   }
-
-  // Call the API using executeGETAPI
-  const response = await executeGETAPI(appName, 'product-list-api', method, entity, query.token, additionalParams);
 
   return response;
 };

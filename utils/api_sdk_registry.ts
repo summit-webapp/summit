@@ -10,6 +10,8 @@ const apiSdkRegistry: any = {
   'breadcrums-api': { version: '', method: 'breadcrums', entity: 'mega_menu' },
   'get-product-listing-filters-api': { version: '', method: 'get_filters', entity: 'filter' },
   'product-list-api': { version: '', method: 'get_list', entity: 'product' },
+  'catalog-product-list-api': { version: '', method: 'get_items', entity: 'catalog' },
+  'brand-product-list-api': { version: '', method: 'get_list', entity: 'product' },
   'product-detail-api': { version: '', method: 'get_details', entity: 'product' },
   'product-variants-api': { version: '', method: 'get_variants', entity: 'variant' },
   'get-wishlist-items-api': { version: '', method: 'get_wishlist_items', entity: 'wishlist' },
