@@ -1,53 +1,31 @@
-import axios from 'axios';
-import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI, callPostAPI, executeGETAPI } from '../../../utils/http-methods';
+import { executeGETAPI, executePOSTAPI } from '../../../utils/http-methods';
+import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-export const AddProductToWishlist = async (request: any) => {
-  let response: any;
-  const { SUMMIT_APP_CONFIG } = CONSTANTS;
-  const version = CONSTANTS.VERSION;
-  const method = 'add_to_wishlist';
-  const entity = 'wishlist';
-  const item_code = request.prod_id;
-  const url = `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_APP_CONFIG.app_name}?version=${version}&method=${method}&entity=${entity}&item_code=${item_code}`;
-
-  response = await callPostAPI(url, undefined, request?.token);
+export const AddProductToWishlist = async (appConfig: APP_CONFIG, request: any, token: any) => {
+  let response: any = await executePOSTAPI(appConfig, 'add-item-to-wishlist-api', request, token);
   return response;
 };
 
-export const GetWishlistData = async (appName: any, request: any) => {
+export const GetWishlistData = async (appConfig: APP_CONFIG, token: any) => {
   const additionalParams = {}; // Add additional parameters if needed
+
   // Use executeGETAPI to handle GET Request logic
   const response = await executeGETAPI(
-    appName,
-    'wishlist-api',
-    'get_wishlist_items',
-    'wishlist',
-    request.token,
+    appConfig,
+    'get-wishlist-items-api',
+    token,
     additionalParams // Pass additional parameters if needed
   );
-
   return response;
 };
 
-export const DeleteProductFromWishlist = async (request: any) => {
-  let response: any;
-  const { SUMMIT_APP_CONFIG } = CONSTANTS;
-  const config = {
-    headers: {
-      Authorization: request.token,
-    },
-  };
-  const method = 'remove_from_wishlist';
-  const entity = 'wishlist';
-  const item_code = request.prod_id;
-  const version = CONSTANTS.VERSION;
-  const params = `?version=${version}&method=${method}&entity=${entity}&item_code=${item_code}`;
-  await axios
-    .get(`${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_APP_CONFIG.app_name}${params}`, config)
-    .then((res) => {
-      response = res?.data?.message;
-    })
-    .catch((err) => {});
+export const DeleteProductFromWishlist = async (appConfig: APP_CONFIG, request: any, token: any) => {
+  const additionalParams = { ...request };
+  const response = await executeGETAPI(
+    appConfig,
+    'remove-item-from-wishlist-api',
+    token,
+    additionalParams // Pass additional parameters if needed
+  );
   return response;
 };

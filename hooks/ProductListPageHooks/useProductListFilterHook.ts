@@ -9,7 +9,7 @@ import fetchProductListingPageFilters from '../../services/api/product-listing-p
 const useProductListingFilterHook = () => {
   const router: any = useRouter();
   const { query } = useRouter();
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
 
@@ -18,13 +18,11 @@ const useProductListingFilterHook = () => {
 
   const fetchFiltersDataFunction = async () => {
     setIsLoading(true);
-
+    const reqParams = {
+      query: query,
+    };
     try {
-      const reqParams = {
-        query: query,
-        token: tokenFromStore?.token,
-      };
-      const getFiltersData: any = await fetchProductListingPageFilters(SUMMIT_API_SDK, reqParams);
+      const getFiltersData: any = await fetchProductListingPageFilters(SUMMIT_APP_CONFIG, reqParams, tokenFromStore?.token);
       if (getFiltersData?.data?.message?.msg === 'success') {
         setFiltersData(getFiltersData?.data?.message?.data);
         setIsLoading(false);

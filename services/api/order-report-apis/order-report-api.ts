@@ -1,13 +1,11 @@
-import { callGetAPI, executeGETAPI } from '../../../utils/http-methods';
-import { CONSTANTS } from '../../config/app-config';
+import APP_CONFIG from '../../../interfaces/app-config-interface';
+import { executeGETAPI } from '../../../utils/http-methods';
 
-const getOrderReportAPI = async (appName: string, token: any, user: any, methods: any) => {
-  let additionalParams = { user };
+const getOrderReportAPI = async (appConfig: APP_CONFIG, reqParams: any, token: any) => {
+  let additionalParams = { ...reqParams };
   const response = await executeGETAPI(
-    appName,
+    appConfig,
     'order-reports-api',
-    methods,
-    'sales_order_report',
     token,
     additionalParams // Pass additional parameters if needed
   );
