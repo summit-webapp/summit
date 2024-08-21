@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
-import { executePOSTAPI } from '../../../utils/http-methods';
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 
 export const DeleteClearCart = async (appConfig: APP_CONFIG, quotation_id: any, token: any) => {

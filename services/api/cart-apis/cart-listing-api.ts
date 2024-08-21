@@ -1,5 +1,4 @@
-import { CONSTANTS } from '../../config/app-config';
-import { callGetAPI, executeGETAPI } from '../../../utils/http-methods';
+import { executeGETAPI } from '../../../utils/http-methods';
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 
 const fetchCartListingAPI = async (appConfig: APP_CONFIG, token: any) => {

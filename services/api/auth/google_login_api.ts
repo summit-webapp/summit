@@ -1,4 +1,4 @@
-import axios, { AxiosRequestHeaders } from 'axios';
+import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
 import UserRoleGet from './get_userrole_api';
 import APP_CONFIG from '../../../interfaces/app-config-interface';
