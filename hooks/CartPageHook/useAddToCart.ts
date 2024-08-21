@@ -48,7 +48,7 @@ const useAddToCartHook = () => {
     }
   };
   const placeOrderAPIFunc = async (params: any, setCartListingItems: any) => {
-    const placeOrder = await postPlaceOrderAPI(params, tokenFromStore?.token);
+    const placeOrder = await postPlaceOrderAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
     if (placeOrder?.data?.message?.msg === 'success') {
       dispatch(clearCart());
       toast.success('Order placed successfully!');
@@ -58,7 +58,7 @@ const useAddToCartHook = () => {
     }
   };
   const RemoveItemCartAPIFunc = async (params: any, setCartListingItems: any) => {
-    const removeCartfunc = await DeleteItemFromCart(params, tokenFromStore?.token);
+    const removeCartfunc = await DeleteItemFromCart(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
     if (removeCartfunc?.data?.message?.msg === 'success') {
       dispatch(removeItemFromCart(params?.item_code));
       toast.success('Product removed from cart successfully!');
@@ -68,7 +68,7 @@ const useAddToCartHook = () => {
     }
   };
   const cLearCartAPIFunc = async (quotation_id: any) => {
-    const clearCartfunc = await DeleteClearCart(quotation_id, tokenFromStore?.token);
+    const clearCartfunc = await DeleteClearCart(SUMMIT_APP_CONFIG, quotation_id, tokenFromStore?.token);
     if (clearCartfunc?.status === 200) {
       dispatch(clearCart());
       toast.success('Cart cleared sucessfully!');

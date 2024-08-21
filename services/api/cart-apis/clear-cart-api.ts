@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
+import { executePOSTAPI } from '../../../utils/http-methods';
+import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-export const DeleteClearCart = async (quotation_id: any, token: any) => {
+export const DeleteClearCart = async (appConfig: APP_CONFIG, quotation_id: any, token: any) => {
   let response: any;
 
   const config = {
@@ -11,14 +13,13 @@ export const DeleteClearCart = async (quotation_id: any, token: any) => {
   };
   const method = 'clear_cart';
   const entity = 'cart';
-  const version = CONSTANTS.SUMMIT_API_SDK_VERSION;
+  const version = appConfig.version;
   const params = `?version=${version}&method=${method}&entity=${entity}&quotation_id=${quotation_id}`;
   await axios
-    .delete(`${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_API_SDK}${params}`, config)
+    .delete(`${CONSTANTS.API_BASE_URL}${appConfig.app_name}${params}`, config)
     .then((res) => {
       response = res;
     })
-    .catch((err) => {
-    });
+    .catch((err) => {});
   return response;
 };
