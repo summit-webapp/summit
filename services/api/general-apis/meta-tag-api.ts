@@ -1,4 +1,3 @@
-import { CONSTANTS } from '../../config/app-config';
 import axios from 'axios';
 
 const MetaTag = async (url: any) => {

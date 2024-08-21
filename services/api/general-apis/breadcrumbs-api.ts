@@ -1,6 +1,7 @@
+import APP_CONFIG from '../../../interfaces/app-config-interface';
 import { executeGETAPI } from '../../../utils/http-methods';
 
-const fetchBreadcrumbsDataFromAPI = async (appName: string, request: any) => {
+const fetchBreadcrumbsDataFromAPI = async (appConfig: APP_CONFIG, request: any, token: any) => {
   const paramURL = [...request.url];
   paramURL.shift();
 
@@ -8,9 +9,6 @@ const fetchBreadcrumbsDataFromAPI = async (appName: string, request: any) => {
   const categoryUrl = category;
   const listingCategory = categoryUrl.split('?page')[0];
   product = product?.split('?currency')[0];
-
-  const method = 'breadcrums';
-  const entity = 'mega_menu';
   const listingProductType = 'listing';
   const listingBrandType = 'brand';
   const catalogProductType = 'catalog';
@@ -20,45 +18,33 @@ const fetchBreadcrumbsDataFromAPI = async (appName: string, request: any) => {
 
   if (prodType === 'product-category') {
     additionalParams = {
-      method,
-      entity,
       product_type: listingProductType,
       ...(category && { category: listingCategory }),
     };
   } else if (prodType === 'product') {
     additionalParams = {
-      method,
-      entity,
       product_type: listingProductType,
       category: category,
       ...(product && { product }),
     };
   } else if (prodType === 'brand') {
     additionalParams = {
-      method,
-      entity,
       product_type: listingBrandType,
       brand: listingCategory,
     };
   } else if (prodType === 'brand-product') {
     additionalParams = {
-      method,
-      entity,
       product_type: listingBrandType,
       brand: listingCategory,
       ...(product && { product }),
     };
   } else if (prodType === 'catalog') {
     additionalParams = {
-      method,
-      entity,
       product_type: catalogProductType,
       category,
     };
   } else if (prodType === 'catalog-product') {
     additionalParams = {
-      method,
-      entity,
       product_type: catalogProductType,
       category,
     };
@@ -66,11 +52,9 @@ const fetchBreadcrumbsDataFromAPI = async (appName: string, request: any) => {
 
   // Constructing the API call with executeGETAPI
   const response = await executeGETAPI(
-    appName,
+    appConfig,
     'breadcrums-api',
-    'breadcrums',
-    'mega_menu',
-    request?.token,
+    token,
     additionalParams // Pass additional parameters here
   );
 

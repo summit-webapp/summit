@@ -31,27 +31,38 @@ const getVME = (frappeAppConfig: APP_CONFIG, apiName: string) => {
  * @throws {Error} Throws an error if the API call fails.
  */
 export const executeGETAPI = async (
-  frappeAppConfig: APP_CONFIG,
+  frappeAppConfig: APP_CONFIG | undefined,
   apiName: string,
-  token: any,
+  token: any | undefined,
   additionalParams: Record<string, any> = {},
   path?: any
 ): Promise<any> => {
-  const { sdkVersion, method, entity } = getVME(frappeAppConfig, apiName);
-
-  // Construct the API parameters
-  const params = new URLSearchParams({
-    version: sdkVersion,
-    method,
-    entity,
-    ...additionalParams, // Add additional parameters if provided
-  });
   let baseURL: string;
-  const storeParams = params.toString();
-  if (path) {
-    baseURL = `${CONSTANTS.API_BASE_URL}${path}?${storeParams}`;
-  } else {
+  let storeParams: any;
+  if (frappeAppConfig) {
+    const { sdkVersion, method, entity } = getVME(frappeAppConfig, apiName);
+    const params = new URLSearchParams({
+      version: sdkVersion,
+      method,
+      entity,
+      ...additionalParams, // Add additional parameters if provided
+    });
+    storeParams = params.toString();
     baseURL = `${CONSTANTS.API_BASE_URL}${frappeAppConfig.app_name}?${storeParams}`;
+  } else if (path) {
+    const params = new URLSearchParams({
+      ...additionalParams, // Add additional parameters if provided
+    });
+    storeParams = params.toString();
+
+    // Construct the API parameters
+    if (Object.keys(additionalParams).length !== 0) {
+      baseURL = `${CONSTANTS.API_BASE_URL}${path}?${storeParams}`;
+    } else {
+      baseURL = `${CONSTANTS.API_BASE_URL}${path}`;
+    }
+  } else {
+    throw new Error('Either frappeAppConfig or path must be provided.');
   }
   // Make the API call
   const response = await callGetAPI(`${baseURL}`, token);

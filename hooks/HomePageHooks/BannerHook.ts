@@ -7,7 +7,7 @@ import { CONSTANTS } from '../../services/config/app-config';
 
 const useBanner = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
-  const { SUMMIT_API_SDK }: any = CONSTANTS;
+  const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const [allBannerData, setAllBannerData] = useState<any>([]);
   const tokenFromStore: any = useSelector(get_access_token);
 
@@ -15,7 +15,7 @@ const useBanner = () => {
     let getBannerData: any;
     setIsLoading(true);
     try {
-      getBannerData = await getBannerAPI(SUMMIT_API_SDK, tokenFromStore?.token);
+      getBannerData = await getBannerAPI(SUMMIT_APP_CONFIG, tokenFromStore?.token);
       if (getBannerData?.status === 200 && getBannerData?.data?.status === 'Success') {
         setAllBannerData(getBannerData?.data?.data);
       } else {
