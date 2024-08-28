@@ -8,13 +8,13 @@ import getGoogleLoginApi from './google_login_api';
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 
 const getTokenFromLoginAPI: any = async (appConfig: APP_CONFIG, loginParams: TypeLoginAPIParams) => {
-  if (loginParams.isGuest) {
+  if (loginParams?.isGuest) {
     const guestLoginFunction = await CheckGuestLogin(appConfig, loginParams);
     return guestLoginFunction;
-  } else if (loginParams.loginViaOTP) {
+  } else if (loginParams?.loginViaOTP) {
     const getTokenAfterLoggingViaOTP: any = await OtpLoginApi(appConfig, loginParams);
     return getTokenAfterLoggingViaOTP;
-  } else if (loginParams.LoginViaGoogle) {
+  } else if (loginParams?.LoginViaGoogle) {
     const getTokenAfterLogginViaGoogle = await getGoogleLoginApi(appConfig, loginParams);
     return getTokenAfterLogginViaGoogle;
   } else {
@@ -24,8 +24,8 @@ const getTokenFromLoginAPI: any = async (appConfig: APP_CONFIG, loginParams: Typ
 };
 
 const getAccessTokenFromAPI = async (appConfig: APP_CONFIG, loginParams: TypeLoginAPIParams) => {
-  const usr = loginParams.values.usr;
-  const pwd = encodeURIComponent(loginParams.values.pwd);
+  const usr = loginParams?.values.usr;
+  const pwd = encodeURIComponent(loginParams?.values?.pwd);
   const version = appConfig.version;
   const method = 'get_access_token';
   const entity = 'access_token';
