@@ -3,14 +3,14 @@ import { CONSTANTS } from '../../config/app-config';
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 import { executeGETAPI } from '../../../utils/http-methods';
 
-const MultiLangApi = async (appConfig: APP_CONFIG) => {
+const MultiLangApi = async (appConfig: APP_CONFIG, token: any) => {
   let response: any;
   const additionalParams = {}; // Add additional parameters if needed
   // Use executeGETAPI to handle GET Request logic
   const MultiLanguagesList = await executeGETAPI(
     appConfig,
     'multi-language-data-api',
-    undefined,
+    token,
     additionalParams // Pass additional parameters if needed
   );
 

@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import { getMultiCurrencyValue } from '../../../services/api/general-apis/default-currency-api';
+import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-export const MultiCurrencyThunk = createAsyncThunk('multi-currency-slice/fetchMultiCurrency', async (token: any) => {
-  const getDefaultCurrencyValueFromAPI = await getMultiCurrencyValue();
+export const MultiCurrencyThunk = createAsyncThunk('multi-currency-slice/fetchMultiCurrency', async (appConfig: APP_CONFIG, token: any) => {
+  const getDefaultCurrencyValueFromAPI = await getMultiCurrencyValue(appConfig, token);
   return getDefaultCurrencyValueFromAPI;
 });
 interface DefaultCurrencyState {

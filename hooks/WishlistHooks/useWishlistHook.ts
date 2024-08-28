@@ -15,18 +15,18 @@ const useWishlist = () => {
 
   const wishlistData = useSelector(selectWishlist)?.items || [];
 
-  const fetchWishlistgData: any = async () => {
+  const fetchWishlistData: any = async () => {
     setIsLoading(true);
     try {
-      const cartListingData: any = await GetWishlistData(SUMMIT_APP_CONFIG, TokenFromStore?.token);
-      if (cartListingData?.data?.message?.msg === 'success') {
-        dispatch(addWishList(cartListingData?.data?.message));
+      const wishlistData: any = await GetWishlistData(SUMMIT_APP_CONFIG, TokenFromStore?.token);
+      if (wishlistData?.data?.message?.msg === 'success') {
+        dispatch(addWishList(wishlistData?.data?.message));
         setIsLoading(false);
       } else {
         setIsLoading(false);
-        setErrMessage(cartListingData?.data?.message?.error);
+        setErrMessage(wishlistData?.data?.message?.error);
       }
-      return cartListingData;
+      return wishlistData;
     } catch (error) {
       return;
     } finally {
@@ -34,7 +34,7 @@ const useWishlist = () => {
     }
   };
   useEffect(() => {
-    fetchWishlistgData();
+    fetchWishlistData();
   }, []);
 
   return { wishlistData, wishlistCount, isLoading, errorMessage };

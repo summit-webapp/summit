@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }: any) => {
     if (TokenFromStore.token === '') {
       router.push('/login');
     }
-  }, [get_access_token]);
+  }, [TokenFromStore]);
   return children;
 };
 

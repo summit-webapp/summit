@@ -20,9 +20,11 @@ const appReducer = combineReducers({
 
 const rootReducer = (state: any, action: any) => {
   if (action.type === resetStore.type) {
-    state = {}; // Clear the entire state
+    return appReducer(undefined, action);
+    // state = {}; // Clear the entire state
+  } else {
+    return appReducer(state, action);
   }
-  return appReducer(state, action);
 };
 
 export default rootReducer;
