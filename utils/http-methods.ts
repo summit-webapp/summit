@@ -1,6 +1,5 @@
 import axios from 'axios';
 import fetchAPISDK from '../utils/get-api-sdk';
-import fetchFrappeAppVersion from '../utils/get-frappe-app-version';
 import { CONSTANTS } from '../services/config/app-config';
 import APP_CONFIG from '../interfaces/app-config-interface';
 
