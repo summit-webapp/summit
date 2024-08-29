@@ -28,6 +28,7 @@ const useNavbar = () => {
       if (logoutAPIResponse?.status === 200) {
         dispatch(resetStore());
         localStorage.clear();
+        router.push('/login');
       }
     } catch (error) {
       toast.error("Couldn't log out. Please try back in sometime");
