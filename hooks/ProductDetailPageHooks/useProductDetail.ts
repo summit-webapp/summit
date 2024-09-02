@@ -6,6 +6,8 @@ import fetchProductVariant from '../../services/api/product-detail-page-apis/get
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
+import { fetchProductMatchingItems } from '../../services/api/product-detail-page-apis/get-product-matching-items';
+import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-page-apis/get-product-stock-availability';
 
 const useProductDetail = () => {
   const { query } = useRouter();
@@ -16,12 +18,19 @@ const useProductDetail = () => {
   // const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
 
-  const [productDetailData, setProductDetailData] = useState({});
+  const [productDetailData, setProductDetailData] = useState<any>({});
   // Set if product detail data is variant that has opened. If Variant then check what's its template and set it.
   const [variantOf, setVariantOf] = useState<string>('');
   const [productVariantData, setProductVariantData] = useState([]);
+  // Set Matching Items Data
+  const [matchingItemsData, setMatchingItemsData] = useState<any>([]);
+
+  // Fetch Stock Availability Data
+  const [stockAvailabilityData, setStockAvailabilityData] = useState<any>([]);
   const [qty, setQty] = useState<number>(1);
   const [variantLoading, setVariantLoading] = useState<boolean>(false);
+
+  const itemOptions = ['Suggested', 'Alternate', 'Equivalent', 'Mandatory'];
 
   const fetchProductDetailDataAPI = async () => {
     const requestParams = {
@@ -95,6 +104,37 @@ const useProductDetail = () => {
     }
   };
 
+  // Need to create matching items api call
+  const fetchMatchingItemsAPI = async () => {
+    const getMatchingItemsData: any = await fetchProductMatchingItems(
+      SUMMIT_APP_CONFIG,
+      itemOptions,
+      query?.productId,
+      'INR',
+      TokenFromStore?.token
+    );
+    if (getMatchingItemsData?.status === 200) {
+    } else {
+    }
+  };
+
+  const handleStockAvailabilityData = async () => {
+    const requestParams: any = {
+      item_code: productDetailData?.name,
+      qty: qty,
+    };
+    const getStockAvailabilityDataOfProduct = await fetchStockAvailabilityOfProduct(
+      SUMMIT_APP_CONFIG,
+      requestParams,
+      TokenFromStore?.token
+    );
+    if (getStockAvailabilityDataOfProduct?.status === 200) {
+      setStockAvailabilityData(getStockAvailabilityDataOfProduct?.data?.message);
+    } else {
+      setStockAvailabilityData([]);
+    }
+  };
+
   useEffect(() => {
     fetchProductDetailDataAPI();
   }, [query?.productId]);
@@ -106,6 +146,8 @@ const useProductDetail = () => {
     fetchProductDetailDataAPI,
     handleProductVariant,
     variantLoading,
+    stockAvailabilityData,
+    handleStockAvailabilityData,
   };
 };
 

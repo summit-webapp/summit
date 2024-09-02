@@ -16,6 +16,8 @@ const apiSdkRegistry: any = {
   'brand-product-list-api': { version: '', method: 'get_list', entity: 'product' },
   'product-detail-api': { version: '', method: 'get_details', entity: 'product' },
   'product-variants-api': { version: '', method: 'get_variants', entity: 'variant' },
+  'product-stock-availability': { version: '', method: 'check_availability', entity: 'product' },
+  'product-matching-items': { version: '', method: 'get_recommendation', entity: 'product' },
   'get-wishlist-items-api': { version: '', method: 'get_wishlist_items', entity: 'wishlist' },
   'add-item-to-wishlist-api': { version: '', method: 'add_to_wishlist', entity: 'wishlist' },
   'remove-item-from-wishlist-api': { version: '', method: 'remove_from_wishlist', entity: 'wishlist' },
