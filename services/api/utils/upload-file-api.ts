@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { CONSTANTS } from '../../../services/config/app-config';
 
-const UploadReviewPhotoAPI = async (request: any) => {
+const UploadReviewPhotoAPI = async (request: any, token: any) => {
   let response: any;
 
   const formData = new FormData();
@@ -11,7 +11,7 @@ const UploadReviewPhotoAPI = async (request: any) => {
     headers: {
       'Content-Type': 'multipart/form-data',
       Accept: 'application/json',
-      Authorization: 'token 5b6a2b791c4aa02:6d7e27c276625a4',
+      Authorization: token,
     },
     timeout: 5000,
   };

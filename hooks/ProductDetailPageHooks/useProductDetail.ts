@@ -9,6 +9,7 @@ import { CONSTANTS } from '../../services/config/app-config';
 import fetchProductMatchingItems from '../../services/api/product-detail-page-apis/get-product-matching-items';
 import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-page-apis/get-product-stock-availability';
 import fetchProductReview from '../../services/api/product-detail-page-apis/get-product-review';
+import UploadReviewPhotoAPI from '../../services/api/utils/upload-file-api';
 
 const useProductDetail = () => {
   const { query } = useRouter();
@@ -145,6 +146,13 @@ const useProductDetail = () => {
     const requestParams = { item_code: query?.productId };
     const productReviewData = await fetchProductReview(SUMMIT_APP_CONFIG, requestParams, TokenFromStore?.token);
     if (productReviewData?.status === 200) {
+    } else {
+    }
+  };
+
+  const uploadReviewImage = async (imgFile: any) => {
+    const handleUploadImgData = await UploadReviewPhotoAPI(imgFile, TokenFromStore?.token);
+    if (handleUploadImgData?.status === 200) {
     } else {
     }
   };
