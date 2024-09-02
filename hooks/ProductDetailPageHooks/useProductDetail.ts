@@ -86,12 +86,17 @@ const useProductDetail = () => {
   // Need to handle min quantity of product
 
   // Need to handle qty increase of product
-  const handleQtyModification = (actionType: string) => {
+  const handleQtyModificationOnButtonClick = (actionType: string) => {
     if (actionType === 'increase') {
       setQty(qty + 1);
     } else {
       setQty(qty - 1);
     }
+  };
+
+  const handleQtyModificationOnInputEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value }: any = e.target;
+    setQty(value);
   };
 
   // Need to handle addCart (call addToCartItem func from addToCart hook)
@@ -144,6 +149,8 @@ const useProductDetail = () => {
     }
   };
 
+  const productSpecification = async () => {};
+
   useEffect(() => {
     fetchProductDetailDataAPI();
   }, [query?.productId]);
@@ -157,7 +164,8 @@ const useProductDetail = () => {
     variantLoading,
     stockAvailabilityData,
     handleStockAvailabilityData,
-    handleQtyModification,
+    handleQtyModificationOnButtonClick,
+    handleQtyModificationOnInputEdit,
   };
 };
 
