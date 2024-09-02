@@ -8,6 +8,7 @@ import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
 import { fetchProductMatchingItems } from '../../services/api/product-detail-page-apis/get-product-matching-items';
 import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-page-apis/get-product-stock-availability';
+import fetchProductReview from '../../services/api/product-detail-page-apis/get-product-review';
 
 const useProductDetail = () => {
   const { query } = useRouter();
@@ -96,7 +97,7 @@ const useProductDetail = () => {
   // Need to handle addCart (call addToCartItem func from addToCart hook)
 
   // Need to create function to handleRedirect onClick of variant
-  const handleProductVariant = (variant_code: any) => {
+  const handleRedirectOnProductVariantButtonClick = (variant_code: any) => {
     if (query?.productId) {
       router.push({
         query: { ...query, productId: variant_code },
@@ -135,6 +136,14 @@ const useProductDetail = () => {
     }
   };
 
+  const getProductReview = async () => {
+    const requestParams = { item_code: query?.productId };
+    const productReviewData = await fetchProductReview(SUMMIT_APP_CONFIG, requestParams, TokenFromStore?.token);
+    if (productReviewData?.status === 200) {
+    } else {
+    }
+  };
+
   useEffect(() => {
     fetchProductDetailDataAPI();
   }, [query?.productId]);
@@ -144,10 +153,11 @@ const useProductDetail = () => {
     productDetailData,
     productVariantData,
     fetchProductDetailDataAPI,
-    handleProductVariant,
+    handleRedirectOnProductVariantButtonClick,
     variantLoading,
     stockAvailabilityData,
     handleStockAvailabilityData,
+    handleQtyModification,
   };
 };
 

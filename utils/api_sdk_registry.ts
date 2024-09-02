@@ -18,6 +18,8 @@ const apiSdkRegistry: any = {
   'product-variants-api': { version: '', method: 'get_variants', entity: 'variant' },
   'product-stock-availability': { version: '', method: 'check_availability', entity: 'product' },
   'product-matching-items': { version: '', method: 'get_recommendation', entity: 'product' },
+  'product-review': { version: '', method: 'get_customer_review', entity: 'customer_review' },
+  'add-product-review': { version: '', method: 'create_customer_review', entity: 'customer_review' },
   'get-wishlist-items-api': { version: '', method: 'get_wishlist_items', entity: 'wishlist' },
   'add-item-to-wishlist-api': { version: '', method: 'add_to_wishlist', entity: 'wishlist' },
   'remove-item-from-wishlist-api': { version: '', method: 'remove_from_wishlist', entity: 'wishlist' },
