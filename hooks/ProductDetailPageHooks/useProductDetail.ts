@@ -6,7 +6,7 @@ import fetchProductVariant from '../../services/api/product-detail-page-apis/get
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
-import { fetchProductMatchingItems } from '../../services/api/product-detail-page-apis/get-product-matching-items';
+import fetchProductMatchingItems from '../../services/api/product-detail-page-apis/get-product-matching-items';
 import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-page-apis/get-product-stock-availability';
 import fetchProductReview from '../../services/api/product-detail-page-apis/get-product-review';
 
