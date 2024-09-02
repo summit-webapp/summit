@@ -9,6 +9,8 @@ import { CONSTANTS } from '../../services/config/app-config';
 
 const useProductDetail = () => {
   const { query } = useRouter();
+  const router = useRouter();
+
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   // const currency_state_from_redux: any = useSelector(currency_selector_state);
@@ -18,6 +20,7 @@ const useProductDetail = () => {
   // Set if product detail data is variant that has opened. If Variant then check what's its template and set it.
   const [variantOf, setVariantOf] = useState<string>('');
   const [productVariantData, setProductVariantData] = useState([]);
+  const [qty, setQty] = useState<number>(1);
   const [variantLoading, setVariantLoading] = useState<boolean>(false);
 
   const fetchProductDetailDataAPI = async () => {
@@ -69,6 +72,29 @@ const useProductDetail = () => {
       setVariantLoading(false);
     }
   };
+
+  // Need to handle min quantity of product
+
+  // Need to handle qty increase of product
+  const handleQtyModification = (actionType: string) => {
+    if (actionType === 'increase') {
+      setQty(qty + 1);
+    } else {
+      setQty(qty - 1);
+    }
+  };
+
+  // Need to handle addCart (call addToCartItem func from addToCart hook)
+
+  // Need to create function to handleRedirect onClick of variant
+  const handleProductVariant = (variant_code: any) => {
+    if (query?.productId) {
+      router.push({
+        query: { ...query, productId: variant_code },
+      });
+    }
+  };
+
   useEffect(() => {
     fetchProductDetailDataAPI();
   }, [query?.productId]);
@@ -78,6 +104,7 @@ const useProductDetail = () => {
     productDetailData,
     productVariantData,
     fetchProductDetailDataAPI,
+    handleProductVariant,
     variantLoading,
   };
 };
