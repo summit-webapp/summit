@@ -1,12 +1,8 @@
 import React from 'react';
-import Pagenotfound from '../components/404Page';
+import PageNotFound from '../components/PageNotFound';
 
 const PageNotFoundPage = () => {
-  return (
-    <>
-      <Pagenotfound />
-    </>
-  );
+  return <PageNotFound />;
 };
 
 export default PageNotFoundPage;
