@@ -4,8 +4,10 @@ import { fetchMultiLanguagesThunkAPI, multiLanguageDataFromStore } from '../../s
 import { SelectedFilterLangDataFromStore, SelectedLangData } from '../../store/slices/general_slices/selected-multilanguage-slice';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../../services/config/app-config';
+import { useRouter } from 'next/router';
 
 const useMultilangHook = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const MultiLanguageFromStore = useSelector(multiLanguageDataFromStore);
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
@@ -45,6 +47,8 @@ const useMultilangHook = () => {
     setSelectedLang(lang);
 
     localStorage.setItem('selectedLanguage', lang);
+    const query = { ...router?.query, lang };
+    router.push({ pathname: router?.pathname, query }, undefined, { shallow: true });
   };
 
   useEffect(() => {
