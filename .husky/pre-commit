@@ -1,12 +1,21 @@
 #!/bin/bash
 # Get the list of staged files, excluding the .husky/pre-commit file
-
 echo "Debug: Listing staged files..."
-# staged_files=$(git diff --cached --name-only --diff-filter=d | grep -vE "^\.husky/pre-commit$")
-# echo "$staged_files"
-echo "hi"
+staged_files=$(git diff --cached --name-only --diff-filter=d)
+echo "Raw staged files:"
+echo "$staged_files"
 
-# Check if there are any staged files
+# # Exclude .husky/pre-commit from the list
+# filtered_files=$(echo "$staged_files" | grep -vE "^\.husky/pre-commit$")
+# echo "Filtered staged files (excluding .husky/pre-commit):"
+# echo "$filtered_files"
+
+if [ "$staged_files" = '.husky/pre-commit' ]; then
+    exit 0
+fi
+
+
+Check if there are any staged files
 if [ -z "$staged_files" ]; then
     echo "No staged files to check."
     exit 0
