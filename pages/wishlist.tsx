@@ -1,6 +1,6 @@
 import React from 'react';
 import { CONSTANTS } from '../services/config/app-config';
-import WishlistMaster from '../components/Wishlist/WishlistMaster';
+import WishlistMaster from '../components/WishlistComponents/WishListMaster';
 import MetaTag from '../services/api/general-apis/meta-tag-api';
 
 const wishlist = () => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRouter } from 'next/router';
 import { CONSTANTS } from '../services/config/app-config';
 import MetaTag from '../services/api/general-apis/meta-tag-api';

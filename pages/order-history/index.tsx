@@ -1,10 +1,10 @@
 import React from 'react';
 import { CONSTANTS } from '../../services/config/app-config';
 import MetaTag from '../../services/api/general-apis/meta-tag-api';
-import OrderList from '../../components/Orders/OrderList';
+import OrderListMaster from '../../components/OrderListComponents/OrderListMaster';
 
 const Index = () => {
-  return <OrderList />;
+  return <OrderListMaster />;
 };
 
 export async function getServerSideProps(context: any) {

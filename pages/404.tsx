@@ -1,5 +1,5 @@
 import React from 'react';
-import Pagenotfound from '../components/404Page';
+import Pagenotfound from '../components/PageNotFound';
 
 const PageNotFoundPage = () => {
   return (

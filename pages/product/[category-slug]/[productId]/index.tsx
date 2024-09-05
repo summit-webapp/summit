@@ -1,11 +1,11 @@
-import ProductDetailMaster from '../../../../components/ProductDetailComponents/ProductDetailMaster';
+import ProductPageMaster from '../../../../components/ProductPageComponents/ProductPageMaster';
 import MetaTag from '../../../../services/api/general-apis/meta-tag-api';
 import { CONSTANTS } from '../../../../services/config/app-config';
 
 const Index = ({ metaData }: any) => {
   return (
     <div>
-      <ProductDetailMaster />
+      <ProductPageMaster />
     </div>
   );
 };
