@@ -14,6 +14,7 @@ const useOrderReport = () => {
   const router: any = useRouter();
   let reportStatus: any;
   const user = localStorage.getItem('user');
+  console.log('test');
   const fetchOrderReportDataFunction = async () => {
     switch (router?.query?.order_report) {
       case 'due-date-reminder-report':
