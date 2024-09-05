@@ -1,15 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import MultiLangApi from '../../../services/api/general-apis/multilanguage-api';
 import { RootState } from '../../root-reducer';
-import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk(
-  'multilanguage/fetchMultilanguage',
-  async (appConfig: APP_CONFIG, token: any) => {
-    const MultilanguageData = await MultiLangApi(appConfig, token);
-    return MultilanguageData;
-  }
-);
+export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk('multilanguage/fetchMultilanguage', async (params: any) => {
+  const MultilanguageData = await MultiLangApi(params?.appConfig, params?.token);
+  return MultilanguageData;
+});
 
 interface RepoDisplayTag {
   languageData: any;
@@ -32,6 +28,21 @@ export const MultiLanguageScreen = createSlice({
       state.languageData = [...action.payload];
       state.error = '';
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchMultiLanguagesThunkAPI.pending, (state) => {
+        state.isLoading = 'pending';
+      })
+      .addCase(fetchMultiLanguagesThunkAPI.fulfilled, (state, action) => {
+        state.isLoading = 'succeeded';
+        state.languageData = action.payload; // Store the data here
+        state.error = '';
+      })
+      .addCase(fetchMultiLanguagesThunkAPI.rejected, (state, action) => {
+        state.isLoading = 'failed';
+        state.error = action.error.message || 'Failed to fetch data';
+      });
   },
 });
 
