@@ -42,17 +42,18 @@ const useProductDetail = () => {
     setIsLoading(true);
     try {
       const productDetailAPI: any = await fetchProductDetailData(SUMMIT_APP_CONFIG, requestParams, TokenFromStore?.token);
+      console.log(productDetailAPI,"ssssssssssssssssssssssss")
       if (
         productDetailAPI?.status === 200 &&
-        productDetailAPI?.data?.message?.msg === 'Success' &&
-        productDetailAPI?.data?.message?.data?.length
+        productDetailAPI?.data?.message?.msg === 'Success' 
+        
       ) {
-        setProductDetailData(productDetailAPI?.data?.message?.data[0]);
-        if (productDetailAPI?.data?.message?.data[0]?.variant_of) {
-          setVariantOf(productDetailAPI?.data?.message?.data[0]?.variant_of);
+        setProductDetailData(productDetailAPI?.data?.message?.data);
+        if (productDetailAPI?.data?.message?.data?.variant_of) {
+          setVariantOf(productDetailAPI?.data?.message?.data?.variant_of);
 
-          if (productDetailAPI?.data?.message?.data[0]?.variant_of) {
-            fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data[0]?.variant_of);
+          if (productDetailAPI?.data?.message?.data?.variant_of) {
+            fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data?.variant_of);
           }
         } else {
           setProductVariantData([]);
@@ -71,6 +72,7 @@ const useProductDetail = () => {
     setVariantLoading(true);
     try {
       const productVariantAPI: any = await fetchProductVariant(SUMMIT_APP_CONFIG, templateName, TokenFromStore?.token);
+      
       if (productVariantAPI?.status === 200 && productVariantAPI?.data?.message?.msg === 'success') {
         setProductVariantData(productVariantAPI?.data?.message?.data);
       } else {
