@@ -42,7 +42,6 @@ const useProductDetail = () => {
     setIsLoading(true);
     try {
       const productDetailAPI: any = await fetchProductDetailData(SUMMIT_APP_CONFIG, requestParams, TokenFromStore?.token);
-      console.log(productDetailAPI,"ssssssssssssssssssssssss")
       if (
         productDetailAPI?.status === 200 &&
         productDetailAPI?.data?.message?.msg === 'Success' 
