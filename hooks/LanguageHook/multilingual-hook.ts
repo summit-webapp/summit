@@ -9,7 +9,6 @@ import { language_json_data_state } from '../../store/slices/language-slice/lang
 
 // useEffect(()=>
 // {
-//   console.log("multi lingual in hoc",languageData);
 //   setLanguageDataState({...languageData});
 // },[languageData])
 //     //render OriginalComponent and pass on its props.
@@ -25,12 +24,8 @@ const useMultiLingual = () => {
 
   // useEffect(()=>
   // {
-  //   // console.log("language draft 2 in useEffect");
-  //   // console.log("multi lingual in hoc",languageData);
   //   // setLanguageDataState({...languageData});
   // },[languageData])
-
-  console.log('language draft 2', languageData);
 
   return languageData;
 };
