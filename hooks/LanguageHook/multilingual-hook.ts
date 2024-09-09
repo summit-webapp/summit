@@ -30,8 +30,6 @@ const useMultiLingual = () => {
   //   // setLanguageDataState({...languageData});
   // },[languageData])
 
-  console.log('language draft 2', languageData);
-
   return languageData;
 };
 

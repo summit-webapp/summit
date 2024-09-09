@@ -1,15 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import MultiLangApi from '../../../services/api/general-apis/multilanguage-api';
 import { RootState } from '../../root-reducer';
-import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk(
-  'multilanguage/fetchMultilanguage',
-  async (appConfig: APP_CONFIG, token: any) => {
-    const MultilanguageData = await MultiLangApi(appConfig, token);
-    return MultilanguageData;
-  }
-);
+export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk('multilanguage/fetchMultilanguage', async (params: any) => {
+  const MultilanguageData = await MultiLangApi(params?.appConfig);
+  return MultilanguageData;
+});
 
 interface RepoDisplayTag {
   languageData: any;
@@ -28,9 +24,15 @@ export const MultiLanguageScreen = createSlice({
   initialState,
   reducers: {
     setMultiLingualData(state, action) {
-      state.isLoading = 'succeeded';
-      state.languageData = [...action.payload];
-      state.error = '';
+      if (action.payload?.length > 0) {
+        state.isLoading = 'succeeded';
+        state.languageData = [...action.payload];
+        state.error = '';
+      } else {
+        state.isLoading = 'succeeded';
+        state.languageData = [];
+        state.error = 'Error Occured';
+      }
     },
   },
 });

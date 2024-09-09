@@ -5,7 +5,7 @@ const apiSdkRegistry: any = {
   'google-login-api': { version: '', method: 'signin', entity: 'signin' },
   'login-api': { version: '', method: 'get_access_token', entity: 'access_token' },
   'default-currency-api': { version: '', method: 'get_default_currency', entity: 'product' },
-  'multi-language-data-api': { version: '', methiod: 'get_languages', entity: 'translation' },
+  'multi-language-data-api': { version: '', method: 'get_languages', entity: 'translation' },
   'navbar-api': { version: '', method: 'get_mega_menu', entity: 'mega_menu' },
   'banner-api': { version: '', method: 'get', entity: 'banner' },
   'display-tags-api': { version: '', method: 'get_tagged_products', entity: 'product' },

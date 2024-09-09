@@ -151,7 +151,6 @@ const useProductDetail = () => {
   };
 
   const uploadReviewImage = async (imgFile: any) => {
-    console.log(imgFile, 'imgFile');
     const handleUploadImgData = await UploadReviewPhotoAPI(imgFile, TokenFromStore?.token);
     if (handleUploadImgData?.status === 200) {
       setReviewPhotos([...reviewPhotos, { image: handleUploadImgData.file_url }]);

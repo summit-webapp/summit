@@ -3,7 +3,6 @@ import { CONSTANTS } from '../../../services/config/app-config';
 
 const UploadReviewPhotoAPI = async (request: any, token: any) => {
   let response: any;
-  console.log(request.File, 'imgFile');
   const formData = new FormData();
   formData.append('file', request.File);
 
