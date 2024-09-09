@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMultiLanguagesThunkAPI, multiLanguageDataFromStore } from '../../store/slices/general_slices/multilang-slice';
-import { SelectedFilterLangDataFromStore, SelectedLangData } from '../../store/slices/general_slices/selected-multilanguage-slice';
-import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import { multiLanguageDataFromStore } from '../../store/slices/general_slices/multilang-slice';
+import { SelectedLangData } from '../../store/slices/general_slices/selected-multilanguage-slice';
 
 const useMultilangHook = () => {
   const dispatch = useDispatch();
   const MultiLanguageFromStore = useSelector(multiLanguageDataFromStore);
   const [multiLanguagesData, SetMultiLanguagesData] = useState<any>([]);
   const [selectedLang, setSelectedLang] = useState<any>('en');
-  const TokenFromStore: any = useSelector(get_access_token);
 
   useEffect(() => {
     // Retrieve the selected language from localStorage on component mount

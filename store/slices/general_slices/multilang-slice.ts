@@ -4,7 +4,6 @@ import { RootState } from '../../root-reducer';
 
 export const fetchMultiLanguagesThunkAPI: any = createAsyncThunk('multilanguage/fetchMultilanguage', async (params: any) => {
   const MultilanguageData = await MultiLangApi(params?.appConfig);
-  console.log('MultilanguageData', MultilanguageData);
   return MultilanguageData;
 });
 
@@ -25,10 +24,15 @@ export const MultiLanguageScreen = createSlice({
   initialState,
   reducers: {
     setMultiLingualData(state, action) {
-      console.log('MultilanguageData in reducer', action.payload);
-      state.isLoading = 'succeeded';
-      state.languageData = [...action.payload];
-      state.error = '';
+      if (action.payload?.length > 0) {
+        state.isLoading = 'succeeded';
+        state.languageData = [...action.payload];
+        state.error = '';
+      } else {
+        state.isLoading = 'succeeded';
+        state.languageData = [];
+        state.error = 'Error Occured';
+      }
     },
   },
 });
