@@ -1,5 +1,5 @@
-import OrderReportComponent from '../../../components/OrderReport/OrderReportComponent';
-import PageMetaData from '../../../components/PageMetaData/PageMetaData';
+import OrderReportMaster from '../../../components/OrderReportComponents/OrderReportMaster';
+import PageMetaData from '../../../components/PageMetaData';
 import MetaTag from '../../../services/api/general-apis/meta-tag-api';
 import { CONSTANTS } from '../../../services/config/app-config';
 
@@ -8,7 +8,7 @@ const Index = ({ metaData }: any) => {
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
       <>
-        <OrderReportComponent />
+        <OrderReportMaster />
       </>
     </>
   );

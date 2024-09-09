@@ -1,10 +1,10 @@
 import React from 'react';
-import OrderDetail from '../../components/OrderDetail/OrderDetail';
+import OrderDetailMaster from '../../components/OrderDetailComponents/OrderDetailMaster';
 
 const Index = () => {
   return (
     <>
-      <OrderDetail />
+      <OrderDetailMaster />
     </>
   );
 };
