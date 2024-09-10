@@ -27,7 +27,6 @@ const useMultilangHook = () => {
   }, [MultiLanguageFromStore]);
 
   const handleLanguageChange = (lang: any) => {
-    console.log('selected lang', lang);
     if (lang === 'ar') {
       document.documentElement.dir = 'rtl';
     } else {
@@ -45,7 +44,6 @@ const useMultilangHook = () => {
     };
     dispatch(SelectedLangData(params) as any);
   }, [MultiLanguageFromStore, selectedLang]);
-
   return {
     setSelectedLang,
     selectedLang,

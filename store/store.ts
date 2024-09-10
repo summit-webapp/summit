@@ -10,7 +10,6 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-console.log('persisted Reducer', persistedReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,

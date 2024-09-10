@@ -60,7 +60,7 @@ const useProductListing = () => {
         if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
           setProductListingData((prevData: any) => [...prevData, ...productListDataAPI?.data?.message?.data]);
         } else if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
-          setProductListingData(productListDataAPI?.data?.message?.data);
+          setProductListingData([...productListDataAPI?.data?.message?.data]);
         }
         setProductListTotalCount(productListDataAPI?.data?.message?.total_count);
       } else {
@@ -108,7 +108,6 @@ const useProductListing = () => {
 
     setSearchFilterValue(router.query.search_text);
   }, [query]);
-
   return {
     productListingData,
     productListTotalCount,
