@@ -16,11 +16,9 @@ const useNavbar = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
-
   const [navbarData, setNavbarData] = useState<any>(null);
-
   const [selectedCurrencyValue, setSelectedCurrencyValue] = useState('');
-
+  let isLoggedIn = localStorage.getItem('isLoggedIn');
   const handleLogoutUser = async () => {
     let logoutAPIResponse: any;
     try {
@@ -70,6 +68,7 @@ const useNavbar = () => {
     errorMessage,
     selectedCurrencyValue,
     handleLogoutUser,
+    isLoggedIn,
   };
 };
 

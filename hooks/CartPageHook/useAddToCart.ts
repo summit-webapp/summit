@@ -12,7 +12,7 @@ import { CONSTANTS } from '../../services/config/app-config';
 const useAddToCartHook = () => {
   const dispatch = useDispatch();
   const tokenFromStore: any = useSelector(get_access_token);
-
+  const getPartyName = localStorage.getItem('party_name');
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const extractProductCodes = (data: any[]) => {
     return data?.flatMap((category) => category.orders.map((order: any) => order.item_code));
@@ -35,7 +35,7 @@ const useAddToCartHook = () => {
   };
   const addToCartItem = async (params: any, setCartListingItems?: any) => {
     const postDataInCart = await PostAddToCartAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
-    if (postDataInCart?.msg === 'success' && postDataInCart?.data?.message?.msg === 'success') {
+    if (postDataInCart?.status === 200 && postDataInCart?.data?.message?.msg === 'success') {
       dispatch(addItemToCart(params?.item_code));
       if (setCartListingItems) {
         getCartList(setCartListingItems);
@@ -44,7 +44,7 @@ const useAddToCartHook = () => {
         toast.success('Product added to cart successfully!');
       }
     } else {
-      toast.error('Failed to add product to Cart.');
+      toast.error(postDataInCart?.data?.message?.error);
     }
   };
   const placeOrderAPIFunc = async (params: any, setCartListingItems: any) => {
@@ -77,6 +77,6 @@ const useAddToCartHook = () => {
     }
   };
 
-  return { addToCartItem, placeOrderAPIFunc, RemoveItemCartAPIFunc, cLearCartAPIFunc };
+  return { addToCartItem, placeOrderAPIFunc, RemoveItemCartAPIFunc, cLearCartAPIFunc, getPartyName };
 };
 export default useAddToCartHook;

@@ -1,3 +1,4 @@
+// import ProductListingMaster from '../../../components/ProductCategoriesComponent/ProductListingMaster';
 import MetaTag from '../../../services/api/general-apis/meta-tag-api';
 import { CONSTANTS } from '../../../services/config/app-config';
 import ProductListingMaster from '../../../components/ProductCategoriesComponents/ProductListingMaster';
@@ -6,7 +7,7 @@ import PageMetaData from '../../../components/PageMetaData';
 const Index = ({ metaData }: any) => {
   return (
     <>
-      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
+      {/* {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />} */}
       <>
         <ProductListingMaster />
       </>

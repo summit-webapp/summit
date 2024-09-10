@@ -9,7 +9,7 @@ interface WishlistState {
 }
 
 const initialState: WishlistState = {
-  items: null,
+  items: [],
   error: null,
   wislistCount: 0,
   isLoading: 'idle',
@@ -20,8 +20,8 @@ const wishlistSlice = createSlice({
   initialState,
   reducers: {
     addWishList: (state, action) => {
-      state.items = action?.payload?.data
-      state.wislistCount = action?.payload?.wishlist_count
+      state.items = action?.payload?.data;
+      state.wislistCount = action?.payload?.wishlist_count;
     },
     addItemToWishlist: (state, action) => {
       state.items?.push(action.payload);
