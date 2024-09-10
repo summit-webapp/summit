@@ -2,7 +2,13 @@ import axios from 'axios';
 import { CONSTANTS } from '../../config/app-config';
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-const fetchProductMatchingItems = async (appConfig: APP_CONFIG, itemOptions: string[], product_id: any, currency: any, token: any) => {
+const fetchProductMatchingItems = async (
+  appConfig: APP_CONFIG,
+  itemOptions: string[],
+  product_id: any,
+  currency: any,
+  token?: undefined
+) => {
   let response: any;
   const version = appConfig.version;
   const method = 'get_recommendation';

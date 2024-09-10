@@ -19,20 +19,15 @@ const useProductDetail = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   // const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
-
   const [productDetailData, setProductDetailData] = useState<any>({});
   // Set if product detail data is variant that has opened. If Variant then check what's its template and set it.
   const [variantOf, setVariantOf] = useState<string>('');
   const [productVariantData, setProductVariantData] = useState([]);
   // Set Matching Items Data
-  const [matchingItemsData, setMatchingItemsData] = useState<any>([]);
-  const [reviewPhotos, setReviewPhotos] = useState<any[]>([]);
   // Fetch Stock Availability Data
   const [stockAvailabilityData, setStockAvailabilityData] = useState<any>([]);
   const [qty, setQty] = useState<number>(1);
   const [variantLoading, setVariantLoading] = useState<boolean>(false);
-
-  const itemOptions = ['Suggested', 'Alternate', 'Equivalent', 'Mandatory'];
 
   const fetchProductDetailDataAPI = async () => {
     const requestParams = {
@@ -101,8 +96,6 @@ const useProductDetail = () => {
     setQty(value);
   };
 
-  // Need to handle addCart (call addToCartItem func from addToCart hook)
-
   // Need to create function to handleRedirect onClick of variant
   const handleRedirectOnProductVariantButtonClick = (variant_code: any) => {
     if (query?.productId) {
@@ -113,18 +106,6 @@ const useProductDetail = () => {
   };
 
   // Need to create matching items api call
-  const fetchMatchingItemsAPI = async () => {
-    const getMatchingItemsData: any = await fetchProductMatchingItems(
-      SUMMIT_APP_CONFIG,
-      itemOptions,
-      query?.productId,
-      'INR',
-      TokenFromStore?.token
-    );
-    if (getMatchingItemsData?.status === 200) {
-    } else {
-    }
-  };
 
   const handleStockAvailabilityData = async () => {
     const requestParams: any = {
@@ -143,27 +124,12 @@ const useProductDetail = () => {
     }
   };
 
-  const getProductReview = async () => {
-    const requestParams = { item_code: query?.productId };
-    const productReviewData = await fetchProductReview(SUMMIT_APP_CONFIG, requestParams, TokenFromStore?.token);
-    if (productReviewData?.status === 200) {
-    } else {
-    }
-  };
-
-  const uploadReviewImage = async (imgFile: any) => {
-    const handleUploadImgData = await UploadReviewPhotoAPI(imgFile, TokenFromStore?.token);
-    if (handleUploadImgData?.status === 200) {
-      setReviewPhotos([...reviewPhotos, { image: handleUploadImgData.file_url }]);
-    } else {
-    }
-  };
-
   const productSpecification = async () => {};
 
   useEffect(() => {
     fetchProductDetailDataAPI();
   }, [query?.productId]);
+
   return {
     isLoading,
     errorMessage,
@@ -176,12 +142,6 @@ const useProductDetail = () => {
     handleStockAvailabilityData,
     handleQtyModificationOnButtonClick,
     handleQtyModificationOnInputEdit,
-    uploadReviewImage,
-    getProductReview,
-    query,
-    TokenFromStore,
-    setReviewPhotos,
-    reviewPhotos,
   };
 };
 
