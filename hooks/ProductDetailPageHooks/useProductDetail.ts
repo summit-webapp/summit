@@ -25,8 +25,6 @@ const useProductDetail = () => {
   const [variantOf, setVariantOf] = useState<string>('');
   const [productVariantData, setProductVariantData] = useState([]);
   // Set Matching Items Data
-  const [matchingItemsData, setMatchingItemsData] = useState<any>([]);
-  const [reviewPhotos, setReviewPhotos] = useState<any[]>([]);
   // Fetch Stock Availability Data
   const [stockAvailabilityData, setStockAvailabilityData] = useState<any>([]);
   const [qty, setQty] = useState<number>(1);
@@ -142,27 +140,12 @@ const useProductDetail = () => {
     }
   };
 
-  const getProductReview = async () => {
-    const requestParams = { item_code: query?.productId };
-    const productReviewData = await fetchProductReview(SUMMIT_APP_CONFIG, requestParams, TokenFromStore?.token);
-    if (productReviewData?.status === 200) {
-    } else {
-    }
-  };
-
-  const uploadReviewImage = async (imgFile: any) => {
-    const handleUploadImgData = await UploadReviewPhotoAPI(imgFile, TokenFromStore?.token);
-    if (handleUploadImgData?.status === 200) {
-      setReviewPhotos([...reviewPhotos, { image: handleUploadImgData.file_url }]);
-    } else {
-    }
-  };
-
   const productSpecification = async () => {};
 
   useEffect(() => {
     fetchProductDetailDataAPI();
   }, [query?.productId]);
+
   return {
     isLoading,
     errorMessage,
@@ -175,12 +158,6 @@ const useProductDetail = () => {
     handleStockAvailabilityData,
     handleQtyModificationOnButtonClick,
     handleQtyModificationOnInputEdit,
-    uploadReviewImage,
-    getProductReview,
-    query,
-    TokenFromStore,
-    setReviewPhotos,
-    reviewPhotos,
   };
 };
 
