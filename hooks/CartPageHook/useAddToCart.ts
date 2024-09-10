@@ -67,10 +67,11 @@ const useAddToCartHook = () => {
       toast.error('Failed to remove product from cart');
     }
   };
-  const cLearCartAPIFunc = async (quotation_id: any) => {
+  const cLearCartAPIFunc = async (quotation_id: any, setCartListingItems: any) => {
     const clearCartfunc = await DeleteClearCart(SUMMIT_APP_CONFIG, quotation_id, tokenFromStore?.token);
     if (clearCartfunc?.status === 200) {
       dispatch(clearCart());
+      setCartListingItems({});
       toast.success('Cart cleared sucessfully!');
     } else {
       toast.error('Failed to clear cart.');
