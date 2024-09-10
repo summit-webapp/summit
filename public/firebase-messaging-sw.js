@@ -8,7 +8,6 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 // export const initializeFirebase = () => {
-//   console.log("firebase app init", initializeApp);
 //   const firebaseConfig = {
 //     messagingSenderId: "418835235707",
 //     projectId: "test-web-push-a2336",
@@ -36,6 +35,5 @@ const messaging = firebase.messaging();
 // if ('serviceWorker' in navigator) {
 //     window.addEventListener('load', async () => {
 //       const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-//       console.log('ServiceWorker registered with scope:', registration.scope);
 //     });
 //   }

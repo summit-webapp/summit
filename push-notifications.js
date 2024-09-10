@@ -4,7 +4,6 @@ import { getMessaging, getToken, deleteToken } from 'firebase/messaging';
 import { requestPermission } from 'firebase/messaging';
 
 export const initializeFirebase = () => {
-  console.log('firebase app init', initializeApp);
   const firebaseConfig = {
     messagingSenderId: '418835235707',
     projectId: 'test-web-push-a2336',
@@ -18,7 +17,6 @@ export const initializeFirebase = () => {
 };
 
 export const askForPermissionToReceiveNotifications = async () => {
-  console.log('Ask for permission');
   try {
     const messaging = getMessaging();
     const currentToken = await getToken(messaging);
@@ -30,11 +28,11 @@ export const askForPermissionToReceiveNotifications = async () => {
     // }
 
     // const newToken = await getToken(messaging);
-    console.log('New token:', currentToken);
+    // console.log('New token:', currentToken);
 
     return newToken;
   } catch (error) {
-    console.log('Error:', error);
+    // console.log('Error:', error);
   }
 };
 

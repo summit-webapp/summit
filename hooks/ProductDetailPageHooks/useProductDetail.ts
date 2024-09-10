@@ -19,7 +19,6 @@ const useProductDetail = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   // const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
-
   const [productDetailData, setProductDetailData] = useState<any>({});
   // Set if product detail data is variant that has opened. If Variant then check what's its template and set it.
   const [variantOf, setVariantOf] = useState<string>('');
@@ -29,8 +28,6 @@ const useProductDetail = () => {
   const [stockAvailabilityData, setStockAvailabilityData] = useState<any>([]);
   const [qty, setQty] = useState<number>(1);
   const [variantLoading, setVariantLoading] = useState<boolean>(false);
-
-  const itemOptions = ['Suggested', 'Alternate', 'Equivalent', 'Mandatory'];
 
   const fetchProductDetailDataAPI = async () => {
     const requestParams = {
@@ -98,8 +95,6 @@ const useProductDetail = () => {
     setQty(value);
   };
 
-  // Need to handle addCart (call addToCartItem func from addToCart hook)
-
   // Need to create function to handleRedirect onClick of variant
   const handleRedirectOnProductVariantButtonClick = (variant_code: any) => {
     if (query?.productId) {
@@ -110,18 +105,6 @@ const useProductDetail = () => {
   };
 
   // Need to create matching items api call
-  const fetchMatchingItemsAPI = async () => {
-    const getMatchingItemsData: any = await fetchProductMatchingItems(
-      SUMMIT_APP_CONFIG,
-      itemOptions,
-      query?.productId,
-      'INR',
-      TokenFromStore?.token
-    );
-    if (getMatchingItemsData?.status === 200) {
-    } else {
-    }
-  };
 
   const handleStockAvailabilityData = async () => {
     const requestParams: any = {
