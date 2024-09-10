@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
-import fetchStateListAPI from '../../services/api/checkout/get-state-list-api';
+import fetchStateListAPI from '../../services/api/general-apis/get-state-list-api';
 
 const useGetStatesData = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
