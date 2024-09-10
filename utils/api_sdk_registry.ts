@@ -32,9 +32,12 @@ const apiSdkRegistry: any = {
   'get-order-summary-api': { version: '', method: 'get_summary', entity: 'order' },
   'get-transporters-list-api': { version: '', method: 'get_transporters', entity: 'profile' },
   'get-state-list-api': { version: '', method: 'get_states', entity: 'utils' },
+  'get-cities-list-api': { version: '', method: 'get_cities', entity: 'utils' },
+  'create-user-address-api': { version: '', method: 'put', entity: 'customer_address' },
   'order-list-api': { version: '', method: 'get_list', entity: 'order' },
   'order-detail-api': { version: '', method: 'get_order_details', entity: 'order' },
   'order-reports-api': { version: '', method: 'report_data', entity: 'sales_order_report' },
+  'place-order-api': { version: '', method: 'place_order', entity: 'order' },
 };
 
 export default apiSdkRegistry;
