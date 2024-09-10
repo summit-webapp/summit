@@ -44,7 +44,6 @@ const useMultilangHook = () => {
     };
     dispatch(SelectedLangData(params) as any);
   }, [MultiLanguageFromStore, selectedLang]);
-
   return {
     setSelectedLang,
     selectedLang,

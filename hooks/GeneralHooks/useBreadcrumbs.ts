@@ -15,8 +15,8 @@ const UseBreadCrumbsHook = () => {
   const TokenFromStore: any = useSelector(get_access_token);
 
   const url = router.asPath;
-  const splitURL = url.split('/').join(',').split('%20').join(',').split(',');
-
+  const baseUrl = url.split('?')[0];
+  const splitURL = baseUrl.split('/').join(',').split('%20').join(',').split(',');
   const fetchBreadcrumbDataAPI = async (requestParams: any) => {
     setIsLoading(true);
     try {
