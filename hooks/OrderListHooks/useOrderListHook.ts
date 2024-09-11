@@ -40,7 +40,7 @@ const useOrderListHook = () => {
      */
     try {
       getOrderListingData = await getOrderListAPI(SUMMIT_APP_CONFIG, status, tokenFromStore.token);
-      if (getOrderListingData?.data?.message?.msg === 'success') {
+      if (getOrderListingData?.status === 200 && getOrderListingData?.data?.message?.msg === 'success') {
         setOrderListData(getOrderListingData?.data?.message?.data);
       } else {
         setErrMessage(getOrderListingData?.data?.message?.error);
