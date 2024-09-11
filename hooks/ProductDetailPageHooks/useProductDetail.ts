@@ -56,7 +56,7 @@ const useProductDetail = () => {
       } else {
         setProductDetailData({});
         if (Object?.keys(productDetailAPI?.data?.message?.data).length === 0) {
-          setErrMessage('Product Detail Data Not Found');
+          setErrMessage('Product Detail Data Not Found !!!');
         } else {
           setErrMessage(productDetailAPI?.data?.message?.data?.error);
         }
