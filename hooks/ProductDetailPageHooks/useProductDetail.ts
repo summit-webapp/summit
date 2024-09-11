@@ -10,6 +10,7 @@ import fetchProductMatchingItems from '../../services/api/product-detail-page-ap
 import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-page-apis/get-product-stock-availability';
 import fetchProductReview from '../../services/api/product-detail-page-apis/get-product-review';
 import UploadReviewPhotoAPI from '../../services/api/utils/upload-file-api';
+import { object } from 'yup';
 
 const useProductDetail = () => {
   const { query } = useRouter();
@@ -39,8 +40,8 @@ const useProductDetail = () => {
       const productDetailAPI: any = await fetchProductDetailData(SUMMIT_APP_CONFIG, requestParams, TokenFromStore?.token);
       if (
         productDetailAPI?.status === 200 &&
-        productDetailAPI?.data?.message?.msg === 'Success' 
-        
+        productDetailAPI?.data?.message?.msg === 'Success' &&
+        Object?.keys(productDetailAPI?.data?.message?.data).length > 0
       ) {
         setProductDetailData(productDetailAPI?.data?.message?.data);
         if (productDetailAPI?.data?.message?.data?.variant_of) {
@@ -54,7 +55,11 @@ const useProductDetail = () => {
         }
       } else {
         setProductDetailData({});
-        setErrMessage(productDetailAPI?.data?.message?.data?.error);
+        if (Object?.keys(productDetailAPI?.data?.message?.data).length === 0) {
+          setErrMessage('Product Detail Data Not Found !!!');
+        } else {
+          setErrMessage(productDetailAPI?.data?.message?.data?.error);
+        }
       }
     } catch (error) {
       return;
@@ -66,7 +71,7 @@ const useProductDetail = () => {
     setVariantLoading(true);
     try {
       const productVariantAPI: any = await fetchProductVariant(SUMMIT_APP_CONFIG, templateName, TokenFromStore?.token);
-      
+
       if (productVariantAPI?.status === 200 && productVariantAPI?.data?.message?.msg === 'success') {
         setProductVariantData(productVariantAPI?.data?.message?.data);
       } else {
