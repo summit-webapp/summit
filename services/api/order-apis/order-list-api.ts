@@ -12,9 +12,9 @@ import { executeGETAPI } from '../../../utils/http-methods';
  * @returns {Promise<any>} - The response from the API call.
  * @throws {Error} Throws an error if the API call fails.
  */
-const getOrderListAPI = async (appConfig: APP_CONFIG, status: string, token: any): Promise<any> => {
+const getOrderListAPI = async (appConfig: APP_CONFIG, status: any, token: any): Promise<any> => {
   const user = localStorage.getItem('user') || '';
-  let additionalParams = { user, ...(status && { status }) };
+  let additionalParams = { user, ...(status && status) };
   // Use executeGETAPI to handle GET Request logic
   const response = await executeGETAPI(
     appConfig,
