@@ -46,10 +46,7 @@ const useProductDetail = () => {
         setProductDetailData(productDetailAPI?.data?.message?.data);
         if (productDetailAPI?.data?.message?.data?.variant_of) {
           setVariantOf(productDetailAPI?.data?.message?.data?.variant_of);
-
-          if (productDetailAPI?.data?.message?.data?.variant_of) {
-            fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data?.variant_of);
-          }
+          fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data?.variant_of);
         } else {
           setProductVariantData([]);
         }
