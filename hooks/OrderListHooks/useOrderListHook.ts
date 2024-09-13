@@ -28,9 +28,8 @@ const useOrderListHook = () => {
 
     const filterStatus = {
       status: updateStatus(query?.status) || '',
-      filters: query?.filter || '',
+      date_range: query?.filter || '',
     };
-    console.log(filterStatus, 'filterStatatuua');
     /**
      * Fetches order listing data from the API using the given token and status.
      *
