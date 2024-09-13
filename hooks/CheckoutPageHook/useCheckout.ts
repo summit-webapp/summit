@@ -3,7 +3,7 @@ import useFetchCartItems from '../CartPageHook/useFetchCartItems';
 import useGetStatesData from '../GeneralHooks/useGetStateList';
 import useOrderSummary from './useGetOrderSummary';
 import useGetTransportersList from './useGetTransportersList';
-import useGetUserAddresses from './useGetUserAddresses';
+import useGetUserAddresses from './useGetUserAddresse';
 import { useSelector } from 'react-redux';
 import { selectCart } from '../../store/slices/cart-slices/cart-local-slice';
 import { CONSTANTS } from '../../services/config/app-config';
@@ -71,6 +71,7 @@ const useCheckout = () => {
   };
   return {
     handlePlaceOrder,
+    stateList,
   };
 };
 
