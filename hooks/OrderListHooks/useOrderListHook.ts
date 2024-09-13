@@ -25,8 +25,11 @@ const useOrderListHook = () => {
         return '';
       }
     };
-    const status: any = updateStatus(query?.orderStatus);
 
+    const filterStatus = {
+      status: updateStatus(query?.status) || '',
+      date_range: query?.filter || '',
+    };
     /**
      * Fetches order listing data from the API using the given token and status.
      *
@@ -39,7 +42,7 @@ const useOrderListHook = () => {
      * @throws {Error} Throws an error if the API call fails.
      */
     try {
-      getOrderListingData = await getOrderListAPI(SUMMIT_APP_CONFIG, status, tokenFromStore.token);
+      getOrderListingData = await getOrderListAPI(SUMMIT_APP_CONFIG, filterStatus, tokenFromStore.token);
       if (getOrderListingData?.status === 200 && getOrderListingData?.data?.message?.msg === 'success') {
         setOrderListData(getOrderListingData?.data?.message?.data);
       } else {
