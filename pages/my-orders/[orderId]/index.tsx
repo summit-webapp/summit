@@ -1,12 +1,12 @@
 import React from 'react';
-// import OrderDetailComp from '../../components/OrderDetails/OrderDetail';
+import OrderDetailMaster from '../../../components/OrderDetailComponents/OrderDetailMaster';
 
 const OrderDetail = () => {
-    return (
-        <>
-            {/* <OrderDetailComp /> */}
-        </>
-    );
+  return (
+    <>
+      <OrderDetailMaster />
+    </>
+  );
 };
 
 export default OrderDetail;
