@@ -4,6 +4,7 @@ const apiSdkRegistry: any = {
   'otp-login-api': { method: 'signin', entity: 'signin' },
   'google-login-api': { method: 'signin', entity: 'signin' },
   'login-api': { method: 'get_access_token', entity: 'access_token' },
+  'get-user-details-api': { method: 'get_profile', entity: 'profile' },
   'default-currency-api': { method: 'get_default_currency', entity: 'product' },
   'multi-language-data-api': { method: 'get_languages', entity: 'translation' },
   'navbar-api': { version: 'v2', method: 'get_mega_menu', entity: 'mega_menu' },
