@@ -21,7 +21,7 @@ const apiSdkRegistry: any = {
   'delete-catalog-api': { method: 'delete', entity: 'catalog' },
   'brand-product-list-api': { method: 'get_list', entity: 'product' },
   'product-detail-api': { method: 'get_details', entity: 'product' },
-  'product-variants-api': { method: 'get_variants', entity: 'variant' },
+  'product-variants-api': { method: 'get_variants', entity: 'product' },
   'product-stock-availability': { method: 'check_availability', entity: 'product' },
   'product-matching-items': { method: 'get_recommendation', entity: 'product' },
   'product-review': { method: 'get_customer_review', entity: 'customer_review' },
