@@ -15,7 +15,7 @@ const apiSdkRegistry: any = {
   'catalog-product-list-api': { version: '', method: 'get_items', entity: 'catalog' },
   'brand-product-list-api': { version: '', method: 'get_list', entity: 'product' },
   'product-detail-api': { version: '', method: 'get_details', entity: 'product' },
-  'product-variants-api': { version: '', method: 'get_variants', entity: 'variant' },
+  'product-variants-api': { version: '', method: 'get_variants', entity: 'product' },
   'product-stock-availability': { version: '', method: 'check_availability', entity: 'product' },
   'product-matching-items': { version: '', method: 'get_recommendation', entity: 'product' },
   'product-review': { version: '', method: 'get_customer_review', entity: 'customer_review' },
