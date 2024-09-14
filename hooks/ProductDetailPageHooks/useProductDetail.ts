@@ -10,8 +10,6 @@ import fetchProductMatchingItems from '../../services/api/product-detail-page-ap
 import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-page-apis/get-product-stock-availability';
 import fetchProductReview from '../../services/api/product-detail-page-apis/get-product-review';
 import UploadReviewPhotoAPI from '../../services/api/utils/upload-file-api';
-import { object } from 'yup';
-import useProductVariants from './useProductVariants';
 
 const useProductDetail = () => {
   const { query } = useRouter();
@@ -112,7 +110,7 @@ const useProductDetail = () => {
 
   const handleStockAvailabilityData = async (quantity: string) => {
     const requestParams: any = {
-      item_code: productDetailData?.slug,
+      item_code: productDetailData?.name,
       qty: quantity,
     };
     const getStockAvailabilityDataOfProduct = await fetchStockAvailabilityOfProduct(
@@ -134,7 +132,6 @@ const useProductDetail = () => {
   }, [query?.productId]);
 
   return {
-    qty,
     isLoading,
     errorMessage,
     productDetailData,
