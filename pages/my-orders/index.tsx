@@ -1,4 +1,4 @@
-import OrderMaster from '../../components/MyOrder/orderListing/OrderMaster';
+import OrderMaster from '../../components/MyOrder/OrderMaster';
 import MetaTag from '../../services/api/general-apis/meta-tag-api';
 import { CONSTANTS } from '../../services/config/app-config';
 

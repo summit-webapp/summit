@@ -37,12 +37,10 @@ const useCheckout = () => {
     remarks: '',
   });
 
-  const handleUserAddressChange = (addressType: string, addressName: string) => {
-    if (addressType === 'Shipping') {
-      setOrderObj((prevObj) => ({ ...prevObj, shipping_address_id: addressName }));
-    } else {
-      setOrderObj((prevObj) => ({ ...prevObj, billing_address_id: addressName }));
-    }
+  const handleUserAddressChange = (e: any) => {
+        const {name,value} = e.target 
+      setOrderObj((prevObj) => ({ ...prevObj, [name]:value }));
+   
   };
 
   const handlePlaceOrder = async (billingAddress: string, shippingAddress: any, showBillingAddress: any) => {
@@ -51,8 +49,7 @@ const useCheckout = () => {
       shipping_address_id: shippingAddress,
       billing_address_id: showBillingAddress ? shippingAddress : billingAddress,
       order_id: cartListingItems.name,
-    };
-    console.log(params, 'params');
+    }; 
     try {
       let orderPlace: any = await postPlaceOrderAPI(SUMMIT_APP_CONFIG, params, tokenFromStore.token);
       if (orderPlace?.status === 200 && orderPlace?.data?.message?.msg === 'success') {
@@ -72,6 +69,8 @@ const useCheckout = () => {
   return {
     handlePlaceOrder,
     stateList,
+    transportersList,
+    handleUserAddressChange
   };
 };
 

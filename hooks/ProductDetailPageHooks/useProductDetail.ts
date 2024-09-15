@@ -10,7 +10,6 @@ import fetchProductMatchingItems from '../../services/api/product-detail-page-ap
 import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-page-apis/get-product-stock-availability';
 import fetchProductReview from '../../services/api/product-detail-page-apis/get-product-review';
 import UploadReviewPhotoAPI from '../../services/api/utils/upload-file-api';
-import { object } from 'yup';
 
 const useProductDetail = () => {
   const { query } = useRouter();
@@ -24,6 +23,7 @@ const useProductDetail = () => {
   // Set if product detail data is variant that has opened. If Variant then check what's its template and set it.
   const [variantOf, setVariantOf] = useState<string>('');
   const [productVariantData, setProductVariantData] = useState([]);
+
   // Set Matching Items Data
   // Fetch Stock Availability Data
   const [stockAvailabilityData, setStockAvailabilityData] = useState<any>([]);
@@ -46,10 +46,7 @@ const useProductDetail = () => {
         setProductDetailData(productDetailAPI?.data?.message?.data);
         if (productDetailAPI?.data?.message?.data?.variant_of) {
           setVariantOf(productDetailAPI?.data?.message?.data?.variant_of);
-
-          if (productDetailAPI?.data?.message?.data?.variant_of) {
-            fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data?.variant_of);
-          }
+          fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data?.variant_of);
         } else {
           setProductVariantData([]);
         }
@@ -71,7 +68,6 @@ const useProductDetail = () => {
     setVariantLoading(true);
     try {
       const productVariantAPI: any = await fetchProductVariant(SUMMIT_APP_CONFIG, templateName, TokenFromStore?.token);
-
       if (productVariantAPI?.status === 200 && productVariantAPI?.data?.message?.msg === 'success') {
         setProductVariantData(productVariantAPI?.data?.message?.data);
       } else {
@@ -112,18 +108,18 @@ const useProductDetail = () => {
 
   // Need to create matching items api call
 
-  const handleStockAvailabilityData = async () => {
+  const handleStockAvailabilityData = async (quantity: string) => {
     const requestParams: any = {
       item_code: productDetailData?.name,
-      qty: qty,
+      qty: quantity,
     };
     const getStockAvailabilityDataOfProduct = await fetchStockAvailabilityOfProduct(
       SUMMIT_APP_CONFIG,
       requestParams,
       TokenFromStore?.token
     );
-    if (getStockAvailabilityDataOfProduct?.status === 200) {
-      setStockAvailabilityData(getStockAvailabilityDataOfProduct?.data?.message);
+    if (getStockAvailabilityDataOfProduct?.status === 200 && getStockAvailabilityDataOfProduct?.data?.message?.msg === 'success') {
+      setStockAvailabilityData(getStockAvailabilityDataOfProduct?.data?.message?.data);
     } else {
       setStockAvailabilityData([]);
     }

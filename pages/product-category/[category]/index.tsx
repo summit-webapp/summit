@@ -3,8 +3,9 @@ import MetaTag from '../../../services/api/general-apis/meta-tag-api';
 import { CONSTANTS } from '../../../services/config/app-config';
 import ProductListingMaster from '../../../components/ProductCategoriesComponents/ProductListingMaster';
 import PageMetaData from '../../../components/PageMetaData';
+import { MetaDataTypes } from '../../../interfaces/meta-data-interface';
 
-const Index = ({ metaData }: any) => {
+const Index = ({ metaData }: MetaDataTypes) => {
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}

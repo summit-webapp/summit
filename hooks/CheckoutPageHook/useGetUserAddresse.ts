@@ -19,6 +19,7 @@ const useGetUserAddresses = () => {
   const [shippingAddressError, setShippingAddressError] = useState<string | null>(null);
   const [billingAddressError, setBillingAddressError] = useState<string | null>(null);
   const [cityList, setCityList] = useState<any>([]);
+  const mandatoryField =[  "name","address_1","address_2","country","state","city","postal_code",]
   const [createBillingAdd, setCreateBillingAdd] = useState({
     name: '',
     address_1: '',
@@ -46,6 +47,7 @@ const useGetUserAddresses = () => {
     address_type: '',
   });
   const [shippingAddress, setShippingAddress] = useState<any>([]);
+  const [emptyAddressFields, setEmptyAddressFields] = useState<any>([]);
   const [billingAddress, setBillingAddress] = useState<any>([]);
   const [editShippingAddress, setEditShippingAddress] = useState({});
   const [editBillingAddress, setEditBillingAddress] = useState({});
@@ -94,18 +96,24 @@ const useGetUserAddresses = () => {
     }
   };
   const handleEditShippingAddressChange = (e: any) => {
-    const { name, value } = e.target;
+    const { name, value,checked } = e.target;
     console.log(name, 'name');
     setEditShippingAddress({ ...editShippingAddress, [name]: value });
     if (name === 'state') {
       fetchList(value);
     }
+    if (name === 'set_as_default') {
+      setEditShippingAddress({ ...editShippingAddress, [name]: checked });
+    }
   };
   const handleEditBillingAddressChange = (e: any) => {
-    const { name, value } = e.target;
+    const { name, value,checked } = e.target;
     setEditBillingAddress({ ...editBillingAddress, [name]: value });
     if (name === 'state') {
       fetchList(value);
+    }
+    if (name === 'set_as_default') {
+      setEditBillingAddress({ ...editBillingAddress, [name]: checked });
     }
   };
   const handleCreateAddressChange = (e: any, type: any) => {
@@ -129,14 +137,31 @@ const useGetUserAddresses = () => {
       }
     }
   };
-  const handlePostAddress = async (type: any, createAdd?: any) => {
-    console.log(createShippingAdd, 'createShippingAdd');
+  const checkEmptyFields = (fields:any, data:any) => {
+    const pushFieldArray:any =[]
+    const emptyFields = fields.forEach((field:any) => {
+      if(data.hasOwnProperty(field) && !data[field]) {
+       pushFieldArray.push(field)
+      }
+      });
+     return setEmptyAddressFields(pushFieldArray)
+
+  };
+  const handlePostAddress = async (type: any, createAdd?: any,setShow?:any) => {
+    console.log(createAdd, 'createShippingAdd');
     let data: any;
     if (type === 'Shipping') {
-      data = createAdd === 'createAdd' ? createShippingAdd : editShippingAddress;
+      data = createAdd === 'Create' ? createShippingAdd : editShippingAddress;
     } else {
-      data = createAdd === 'createAdd' ? createBillingAdd : editBillingAddress;
+      data = createAdd === 'Create' ? createBillingAdd : editBillingAddress;
     }
+  
+   checkEmptyFields(mandatoryField, data)
+   console.log(data,"data")
+   if(emptyAddressFields.length>0){
+
+   }
+   else {
     const postAddress = await PostAddressAPI(SUMMIT_APP_CONFIG, data, tokenFromStore.token);
     if (postAddress?.status === 200 && postAddress?.data?.message?.msg === 'success') {
       type === 'Shipping' ? fetchUserShippingAddress() : fetchUserBillingAddress();
@@ -144,6 +169,8 @@ const useGetUserAddresses = () => {
     } else {
       toast.error('Error in Updating Address');
     }
+   }
+
   };
 
   return {
@@ -164,6 +191,8 @@ const useGetUserAddresses = () => {
     setEditBillingAddress,
     handlePostAddress,
     handleCreateAddressChange,
+    emptyAddressFields,
+    setEmptyAddressFields
   };
 };
 
