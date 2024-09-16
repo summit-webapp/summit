@@ -27,7 +27,7 @@ const useAddToWishlist = () => {
       item_code,
     };
     const removeItem = await DeleteProductFromWishlist(SUMMIT_APP_CONFIG, params, TokenFromStore?.token);
-    if (removeItem?.msg === 'success') {
+    if (removeItem?.data?.message?.msg === 'success') {
       dispatch(removeItemFromWishlist(item_code));
       toast.success('Product removed from wishlist successfully!');
     } else {
