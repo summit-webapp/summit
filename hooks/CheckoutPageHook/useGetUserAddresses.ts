@@ -9,17 +9,28 @@ import fetchCitiesListAPI from '../../services/api/general-apis/get-cities-list-
 import { PostAddToCartAPI } from '../../services/api/cart-apis/add-to-cart-api';
 import { PostAddressAPI } from '../../services/api/checkout/post-user-address-api';
 import { toast } from 'react-toastify';
+import useModalShow from './useModalShow';
 
 const useGetUserAddresses = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const tokenFromStore: any = useSelector(get_access_token);
+  const {
+    show,
+    showCreateAddModal,
+    showBilling,
+    showCreateBillingAddModal,
+    setShowCreateAddModal,
+    setShowBilling,
+    setShow,
+    setShowCreateBillingAddModal,
+  } = useModalShow();
   // Separate state for Shipping and Billing
   const [shippingAddressLoading, setShippingAddessLoading] = useState(false);
   const [billingAddressLoading, setBillingAddressLoading] = useState(false);
   const [shippingAddressError, setShippingAddressError] = useState<string | null>(null);
   const [billingAddressError, setBillingAddressError] = useState<string | null>(null);
   const [cityList, setCityList] = useState<any>([]);
-  const mandatoryField =[  "name","address_1","address_2","country","state","city","postal_code",]
+  const mandatoryField = ['name', 'address_1', 'address_2', 'country', 'state', 'city', 'postal_code'];
   const [createBillingAdd, setCreateBillingAdd] = useState({
     name: '',
     address_1: '',
@@ -51,6 +62,7 @@ const useGetUserAddresses = () => {
   const [billingAddress, setBillingAddress] = useState<any>([]);
   const [editShippingAddress, setEditShippingAddress] = useState({});
   const [editBillingAddress, setEditBillingAddress] = useState({});
+  const pushFieldArray: any = [];
   const fetchUserShippingAddress = async () => {
     setShippingAddessLoading(true);
     try {
@@ -96,8 +108,7 @@ const useGetUserAddresses = () => {
     }
   };
   const handleEditShippingAddressChange = (e: any) => {
-    const { name, value,checked } = e.target;
-    console.log(name, 'name');
+    const { name, value, checked } = e.target;
     setEditShippingAddress({ ...editShippingAddress, [name]: value });
     if (name === 'state') {
       fetchList(value);
@@ -107,7 +118,7 @@ const useGetUserAddresses = () => {
     }
   };
   const handleEditBillingAddressChange = (e: any) => {
-    const { name, value,checked } = e.target;
+    const { name, value, checked } = e.target;
     setEditBillingAddress({ ...editBillingAddress, [name]: value });
     if (name === 'state') {
       fetchList(value);
@@ -119,7 +130,6 @@ const useGetUserAddresses = () => {
   const handleCreateAddressChange = (e: any, type: any) => {
     const { name, value, checked } = e.target;
     if (type === 'Shipping') {
-      console.log(e, 'jjj');
       setCreateShippingAdd({ ...createShippingAdd, [name]: value });
       if (name === 'set_as_default') {
         setCreateShippingAdd({ ...createShippingAdd, [name]: checked });
@@ -137,40 +147,38 @@ const useGetUserAddresses = () => {
       }
     }
   };
-  const checkEmptyFields = (fields:any, data:any) => {
-    const pushFieldArray:any =[]
-    const emptyFields = fields.forEach((field:any) => {
-      if(data.hasOwnProperty(field) && !data[field]) {
-       pushFieldArray.push(field)
+  const checkEmptyFields = (fields: any, data: any) => {
+    fields.forEach((field: any) => {
+      if (data.hasOwnProperty(field) && !data[field]) {
+        pushFieldArray.push(field);
       }
-      });
-     return setEmptyAddressFields(pushFieldArray)
-
+    });
+    return setEmptyAddressFields(pushFieldArray);
   };
-  const handlePostAddress = async (type: any, createAdd?: any,setShow?:any) => {
-    console.log(createAdd, 'createShippingAdd');
+  const handlePostAddress = async (type: any, createAdd?: any) => {
     let data: any;
+
     if (type === 'Shipping') {
       data = createAdd === 'Create' ? createShippingAdd : editShippingAddress;
     } else {
       data = createAdd === 'Create' ? createBillingAdd : editBillingAddress;
     }
-  
-   checkEmptyFields(mandatoryField, data)
-   console.log(data,"data")
-   if(emptyAddressFields.length>0){
-
-   }
-   else {
-    const postAddress = await PostAddressAPI(SUMMIT_APP_CONFIG, data, tokenFromStore.token);
-    if (postAddress?.status === 200 && postAddress?.data?.message?.msg === 'success') {
-      type === 'Shipping' ? fetchUserShippingAddress() : fetchUserBillingAddress();
-      toast.success('Address Updated Sucessfully');
+    checkEmptyFields(mandatoryField, data);
+    if (pushFieldArray.length > 0) {
+      toast.error('Fill all input fields');
     } else {
-      toast.error('Error in Updating Address');
+      const postAddress = await PostAddressAPI(SUMMIT_APP_CONFIG, data, tokenFromStore.token);
+      if (postAddress?.status === 200 && postAddress?.data?.message?.msg === 'success') {
+        type === 'Shipping' ? fetchUserShippingAddress() : fetchUserBillingAddress();
+        toast.success('Address Updated Sucessfully');
+        setShowCreateAddModal(false);
+        setShowBilling(false);
+        setShow(false);
+        setShowCreateBillingAddModal(false);
+      } else {
+        toast.error('Error in Updating Address');
+      }
     }
-   }
-
   };
 
   return {
@@ -192,7 +200,15 @@ const useGetUserAddresses = () => {
     handlePostAddress,
     handleCreateAddressChange,
     emptyAddressFields,
-    setEmptyAddressFields
+    setEmptyAddressFields,
+    show,
+    showCreateAddModal,
+    showBilling,
+    showCreateBillingAddModal,
+    setShowCreateAddModal,
+    setShowBilling,
+    setShow,
+    setShowCreateBillingAddModal,
   };
 };
 
