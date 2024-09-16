@@ -13,7 +13,6 @@ import UploadReviewPhotoAPI from '../../services/api/utils/upload-file-api';
 
 const useProductDetail = () => {
   const { query } = useRouter();
-  const router = useRouter();
 
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
@@ -28,6 +27,27 @@ const useProductDetail = () => {
   // Fetch Stock Availability Data
   const [stockAvailabilityData, setStockAvailabilityData] = useState<any>([]);
   const [qty, setQty] = useState<number>(1);
+  const [itemList, setItemList] = useState<any>([
+    {
+      item_code: '',
+      quantity: productDetailData?.min_order_qty || 1,
+    },
+  ]);
+  const handleMultipleQtyChange = (index: number, itemCode: string, value: string) => {
+    setItemList((prevItemList: any) => {
+      if (!Array.isArray(prevItemList)) {
+        // Handle the case where prevItemList is not an array
+        return [];
+      }
+      const updatedItemList = [...prevItemList];
+      updatedItemList[index] = {
+        ...updatedItemList[index],
+        item_code: itemCode,
+        quantity: value,
+      };
+      return updatedItemList;
+    });
+  };
   const [variantLoading, setVariantLoading] = useState<boolean>(false);
 
   const fetchProductDetailDataAPI = async () => {
@@ -44,6 +64,7 @@ const useProductDetail = () => {
         Object?.keys(productDetailAPI?.data?.message?.data).length > 0
       ) {
         setProductDetailData(productDetailAPI?.data?.message?.data);
+        setQty(productDetailAPI?.data?.message?.data?.min_order_qty);
         if (productDetailAPI?.data?.message?.data?.variant_of) {
           setVariantOf(productDetailAPI?.data?.message?.data?.variant_of);
           fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data?.variant_of);
@@ -97,21 +118,12 @@ const useProductDetail = () => {
     setQty(value);
   };
 
-  // Need to create function to handleRedirect onClick of variant
-  const handleRedirectOnProductVariantButtonClick = (variant_code: any) => {
-    if (query?.productId) {
-      router.push({
-        query: { ...query, productId: variant_code },
-      });
-    }
-  };
-
   // Need to create matching items api call
 
-  const handleStockAvailabilityData = async (quantity: string) => {
+  const handleStockAvailabilityData = async () => {
     const requestParams: any = {
       item_code: productDetailData?.name,
-      qty: quantity,
+      qty: qty,
     };
     const getStockAvailabilityDataOfProduct = await fetchStockAvailabilityOfProduct(
       SUMMIT_APP_CONFIG,
@@ -137,12 +149,14 @@ const useProductDetail = () => {
     productDetailData,
     productVariantData,
     fetchProductDetailDataAPI,
-    handleRedirectOnProductVariantButtonClick,
     variantLoading,
     stockAvailabilityData,
     handleStockAvailabilityData,
     handleQtyModificationOnButtonClick,
     handleQtyModificationOnInputEdit,
+    itemList,
+    qty,
+    handleMultipleQtyChange,
   };
 };
 
