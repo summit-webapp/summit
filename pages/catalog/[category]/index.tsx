@@ -1,14 +1,14 @@
-import CatalogList from '../../components/Catalog/CatalogList';
-import PageMetaData from '../../components/PageMetaData';
-import { MetaDataTypes } from '../../interfaces/meta-data-interface';
-import MetaTag from '../../services/api/general-apis/meta-tag-api';
-import { CONSTANTS } from '../../services/config/app-config';
+import PageMetaData from '../../../components/PageMetaData';
+import ProductListingMaster from '../../../components/ProductCategoriesComponents/ProductListingMaster';
+import { MetaDataTypes } from '../../../interfaces/meta-data-interface';
+import MetaTag from '../../../services/api/general-apis/meta-tag-api';
+import { CONSTANTS } from '../../../services/config/app-config';
 
 const Index = ({ metaData }: MetaDataTypes) => {
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
-      <CatalogList />
+      <ProductListingMaster />
     </>
   );
 };
