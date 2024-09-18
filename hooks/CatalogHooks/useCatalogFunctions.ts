@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { AddItemToCatalogAPI } from '../../services/api/catalog-apis/add-item-to-catalog-api';
+import { DeleteCatalogItemAPI } from '../../services/api/catalog-apis/delete-catalog-item-api';
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import { DeleteCatalogItemAPI } from '../../services/api/catalog-apis/delete-catalog-item-api';
 
 const useCatalogFunctions = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
@@ -15,7 +15,7 @@ const useCatalogFunctions = () => {
     };
     const getCatalogList = await AddItemToCatalogAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
     if (getCatalogList.data.message.msg === 'success') {
-      toast.success('Item Added To Catalog Successfuly');
+      toast.success(getCatalogList?.data?.message?.data);
     } else {
       toast.error('Error in adding product to catalog');
     }
@@ -25,7 +25,6 @@ const useCatalogFunctions = () => {
       catalog_name: catalog,
       item: name,
     };
-    console.log(params, 'catalog');
     const deleteCatalogItem = await DeleteCatalogItemAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
     if (deleteCatalogItem?.message?.msg === 'success') {
       toast.success('Catalog Item Deleted Successfuly');
