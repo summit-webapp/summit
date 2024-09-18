@@ -22,7 +22,6 @@ const useMatchingProduct = () => {
         'INR'
         // TokenFromStore?.token
       );
-      console.log(getMatchingItemsData.length, 'matchingProducts');
       if (getMatchingItemsData?.length > 0) {
         setMatchingProducts(getMatchingItemsData);
       } else {

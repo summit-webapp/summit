@@ -7,7 +7,6 @@ import PageMetaData from '../components/PageMetaData';
 import { MetaDataTypes } from '../interfaces/meta-data-interface';
 
 const login = ({ metaData }: MetaDataTypes) => {
-  console.log('meta', metaData);
   const router = useRouter();
   function checkIfUserIsAuthorized() {
     const checkUserStatus = checkAuthorizedUser();

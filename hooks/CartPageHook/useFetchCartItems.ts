@@ -49,6 +49,7 @@ const useFetchCartItems = () => {
     isLoading,
     errorMessage,
     cartCount,
+    fetchCartListingData,
   };
 };
 export default useFetchCartItems;
