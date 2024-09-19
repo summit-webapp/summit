@@ -14,6 +14,11 @@ const apiSdkRegistry: any = {
   'get-product-listing-filters-api': { method: 'get_filters', entity: 'filter' },
   'product-list-api': { method: 'get_list', entity: 'product' },
   'catalog-product-list-api': { method: 'get_items', entity: 'catalog' },
+  'create-catalog-api': { method: 'put', entity: 'catalog' },
+  'get-catalog-list-api': { method: 'get', entity: 'catalog' },
+  'add-items-in-catalog-list-api': { method: 'put_items', entity: 'catalog' },
+  'delete-items-in-catalog-api': { method: 'delete_items', entity: 'catalog' },
+  'delete-catalog-api': { method: 'delete', entity: 'catalog' },
   'brand-product-list-api': { method: 'get_list', entity: 'product' },
   'product-detail-api': { method: 'get_details', entity: 'product' },
   'product-variants-api': { method: 'get_variants', entity: 'product' },
@@ -44,6 +49,7 @@ const apiSdkRegistry: any = {
   'get-catalog-list-api': { method: 'get', entity: 'catalog' },
   'delete-catalog-api': { method: 'delete', entity: 'catalog' },
   'delete-catalog-item-api': { method: 'delete_items', entity: 'catalog' },
+  'razorpay-payment-api': { method: 'get_razorpay_payment_url', entity: 'order' },
 };
 
 export default apiSdkRegistry;
