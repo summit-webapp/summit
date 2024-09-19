@@ -82,8 +82,21 @@ export const executePOSTAPI = async (frappeAppConfig: APP_CONFIG, apiName: strin
   const response = await callPostAPI(url, body, token);
   return response;
 };
+export const executeDELETEAPI = async (frappeAppConfig: APP_CONFIG, apiName: string, apiBody: Record<string, any> = {}, token?: any) => {
+  /* GET all the required information about frappe app i.e it's version, method and entity.*/
+  const { sdkVersion, method, entity } = getVME(frappeAppConfig, apiName);
+  const body = {
+    version: sdkVersion,
+    method,
+    entity,
+    ...apiBody,
+  };
+  const url: string = `${CONSTANTS.API_BASE_URL}${frappeAppConfig.app_name}`;
+  const response = await callDeleteAPI(url, body, token);
+  return response;
+};
 
-export const callGetAPI = async (url: string, token?: any) => {
+const callGetAPI = async (url: string, token?: any) => {
   let response: any;
   const API_CONFIG = {
     headers: {
@@ -113,7 +126,7 @@ export const callGetAPI = async (url: string, token?: any) => {
 
   return response;
 };
-export const callPostAPI = async (url: string, body: any, token?: any) => {
+const callPostAPI = async (url: string, body: any, token?: any) => {
   let response: any;
   const API_CONFIG = {
     headers: {
@@ -126,6 +139,31 @@ export const callPostAPI = async (url: string, body: any, token?: any) => {
       timeout: 5000,
     })
     .then((res: any) => {
+      response = res;
+    })
+    .catch((err: any) => {
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out. API took too long to return response.';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
+      } else {
+        response = err;
+      }
+    });
+  return response;
+};
+const callDeleteAPI = async (url: string, body?: any, token?: any) => {
+  let response: any;
+  const API_CONFIG = {
+    headers: {
+      ...(token ? { Authorization: token } : {}),
+    },
+  };
+  await axios
+    .delete(`${url}`, { headers: { ...API_CONFIG.headers }, data: { ...body } })
+    .then((res) => {
       response = res;
     })
     .catch((err: any) => {

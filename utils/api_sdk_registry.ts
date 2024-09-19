@@ -36,6 +36,9 @@ const apiSdkRegistry: any = {
   'remove-single-item-cart-api': { method: 'delete_products', entity: 'cart' },
   'get-user-addresses-api': { method: 'get', entity: 'customer_address' },
   'get-order-summary-api': { method: 'get_summary', entity: 'order' },
+  'apply-coupon-code-api': { method: 'put', entity: 'coupon_code' },
+  'delete-coupon-code-api': { method: 'delete', entity: 'coupon_code' },
+  'apply-store-credit-api': { method: 'put', entity: 'store_credit' },
   'get-transporters-list-api': { method: 'get_transporters', entity: 'profile' },
   'get-state-list-api': { method: 'get_states', entity: 'utils' },
   'get-cities-list-api': { method: 'get_cities', entity: 'utils' },
@@ -44,9 +47,11 @@ const apiSdkRegistry: any = {
   'order-detail-api': { method: 'get_order_details', entity: 'order' },
   'order-reports-api': { method: 'report_data', entity: 'sales_order_report' },
   'place-order-api': { method: 'place_order', entity: 'order' },
-  'razorpay_payment-api': { method: 'get_razorpay_payment_url', entity: 'order' },
   'top-catagories-api': { method: 'get_cyu_categories', entity: 'product' },
   'brand-list-api': { method: 'get', entity: 'brand' },
+  'add-item-to-catalog-api': { method: 'put_items', entity: 'catalog' },
+  'delete-catalog-item-api': { method: 'delete_items', entity: 'catalog' },
+  'razorpay-payment-api': { method: 'get_razorpay_payment_url', entity: 'order' },
 };
 
 export default apiSdkRegistry;
