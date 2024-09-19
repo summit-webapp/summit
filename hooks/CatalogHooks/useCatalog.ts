@@ -39,9 +39,6 @@ const useCatalog = () => {
       setIsLoading(false);
     }
   };
-  useEffect(() => {
-    fetchCatalogListData();
-  }, []);
   const handleSubmitCatalogName = async () => {
     const params = {
       catalog_name: catalogName,
@@ -62,7 +59,7 @@ const useCatalog = () => {
     const params = {
       catalog_name: catalog,
     };
-    const deleteCatalogs = await DeleteCatalogAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
+    const deleteCatalogs: any = await DeleteCatalogAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
     if (deleteCatalogs?.data?.message?.msg === 'success') {
       toast.success('Catalog Deleted Successfuly');
       setTimeout(() => {
@@ -72,6 +69,10 @@ const useCatalog = () => {
       toast.error('Error in deleting the catalog');
     }
   };
+
+  useEffect(() => {
+    fetchCatalogListData();
+  }, []);
 
   return {
     handleCatalogName,
