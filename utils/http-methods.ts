@@ -82,6 +82,28 @@ export const executePOSTAPI = async (frappeAppConfig: APP_CONFIG, apiName: strin
   const response = await callPostAPI(url, body, token);
   return response;
 };
+export const executeDELETEAPI = async (
+  frappeAppConfig: APP_CONFIG,
+  apiName: string,
+  additionalParams: Record<string, any> = {},
+  token?: any
+) => {
+  let baseURL: string;
+  let storeParams: any;
+  /* GET all the required information about frappe app i.e it's version, method and entity.*/
+  const { sdkVersion, method, entity } = getVME(frappeAppConfig, apiName);
+  const params = new URLSearchParams({
+    version: sdkVersion,
+    method,
+    entity,
+    ...additionalParams, // Add additional parameters if provided
+  });
+  storeParams = params.toString();
+  baseURL = `${CONSTANTS.API_BASE_URL}${frappeAppConfig.app_name}?${storeParams}`;
+
+  const response = await callDeleteAPI(baseURL, token);
+  return response;
+};
 
 export const callGetAPI = async (url: string, token?: any) => {
   let response: any;
@@ -138,6 +160,23 @@ export const callPostAPI = async (url: string, body: any, token?: any) => {
       } else {
         response = err;
       }
+    });
+  return response;
+};
+const callDeleteAPI = async (url: string, token?: any) => {
+  let response: any;
+  const API_CONFIG = {
+    headers: {
+      ...(token ? { Authorization: token } : {}),
+    },
+  };
+  await axios
+    .delete(`${url}`, API_CONFIG)
+    .then((res) => {
+      response = res;
+    })
+    .catch((err) => {
+      response = err;
     });
   return response;
 };
