@@ -16,8 +16,9 @@ const useBanner = () => {
     setIsLoading(true);
     try {
       getBannerData = await getBannerAPI(SUMMIT_APP_CONFIG, tokenFromStore?.token);
-      if (getBannerData?.status === 200 && getBannerData?.data?.status === 'Success') {
-        setAllBannerData(getBannerData?.data?.data);
+      console.log(getBannerData?.data, 'getBannerData?.data?');
+      if (getBannerData?.status === 200 && getBannerData?.data?.message?.msg === 'success') {
+        setAllBannerData(getBannerData?.data?.message?.data);
       } else {
         setErrMessage(getBannerData?.data?.message?.error);
       }

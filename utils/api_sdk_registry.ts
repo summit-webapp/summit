@@ -45,6 +45,8 @@ const apiSdkRegistry: any = {
   'order-reports-api': { method: 'report_data', entity: 'sales_order_report' },
   'place-order-api': { method: 'place_order', entity: 'order' },
   'razorpay_payment-api': { method: 'get_razorpay_payment_url', entity: 'order' },
+  'top-catagories-api': { method: 'get_cyu_categories', entity: 'product' },
+  'brand-list-api': { method: 'get', entity: 'brand' },
 };
 
 export default apiSdkRegistry;
