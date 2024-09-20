@@ -96,7 +96,7 @@ export const executeDELETEAPI = async (frappeAppConfig: APP_CONFIG, apiName: str
   return response;
 };
 
-const callGetAPI = async (url: string, token?: any) => {
+export const callGetAPI = async (url: string, token?: any) => {
   let response: any;
   const API_CONFIG = {
     headers: {
