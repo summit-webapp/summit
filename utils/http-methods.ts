@@ -126,7 +126,7 @@ export const callGetAPI = async (url: string, token?: any) => {
 
   return response;
 };
-const callPostAPI = async (url: string, body: any, token?: any) => {
+export const callPostAPI = async (url: string, body: any, token?: any) => {
   let response: any;
   const API_CONFIG = {
     headers: {
