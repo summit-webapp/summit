@@ -6,7 +6,7 @@ import { currency_selector_state, setCurrencyValue } from '../../store/slices/ge
 import getDisplaytagsDataFromAPI from '../../services/api/home-page-apis/home-display-tag-api';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 
-const useDisplayTagHooks = () => {
+const useFeaturedCollections = () => {
   const dispatch = useDispatch();
   const currency_state_from_redux: any = useSelector(currency_selector_state);
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
@@ -68,4 +68,4 @@ const useDisplayTagHooks = () => {
   };
 };
 
-export default useDisplayTagHooks;
+export default useFeaturedCollections;

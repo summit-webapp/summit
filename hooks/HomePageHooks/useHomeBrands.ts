@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
 import getTopBrandAPI from '../../services/api/home-page-apis/get-top-brand-api';
+import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 const useTopBrand = () => {
   const [brandListing, setBrandListing] = useState<any>([]);
   const tokenFromStore: any = useSelector(get_access_token);
@@ -14,6 +14,7 @@ const useTopBrand = () => {
     setIsLoading(true);
     try {
       getTopBrandData = await getTopBrandAPI(SUMMIT_APP_CONFIG, tokenFromStore?.token);
+      console.log('getTopBrandData', getTopBrandData);
       if (getTopBrandData?.status === 200 && getTopBrandData?.data?.message?.msg === 'success') {
         setBrandListing(getTopBrandData?.data?.message?.data);
       } else {
@@ -29,7 +30,7 @@ const useTopBrand = () => {
   useEffect(() => {
     fetchTopBrandData();
   }, []);
-  return { brandListing };
+  return { isLoading, brandListing, errorMessage };
 };
 
 export default useTopBrand;
