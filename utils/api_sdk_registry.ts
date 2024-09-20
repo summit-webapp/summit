@@ -47,6 +47,8 @@ const apiSdkRegistry: any = {
   'order-detail-api': { method: 'get_order_details', entity: 'order' },
   'order-reports-api': { method: 'report_data', entity: 'sales_order_report' },
   'place-order-api': { method: 'place_order', entity: 'order' },
+  'top-catagories-api': { method: 'get_cyu_categories', entity: 'product' },
+  'brand-list-api': { method: 'get', entity: 'brand' },
   'add-item-to-catalog-api': { method: 'put_items', entity: 'catalog' },
   'delete-catalog-item-api': { method: 'delete_items', entity: 'catalog' },
   'razorpay-payment-api': { method: 'get_razorpay_payment_url', entity: 'order' },

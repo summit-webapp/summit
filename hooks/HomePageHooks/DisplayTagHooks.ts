@@ -15,7 +15,6 @@ const useDisplayTagHooks = () => {
   const [allTagsData, setAllTagsData] = useState<any>([]);
 
   const tokenFromStore: any = useSelector(get_access_token);
-
   const fetchDisplayTagsDataFunction = async (currency_value: any) => {
     setIsLoading(true);
     try {
