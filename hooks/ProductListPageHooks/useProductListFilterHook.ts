@@ -60,7 +60,7 @@ const useProductListingFilterHook = () => {
     const filterValue = event.target.value;
     const isChecked = event.target.checked;
 
-    await setSelectedFilters((prevFilters: any) => {
+    setSelectedFilters((prevFilters: any) => {
       let updatedFilters = [...prevFilters];
 
       const existingSectionIndex = prevFilters.findIndex((filter: any) => filter.name === section);
@@ -80,7 +80,7 @@ const useProductListingFilterHook = () => {
       duplicateFilters = [...updatedFilters];
       return updatedFilters;
     });
-    const filterString = duplicateFilters.length > 0 ? `&filter=${encodeURIComponent(JSON.stringify(duplicateFilters))}` : '';
+    const filterString = duplicateFilters?.length > 0 ? `&filter=${encodeURIComponent(JSON.stringify(duplicateFilters))}` : '';
     let url = router.asPath;
     const existingFilterIndex = url.indexOf('&filter=');
     if (existingFilterIndex !== -1) {
