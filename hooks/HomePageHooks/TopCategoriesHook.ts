@@ -22,7 +22,6 @@ const useHomeTopCategories = () => {
     setIsLoading(true);
     try {
       getCategoryData = await getTopCategoryAPI(SUMMIT_APP_CONFIG, tokenFromStore?.token);
-      console.log(getCategoryData, 'getCategoryData?.data?');
       if (getCategoryData?.status === 200) {
         setHomeTopCategories(getCategoryData?.data?.message);
       } else {
