@@ -15,7 +15,6 @@ const useDisplayTagHooks = () => {
   const [allTagsData, setAllTagsData] = useState<any>([]);
 
   const tokenFromStore: any = useSelector(get_access_token);
-  console.log(currency_state_from_redux, 'currency_state_from_redux');
   const fetchDisplayTagsDataFunction = async (currency_value: any) => {
     setIsLoading(true);
     try {
