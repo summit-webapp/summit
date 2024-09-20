@@ -14,7 +14,7 @@ interface DefaultCurrencyState {
 }
 
 const initialState = {
-  default_currency_value: '',
+  default_currency_value: 'INR',
   selected_currency_value: '',
   loading: 'idle',
 } as DefaultCurrencyState;
