@@ -16,9 +16,10 @@ const useFeaturedCollections = () => {
 
   const tokenFromStore: any = useSelector(get_access_token);
   const fetchDisplayTagsDataFunction = async (currency_value: any) => {
+    const params: any = ['name', 'description', 'tag_image'];
     setIsLoading(true);
     try {
-      const getDisplayTagsData = await getDisplaytagsDataFromAPI(SUMMIT_APP_CONFIG, currency_value, tokenFromStore?.token);
+      const getDisplayTagsData = await getDisplaytagsDataFromAPI(SUMMIT_APP_CONFIG, params, currency_value, tokenFromStore?.token);
 
       if (getDisplayTagsData?.length > 0) {
         const tagsDataArray = getDisplayTagsData
@@ -26,6 +27,7 @@ const useFeaturedCollections = () => {
             if (data?.value?.message?.msg === 'success') {
               return {
                 tag_name: data.tag_name,
+                description: data.description,
                 value: data?.value?.message?.data,
               };
             } else {
