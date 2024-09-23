@@ -13,6 +13,7 @@ const apiSdkRegistry: any = {
   'breadcrums-api': { method: 'breadcrums', entity: 'mega_menu' },
   'get-product-listing-filters-api': { method: 'get_filters', entity: 'filter' },
   'product-list-api': { method: 'get_list', entity: 'product' },
+  'quick-order-api': { method: 'quick_order', entity: 'product' },
   'catalog-product-list-api': { method: 'get_items', entity: 'catalog' },
   'create-catalog-api': { method: 'put', entity: 'catalog' },
   'get-catalog-list-api': { method: 'get', entity: 'catalog' },
