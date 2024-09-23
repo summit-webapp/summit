@@ -8,6 +8,7 @@ import MultiLanguageReducer from './slices/general_slices/multilang-slice';
 import SelectedFilterLangDataScreen from './slices/general_slices/selected-multilanguage-slice';
 import LanguageReducer from './slices/language-slice/language-json-slice';
 import wishlistSlice from './slices/wishlist-slices/wishlist-local-slice';
+import quickOrderSlice from './slices/quick-order-slice/quick-order-slice';
 
 const appReducer = combineReducers({
   LanguagesScreen: LanguageReducer,
@@ -18,6 +19,7 @@ const appReducer = combineReducers({
   wishlistSlice: wishlistSlice,
   cart: cartLocalSlice,
   catalogSlice: catalogLocalSlice,
+  quickOrder: quickOrderSlice,
 });
 
 const rootReducer = (state: any, action: any) => {
