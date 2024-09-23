@@ -25,8 +25,11 @@ const useCatalog = () => {
       let catalogListData: any = await GetCatalogListAPI(SUMMIT_APP_CONFIG, tokenFromStore.token);
       if (catalogListData?.status === 200 && catalogListData?.data?.message?.msg === 'success') {
         setCatalogList(catalogListData?.data?.message?.data);
-        const catalogNames = catalogListData?.data?.message?.data.map((item: any) => item.name);
-        dispatch(setCatalogListSlice(catalogNames));
+        const catalogItems = catalogListData?.data?.message?.data.map((item: any) => ({
+          name: item.name,
+          slug: item.slug,
+        }));
+        dispatch(setCatalogListSlice(catalogItems));
         setErrMessage('');
       } else {
         setCatalogList([]);
@@ -44,15 +47,19 @@ const useCatalog = () => {
       catalog_name: catalogName,
       catalog_access_level: 'Public',
     };
-    const newCatalog = await CreateCatalogAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
-    if (newCatalog?.data?.message?.msg === 'success') {
-      toast.success('Catalog created sucessfully');
-      setTimeout(() => {
-        fetchCatalogListData();
-      }, 1000);
-      setCatalogName('');
+    if (catalogName !== '') {
+      const newCatalog = await CreateCatalogAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
+      if (newCatalog?.data?.message?.msg === 'success') {
+        toast.success('Catalog created sucessfully');
+        setTimeout(() => {
+          fetchCatalogListData();
+        }, 1000);
+        setCatalogName('');
+      } else {
+        toast.error(newCatalog?.message?.error);
+      }
     } else {
-      toast.error(newCatalog?.message?.error);
+      toast.error('Please enter valid catalog name');
     }
   };
   const handleDeleteCatalog = async (catalog: any) => {
