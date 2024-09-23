@@ -6,7 +6,7 @@ const getOrderDetailAPI = async (appConfig: APP_CONFIG, orderId: any, token: any
   // Use executeGETAPI to handle GET Request logic
   const response = await executeGETAPI(
     appConfig,
-    'order-detail-api',
+    'order-list-api',
     token,
     additionalParams // Pass additional parameters if needed
   );
