@@ -14,7 +14,6 @@ const useTopBrand = () => {
     setIsLoading(true);
     try {
       getTopBrandData = await getTopBrandAPI(SUMMIT_APP_CONFIG, tokenFromStore?.token);
-      console.log('getTopBrandData', getTopBrandData);
       if (getTopBrandData?.status === 200 && getTopBrandData?.data?.message?.msg === 'success') {
         setBrandListing(getTopBrandData?.data?.message?.data);
       } else {
