@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { PostRazorpayAPI } from '../../services/api/checkout/post-razorpay-payment-api';
-import { PostAddToCartAPI } from '../../services/api/cart-apis/add-to-cart-api';
+import { POSTOrderPlaceAPI } from '../../services/api/checkout/post-order-api';
 
 const useCheckout = () => {
   const { cartListingItems, fetchCartListingData } = useFetchCartItems();
@@ -76,7 +76,7 @@ const useCheckout = () => {
         order_id: cartListingItems.name,
       };
       try {
-        let orderPlace: any = await PostAddToCartAPI(SUMMIT_APP_CONFIG, params, tokenFromStore.token);
+        let orderPlace: any = await POSTOrderPlaceAPI(SUMMIT_APP_CONFIG, params, tokenFromStore.token);
         if (orderPlace?.status === 200 && orderPlace?.data?.message === 'success') {
           // setOrderSummary(orderSummaryData?.data?.message?.data);
           toast.success('Order place sucessfully!');
