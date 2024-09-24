@@ -22,8 +22,8 @@ const useHomeTopCategories = () => {
     setIsLoading(true);
     try {
       getCategoryData = await getTopCategoryAPI(SUMMIT_APP_CONFIG, tokenFromStore?.token);
-      if (getCategoryData?.status === 200) {
-        setHomeTopCategories(getCategoryData?.data?.message);
+      if (getCategoryData?.status === 200 && getCategoryData?.data?.msg === 'success') {
+        setHomeTopCategories(getCategoryData?.data?.data);
       } else {
         setErrMessage('No Data Found');
       }
