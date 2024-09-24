@@ -60,6 +60,7 @@ const useCheckout = () => {
 
         if (RazorOrderPlace?.status === 200 && RazorOrderPlace?.data?.message !== 'error') {
           fetchCartListingData();
+          dispatch(clearCart());
           window.location.href = `${RazorOrderPlace?.data?.message}`;
         } else {
           // setOrderSummary({});
