@@ -1,16 +1,19 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import useFetchCartItems from '../CartPageHook/useFetchCartItems';
 import useGetStatesData from '../GeneralHooks/useGetStateList';
-import postPlaceOrderAPI from '../../services/api/cart-apis/place-order-api';
 import { toast } from 'react-toastify';
 import { CONSTANTS } from '../../services/config/app-config';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { PostRazorpayAPI } from '../../services/api/checkout/post-razorpay-payment-api';
-import { PostAddToCartAPI } from '../../services/api/cart-apis/add-to-cart-api';
+import { POSTOrderPlaceAPI } from '../../services/api/checkout/post-order-api';
+import { clearCart } from '../../store/slices/cart-slices/cart-local-slice';
 
 const useCheckout = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const { cartListingItems, fetchCartListingData } = useFetchCartItems();
   const { SUMMIT_APP_CONFIG, ENABLE_PAYMENT_INTEGRATION }: any = CONSTANTS;
   const tokenFromStore: any = useSelector(get_access_token);
@@ -57,6 +60,7 @@ const useCheckout = () => {
 
         if (RazorOrderPlace?.status === 200 && RazorOrderPlace?.data?.message !== 'error') {
           fetchCartListingData();
+          dispatch(clearCart());
           window.location.href = `${RazorOrderPlace?.data?.message}`;
         } else {
           // setOrderSummary({});
@@ -76,11 +80,13 @@ const useCheckout = () => {
         order_id: cartListingItems.name,
       };
       try {
-        let orderPlace: any = await PostAddToCartAPI(SUMMIT_APP_CONFIG, params, tokenFromStore.token);
-        if (orderPlace?.status === 200 && orderPlace?.data?.message === 'success') {
+        let orderPlace: any = await POSTOrderPlaceAPI(SUMMIT_APP_CONFIG, params, tokenFromStore.token);
+        if (orderPlace?.status === 200) {
           // setOrderSummary(orderSummaryData?.data?.message?.data);
-          toast.success('Order place sucessfully!');
+          // toast.success('Order place sucessfully!');
+          router.push('/my-orders');
           fetchCartListingData();
+          dispatch(clearCart());
         } else {
           // setOrderSummary({});
           toast.error(orderPlace?.data?.message?.error);
