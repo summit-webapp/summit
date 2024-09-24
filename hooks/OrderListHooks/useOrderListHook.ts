@@ -10,13 +10,18 @@ const useOrderListHook = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { query }: any = useRouter();
+  const router = useRouter();
   const tokenFromStore: any = useSelector(get_access_token);
   const [orderListData, setOrderListData] = useState<any>([]);
-  const [history, setHistory] = useState('this_month');
+  const [history, setHistory] = useState(query?.date_range || 'this_month');
   const handleHistoryDate = (e: any) => {
     setHistory(e.target.value);
   };
-
+  const handleUpdateQuery = (orderStatus: string, dateRange: string) => {
+    router.push({
+      query: { ...query, status: orderStatus, date_range: dateRange },
+    });
+  };
   const fetchOrderListingDataFun: any = async () => {
     let getOrderListingData: any;
     setIsLoading(true);
@@ -31,7 +36,8 @@ const useOrderListHook = () => {
     };
 
     const filterStatus = {
-      date_range: history || '',
+      status: updateStatus(query?.status) || '',
+      date_range: query?.date_range || '',
     };
     /**
      * Fetches order listing data from the API using the given token and status.
@@ -59,10 +65,15 @@ const useOrderListHook = () => {
   };
 
   useEffect(() => {
-    fetchOrderListingDataFun();
-  }, [query, history]);
+    if (query?.status) {
+      fetchOrderListingDataFun();
+    }
+  }, [query]);
+  useEffect(() => {
+    handleUpdateQuery(query?.status || 'completed-orders', query?.data_range || history);
+  }, [history]);
 
-  return { orderListData, isLoading, errorMessage, history, handleHistoryDate };
+  return { orderListData, isLoading, errorMessage, history, handleHistoryDate, handleUpdateQuery };
 };
 
 export default useOrderListHook;
