@@ -12,15 +12,14 @@ const useOrderDetailHook = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
 
-  const [orderData, setOrderData] = useState<any>({});
+  const [orderData, setOrderData] = useState<any>([]);
 
   const fetchOrderData: any = async () => {
     setIsLoading(true);
     try {
-      let orderDetailData: any = await getOrderDetailAPI(SUMMIT_APP_CONFIG, query.orderId, tokenFromStore.token);
-
-      if (orderDetailData?.data?.message?.message === 'Success' && orderDetailData?.status === 200) {
-        setOrderData(orderDetailData?.data?.message);
+      let orderDetailData: any = await getOrderDetailAPI(SUMMIT_APP_CONFIG, query?.orderId, tokenFromStore.token);
+      if (orderDetailData?.status === 200 && orderDetailData?.data?.message?.msg === 'success') {
+        setOrderData(orderDetailData?.data?.message?.data);
       } else {
         setOrderData([]);
         setErrMessage(orderDetailData?.data?.message?.error);
