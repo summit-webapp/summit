@@ -7,6 +7,7 @@ import {
   selectQuickOrderState,
   clearQuickOrderData,
   removeItem,
+  updateQuickOrderData,
 } from '../../store/slices/quick-order-slice/quick-order-slice';
 import useAddToCartHook from '../CartPageHook/useAddToCart';
 
@@ -54,7 +55,20 @@ const useQuickOrderHook = () => {
       handleAddProduct();
     }
   };
-
+  const handleQuantityChange = (itemCode: any, qtyValue: any) => {
+    const updatedData: any =
+      data?.length > 0 &&
+      data?.map((item: any) => {
+        if (item?.name === itemCode) {
+          return {
+            ...item,
+            min_order_qty: qtyValue, // change with the original min qty value
+          };
+        }
+        return item;
+      });
+    dispatch(updateQuickOrderData(updatedData));
+  };
   const addItemsToDCart = () => {
     const addToCartParams = {
       currency: 'INR',
@@ -77,6 +91,7 @@ const useQuickOrderHook = () => {
     clearQuickOrder,
     removeItemFromQucikList,
     addItemsToDCart,
+    handleQuantityChange,
   };
 };
 

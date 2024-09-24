@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../root-reducer';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import fetchProducDetailsFromAPI from '../../../services/api/quick-order-apis/get-product-details';
+import { RootState } from '../../root-reducer';
 
 interface QuickOrderState {
   data: any[];
@@ -28,6 +28,9 @@ const quickOrderSlice = createSlice({
   name: 'quickOrder',
   initialState,
   reducers: {
+    updateQuickOrderData: (state, action) => {
+      state.data = action?.payload;
+    },
     clearQuickOrderData: (state) => {
       state.data = [];
     },
@@ -52,7 +55,7 @@ const quickOrderSlice = createSlice({
   },
 });
 
-export const { clearQuickOrderData, removeItem } = quickOrderSlice.actions;
+export const { clearQuickOrderData, removeItem, updateQuickOrderData } = quickOrderSlice.actions;
 export const selectQuickOrderState = (state: RootState) => state.quickOrder;
 
 export default quickOrderSlice.reducer;
