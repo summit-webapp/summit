@@ -118,22 +118,28 @@ const useProductDetail = () => {
     setQty(value);
   };
 
-  // Need to create matching items api call
-
-  const handleStockAvailabilityData = async () => {
-    const requestParams: any = {
-      item_code: productDetailData?.name,
-      qty: qty,
-    };
-    const getStockAvailabilityDataOfProduct = await fetchStockAvailabilityOfProduct(
-      SUMMIT_APP_CONFIG,
-      requestParams,
-      TokenFromStore?.token
-    );
-    if (getStockAvailabilityDataOfProduct?.status === 200 && getStockAvailabilityDataOfProduct?.data?.message?.msg === 'success') {
-      setStockAvailabilityData(getStockAvailabilityDataOfProduct?.data?.message?.data);
-    } else {
+  const handleStockAvailabilityData = async (setStockAvailabilityLoader: any) => {
+    setStockAvailabilityLoader(true);
+    try {
+      const requestParams = {
+        item_code: productDetailData?.name,
+        qty: qty,
+      };
+      const getStockAvailabilityDataOfProduct = await fetchStockAvailabilityOfProduct(
+        SUMMIT_APP_CONFIG,
+        requestParams,
+        TokenFromStore?.token
+      );
+      if (getStockAvailabilityDataOfProduct?.status === 200 && getStockAvailabilityDataOfProduct?.data?.message?.msg === 'success') {
+        setStockAvailabilityData(getStockAvailabilityDataOfProduct?.data?.message?.data);
+      } else {
+        setStockAvailabilityData([]);
+      }
+    } catch (error) {
       setStockAvailabilityData([]);
+      console.error('Error fetching stock availability:', error);
+    } finally {
+      setStockAvailabilityLoader(false);
     }
   };
 

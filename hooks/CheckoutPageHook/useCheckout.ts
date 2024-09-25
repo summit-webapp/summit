@@ -1,15 +1,15 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
-import useFetchCartItems from '../CartPageHook/useFetchCartItems';
-import useGetStatesData from '../GeneralHooks/useGetStateList';
-import { toast } from 'react-toastify';
-import { CONSTANTS } from '../../services/config/app-config';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
-import { PostRazorpayAPI } from '../../services/api/checkout/post-razorpay-payment-api';
+import { toast } from 'react-toastify';
 import { POSTOrderPlaceAPI } from '../../services/api/checkout/post-order-api';
+import { PostRazorpayAPI } from '../../services/api/checkout/post-razorpay-payment-api';
+import { CONSTANTS } from '../../services/config/app-config';
+import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { clearCart } from '../../store/slices/cart-slices/cart-local-slice';
+import useFetchCartItems from '../CartPageHook/useFetchCartItems';
+import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import useGetStatesData from '../GeneralHooks/useGetStateList';
 
 const useCheckout = () => {
   const router = useRouter();
@@ -47,7 +47,7 @@ const useCheckout = () => {
     }
   };
 
-  const handlePlaceOrder = async (billingAddress: string, shippingAddress: any, showBillingAddress: any) => {
+  const handlePlaceOrder = async (billingAddress: string, shippingAddress: any, showBillingAddress: any, setPlacePrderLoader: any) => {
     if (ENABLE_PAYMENT_INTEGRATION) {
       const param = {
         payment_gateway: 'Razorpay',
@@ -55,6 +55,7 @@ const useCheckout = () => {
         amount: cartListingItems?.grand_total_including_tax,
         order_id: cartListingItems?.name,
       };
+      setPlacePrderLoader(true);
       try {
         let RazorOrderPlace: any = await PostRazorpayAPI(SUMMIT_APP_CONFIG, param, tokenFromStore.token);
 
@@ -70,7 +71,7 @@ const useCheckout = () => {
       } catch (error) {
         setErrMessage('Failed to place order');
       } finally {
-        setIsLoading(false);
+        setPlacePrderLoader(false);
       }
     } else {
       const params = {

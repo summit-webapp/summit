@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { PostAddToCartAPI } from '../../services/api/cart-apis/add-to-cart-api';
-import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import { addCartList, addItemToCart, clearCart, removeItemFromCart } from '../../store/slices/cart-slices/cart-local-slice';
-import postPlaceOrderAPI from '../../services/api/cart-apis/place-order-api';
-import { DeleteItemFromCart } from '../../services/api/cart-apis/remove-item-api';
 import fetchCartListingAPI from '../../services/api/cart-apis/cart-listing-api';
 import { DeleteClearCart } from '../../services/api/cart-apis/clear-cart-api';
+import postPlaceOrderAPI from '../../services/api/cart-apis/place-order-api';
+import { DeleteItemFromCart } from '../../services/api/cart-apis/remove-item-api';
 import { CONSTANTS } from '../../services/config/app-config';
+import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import { addCartList, addItemToCart, clearCart, removeItemFromCart } from '../../store/slices/cart-slices/cart-local-slice';
 
 const useAddToCartHook = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,8 @@ const useAddToCartHook = () => {
   const addToCartItem = async (params: any, setCartListingItems?: any) => {
     const postDataInCart = await PostAddToCartAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
     if (postDataInCart?.status === 200 && postDataInCart?.data?.message?.msg === 'success') {
-      dispatch(addItemToCart(params?.item_code));
+      const items = params?.item_list?.map((item: any) => item?.item_code);
+      dispatch(addItemToCart(items));
       if (setCartListingItems) {
         getCartList(setCartListingItems);
         toast.success('Product updated successfully!');
@@ -67,17 +68,24 @@ const useAddToCartHook = () => {
       toast.error('Failed to remove product from cart');
     }
   };
-  const cLearCartAPIFunc = async (quotation_id: any, setCartListingItems: any) => {
-    const clearCartfunc = await DeleteClearCart(SUMMIT_APP_CONFIG, quotation_id, tokenFromStore?.token);
-    if (clearCartfunc?.status === 200) {
-      dispatch(clearCart());
-      setCartListingItems({});
-      toast.success('Cart cleared sucessfully!');
-    } else {
-      toast.error('Failed to clear cart.');
+  const cLearCartAPIFunc = async (quotation_id: any, setCartListingItems: any, setClearCartLoader: any) => {
+    setClearCartLoader(true);
+    try {
+      const clearCartfunc = await DeleteClearCart(SUMMIT_APP_CONFIG, quotation_id, tokenFromStore?.token);
+
+      if (clearCartfunc?.status === 200) {
+        dispatch(clearCart());
+        setCartListingItems({});
+        toast.success('Cart cleared successfully!');
+      } else {
+        toast.error('Failed to clear cart.');
+      }
+    } catch (error) {
+      toast.error('An unexpected error occurred while clearing the cart. Please try again later.');
+    } finally {
+      setClearCartLoader(false);
     }
   };
-
   return { addToCartItem, placeOrderAPIFunc, RemoveItemCartAPIFunc, cLearCartAPIFunc, getPartyName };
 };
 export default useAddToCartHook;
