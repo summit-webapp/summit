@@ -1,8 +1,4 @@
-import { CONSTANTS } from './services/config/app-config';
-
-// const siteUrl = `${CONSTANTS.DOMAIN_NAME}`;
-const siteUrl = `${CONSTANTS.API_BASE_URL}`;
-
+const siteUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
 module.exports = {
   siteUrl,
   generateRobotsTxt: true,

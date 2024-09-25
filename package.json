@@ -6,11 +6,11 @@
     "summit": "sh -c './check-if-theme-exists.sh' && npm run dev",
     "dev": "next dev",
     "build": "cross-env NODE_ENV=production next build",
+    "postbuild":"next-sitemap --config next-sitemap.config.js",
     "start": "next start",
     "test": "jest",
     "format": "prettier --write .",
     "lint:indent": "prettier --check '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
-    "sitemap": "next-sitemap --config next-sitemap.config.js",
     "prepare": "husky"
   },
   "dependencies": {
