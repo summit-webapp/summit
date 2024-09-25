@@ -1,12 +1,13 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import { useState } from 'react';
 import {
-  fetchQuickOrderData,
-  selectQuickOrderState,
   clearQuickOrderData,
+  fetchQuickOrderData,
   removeItem,
+  selectQuickOrderState,
+  updateItemQuantity,
 } from '../../store/slices/quick-order-slice/quick-order-slice';
 import useAddToCartHook from '../CartPageHook/useAddToCart';
 
@@ -15,17 +16,18 @@ const useQuickOrderHook = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const [itemExist, setItemExist] = useState('');
   const TokenFromStore: any = useSelector(get_access_token);
-  const [itemCode, setItemCode] = useState<any>('');
-  const { data, loading, error } = useSelector(selectQuickOrderState);
+  const { data, loading, error, itemList } = useSelector(selectQuickOrderState);
   const { addToCartItem, getPartyName } = useAddToCartHook();
+  const [itemCode, setItemCode] = useState<any>('');
 
   const handleAddProduct = () => {
-    if (data?.length > 25) {
+    if (itemList.length > 25) {
       setItemExist('You can add only 25 items in quick order.');
+      return;
     }
-    console.log(data?.map((item) => item.name));
+
     if (itemCode) {
-      const itemExists = data?.some((item: any) => item?.name === itemCode);
+      const itemExists = itemList.some((item: any) => item.item_code === itemCode);
       if (itemExists) {
         setItemExist('Item Already Exist');
         setTimeout(() => {
@@ -34,6 +36,7 @@ const useQuickOrderHook = () => {
         return;
       }
     }
+
     const params = {
       [CONSTANTS.QUICK_ORDER_FIELD]: itemCode,
     };
@@ -42,11 +45,13 @@ const useQuickOrderHook = () => {
     dispatch(fetchQuickOrderData({ SUMMIT_APP_CONFIG, params, token }) as any);
     setItemCode('');
   };
+
   const clearQuickOrder = () => {
     dispatch(clearQuickOrderData());
   };
-  const removeItemFromQucikList = (item: any) => {
-    dispatch(removeItem(item));
+
+  const removeItemFromQucikList = (itemCode: any) => {
+    dispatch(removeItem(itemCode));
   };
 
   const handleKeyDown = (e: any) => {
@@ -55,28 +60,36 @@ const useQuickOrderHook = () => {
     }
   };
 
+  const handleQuantityChange = (itemCode: any, qtyValue: any) => {
+    const quantity = Number(qtyValue);
+    if (!isNaN(quantity) && quantity > 0) {
+      dispatch(updateItemQuantity({ item_code: itemCode, quantity }));
+    }
+  };
+
   const addItemsToDCart = () => {
     const addToCartParams = {
       currency: 'INR',
-      item_list: data?.map((item) => ({ itemCode: item?.item_code, quantity: item?.min_order_qty || 1 })),
+      item_list: itemList,
       party_name: getPartyName,
     };
     addToCartItem(addToCartParams, null);
     dispatch(clearQuickOrderData());
   };
-
   return {
     data,
     loading,
     error,
     itemCode,
     itemExist,
+    itemList,
     setItemCode,
     handleKeyDown,
     handleAddProduct,
     clearQuickOrder,
     removeItemFromQucikList,
     addItemsToDCart,
+    handleQuantityChange,
   };
 };
 
