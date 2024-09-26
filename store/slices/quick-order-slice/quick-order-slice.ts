@@ -35,11 +35,11 @@ const quickOrderSlice = createSlice({
       state.itemList = [];
     },
     removeItem: (state, action) => {
-      state.data = state.data.filter((item: any) => item.name !== action.payload);
+      state.data = state.data?.filter((item: any) => item.name !== action.payload);
     },
     updateItemQuantity: (state, action) => {
       const { item_code, quantity } = action.payload;
-      const itemExists = state.itemList.find((item) => item.item_code === item_code);
+      const itemExists = state.itemList?.find((item) => item.item_code === item_code);
       if (itemExists) {
         itemExists.quantity = quantity; // Update the quantity for existing item
       }
@@ -59,7 +59,7 @@ const quickOrderSlice = createSlice({
           quantity: action.payload?.min_order_qty,
         };
 
-        state.itemList = [...state.itemList, newItem];
+        state.itemList = [...state?.itemList, newItem];
       })
       .addCase(fetchQuickOrderData.rejected, (state, action) => {
         state.loading = false;
