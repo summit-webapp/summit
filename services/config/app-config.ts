@@ -1,4 +1,5 @@
 export const CONSTANTS = {
+  FRONTEND_URL: process.env.NEXT_PUBLIC_FRONTEND_URL,
   API_BASE_URL: process.env.NEXT_PUBLIC_API_URL,
   SUMMIT_APP_CONFIG: {
     app_name: '/api/method/summitapp.sdk.api',
