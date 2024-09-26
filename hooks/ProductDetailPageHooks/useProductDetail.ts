@@ -108,14 +108,16 @@ const useProductDetail = () => {
   const handleQtyModificationOnButtonClick = (actionType: string) => {
     if (actionType === 'increase') {
       setQty(qty + 1);
-    } else {
+    } else if(qty-1 >= productDetailData?.min_order_qty) {
       setQty(qty - 1);
     }
   };
 
   const handleQtyModificationOnInputEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value }: any = e.target;
-    setQty(value);
+    const { value }: any = e.target;
+    if(value >= productDetailData?.min_order_qty){
+      setQty(value);
+    }
   };
 
   const handleStockAvailabilityData = async (setStockAvailabilityLoader: any) => {

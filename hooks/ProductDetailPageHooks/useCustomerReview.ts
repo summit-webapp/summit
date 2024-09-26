@@ -64,12 +64,13 @@ const useCustomerReview = () => {
     if (response?.data?.message?.msg === 'success') {
       getProductReview();
       setShowForm(false);
-    }
+    } 
     setValue('');
     setReviewPhotos([]);
     resetForm();
-  };
-  const handleToggleReviewForm = () => {
+    setShowForm(false)
+  };  
+   const handleToggleReviewForm = () => {
     setShowForm(!showForm);
   };
   const handleClose = () => setShowForm(false);
