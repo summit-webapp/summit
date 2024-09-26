@@ -60,12 +60,6 @@ export const getServerSideProps = async ({ res }: any) => {
 
   // Wait for all fetchPromises to complete
   await Promise.all(fetchPromises);
-  console.log('responseData:', responseData);
-
-  // const fields: any = responseData.map((item: any) => ({
-  //   loc: `${item.loc}`,
-  //   lastmod: `${item.lastmod}`,
-  // }));
   const sitemap = generateSiteMap(responseData);
 
   res.setHeader('Content-Type', 'text/xml');
