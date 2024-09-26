@@ -1,4 +1,4 @@
-import { ISitemapField } from 'next-sitemap';
+import fs from 'fs';
 import axios from 'axios';
 import { CONSTANTS } from '../services/config/app-config';
 function generateSiteMap(urlsData: any) {
@@ -25,8 +25,19 @@ function SiteMap() {
 export const getServerSideProps = async ({ res }: any) => {
   const method = 'get_site_map';
   const entity = 'seo';
-  const pageTypes = ['brand', 'brand-product', 'catalog', 'catalog-product'];
+  const pageTypes = ['product-category', 'product', 'brand', 'brand-product', 'catalog', 'catalog-product'];
   let responseData: any = [];
+
+  const staticPages = fs
+    .readdirSync('pages')
+    .filter((staticPage) => {
+      return !['_app.tsx', '_document.tsx', 'sitemap.xml.ts'].includes(staticPage);
+    })
+    .map((staticPagePath) => ({
+      loc: `${CONSTANTS.FRONTEND_URL}/${staticPagePath}`,
+      lastmod: new Date().toISOString(),
+    }));
+  responseData = responseData.concat(staticPages);
 
   // Define an array of promises for fetching data
   const fetchPromises = pageTypes.map(async (type) => {
@@ -35,11 +46,13 @@ export const getServerSideProps = async ({ res }: any) => {
         `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_APP_CONFIG.app_name}?version=${CONSTANTS.SUMMIT_APP_CONFIG.version}&method=${method}&entity=${entity}&type=${type}`
       );
 
-      const typeData = response.data.message?.map((item: any) => ({
-        loc: `${CONSTANTS.FRONTEND_URL}${item}`,
-        lastmod: new Date().toISOString(),
-      }));
-      responseData = responseData.concat(typeData);
+      if (response.status === 200 && response.data.message?.msg === 'success' && response.data.message?.data?.length > 0) {
+        const typeData = response.data.message?.data?.map((item: any) => ({
+          loc: `${CONSTANTS.FRONTEND_URL}/${item}`,
+          lastmod: new Date().toISOString(),
+        }));
+        responseData = responseData.concat(typeData);
+      }
     } catch (error) {
       console.error(`Error fetching data for type ${type}:`, error);
     }
@@ -47,11 +60,12 @@ export const getServerSideProps = async ({ res }: any) => {
 
   // Wait for all fetchPromises to complete
   await Promise.all(fetchPromises);
+  console.log('responseData:', responseData);
 
-  const fields: ISitemapField[] = responseData.map((item: any) => ({
-    loc: `${item.loc}`,
-    lastmod: `${item.lastmod}`,
-  }));
+  // const fields: any = responseData.map((item: any) => ({
+  //   loc: `${item.loc}`,
+  //   lastmod: `${item.lastmod}`,
+  // }));
   const sitemap = generateSiteMap(responseData);
 
   res.setHeader('Content-Type', 'text/xml');
