@@ -21,13 +21,13 @@ const useQuickOrderHook = () => {
   const [itemCode, setItemCode] = useState<any>('');
 
   const handleAddProduct = () => {
-    if (itemList.length > 25) {
+    if (itemList?.length > 25) {
       setItemExist('You can add only 25 items in quick order.');
       return;
     }
 
     if (itemCode) {
-      const itemExists = itemList.some((item: any) => item.item_code === itemCode);
+      const itemExists = itemList?.some((item: any) => item?.item_code === itemCode);
       if (itemExists) {
         setItemExist('Item Already Exist');
         setTimeout(() => {

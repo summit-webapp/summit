@@ -26,17 +26,14 @@ const cartSlice = createSlice({
       state.cartCount = state?.items?.length || 0;
       state.quotation_Id = action?.payload?.quotationId;
     },
-    addItemToCart: (state, action: PayloadAction<any>) => {
+    addItemToCart: (state, action) => {
       if (!state.items) {
         state.items = [];
       }
-      const existingItem = state.items?.find((item) => item === action.payload);
-      if (existingItem) {
-        return;
-      } else {
-        state.items.push(action.payload);
-        state.cartCount = state.cartCount + 1 || 1;
-      }
+      const mergedArray = [...state?.items, ...action?.payload.filter((item: any) => !state?.items.includes(item))];
+      state.items = mergedArray;
+      state.cartCount = state?.items?.length || 1;
+
       state.error = null;
     },
     removeItemFromCart: (state, action: PayloadAction<number>) => {
