@@ -15,31 +15,44 @@ const useLoginHook = () => {
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [isLoginThroughOTP, setIsLoginThroughOTP] = useState<boolean>(false);
   const [isLoginThroughGoogle, setIsLoginThroughGoogle] = useState<boolean>(false);
+  const [loginBtnLoader, setLoginBtnLoader] = useState<boolean>(false);
   const togglePasswordIcon = (e: React.MouseEvent) => {
     e.preventDefault();
     setPasswordHidden(!passwordHidden);
   };
 
   const fetchToken = async (values: TypeLoginForm) => {
-    const userParams: TypeLoginAPIParams = {
-      values: { ...values },
-      isGuest: false,
-      loginViaOTP: false,
-      LoginViaGoogle: false,
-    };
-    const tokenData = await getTokenFromLoginAPI(SUMMIT_APP_CONFIG, userParams);
-    if (tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
-      localStorage.setItem('isLoggedIn', 'true');
-      dispatch(storeToken(tokenData?.data));
-      localStorage.setItem('user', values.usr);
-      localStorage.setItem('party_name', tokenData?.data?.full_name);
-      router.push('/');
-      // toast.success('Login Successfully');
-    } else {
-      toast.error('Invalid Credentials. Please try again.');
+    setLoginBtnLoader(true);
+    try {
+      const userParams: TypeLoginAPIParams = {
+        values: { ...values },
+        isGuest: false,
+        loginViaOTP: false,
+        LoginViaGoogle: false,
+      };
+
+      const tokenData = await getTokenFromLoginAPI(SUMMIT_APP_CONFIG, userParams);
+
+      if (tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('user', values.usr);
+        localStorage.setItem('party_name', tokenData?.data?.full_name);
+
+        dispatch(storeToken(tokenData?.data));
+        router.push('/');
+        // toast.success('Login Successfully');
+      } else {
+        toast.error('Invalid Credentials. Please try again.');
+      }
+    } catch (error) {
+      toast.error('An error occurred during login. Please try again.');
+      console.error('Login Error:', error);
+    } finally {
+      setLoginBtnLoader(false);
     }
   };
-  return { passwordHidden, togglePasswordIcon, fetchToken };
+
+  return { passwordHidden, togglePasswordIcon, fetchToken, loginBtnLoader };
 };
 
 export default useLoginHook;
