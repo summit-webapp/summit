@@ -1,11 +1,16 @@
-// import ProductListingMaster from '../../../components/ProductCategoriesComponent/ProductListingMaster';
+import { useEffect } from 'react';
 import MetaTag from '../../../services/api/general-apis/meta-tag-api';
 import { CONSTANTS } from '../../../services/config/app-config';
+import useGoogleAnalyticsOperationsHandler from '../../../hooks/GoogleAnalytics/useGoogleAnalyticsOperationsHandler';
 import ProductListingMaster from '../../../components/ProductCategoriesComponents/ProductListingMaster';
 import PageMetaData from '../../../components/PageMetaData';
 import { MetaDataTypes } from '../../../interfaces/meta-data-interface';
 
 const Index = ({ metaData }: MetaDataTypes) => {
+  const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
+  useEffect(() => {
+    sendPageViewToGA(window.location.pathname + window.location.search, 'Product Listing Page');
+  }, []);
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}

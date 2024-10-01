@@ -3,8 +3,14 @@ import { CONSTANTS } from '../../services/config/app-config';
 import ProductListingMaster from '../../components/ProductCategoriesComponents/ProductListingMaster';
 import PageMetaData from '../../components/PageMetaData';
 import { MetaDataTypes } from '../../interfaces/meta-data-interface';
+import { useEffect } from 'react';
+import useGoogleAnalyticsOperationsHandler from '../../hooks/GoogleAnalytics/useGoogleAnalyticsOperationsHandler';
 
 const Index = ({ metaData }: MetaDataTypes) => {
+  const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
+  useEffect(() => {
+    sendPageViewToGA(window.location.pathname + window.location.search, 'Product Listing Page');
+  }, []);
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
