@@ -30,4 +30,5 @@ export const CONSTANTS = {
   DEFAULT_CURRENCY_VALUE: 'rupee',
   DEFAULT_LANGUAGE: 'en',
   ENABLE_SHOP_ON_AMAZON: false,
+  ENABLE_GOOGLE_ANALYTICS: false,
 };
