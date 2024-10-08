@@ -39,7 +39,7 @@ You can help us improve it by raising issues to us.
 
 ## Contributing
 
-Summit is one of the kind open source Ecommerce App. The main purpose of this repository is to continue evolving and making Ecommerce simpler for businesses, making it faster and easier to use.
+Summit is one-of-a-kind open source Ecommerce App. The main purpose of this repository is to continue evolving and making Ecommerce simpler for businesses, making it faster and easier to use.
 
 ## Reporting Bugs
 
