@@ -40,9 +40,6 @@ const useAddToCartHook = () => {
       dispatch(addItemToCart(items));
       if (setCartListingItems) {
         getCartList(setCartListingItems);
-        toast.success('Product updated successfully!');
-      } else {
-        toast.success('Product added to cart successfully!');
       }
     } else {
       toast.error(postDataInCart?.data?.message?.error);
