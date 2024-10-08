@@ -16,7 +16,7 @@
 
 </div> -->
 
-<style>
+<!-- <style>
   .theme-image {
     display: none;
   }
@@ -36,7 +36,7 @@
       display: block;
     }
   }
-</style>
+</style> -->
 
 ## What is Summit?
 
