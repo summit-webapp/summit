@@ -1,8 +1,8 @@
 <div align="center">
   <a href="https://summit-docs.8848digital.com/app-documentation/introduction">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://s3.us-east-2.amazonaws.com/summit-8848-s3/20240919/2024/10/09/File/RZB6GAKP_banner.svg">
-      <img alt="Next.js logo" src="https://s3.us-east-2.amazonaws.com/summit-8848-s3/20240919/2024/10/09/File/RZB6GAKP_banner.svg" height='250'>
+      <source media="(prefers-color-scheme: dark)" srcset="https://s3.us-east-2.amazonaws.com/summit-8848-s3/20240919/2024/10/09/File/WNFW25IO_Summit_logo_-1.png">
+      <img alt="Next.js logo" src="https://s3.us-east-2.amazonaws.com/summit-8848-s3/20240919/2024/10/09/File/QQE2ER8U_Summit_Dark_Logo_1.png" height='250'>
     </picture>
   </a>
 
