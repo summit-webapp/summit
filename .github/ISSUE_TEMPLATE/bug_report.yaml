@@ -1,6 +1,6 @@
 ---
 name: '🐛 Bug Report'
-about: Report a Bug encountered while using Summit.
+description: Report a Bug encountered while using Summit.
 title: 'Bug: '
 labels: ['bug']
 
@@ -30,3 +30,4 @@ body:
       label: Relevant log output / Stack trace / Full Error Message.
       description: Please copy and paste any relevant log output.
 ---
+
