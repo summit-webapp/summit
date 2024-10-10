@@ -4,19 +4,18 @@ about: Report a Bug encountered while using Summit.
 title: 'Bug: '
 labels: ['bug']
 
-
 body:
-- type: markdown
+  - type: markdown
     attributes:
       value: |
         Welcome to Summit issue tracker! Before creating an issue, please consider the following:
 
-        1. This tracker should only be used to report bugs and request features / enhancements to Summit.
-            - Please take a moment to check our [documentation](https://docs.frappe.io/helpdesk). You might find a solution to your question or problem there. If you’ve already checked the docs or couldn’t find a solution, feel free to continue creating your issue below.
+        1. This tracker should only be used to report bugs / enhancements to Summit.
+            - Please take a moment to check our [documentation](https://summit-docs.8848digital.com/installation). You might find a solution to your question or problem there. If you’ve already checked the docs or couldn’t find a solution, feel free to continue creating your issue below.
         2. When making a bug report, make sure you provide all required information. The easier it is for maintainers to reproduce, the faster it'll be fixed.
         3. If you think you know what the reason for the bug is, share it with us. Maybe put in a PR :thumbsup:
 
-- type: textarea
+  - type: textarea
     id: bug-info
     attributes:
       label: Information about bug
@@ -25,10 +24,9 @@ body:
     validations:
       required: true
 
- - type: textarea
+  - type: textarea
     id: logs
     attributes:
       label: Relevant log output / Stack trace / Full Error Message.
       description: Please copy and paste any relevant log output.
-
 ---
