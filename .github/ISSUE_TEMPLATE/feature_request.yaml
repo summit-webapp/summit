@@ -1,8 +1,8 @@
 ---
-name: :sparkles: Feature Request
+name: ✨ Feature Request
 description: Suggest an idea to improve Summit
 title: 'Feature: '
-labels: ["feature-request"]
+labels: ['feature-request']
 
 body:
   - type: markdown
@@ -38,4 +38,3 @@ body:
     attributes:
       label: Additional context
       description: Add any other context or screenshots about the feature request here.
-...
