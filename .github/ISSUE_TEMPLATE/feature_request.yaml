@@ -1,0 +1,40 @@
+---
+name: ✨ Feature Request
+description: Suggest an idea to improve Summit
+title: 'Feature: '
+labels: ['feature-request']
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Welcome to Summit issue tracker!
+
+        1. Use the search function before creating a new issue. Duplicates will be closed and directed to
+          the original discussion.
+        2. When making a feature request, make sure to be as verbose as possible. The better you convey your message, the greater the drive to make it happen.
+
+  - type: textarea
+    id: problem-info
+    attributes:
+      label: Is your feature request related to a problem? Please describe.
+      description: A clear and concise description of what the problem is. Eg. I'm always frustrated when [...]
+      placeholder: Please provide as much information as possible.
+
+  - type: textarea
+    id: solution-info
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+
+  - type: textarea
+    id: alternatives-info
+    attributes:
+      label: Describe the alternatives you've considered
+      description: A clear and concise description of any alternative solutions or features you've considered.
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature request here.
