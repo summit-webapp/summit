@@ -27,7 +27,7 @@ const useQuickOrderHook = () => {
     }
 
     if (itemCode) {
-      const itemExists = itemList?.some((item: any) => item?.item_code === itemCode);
+      const itemExists = data?.some((item: any) => item?.name === itemCode);
       if (itemExists) {
         setItemExist('Item Already Exist');
         setTimeout(() => {
@@ -41,7 +41,6 @@ const useQuickOrderHook = () => {
       [CONSTANTS.QUICK_ORDER_FIELD]: itemCode,
     };
     const token = TokenFromStore?.token;
-
     dispatch(fetchQuickOrderData({ SUMMIT_APP_CONFIG, params, token }) as any);
     setItemCode('');
   };
@@ -51,6 +50,7 @@ const useQuickOrderHook = () => {
   };
 
   const removeItemFromQucikList = (itemCode: any) => {
+    console.log(itemCode, 'itemCode');
     dispatch(removeItem(itemCode));
   };
 
@@ -61,6 +61,20 @@ const useQuickOrderHook = () => {
   };
 
   const handleQuantityChange = (itemCode: any, qtyValue: any) => {
+    const localItem = itemList?.find((itemValue: any) => itemValue.item_code === itemCode);
+    const minOrderItem = data?.find((item: any) => item?.name === itemCode);
+    // Ensure both localItem and minOrderItem are found
+    if (!localItem || !minOrderItem) {
+      console.log('Item not found in lists.');
+      return;
+    }
+    const minOrderQty = minOrderItem.min_order_qty;
+    const currentQty = localItem.quantity;
+
+    console.log(currentQty, localItem);
+    if (currentQty < minOrderQty) {
+      return 'doneee';
+    }
     const quantity = Number(qtyValue);
     if (!isNaN(quantity) && quantity > 0) {
       dispatch(updateItemQuantity({ item_code: itemCode, quantity }));

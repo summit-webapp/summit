@@ -41,7 +41,7 @@ const quickOrderSlice = createSlice({
       const { item_code, quantity } = action.payload;
       const itemExists = state.itemList?.find((item) => item.item_code === item_code);
       if (itemExists) {
-        itemExists.quantity = quantity; // Update the quantity for existing item
+        itemExists.quantity = quantity;
       }
     },
   },
