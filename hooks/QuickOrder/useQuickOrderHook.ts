@@ -26,10 +26,8 @@ const useQuickOrderHook = () => {
       setItemExist('You can add only 25 items in quick order.');
       return;
     }
-    console.log(itemCode);
-    console.log(data);
     if (itemCode) {
-      const itemExists = data?.some((item: any) => item?.oem_part_number === itemCode?.toLowerCase);
+      const itemExists = data?.some((item: any) => item?.oem_part_number === itemCode);
       if (itemExists) {
         setItemExist('Item Already Exist');
         setTimeout(() => {
@@ -52,7 +50,6 @@ const useQuickOrderHook = () => {
   };
 
   const removeItemFromQucikList = (itemCode: any) => {
-    console.log(itemCode, 'itemCode');
     dispatch(removeItem(itemCode));
   };
 

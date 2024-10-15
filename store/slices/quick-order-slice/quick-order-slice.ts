@@ -43,9 +43,6 @@ export const fetchQuickOrderData = createAsyncThunk(
     try {
       const productData = await fetchProducDetailsFromAPI(SUMMIT_APP_CONFIG, params, token);
       const message = productData?.data?.message;
-
-      console.log(message);
-
       if (message?.msg === 'success' && message.data && Object?.keys(message.data).length > 0) {
         return message.data;
       }
