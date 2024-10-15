@@ -45,11 +45,13 @@ const useQuickOrderHook = () => {
     setItemCode('');
   };
   const clearQuickOrder = () => {
+    setMinQuantityWarning('');
     setItemCode('');
     dispatch(clearQuickOrderData());
   };
 
   const removeItemFromQucikList = (itemCode: any) => {
+    setMinQuantityWarning('');
     dispatch(removeItem(itemCode));
   };
 
@@ -61,15 +63,19 @@ const useQuickOrderHook = () => {
 
   const handleQuantityChange = (itemCode: any, qtyValue: any, item: any) => {
     const quantity = Number(qtyValue);
+    if (quantity > 25) {
+      return setMinQuantityWarning({ warning: ` MAX QTY 25!! `, itemCode: itemCode });
+    }
     if (!isNaN(quantity) && quantity > 0) {
-      const minQuantCheck = item?.min_order_qty ? item?.min_order_qty : 1;
+      const minQuantCheck = item?.min_order_qty < 1 ? 1 : item?.min_order_qty;
       if (quantity < minQuantCheck) {
         return setMinQuantityWarning({ warning: ` MIN QTY ${item?.min_order_qty}!! `, itemCode: itemCode });
       } else {
         setMinQuantityWarning('');
-        9;
         return dispatch(updateItemQuantity({ item_code: itemCode, quantity }));
       }
+    } else {
+      return setMinQuantityWarning({ warning: 'Invalid Input!!', itemCode: itemCode });
     }
   };
 

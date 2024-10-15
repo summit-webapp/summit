@@ -62,9 +62,9 @@ const quickOrderSlice = createSlice({
   initialState,
   reducers: {
     clearQuickOrderData: (state) => {
-      state.error = null;
       state.data = [];
       state.itemList = [];
+      state.error = null;
     },
     removeItem: (state, action) => {
       state.data = state.data?.filter((item: any) => item.name !== action.payload);
