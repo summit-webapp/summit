@@ -19,15 +19,17 @@ const useQuickOrderHook = () => {
   const { data, loading, error, itemList } = useSelector(selectQuickOrderState);
   const { addToCartItem, getPartyName } = useAddToCartHook();
   const [itemCode, setItemCode] = useState<any>('');
+  const [minQuntityWarning, setMinQuantityWarning] = useState({});
 
   const handleAddProduct = () => {
     if (itemList?.length > 25) {
       setItemExist('You can add only 25 items in quick order.');
       return;
     }
-
+    console.log(itemCode);
+    console.log(data);
     if (itemCode) {
-      const itemExists = data?.some((item: any) => item?.name === itemCode);
+      const itemExists = data?.some((item: any) => item?.oem_part_number === itemCode?.toLowerCase);
       if (itemExists) {
         setItemExist('Item Already Exist');
         setTimeout(() => {
@@ -44,8 +46,8 @@ const useQuickOrderHook = () => {
     dispatch(fetchQuickOrderData({ SUMMIT_APP_CONFIG, params, token }) as any);
     setItemCode('');
   };
-
   const clearQuickOrder = () => {
+    setItemCode('');
     dispatch(clearQuickOrderData());
   };
 
@@ -60,24 +62,17 @@ const useQuickOrderHook = () => {
     }
   };
 
-  const handleQuantityChange = (itemCode: any, qtyValue: any) => {
-    const localItem = itemList?.find((itemValue: any) => itemValue.item_code === itemCode);
-    const minOrderItem = data?.find((item: any) => item?.name === itemCode);
-    // Ensure both localItem and minOrderItem are found
-    if (!localItem || !minOrderItem) {
-      console.log('Item not found in lists.');
-      return;
-    }
-    const minOrderQty = minOrderItem.min_order_qty;
-    const currentQty = localItem.quantity;
-
-    console.log(currentQty, localItem);
-    if (currentQty < minOrderQty) {
-      return 'doneee';
-    }
+  const handleQuantityChange = (itemCode: any, qtyValue: any, item: any) => {
     const quantity = Number(qtyValue);
     if (!isNaN(quantity) && quantity > 0) {
-      dispatch(updateItemQuantity({ item_code: itemCode, quantity }));
+      const minQuantCheck = item?.min_order_qty ? item?.min_order_qty : 1;
+      if (quantity < minQuantCheck) {
+        return setMinQuantityWarning({ warning: ` MIN QTY ${item?.min_order_qty}!! `, itemCode: itemCode });
+      } else {
+        setMinQuantityWarning('');
+        9;
+        return dispatch(updateItemQuantity({ item_code: itemCode, quantity }));
+      }
     }
   };
 
@@ -98,6 +93,7 @@ const useQuickOrderHook = () => {
     itemExist,
     itemList,
     setItemCode,
+    minQuntityWarning,
     handleKeyDown,
     handleAddProduct,
     clearQuickOrder,
