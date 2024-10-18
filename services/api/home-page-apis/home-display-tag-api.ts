@@ -17,7 +17,7 @@ const getDisplaytagsDataFromAPI = async (appConfig: APP_CONFIG, reqParams: any, 
 
           const res = await executeGETAPI(appConfig, 'display-tags-api', token, additionalParams);
 
-          return { tag_name: tag.name, description: tag.description, value: res?.data };
+          return { tag_name: tag.name, description: tag.description, value: res?.data, tag_image: tag.tag_image };
         })
     );
 
