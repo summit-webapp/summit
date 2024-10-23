@@ -6,7 +6,7 @@ import { DeleteClearCart } from '../../services/api/cart-apis/clear-cart-api';
 import postPlaceOrderAPI from '../../services/api/cart-apis/place-order-api';
 import { DeleteItemFromCart } from '../../services/api/cart-apis/remove-item-api';
 import { CONSTANTS } from '../../services/config/app-config';
-import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import { get_access_token, storeToken } from '../../store/slices/auth/token-login-slice';
 import { addCartList, addItemToCart, clearCart, removeItemFromCart } from '../../store/slices/cart-slices/cart-local-slice';
 
 const useAddToCartHook = () => {
@@ -38,6 +38,7 @@ const useAddToCartHook = () => {
     if (postDataInCart?.status === 200 && postDataInCart?.data?.message?.msg === 'success') {
       const items = params?.item_list?.map((item: any) => item?.item_code);
       dispatch(addItemToCart(items));
+      postDataInCart?.data?.message?.data?.access_token && dispatch(storeToken(postDataInCart?.data?.message?.data));
       if (setCartListingItems) {
         getCartList(setCartListingItems);
       }
