@@ -29,6 +29,7 @@ const useFeaturedCollections = () => {
                 tag_name: data.tag_name,
                 description: data.description,
                 value: data?.value?.message?.data,
+                tag_image: data?.tag_image,
               };
             } else {
               setErrMessage(data?.value?.message?.error);
