@@ -19,15 +19,15 @@ const useQuickOrderHook = () => {
   const { data, loading, error, itemList } = useSelector(selectQuickOrderState);
   const { addToCartItem, getPartyName } = useAddToCartHook();
   const [itemCode, setItemCode] = useState<any>('');
+  const [minQuntityWarning, setMinQuantityWarning] = useState({});
 
   const handleAddProduct = () => {
     if (itemList?.length > 25) {
       setItemExist('You can add only 25 items in quick order.');
       return;
     }
-
     if (itemCode) {
-      const itemExists = itemList?.some((item: any) => item?.item_code === itemCode);
+      const itemExists = data?.some((item: any) => item?.oem_part_number === itemCode);
       if (itemExists) {
         setItemExist('Item Already Exist');
         setTimeout(() => {
@@ -41,16 +41,17 @@ const useQuickOrderHook = () => {
       [CONSTANTS.QUICK_ORDER_FIELD]: itemCode,
     };
     const token = TokenFromStore?.token;
-
     dispatch(fetchQuickOrderData({ SUMMIT_APP_CONFIG, params, token }) as any);
     setItemCode('');
   };
-
   const clearQuickOrder = () => {
+    setMinQuantityWarning('');
+    setItemCode('');
     dispatch(clearQuickOrderData());
   };
 
   const removeItemFromQucikList = (itemCode: any) => {
+    setMinQuantityWarning('');
     dispatch(removeItem(itemCode));
   };
 
@@ -60,10 +61,18 @@ const useQuickOrderHook = () => {
     }
   };
 
-  const handleQuantityChange = (itemCode: any, qtyValue: any) => {
+  const handleQuantityChange = (itemCode: any, qtyValue: any, item: any) => {
     const quantity = Number(qtyValue);
     if (!isNaN(quantity) && quantity > 0) {
-      dispatch(updateItemQuantity({ item_code: itemCode, quantity }));
+      const minQuantCheck = item?.min_order_qty < 1 ? 1 : item?.min_order_qty;
+      if (quantity < minQuantCheck) {
+        return setMinQuantityWarning({ warning: ` MIN QTY ${item?.min_order_qty}!! `, itemCode: itemCode });
+      } else {
+        setMinQuantityWarning('');
+        return dispatch(updateItemQuantity({ item_code: itemCode, quantity }));
+      }
+    } else {
+      return setMinQuantityWarning({ warning: 'Invalid Input!!', itemCode: itemCode });
     }
   };
 
@@ -84,6 +93,7 @@ const useQuickOrderHook = () => {
     itemExist,
     itemList,
     setItemCode,
+    minQuntityWarning,
     handleKeyDown,
     handleAddProduct,
     clearQuickOrder,
