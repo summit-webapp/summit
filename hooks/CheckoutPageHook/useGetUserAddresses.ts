@@ -68,10 +68,10 @@ const useGetUserAddresses = () => {
   const dispatch = useDispatch();
 
   const pushFieldArray: any = [];
-  const fetchUserShippingAddress = async () => {
+  const fetchUserShippingAddress = async (token?: any) => {
     setShippingAddessLoading(true);
     try {
-      let userShippingAddressData: any = await fetchUserAddressAPI(SUMMIT_APP_CONFIG, 'Shipping', tokenFromStore.token);
+      let userShippingAddressData: any = await fetchUserAddressAPI(SUMMIT_APP_CONFIG, 'Shipping', token || tokenFromStore.token);
       if (userShippingAddressData?.status === 200 && userShippingAddressData?.data?.message?.msg === 'success') {
         setShippingAddress([...userShippingAddressData?.data?.message?.data]);
       } else {
@@ -84,10 +84,10 @@ const useGetUserAddresses = () => {
       setShippingAddessLoading(false);
     }
   };
-  const fetchUserBillingAddress = async () => {
+  const fetchUserBillingAddress = async (token?: any) => {
     setBillingAddressLoading(true);
     try {
-      let userShippingAddressData: any = await fetchUserAddressAPI(SUMMIT_APP_CONFIG, 'Billing', tokenFromStore.token);
+      let userShippingAddressData: any = await fetchUserAddressAPI(SUMMIT_APP_CONFIG, 'Billing', token || tokenFromStore.token);
       if (userShippingAddressData?.status === 200 && userShippingAddressData?.data?.message?.msg === 'success') {
         setBillingAddress([...userShippingAddressData?.data?.message?.data]);
       } else {
@@ -161,6 +161,13 @@ const useGetUserAddresses = () => {
     return setEmptyAddressFields(pushFieldArray);
   };
 
+  const handleClose = () => {
+    setShowCreateAddModal(false);
+    setShowBilling(false);
+    setShow(false);
+    setShowCreateBillingAddModal(false);
+  };
+
   const handlePostAddressForGuest = async (data: any) => {
     const guestAddressData = {
       name: data.name,
@@ -172,7 +179,7 @@ const useGetUserAddresses = () => {
       contact: data.contact,
       set_as_default: false,
       gst_number: data.gst_number,
-      address_type: 'Shipping',
+      address_type: '',
       address_line_1: data.address_1,
       address_line_2: data.address_2,
       session_id: tokenFromStore.token,
@@ -185,14 +192,11 @@ const useGetUserAddresses = () => {
     ) {
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('party_name', postAddress?.data?.message?.data?.party_name);
-      fetchUserShippingAddress();
       dispatch(updateAccessToken(postAddress?.data?.message?.data?.access_token));
-      fetchUserBillingAddress();
-      toast.success('Address Updated Sucessfully');
-      setShowCreateAddModal(false);
-      setShowBilling(false);
-      setShow(false);
-      setShowCreateBillingAddModal(false);
+      toast.success('Customer Created Sucessfully');
+      handleClose();
+      fetchUserShippingAddress(postAddress?.data?.message?.data?.access_token);
+      fetchUserBillingAddress(postAddress?.data?.message?.data?.access_token);
     } else {
       toast.error('Error in Creating Address');
     }
@@ -204,10 +208,7 @@ const useGetUserAddresses = () => {
       fetchUserShippingAddress();
       fetchUserBillingAddress();
       toast.success('Address Updated Sucessfully');
-      setShowCreateAddModal(false);
-      setShowBilling(false);
-      setShow(false);
-      setShowCreateBillingAddModal(false);
+      handleClose();
     } else {
       toast.error('Error in Creating Address');
     }
