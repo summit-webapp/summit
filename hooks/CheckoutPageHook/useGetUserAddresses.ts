@@ -31,6 +31,7 @@ const useGetUserAddresses = () => {
   const [billingAddressError, setBillingAddressError] = useState<string | null>(null);
   const [cityList, setCityList] = useState<any>([]);
   const mandatoryField = ['name', 'address_1', 'address_2', 'country', 'state', 'city', 'postal_code'];
+  const mandatoryFieldForGuest = ['name', 'email', 'contact', 'address_1', 'address_2', 'country', 'state', 'city', 'postal_code'];
   const [createBillingAdd, setCreateBillingAdd] = useState({
     name: '',
     address_1: '',
@@ -222,7 +223,7 @@ const useGetUserAddresses = () => {
     } else {
       data = createAdd === 'Create' ? createBillingAdd : editBillingAddress;
     }
-    checkEmptyFields(mandatoryField, data);
+    localStorage.getItem('party_name') ? checkEmptyFields(mandatoryField, data) : checkEmptyFields(mandatoryFieldForGuest, data);
     if (pushFieldArray.length > 0) {
       toast.error('Fill all input fields');
     } else {
