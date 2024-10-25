@@ -64,7 +64,11 @@ const useProductDetail = () => {
         Object?.keys(productDetailAPI?.data?.message?.data).length > 0
       ) {
         setProductDetailData(productDetailAPI?.data?.message?.data);
-        setQty(productDetailAPI?.data?.message?.data?.min_order_qty);
+        if (productDetailAPI?.data?.message?.data?.min_order_qty > 0) {
+          setQty(productDetailAPI?.data?.message?.data?.min_order_qty);
+        } else {
+          setQty(1);
+        }
         if (productDetailAPI?.data?.message?.data?.variant_of) {
           setVariantOf(productDetailAPI?.data?.message?.data?.variant_of);
           fetchProductVariantDataAPI(productDetailAPI?.data?.message?.data?.variant_of);
@@ -108,14 +112,14 @@ const useProductDetail = () => {
   const handleQtyModificationOnButtonClick = (actionType: string) => {
     if (actionType === 'increase') {
       setQty(qty + 1);
-    } else if(qty-1 >= productDetailData?.min_order_qty) {
+    } else if (qty - 1 >= productDetailData?.min_order_qty) {
       setQty(qty - 1);
     }
   };
 
   const handleQtyModificationOnInputEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value }: any = e.target;
-    if(value >= productDetailData?.min_order_qty){
+    if (value >= productDetailData?.min_order_qty) {
       setQty(value);
     }
   };
