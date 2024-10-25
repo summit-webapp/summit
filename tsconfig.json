@@ -13,8 +13,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "types": ["jest","ts-node","@testing-library/jest-dom"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "hooks/LanguageHook/multilingual-hook.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "hooks/LanguageHook/multilingual-hook.ts", "jest.setup.ts"],
   "exclude": ["node_modules", "themes"]
 }
