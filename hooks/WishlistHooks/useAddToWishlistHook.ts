@@ -28,7 +28,7 @@ const useAddToWishlist = () => {
     if (removeItem?.data?.message?.msg === 'success') {
       dispatch(removeItemFromWishlist(item_code));
     } else {
-      toast.error('Failed to remove product from wishlist');
+      toast.error(removeItem?.data?.message?.error);
     }
   };
 
