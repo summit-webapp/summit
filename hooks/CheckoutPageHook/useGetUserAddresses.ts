@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import fetchUserAddressAPI from '../../services/api/checkout/get-user-addresses-api';
 import { CONSTANTS } from '../../services/config/app-config';
-import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import { useSelector } from 'react-redux';
+import { get_access_token, updateAccessToken } from '../../store/slices/auth/token-login-slice';
+import { useDispatch, useSelector } from 'react-redux';
 import fetchStateListAPI from '../../services/api/general-apis/get-state-list-api';
 import fetchCitiesListAPI from '../../services/api/general-apis/get-cities-list-api';
 import { PostAddToCartAPI } from '../../services/api/cart-apis/add-to-cart-api';
-import { PostAddressAPI } from '../../services/api/checkout/post-user-address-api';
+import { PostAddressAPI, PostNewAddressAPI } from '../../services/api/checkout/post-user-address-api';
 import { toast } from 'react-toastify';
 import useModalShow from './useModalShow';
 
@@ -31,6 +31,7 @@ const useGetUserAddresses = () => {
   const [billingAddressError, setBillingAddressError] = useState<string | null>(null);
   const [cityList, setCityList] = useState<any>([]);
   const mandatoryField = ['name', 'address_1', 'address_2', 'country', 'state', 'city', 'postal_code'];
+  const mandatoryFieldForGuest = ['name', 'email', 'contact', 'address_1', 'address_2', 'country', 'state', 'city', 'postal_code'];
   const [createBillingAdd, setCreateBillingAdd] = useState({
     name: '',
     address_1: '',
@@ -43,6 +44,7 @@ const useGetUserAddresses = () => {
     contact: '',
     set_as_default: false,
     address_type: '',
+    gst_number: '',
   });
   const [createShippingAdd, setCreateShippingAdd] = useState({
     name: '',
@@ -56,17 +58,21 @@ const useGetUserAddresses = () => {
     contact: '',
     set_as_default: false,
     address_type: '',
+    gst_number: '',
   });
   const [shippingAddress, setShippingAddress] = useState<any>([]);
   const [emptyAddressFields, setEmptyAddressFields] = useState<any>([]);
   const [billingAddress, setBillingAddress] = useState<any>([]);
   const [editShippingAddress, setEditShippingAddress] = useState({});
   const [editBillingAddress, setEditBillingAddress] = useState({});
+
+  const dispatch = useDispatch();
+
   const pushFieldArray: any = [];
-  const fetchUserShippingAddress = async () => {
+  const fetchUserShippingAddress = async (token?: any) => {
     setShippingAddessLoading(true);
     try {
-      let userShippingAddressData: any = await fetchUserAddressAPI(SUMMIT_APP_CONFIG, 'Shipping', tokenFromStore.token);
+      let userShippingAddressData: any = await fetchUserAddressAPI(SUMMIT_APP_CONFIG, 'Shipping', token || tokenFromStore.token);
       if (userShippingAddressData?.status === 200 && userShippingAddressData?.data?.message?.msg === 'success') {
         setShippingAddress([...userShippingAddressData?.data?.message?.data]);
       } else {
@@ -79,10 +85,10 @@ const useGetUserAddresses = () => {
       setShippingAddessLoading(false);
     }
   };
-  const fetchUserBillingAddress = async () => {
+  const fetchUserBillingAddress = async (token?: any) => {
     setBillingAddressLoading(true);
     try {
-      let userShippingAddressData: any = await fetchUserAddressAPI(SUMMIT_APP_CONFIG, 'Billing', tokenFromStore.token);
+      let userShippingAddressData: any = await fetchUserAddressAPI(SUMMIT_APP_CONFIG, 'Billing', token || tokenFromStore.token);
       if (userShippingAddressData?.status === 200 && userShippingAddressData?.data?.message?.msg === 'success') {
         setBillingAddress([...userShippingAddressData?.data?.message?.data]);
       } else {
@@ -155,6 +161,60 @@ const useGetUserAddresses = () => {
     });
     return setEmptyAddressFields(pushFieldArray);
   };
+
+  const handleClose = () => {
+    setShowCreateAddModal(false);
+    setShowBilling(false);
+    setShow(false);
+    setShowCreateBillingAddModal(false);
+  };
+
+  const handlePostAddressForGuest = async (data: any) => {
+    const guestAddressData = {
+      name: data.name,
+      country: data.country,
+      state: data.state,
+      city: data.city,
+      postal_code: data.postal_code,
+      email: data.email,
+      contact: data.contact,
+      set_as_default: false,
+      gst_number: data.gst_number,
+      address_type: '',
+      address_line_1: data.address_1,
+      address_line_2: data.address_2,
+      session_id: tokenFromStore.token,
+    };
+    const postAddress = await PostNewAddressAPI(SUMMIT_APP_CONFIG, guestAddressData);
+    if (
+      postAddress?.status === 200 &&
+      postAddress?.data?.message?.msg === 'success' &&
+      postAddress?.data?.message?.data?.hasOwnProperty('access_token')
+    ) {
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('party_name', postAddress?.data?.message?.data?.party_name);
+      dispatch(updateAccessToken(postAddress?.data?.message?.data?.access_token));
+      toast.success('Customer Created Sucessfully');
+      handleClose();
+      fetchUserShippingAddress(postAddress?.data?.message?.data?.access_token);
+      fetchUserBillingAddress(postAddress?.data?.message?.data?.access_token);
+    } else {
+      toast.error('Error in Creating Address');
+    }
+  };
+
+  const handlePostAddressForUser = async (data: any) => {
+    const postAddress = await PostAddressAPI(SUMMIT_APP_CONFIG, data, tokenFromStore.token);
+    if (postAddress?.status === 200 && postAddress?.data?.message?.msg === 'success') {
+      fetchUserShippingAddress();
+      fetchUserBillingAddress();
+      toast.success('Address Updated Sucessfully');
+      handleClose();
+    } else {
+      toast.error('Error in Creating Address');
+    }
+  };
+
   const handlePostAddress = async (type: any, createAdd?: any) => {
     let data: any;
 
@@ -163,21 +223,11 @@ const useGetUserAddresses = () => {
     } else {
       data = createAdd === 'Create' ? createBillingAdd : editBillingAddress;
     }
-    checkEmptyFields(mandatoryField, data);
+    localStorage.getItem('party_name') ? checkEmptyFields(mandatoryField, data) : checkEmptyFields(mandatoryFieldForGuest, data);
     if (pushFieldArray.length > 0) {
       toast.error('Fill all input fields');
     } else {
-      const postAddress = await PostAddressAPI(SUMMIT_APP_CONFIG, data, tokenFromStore.token);
-      if (postAddress?.status === 200 && postAddress?.data?.message?.msg === 'success') {
-        type === 'Shipping' ? fetchUserShippingAddress() : fetchUserBillingAddress();
-        toast.success('Address Updated Sucessfully');
-        setShowCreateAddModal(false);
-        setShowBilling(false);
-        setShow(false);
-        setShowCreateBillingAddModal(false);
-      } else {
-        toast.error('Error in Updating Address');
-      }
+      localStorage.getItem('party_name') ? handlePostAddressForUser(data) : handlePostAddressForGuest(data);
     }
   };
 

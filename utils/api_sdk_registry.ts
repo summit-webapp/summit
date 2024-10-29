@@ -44,6 +44,7 @@ const apiSdkRegistry: any = {
   'get-state-list-api': { method: 'get_states', entity: 'utils' },
   'get-cities-list-api': { method: 'get_cities', entity: 'utils' },
   'create-user-address-api': { method: 'put', entity: 'customer_address' },
+  'create-new-user-address-api': { method: 'create_guest_to_customer', entity: 'customer_address' },
   'order-list-api': { method: 'get_list', entity: 'order' },
   'order-detail-api': { method: 'get_order_details', entity: 'order' },
   'order-reports-api': { method: 'report_data', entity: 'sales_order_report' },
