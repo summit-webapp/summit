@@ -17,7 +17,7 @@ const useAddToWishlist = () => {
     if (addItem?.data?.message?.msg === 'success') {
       dispatch(addItemToWishlist(item));
     } else {
-      toast.error('Faild to add product to wishlist');
+      toast.error(addItem?.data?.message?.error);
     }
   };
   const handleRemoveFromWishList = async (item_code: any) => {
