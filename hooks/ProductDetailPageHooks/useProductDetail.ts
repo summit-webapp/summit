@@ -119,9 +119,8 @@ const useProductDetail = () => {
 
   const handleQtyModificationOnInputEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value }: any = e.target;
-    if (value >= productDetailData?.min_order_qty) {
-      setQty(value);
-    }
+    const newQty = Number(value);
+    setQty(newQty);
   };
 
   const handleStockAvailabilityData = async (setStockAvailabilityLoader: any) => {
