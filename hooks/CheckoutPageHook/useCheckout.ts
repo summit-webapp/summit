@@ -19,11 +19,10 @@ const useCheckout = () => {
   const tokenFromStore: any = useSelector(get_access_token);
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const { statesListLoading, statesListError, stateList } = useGetStatesData();
-  const partyName = localStorage.getItem('party_name');
   const [showLocation, setShowLocation] = useState(false);
   const [orderObj, setOrderObj] = useState({
     order_id: '',
-    party_name: partyName,
+    party_name: localStorage.getItem('party_name'),
     shipping_address_id: '',
     billing_address_id: '',
     transporter: '',
@@ -76,6 +75,7 @@ const useCheckout = () => {
     } else {
       const params = {
         ...orderObj,
+        party_name: localStorage.getItem('party_name') || '',
         shipping_address_id: shippingAddress,
         billing_address_id: showBillingAddress ? shippingAddress : billingAddress,
         order_id: cartListingItems.name,
