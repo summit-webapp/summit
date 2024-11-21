@@ -6,7 +6,7 @@ const getHomePageComponentsList = async (appConfig: APP_CONFIG) => {
   // Use executeGETAPI to handle GET Request logic
   const response = await executeGETAPI(
     appConfig,
-    'home-page-components-api',
+    'home-page-components-list-api',
     undefined,
     additionalParams // Pass additional parameters if needed
   );
