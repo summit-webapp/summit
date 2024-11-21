@@ -8,6 +8,7 @@ const apiSdkRegistry: any = {
   'default-currency-api': { method: 'get_default_currency', entity: 'product' },
   'multi-language-data-api': { method: 'get_languages', entity: 'translation' },
   'navbar-api': { version: 'v2', method: 'get_mega_menu', entity: 'mega_menu' },
+  'home-page-components-list-api': { method: 'publish_website_interface', entity: 'website_interface' },
   'banner-api': { method: 'get', entity: 'banner' },
   'display-tags-api': { method: 'get_tagged_products', entity: 'product' },
   'breadcrums-api': { method: 'breadcrums', entity: 'mega_menu' },
