@@ -9,13 +9,15 @@ import SelectedFilterLangDataScreen from './slices/general_slices/selected-multi
 import LanguageReducer from './slices/language-slice/language-json-slice';
 import wishlistSlice from './slices/wishlist-slices/wishlist-local-slice';
 import quickOrderSlice from './slices/quick-order-slice/quick-order-slice';
+import componentsReducer from './slices/general_slices/components-slice';
 
 const appReducer = combineReducers({
   LanguagesScreen: LanguageReducer,
   CurrencyScreen: CurrencyReducer,
   GetAccessTokenScreen: GetAccessTokenReducer,
   MultilanguageScreen: MultiLanguageReducer,
-  SelectedFilterLangDataScreen: SelectedFilterLangDataScreen,
+  ComponentsScreen: componentsReducer,
+  SelectedFilterLangDataReducer: SelectedFilterLangDataScreen,
   wishlistSlice: wishlistSlice,
   cart: cartLocalSlice,
   catalogSlice: catalogLocalSlice,
