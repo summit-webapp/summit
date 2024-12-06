@@ -1,14 +1,13 @@
-import CatalogList from '../../components/Catalog/CatalogList';
-import PageMetaData from '../../components/PageMetaData';
-import { MetaDataTypes } from '../../interfaces/meta-data-interface';
-import MetaTag from '../../services/api/general-apis/meta-tag-api';
+import { ServerDataTypes } from '../../interfaces/meta-data-interface';
 import { CONSTANTS } from '../../services/config/app-config';
 import getPageMetaData from '../../utils/fetch-page-meta-deta';
+import PageMetaData from '../../components/PageMetaData';
+import CatalogList from '../../components/Catalog/CatalogList';
 
-const Index = ({ metaData }: MetaDataTypes) => {
+const Index = ({ serverDataForPages }: ServerDataTypes) => {
   return (
     <>
-      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
+      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
       <CatalogList />
     </>
   );

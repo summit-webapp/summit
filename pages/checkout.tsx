@@ -1,14 +1,14 @@
 import { CONSTANTS } from '../services/config/app-config';
 import MetaTag from '../services/api/general-apis/meta-tag-api';
-import { MetaDataTypes } from '../interfaces/meta-data-interface';
+import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import CheckoutPageMaster from '../components/CheckoutPageComponents/CheckoutPageMaster';
 import PageMetaData from '../components/PageMetaData';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 
-const Checkout = ({ metaData }: MetaDataTypes) => {
+const Checkout = ({ serverDataForPages }: ServerDataTypes) => {
   return (
     <>
-      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
+      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages} />}
       <CheckoutPageMaster />
     </>
   );

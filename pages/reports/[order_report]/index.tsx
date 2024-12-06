@@ -1,13 +1,14 @@
 import OrderReportMaster from '../../../components/OrderReportComponents/OrderReportMaster';
 import PageMetaData from '../../../components/PageMetaData';
+import { ServerDataTypes } from '../../../interfaces/meta-data-interface';
 import MetaTag from '../../../services/api/general-apis/meta-tag-api';
 import { CONSTANTS } from '../../../services/config/app-config';
 import getPageMetaData from '../../../utils/fetch-page-meta-deta';
 
-const Index = ({ metaData }: any) => {
+const Index = ({ serverDataForPages }: ServerDataTypes) => {
   return (
     <>
-      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
+      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
       <>
         <OrderReportMaster />
       </>

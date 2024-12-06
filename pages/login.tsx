@@ -4,10 +4,10 @@ import MetaTag from '../services/api/general-apis/meta-tag-api';
 import LoginComponent from '../components/Auth/LoginComponent';
 import checkAuthorizedUser from '../utils/auth';
 import PageMetaData from '../components/PageMetaData';
-import { MetaDataTypes } from '../interfaces/meta-data-interface';
+import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 
-const login = ({ metaData }: MetaDataTypes) => {
+const login = ({ serverDataForPages }: ServerDataTypes) => {
   const router = useRouter();
   function checkIfUserIsAuthorized() {
     const checkUserStatus = checkAuthorizedUser();
@@ -19,7 +19,7 @@ const login = ({ metaData }: MetaDataTypes) => {
   }
   return (
     <>
-      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
+      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
       {CONSTANTS?.ALLOW_GUEST_TO_ACCESS_SITE_EVEN_WITHOUT_AUTHENTICATION ? <LoginComponent /> : checkIfUserIsAuthorized()}
     </>
   );

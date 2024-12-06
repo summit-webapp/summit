@@ -3,8 +3,11 @@ import { CONSTANTS } from '../services/config/app-config';
 import CartListing from '../components/Cart/CartListing';
 import MetaTag from '../services/api/general-apis/meta-tag-api';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
+import useInitializeStoreWithMultiLingualData from '../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
 
-const Cart = () => {
+const Cart = ({ serverDataForPages }: any) => {
+  useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
+
   return (
     <>
       <CartListing />

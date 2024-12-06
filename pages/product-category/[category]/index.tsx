@@ -4,17 +4,17 @@ import { CONSTANTS } from '../../../services/config/app-config';
 import useGoogleAnalyticsOperationsHandler from '../../../hooks/GoogleAnalytics/useGoogleAnalyticsOperationsHandler';
 import ProductListingMaster from '../../../components/ProductCategoriesComponents/ProductListingMaster';
 import PageMetaData from '../../../components/PageMetaData';
-import { MetaDataTypes } from '../../../interfaces/meta-data-interface';
+import { ServerDataTypes } from '../../../interfaces/meta-data-interface';
 import getPageMetaData from '../../../utils/fetch-page-meta-deta';
 
-const Index = ({ metaData }: MetaDataTypes) => {
+const Index = ({ serverDataForPages }: ServerDataTypes) => {
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   useEffect(() => {
     sendPageViewToGA(window.location.pathname + window.location.search, 'Product Listing Page');
   }, []);
   return (
     <>
-      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
+      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
       <>
         <ProductListingMaster />
       </>

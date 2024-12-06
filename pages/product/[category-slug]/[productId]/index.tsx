@@ -1,20 +1,21 @@
 import { useEffect } from 'react';
+import { ServerDataTypes } from '../../../../interfaces/meta-data-interface';
+import { CONSTANTS } from '../../../../services/config/app-config';
+import getPageMetaData from '../../../../utils/fetch-page-meta-deta';
+import useInitializeStoreWithMultiLingualData from '../../../../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
+import useGoogleAnalyticsOperationsHandler from '../../../../hooks/GoogleAnalytics/useGoogleAnalyticsOperationsHandler';
 import PageMetaData from '../../../../components/PageMetaData';
 import ProductPageMaster from '../../../../components/ProductPageComponents/ProductPageMaster';
-import { MetaDataTypes } from '../../../../interfaces/meta-data-interface';
-import MetaTag from '../../../../services/api/general-apis/meta-tag-api';
-import { CONSTANTS } from '../../../../services/config/app-config';
-import useGoogleAnalyticsOperationsHandler from '../../../../hooks/GoogleAnalytics/useGoogleAnalyticsOperationsHandler';
-import getPageMetaData from '../../../../utils/fetch-page-meta-deta';
 
-const Index = ({ metaData }: MetaDataTypes) => {
+const Index = ({ serverDataForPages }: ServerDataTypes) => {
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
+  useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
   useEffect(() => {
     sendPageViewToGA(window.location.pathname + window.location.search, 'Product Detail Page');
   }, []);
   return (
     <>
-      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaData} />}
+      {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
       <ProductPageMaster />
     </>
   );
