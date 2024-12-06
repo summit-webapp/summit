@@ -4,8 +4,10 @@ import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import CheckoutPageMaster from '../components/CheckoutPageComponents/CheckoutPageMaster';
 import PageMetaData from '../components/PageMetaData';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
+import useInitializeStoreWithMultiLingualData from '../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
 
 const Checkout = ({ serverDataForPages }: ServerDataTypes) => {
+  useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages} />}

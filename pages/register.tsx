@@ -4,8 +4,10 @@ import MetaTag from '../services/api/general-apis/meta-tag-api';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import PageMetaData from '../components/PageMetaData';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
+import useInitializeStoreWithMultiLingualData from '../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
 
 const Register = ({ serverDataForPages }: ServerDataTypes) => {
+  useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}

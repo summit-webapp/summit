@@ -6,8 +6,10 @@ import { ServerDataTypes } from '../../interfaces/meta-data-interface';
 import { useEffect } from 'react';
 import useGoogleAnalyticsOperationsHandler from '../../hooks/GoogleAnalytics/useGoogleAnalyticsOperationsHandler';
 import getPageMetaData from '../../utils/fetch-page-meta-deta';
+import useInitializeStoreWithMultiLingualData from '../../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
 
 const Index = ({ serverDataForPages }: ServerDataTypes) => {
+  useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   useEffect(() => {
     sendPageViewToGA(window.location.pathname + window.location.search, 'Product Listing Page');

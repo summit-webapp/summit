@@ -1,12 +1,13 @@
 import React from 'react';
 import { CONSTANTS } from '../services/config/app-config';
-import MetaTag from '../services/api/general-apis/meta-tag-api';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import PageMetaData from '../components/PageMetaData';
 import WishlistMaster from '../components/WishlistComponents/WishListMaster';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
+import useInitializeStoreWithMultiLingualData from '../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
 
 const Wishlist = ({ serverDataForPages }: ServerDataTypes) => {
+  useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
