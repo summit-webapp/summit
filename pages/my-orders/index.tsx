@@ -1,7 +1,6 @@
-import OrderMaster from '../../components/MyOrder/OrderMaster';
-import MetaTag from '../../services/api/general-apis/meta-tag-api';
 import { CONSTANTS } from '../../services/config/app-config';
 import getPageMetaData from '../../utils/fetch-page-meta-deta';
+import OrderMaster from '../../components/MyOrder/OrderMaster';
 
 const MyOrder = () => {
   return (

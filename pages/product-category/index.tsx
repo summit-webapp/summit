@@ -1,12 +1,11 @@
-import MetaTag from '../../services/api/general-apis/meta-tag-api';
-import { CONSTANTS } from '../../services/config/app-config';
-import ProductListingMaster from '../../components/ProductCategoriesComponents/ProductListingMaster';
-import PageMetaData from '../../components/PageMetaData';
-import { ServerDataTypes } from '../../interfaces/meta-data-interface';
 import { useEffect } from 'react';
-import useGoogleAnalyticsOperationsHandler from '../../hooks/GoogleAnalytics/useGoogleAnalyticsOperationsHandler';
+import { CONSTANTS } from '../../services/config/app-config';
+import { ServerDataTypes } from '../../interfaces/meta-data-interface';
 import getPageMetaData from '../../utils/fetch-page-meta-deta';
+import useGoogleAnalyticsOperationsHandler from '../../hooks/GoogleAnalytics/useGoogleAnalyticsOperationsHandler';
 import useInitializeStoreWithMultiLingualData from '../../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
+import PageMetaData from '../../components/PageMetaData';
+import ProductListingMaster from '../../components/ProductCategoriesComponents/ProductListingMaster';
 
 const Index = ({ serverDataForPages }: ServerDataTypes) => {
   useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);

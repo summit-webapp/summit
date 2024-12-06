@@ -1,10 +1,8 @@
-import React from 'react';
 import { CONSTANTS } from '../services/config/app-config';
-import MetaTag from '../services/api/general-apis/meta-tag-api';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
-import PageMetaData from '../components/PageMetaData';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 import useInitializeStoreWithMultiLingualData from '../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
+import PageMetaData from '../components/PageMetaData';
 
 const Register = ({ serverDataForPages }: ServerDataTypes) => {
   useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);

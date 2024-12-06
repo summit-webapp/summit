@@ -1,10 +1,9 @@
-import OrderReportMaster from '../../../components/OrderReportComponents/OrderReportMaster';
-import PageMetaData from '../../../components/PageMetaData';
 import useInitializeStoreWithMultiLingualData from '../../../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
-import { ServerDataTypes } from '../../../interfaces/meta-data-interface';
-import MetaTag from '../../../services/api/general-apis/meta-tag-api';
-import { CONSTANTS } from '../../../services/config/app-config';
 import getPageMetaData from '../../../utils/fetch-page-meta-deta';
+import { ServerDataTypes } from '../../../interfaces/meta-data-interface';
+import { CONSTANTS } from '../../../services/config/app-config';
+import PageMetaData from '../../../components/PageMetaData';
+import OrderReportMaster from '../../../components/OrderReportComponents/OrderReportMaster';
 
 const Index = ({ serverDataForPages }: ServerDataTypes) => {
   useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);

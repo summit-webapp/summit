@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { CONSTANTS } from '../services/config/app-config';
-import LoginComponent from '../components/Auth/LoginComponent';
 import checkAuthorizedUser from '../utils/auth';
-import PageMetaData from '../components/PageMetaData';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 import useInitializeStoreWithMultiLingualData from '../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
+import PageMetaData from '../components/PageMetaData';
+import LoginComponent from '../components/Auth/LoginComponent';
 
 const login = ({ serverDataForPages }: ServerDataTypes) => {
   useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);

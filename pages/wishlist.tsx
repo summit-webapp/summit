@@ -1,10 +1,9 @@
-import React from 'react';
 import { CONSTANTS } from '../services/config/app-config';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
-import PageMetaData from '../components/PageMetaData';
-import WishlistMaster from '../components/WishlistComponents/WishListMaster';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 import useInitializeStoreWithMultiLingualData from '../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
+import PageMetaData from '../components/PageMetaData';
+import WishlistMaster from '../components/WishlistComponents/WishListMaster';
 
 const Wishlist = ({ serverDataForPages }: ServerDataTypes) => {
   useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
