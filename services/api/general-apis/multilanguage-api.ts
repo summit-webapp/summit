@@ -26,7 +26,6 @@ const MultiLangApi = async (appConfig: APP_CONFIG) => {
                   `${CONSTANTS.API_BASE_URL}${CONSTANTS.SUMMIT_APP_CONFIG?.app_name}?version=${CONSTANTS.SUMMIT_APP_CONFIG.version}&method=${langTransmethod}&entity=${langTransentity}&language_code=${lang.language_code}`,
                   { timeout: 5000 }
                 );
-
                 return {
                   lang_name: lang.language_name,
                   lang_code: lang.language_code,
@@ -47,7 +46,6 @@ const MultiLangApi = async (appConfig: APP_CONFIG) => {
           )
         : [];
   }
-
   return generateMultiLingualArrayOfData;
 };
 

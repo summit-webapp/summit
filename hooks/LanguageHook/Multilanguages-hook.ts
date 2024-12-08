@@ -9,6 +9,17 @@ const useMultilangHook = () => {
   const [multiLanguagesData, SetMultiLanguagesData] = useState<any>([]);
   const [selectedLang, setSelectedLang] = useState<any>('en');
 
+  const handleLanguageChange = (lang: any) => {
+    if (lang === 'ar') {
+      document.documentElement.dir = 'rtl';
+    } else {
+      document.documentElement.dir = 'ltr';
+    }
+    setSelectedLang(lang);
+
+    localStorage.setItem('selectedLanguage', lang);
+  };
+
   useEffect(() => {
     // Retrieve the selected language from localStorage on component mount
     const storedLang = localStorage.getItem('selectedLanguage');
@@ -25,17 +36,6 @@ const useMultilangHook = () => {
       SetMultiLanguagesData(MultiLanguageFromStore?.languageData);
     }
   }, [MultiLanguageFromStore]);
-
-  const handleLanguageChange = (lang: any) => {
-    if (lang === 'ar') {
-      document.documentElement.dir = 'rtl';
-    } else {
-      document.documentElement.dir = 'ltr';
-    }
-    setSelectedLang(lang);
-
-    localStorage.setItem('selectedLanguage', lang);
-  };
 
   useEffect(() => {
     const params = {
