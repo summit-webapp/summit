@@ -1,4 +1,4 @@
-export default interface TagDataProduct {
+export default interface FeaturedCollectionProductTypes {
   variant: any[];
   url: string;
   display_tag: string[];
@@ -29,9 +29,9 @@ export default interface TagDataProduct {
   name: string;
   slug: string;
 }
-export default interface TagData {
+export default interface FeaturedCollectionTypes {
   description: string | null;
   tag_image: string | null;
   tag_name: string | null;
-  value: TagDataProduct[];
+  value: FeaturedCollectionProductTypes[];
 }
