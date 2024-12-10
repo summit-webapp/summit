@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CONSTANTS } from '../../services/config/app-config';
 
 const useImageGallery = ({ slideShowImages }: any) => {
-  const [enlargeImg, setEnlargeImg] = useState<string>(slideShowImages?.[0] || ''); // Track the enlarged image
+  const [enlargeImg, setEnlargeImg] = useState<string>(slideShowImages?.length !== 0 ? slideShowImages[0] : ''); // Track the enlarged image
   const [activeImgIndex, setActiveImgIndex] = useState<number>(0); // Track the active thumbnail index
 
   const handleSelectedImage = (imageLink: string, imgIndex: number) => {
