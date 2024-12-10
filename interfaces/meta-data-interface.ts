@@ -4,7 +4,10 @@ export interface PageMetaDataTypes {
   robots: string;
   description: string;
 }
-
-export interface MetaDataTypes {
+interface PageData {
   metaData: PageMetaDataTypes;
+  multiLingualListTranslationTextList: any[];
+}
+export interface ServerDataTypes {
+  serverDataForPages: PageData;
 }
