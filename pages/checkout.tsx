@@ -1,13 +1,14 @@
-import { CONSTANTS } from '../services/config/app-config';
-import MetaTag from '../services/api/general-apis/meta-tag-api';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
-import CheckoutPageMaster from '../components/CheckoutPageComponents/CheckoutPageMaster';
-import PageMetaData from '../components/PageMetaData';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
+import { CONSTANTS } from '../services/config/app-config';
 import useInitializeStoreWithMultiLingualData from '../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
+import useInitializeStoreWithComponentsList from '../hooks/GeneralHooks/useInitializeStoreWithComponentsList';
+import PageMetaData from '../components/PageMetaData';
+import CheckoutPageMaster from '../components/CheckoutPageComponents/CheckoutPageMaster';
 
 const Checkout = ({ serverDataForPages }: ServerDataTypes) => {
   useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
+  useInitializeStoreWithComponentsList(serverDataForPages?.componentsList);
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages} />}

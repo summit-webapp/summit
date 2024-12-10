@@ -1,12 +1,15 @@
+import getPageMetaData from '../../../utils/fetch-page-meta-deta';
 import { CONSTANTS } from '../../../services/config/app-config';
 import { ServerDataTypes } from '../../../interfaces/meta-data-interface';
 import useInitializeStoreWithMultiLingualData from '../../../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
-import getPageMetaData from '../../../utils/fetch-page-meta-deta';
+import useInitializeStoreWithComponentsList from '../../../hooks/GeneralHooks/useInitializeStoreWithComponentsList';
 import PageMetaData from '../../../components/PageMetaData';
 import ProductListingMaster from '../../../components/ProductCategoriesComponents/ProductListingMaster';
 
 const Index = ({ serverDataForPages }: ServerDataTypes) => {
   useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
+  useInitializeStoreWithComponentsList(serverDataForPages?.componentsList);
+
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
