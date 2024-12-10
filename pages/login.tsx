@@ -4,12 +4,13 @@ import checkAuthorizedUser from '../utils/auth';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 import useInitializeStoreWithMultiLingualData from '../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
+import useInitializeStoreWithComponentsList from '../hooks/GeneralHooks/useInitializeStoreWithComponentsList';
 import PageMetaData from '../components/PageMetaData';
 import LoginComponent from '../components/Auth/LoginComponent';
 
 const login = ({ serverDataForPages }: ServerDataTypes) => {
   useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
-
+  useInitializeStoreWithComponentsList(serverDataForPages?.componentsList);
   const router = useRouter();
   function checkIfUserIsAuthorized() {
     const checkUserStatus = checkAuthorizedUser();
