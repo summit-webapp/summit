@@ -26,7 +26,7 @@ export const SelectedFilterLangData: any = createSlice({
   },
 });
 
-export const SelectedFilterLangDataFromStore = (state: RootState) => state.SelectedFilterLangDataScreen;
+export const SelectedFilterLangDataFromStore = (state: RootState) => state.SelectedFilterLangDataReducer;
 
 export const { SelectedLangData } = SelectedFilterLangData.actions;
 export default SelectedFilterLangData.reducer;
