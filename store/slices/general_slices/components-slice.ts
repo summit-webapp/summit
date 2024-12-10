@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../root-reducer';
 
 interface ComponentFieldTypes {
   name: string;
@@ -28,5 +29,7 @@ const componentsListSlice = createSlice({
 });
 
 export const { createComponentsList } = componentsListSlice.actions;
+
+export const componentsListFromReduxStore = (state: RootState) => state.ComponentsScreen;
 
 export default componentsListSlice.reducer;
