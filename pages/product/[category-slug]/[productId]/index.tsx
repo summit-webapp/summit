@@ -10,8 +10,6 @@ import ProductPageMaster from '../../../../components/ProductPageComponents/Prod
 
 const Index = ({ serverDataForPages }: ServerDataTypes) => {
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
-  useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
-  useInitializeStoreWithComponentsList(serverDataForPages?.componentsList);
   useEffect(() => {
     sendPageViewToGA(window.location.pathname + window.location.search, 'Product Detail Page');
   }, []);
