@@ -1,11 +1,7 @@
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 import { CONSTANTS } from '../services/config/app-config';
 import CartListing from '../components/Cart/CartListing';
-import useInitializeStoreWithMultiLingualData from '../hooks/GeneralHooks/useInitializeStoreWithMultiLingualData';
-import useInitializeStoreWithComponentsList from '../hooks/GeneralHooks/useInitializeStoreWithComponentsList';
 const Cart = ({ serverDataForPages }: any) => {
-  useInitializeStoreWithMultiLingualData(serverDataForPages?.multiLingualListTranslationTextList);
-  useInitializeStoreWithComponentsList(serverDataForPages?.componentsList);
   return (
     <>
       <CartListing />
