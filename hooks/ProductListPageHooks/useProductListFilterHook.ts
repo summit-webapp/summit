@@ -54,11 +54,12 @@ const useProductListingFilterHook = () => {
     }
   }, [query]);
 
-  const handleFilterCheckFun = async (event: any) => {
+  const handleFilterCheckFun = async (event: any, isColorFilter?: boolean, isActiveColor?: boolean, colorValue?: string) => {
     let duplicateFilters: any;
-    const section = event.target.name;
-    const filterValue = event.target.value;
-    const isChecked = event.target.checked;
+    const section = isColorFilter ? 'Color' : event.target.name; // Use "Color" for color filters, otherwise from event
+    const filterValue = isColorFilter ? colorValue : event.target.value; // Use `colorValue` for color filters
+    const isChecked = isColorFilter ? isActiveColor : event.target.checked; // Colors are selected on click, so treat them as checked
+    console.log(isChecked, 'data111');
 
     setSelectedFilters((prevFilters: any) => {
       let updatedFilters = [...prevFilters];
@@ -67,7 +68,9 @@ const useProductListingFilterHook = () => {
 
       if (existingSectionIndex !== -1) {
         if (isChecked) {
-          updatedFilters[existingSectionIndex].value = [...updatedFilters[existingSectionIndex].value, filterValue];
+          if (!updatedFilters[existingSectionIndex].value.includes(filterValue)) {
+            updatedFilters[existingSectionIndex].value.push(filterValue);
+          }
         } else {
           updatedFilters[existingSectionIndex].value = updatedFilters[existingSectionIndex].value.filter((val: any) => val !== filterValue);
           if (updatedFilters[existingSectionIndex].value.length === 0) {
@@ -77,9 +80,11 @@ const useProductListingFilterHook = () => {
       } else if (isChecked) {
         updatedFilters.push({ name: section, value: [filterValue] });
       }
+
       duplicateFilters = [...updatedFilters];
       return updatedFilters;
     });
+
     const filterString = duplicateFilters?.length > 0 ? `&filter=${encodeURIComponent(JSON.stringify(duplicateFilters))}` : '';
     let url = router.asPath;
     const existingFilterIndex = url.indexOf('&filter=');
