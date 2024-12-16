@@ -59,7 +59,6 @@ const useProductListingFilterHook = () => {
     const section = isColorFilter ? 'Color' : event.target.name; // Use "Color" for color filters, otherwise from event
     const filterValue = isColorFilter ? colorValue : event.target.value; // Use `colorValue` for color filters
     const isChecked = isColorFilter ? isActiveColor : event.target.checked; // Colors are selected on click, so treat them as checked
-    console.log(isChecked, 'data111');
 
     setSelectedFilters((prevFilters: any) => {
       let updatedFilters = [...prevFilters];
