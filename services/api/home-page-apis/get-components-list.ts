@@ -1,7 +1,7 @@
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 import { executeGETAPI } from '../../../utils/http-methods';
 
-const getHomePageComponentsList = async (appConfig: APP_CONFIG) => {
+const getComponentsList = async (appConfig: APP_CONFIG) => {
   const additionalParams = {}; // Add additional parameters if needed
   // Use executeGETAPI to handle GET Request logic
   const response = await executeGETAPI(
@@ -14,4 +14,4 @@ const getHomePageComponentsList = async (appConfig: APP_CONFIG) => {
   return response;
 };
 
-export default getHomePageComponentsList;
+export default getComponentsList;
