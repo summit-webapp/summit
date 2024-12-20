@@ -1,10 +1,10 @@
-import getPageMetaData from '../utils/fetch-page-meta-deta';
+import CartPageMaster from '../components/Cart/ApparelCartPage/CartPageMaster';
 import { CONSTANTS } from '../services/config/app-config';
-import CartListing from '../components/Cart/CartListing';
+import getPageMetaData from '../utils/fetch-page-meta-deta';
 const Cart = ({ serverDataForPages }: any) => {
   return (
     <>
-      <CartListing />
+      <CartPageMaster />
     </>
   );
 };

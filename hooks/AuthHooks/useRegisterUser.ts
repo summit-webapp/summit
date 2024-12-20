@@ -10,7 +10,7 @@ const useRegisterUser = () => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const router = useRouter();
   const { isLoading, setIsLoading, errorMessage, setErrMessage } = useHandleStateUpdate();
-  const [registrationFormData, setRegistrationFormData] = useState<typeRegistrationProps>({
+  const initialValues = {
     salutation: '',
     name: '',
     email: '',
@@ -23,7 +23,8 @@ const useRegisterUser = () => {
     postal_code: '',
     customer_group: '',
     gst_number: '',
-  });
+  };
+  const [registrationFormData, setRegistrationFormData] = useState<typeRegistrationProps>(initialValues);
 
   const handleRegistrationFormValueChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,13 +34,13 @@ const useRegisterUser = () => {
     }));
   };
 
-  const submitRegistrationForm = async () => {
+  const submitRegistrationForm = async (values: any) => {
     let registrationAPIResponse: any;
     // Remove keys with empty values
     const removeEmptyValues = (registrationFormData: typeRegistrationProps) => {
       return Object.fromEntries(Object.entries(registrationFormData).filter(([key, value]) => value !== ''));
     };
-    const cleanedData: any = removeEmptyValues(registrationFormData);
+    const cleanedData: any = removeEmptyValues(values);
     setIsLoading(true);
     try {
       registrationAPIResponse = await registrationAPI(SUMMIT_APP_CONFIG, cleanedData);
@@ -56,11 +57,19 @@ const useRegisterUser = () => {
       setIsLoading(false);
     }
   };
+
+  const resetRegistrationForm = () => {
+    console.log('data111', initialValues);
+    setRegistrationFormData(initialValues);
+  };
+  console.log(registrationFormData, 'data111');
   return {
     isLoading,
     errorMessage,
     handleRegistrationFormValueChanges,
     submitRegistrationForm,
+    registrationFormData,
+    resetRegistrationForm,
   };
 };
 
