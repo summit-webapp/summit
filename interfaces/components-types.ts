@@ -7,5 +7,13 @@ export interface ComponentTypes {
 }
 
 export interface ComponentsListTypes {
+  pageName: string;
   componentsList: ComponentTypes[]; // An array of `PageData` objects
+}
+
+export interface ProductListPageComponentsListTypes {
+  pageName: string;
+  componentList: ComponentTypes[];
+  layoutName: string;
+  layoutComponentsList: ComponentTypes[];
 }

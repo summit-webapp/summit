@@ -55,6 +55,7 @@ const apiSdkRegistry: any = {
   'add-item-to-catalog-api': { method: 'put_items', entity: 'catalog' },
   'delete-catalog-item-api': { method: 'delete_items', entity: 'catalog' },
   'razorpay-payment-api': { method: 'get_razorpay_payment_url', entity: 'order' },
+  'sitemap-api': { method: 'get_site_map', entity: 'seo' },
 };
 
 export default apiSdkRegistry;
