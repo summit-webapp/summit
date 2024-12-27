@@ -107,7 +107,7 @@ export const callGetAPI = async (url: string, token?: any) => {
   await axios
     .get(`${url}`, {
       ...API_CONFIG,
-      timeout: 5000,
+      // timeout: 5000,
     })
     .then((res: any) => {
       response = res;
@@ -136,7 +136,7 @@ export const callPostAPI = async (url: string, body: any, token?: any) => {
   await axios
     .post(url, body, {
       ...API_CONFIG,
-      timeout: 5000,
+      // timeout: 5000,
     })
     .then((res: any) => {
       response = res;
