@@ -104,13 +104,18 @@ const useProductListingFilterHook = () => {
 
     await router.push(url);
   };
-
+  const clearFilters = async () => {
+    setSelectedFilters([]);
+    const baseUrl = router.asPath.split('?')[0];
+    await router.push(`${baseUrl}?page=1&currency=INR`);
+  };
   return {
     filtersData,
     isLoading,
     errorMessage,
     handleFilterCheckFun,
     selectedFilters,
+    clearFilters,
   };
 };
 
