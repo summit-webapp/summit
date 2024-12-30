@@ -26,7 +26,7 @@ const useRegisterUser = () => {
   };
   const [registrationFormData, setRegistrationFormData] = useState<typeRegistrationProps>(initialValues);
 
-  const handleRegistrationFormValueChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRegistrationFormValueChanges = (e: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setRegistrationFormData((prevState) => ({
       ...prevState,
