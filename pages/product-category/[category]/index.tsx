@@ -10,6 +10,8 @@ import { ComponentTypes } from '../../../interfaces/components-types';
 import getSiteMapList from '../../../services/api/seo-apis/sitemap-api';
 import getMultiLingualTextFromAPI from '../../../services/api/general-apis/multilanguage-api';
 import TranslationsList from '../../../components/TranslationsList';
+import { useDispatch } from 'react-redux';
+import { setMultiLingualData } from '../../../store/slices/general_slices/multilang-slice';
 export const getStaticPaths = async () => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const apiParams = { type: 'product-category' };
@@ -65,10 +67,14 @@ export const getStaticProps = async (context: any) => {
   };
 };
 
-const Index = ({ productListPageComponents }: any) => {
+const Index = ({ productListPageComponents, translationsList }: any) => {
+  const dispatch = useDispatch();
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   useEffect(() => {
     sendPageViewToGA(window.location.pathname + window.location.search, 'Product Listing Page');
+    if (translationsList?.length > 0) {
+      dispatch(setMultiLingualData(translationsList));
+    }
   }, []);
   return (
     <>
