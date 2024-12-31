@@ -6,11 +6,12 @@ import fetchProductVariant from '../../services/api/product-detail-page-apis/get
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
-import fetchProductMatchingItems from '../../services/api/product-detail-page-apis/get-product-matching-items';
 import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-page-apis/get-product-stock-availability';
-import fetchProductReview from '../../services/api/product-detail-page-apis/get-product-review';
-import UploadReviewPhotoAPI from '../../services/api/utils/upload-file-api';
-
+import fetchPinCodesListAPI from '../../services/api/general-apis/get-pin-code-list-api';
+import debounce from 'debounce';
+type PinCodeTypes = {
+  name: string;
+};
 const useProductDetail = () => {
   const { query } = useRouter();
 
@@ -22,7 +23,9 @@ const useProductDetail = () => {
   // Set if product detail data is variant that has opened. If Variant then check what's its template and set it.
   const [variantOf, setVariantOf] = useState<string>('');
   const [productVariantData, setProductVariantData] = useState([]);
-
+  const [userEnteredPinCode, setUserEnteredPincode] = useState<string>('');
+  const [pinCodeData, setPinCodeData] = useState<PinCodeTypes[]>([]);
+  const [validPinCode, setValidPinCode] = useState<boolean>(false);
   // Set Matching Items Data
   // Fetch Stock Availability Data
   const [stockAvailabilityData, setStockAvailabilityData] = useState<any>([]);
@@ -148,7 +151,25 @@ const useProductDetail = () => {
     }
   };
 
-  const productSpecification = async () => {};
+  const getPincodesList = async () => {
+    if (pinCodeData?.length === 0) {
+      const pinCodesList = await fetchPinCodesListAPI(TokenFromStore?.token);
+      if (pinCodesList?.data?.length > 0) {
+        setPinCodeData(pinCodesList?.data);
+      } else {
+        setPinCodeData([]);
+      }
+    }
+  };
+  const debouncedSetValue = debounce((pinCode: string) => {
+    const found = pinCodeData.some((pin) => pin.name === pinCode);
+    setValidPinCode(found);
+  }, 100);
+
+  const checkPinCodeExists = (pinCode: string) => {
+    setUserEnteredPincode(pinCode);
+    debouncedSetValue(pinCode); // Debounce state update
+  };
 
   useEffect(() => {
     fetchProductDetailDataAPI();
@@ -168,6 +189,10 @@ const useProductDetail = () => {
     itemList,
     qty,
     handleMultipleQtyChange,
+    userEnteredPinCode,
+    validPinCode,
+    getPincodesList,
+    checkPinCodeExists,
   };
 };
 

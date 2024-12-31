@@ -8,6 +8,10 @@ import ProductListingMaster from '../../../components/ProductCategoriesComponent
 import getComponentsList from '../../../services/api/home-page-apis/get-components-list';
 import { ComponentTypes } from '../../../interfaces/components-types';
 import getSiteMapList from '../../../services/api/seo-apis/sitemap-api';
+import getMultiLingualTextFromAPI from '../../../services/api/general-apis/multilanguage-api';
+import TranslationsList from '../../../components/TranslationsList';
+import { useDispatch } from 'react-redux';
+import { setMultiLingualData } from '../../../store/slices/general_slices/multilang-slice';
 export const getStaticPaths = async () => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const apiParams = { type: 'product-category' };
@@ -47,25 +51,37 @@ export const getStaticProps = async (context: any) => {
   const filteredProductListingPageComponentsFromAllComponentsList: any = componentsList?.filter(
     (component: ComponentTypes) => component?.page_name === 'listing-page'
   );
+  let translationsList: any;
+  let getMultilanguageData: any = await getMultiLingualTextFromAPI(SUMMIT_APP_CONFIG);
+  if (getMultilanguageData?.length > 0) {
+    translationsList = getMultilanguageData;
+  } else {
+    translationsList = [];
+  }
 
   return {
     props: {
       productListPageComponents: filteredProductListingPageComponentsFromAllComponentsList || [],
+      translationsList,
     },
   };
 };
 
-const Index = ({ productListPageComponents }: any) => {
+const Index = ({ productListPageComponents, translationsList }: any) => {
+  const dispatch = useDispatch();
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   useEffect(() => {
     sendPageViewToGA(window.location.pathname + window.location.search, 'Product Listing Page');
+    if (translationsList?.length > 0) {
+      dispatch(setMultiLingualData(translationsList));
+    }
   }, []);
   return (
     <>
-      {/* {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />} */}
-      <>
+      <TranslationsList>
+        {/* {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />} */}
         <ProductListingMaster componentsList={productListPageComponents} />
-      </>
+      </TranslationsList>
     </>
   );
 };
