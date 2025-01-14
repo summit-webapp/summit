@@ -40,17 +40,10 @@ export const getStaticProps = async (context: any) => {
   const { category } = context.params;
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   let componentsList: any;
-  let fetchComponentsList: any = await getComponentsList(SUMMIT_APP_CONFIG);
-  if (
-    fetchComponentsList?.status === 200 &&
-    fetchComponentsList?.data?.message?.msg === 'success' &&
-    fetchComponentsList?.data?.message?.data?.length > 0
-  ) {
+  let fetchComponentsList: any = await getComponentsList('Product Category Page', SUMMIT_APP_CONFIG);
+  if (fetchComponentsList?.status === 200 && fetchComponentsList?.data?.message?.msg === 'success') {
     componentsList = fetchComponentsList?.data?.message?.data;
   }
-  const filteredProductListingPageComponentsFromAllComponentsList: any = componentsList?.filter(
-    (component: ComponentTypes) => component?.page_name === 'listing-page'
-  );
   let translationsList: any;
   let getMultilanguageData: any = await getMultiLingualTextFromAPI(SUMMIT_APP_CONFIG);
   if (getMultilanguageData?.length > 0) {
@@ -61,7 +54,7 @@ export const getStaticProps = async (context: any) => {
 
   return {
     props: {
-      productListPageComponents: filteredProductListingPageComponentsFromAllComponentsList || [],
+      productListPageComponents: fetchComponentsList?.data?.message?.data || {},
       translationsList,
     },
   };
