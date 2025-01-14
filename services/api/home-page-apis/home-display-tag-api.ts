@@ -1,29 +1,35 @@
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 import { executeGETAPI } from '../../../utils/http-methods';
 
-const getDisplaytagsDataFromAPI = async (appConfig: APP_CONFIG, reqParams: any, currencyValue: any, token: any) => {
+const getDisplaytagsDataFromAPI = async (
+  appConfig: APP_CONFIG,
+  reqParams: any,
+  collection_name: string,
+  currencyValue: any,
+  token: any
+) => {
   // const displayTagsList = await callGetAPI(`${CONSTANTS.API_BASE_URL}/api/resource/Tag`, token);
   const additionalParams = { fields: JSON.stringify(reqParams) };
 
-  const displayTagsList = await executeGETAPI(undefined, '', token, additionalParams, '/api/resource/Tag');
-  if (displayTagsList?.data?.data?.length > 0) {
-    const getDisplayTagsProductsList: any = await Promise.all(
-      displayTagsList?.data?.data?.length > 0 &&
-        displayTagsList?.data?.data.map(async (tag: any) => {
-          const additionalParams = {
-            tag: tag.name,
-            currency: currencyValue,
-          };
+  const getFeaturedCollectionData = await executeGETAPI(undefined, '', token, additionalParams, `/api/resource/Tag/${collection_name}`);
 
-          const res = await executeGETAPI(appConfig, 'display-tags-api', token, additionalParams);
-
-          return { tag_name: tag.name, description: tag.description, value: res?.data, tag_image: tag.tag_image };
-        })
-    );
-
-    return getDisplayTagsProductsList;
+  if (getFeaturedCollectionData?.status === 200 && Object.keys(getFeaturedCollectionData?.data?.data)?.length > 0) {
+    const additionalParams = {
+      tag: getFeaturedCollectionData?.data?.data?.name,
+      currency: currencyValue,
+    };
+    const res = await executeGETAPI(appConfig, 'display-tags-api', token, additionalParams);
+    const tagData = [
+      {
+        tag_name: getFeaturedCollectionData?.data?.data?.name,
+        description: getFeaturedCollectionData?.data?.data?.description,
+        value: res?.data,
+        tag_image: getFeaturedCollectionData?.data?.data?.tag_image,
+      },
+    ];
+    return tagData;
   } else {
-    return displayTagsList;
+    return [];
   }
 };
 
