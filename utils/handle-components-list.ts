@@ -1,5 +1,5 @@
 const flattenComponentsList = (componentsList: any) => {
-  const componentsListFlattenArray = componentsList[0]?.component_list?.length > 0 ? componentsList[0].component_list?.flat() : [];
+  const componentsListFlattenArray = componentsList?.associated_component?.length > 0 ? componentsList?.associated_component?.flat() : [];
   return componentsListFlattenArray;
 };
 
