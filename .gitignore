@@ -27,7 +27,7 @@ yarn-error.log*
 next-env.d.ts
 
 # summit settings json
-summit-settings.json
+*.json
 
 /public/robots.txt
 /public/sitemap.xml
