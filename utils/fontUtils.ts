@@ -22,5 +22,5 @@ const fonts = {
 
 // Export function to get the font by name
 export const createFontImport = (fontName: string) => {
-  return fonts[fontName] || fonts.Nunito; // Default to Nunito if font is not found
+  return fonts[fontName as keyof typeof fonts] || fonts.Nunito; // Default to Nunito if font is not found
 };
