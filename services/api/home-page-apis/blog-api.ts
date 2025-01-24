@@ -1,15 +1,17 @@
+import APP_CONFIG from '../../../interfaces/app-config-interface';
 import { executeGETAPI } from '../../../utils/http-methods';
 
-const getBlogDataAPI = async (
-  reqParams: any,
-  token: any
-) => {
-  // const displayTagsList = await callGetAPI(`${CONSTANTS.API_BASE_URL}/api/resource/Tag`, token);
-  const additionalParams = { fields: JSON.stringify(reqParams) };
+const getBlogDataAPI = async (appConfig: APP_CONFIG, token: any) => {
+  const additionalParams = {}; // Add additional parameters if needed
+  // Use executeGETAPI to handle GET Request logic
+  const response = await executeGETAPI(
+    appConfig,
+    'blog-api',
+    token,
+    additionalParams // Pass additional parameters if needed
+  );
 
-  const response = await executeGETAPI(undefined, '', token, additionalParams, `/api/resource/Blog Post`);
   return response;
 };
 
 export default getBlogDataAPI;
-
