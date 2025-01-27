@@ -1,17 +1,16 @@
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 import { executeGETAPI } from '../../../utils/http-methods';
 
-const promotionalBannerAPI = async (appConfig: APP_CONFIG, token: any) => {
-  const additionalParams = {}; // Add additional parameters if needed
-  // Use executeGETAPI to handle GET Request logic
-  const response = await executeGETAPI(
-    appConfig,
-    'promotional-banner-api',
-    token,
-    additionalParams // Pass additional parameters if needed
-  );
+const promotionalBannerAPI = async (appConfig: APP_CONFIG, reqParams: any, token: any) => {
+  const additionalParams = { fields: JSON.stringify(reqParams) };
 
-  return response;
+  const getPromotionalBannerData = await executeGETAPI(undefined, '', token, additionalParams, `/api/resource/Promotional Banner`);
+  if (getPromotionalBannerData?.status === 200 && Object.keys(getPromotionalBannerData?.data?.data)?.length > 0) {
+    const bannerData = getPromotionalBannerData?.data?.data;
+    return bannerData;
+  } else {
+    return [];
+  }
 };
 
 export default promotionalBannerAPI;
