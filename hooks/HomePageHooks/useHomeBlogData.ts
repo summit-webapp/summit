@@ -14,8 +14,8 @@ const useHomeBlogData = () => {
     setIsLoading(true);
     try {
       getBlogData = await getBlogDataAPI(SUMMIT_APP_CONFIG, tokenFromStore?.token);
-      if (getBlogData?.status === 200 && getBlogData?.data?.msg === 'success') {
-        setBlogData(getBlogData?.data?.data);
+      if (getBlogData?.status === 200 && getBlogData?.data?.message?.msg === 'success') {
+        setBlogData(getBlogData?.data?.message?.data);
       } else {
         setErrMessage('No Data Found');
       }
