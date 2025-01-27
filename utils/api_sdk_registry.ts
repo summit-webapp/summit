@@ -57,7 +57,7 @@ const apiSdkRegistry: any = {
   'razorpay-payment-api': { method: 'get_razorpay_payment_url', entity: 'order' },
   'sitemap-api': { method: 'get_site_map', entity: 'seo' },
   'promotional-banner-api': { method: '', entity: '' },
-  'blog-api': { method: '', entity: '' },
+  'blog-api': { method: 'get_blog_post_list', entity: 'blog_post' },
 };
 
 export default apiSdkRegistry;
