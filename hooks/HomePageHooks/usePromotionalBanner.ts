@@ -6,18 +6,20 @@ import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import promotionalBannerAPI from '../../services/api/home-page-apis/promotional-banner-api';
 const usePromotionalBanner = () => {
   const [promotionalBannerData, setPromotionalBannerData] = useState<any>([]);
+
   const tokenFromStore: any = useSelector(get_access_token);
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
+
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const fetchPromotionalBannerData = async () => {
     let getPromotionalBannerData: any;
-    const reqParams = ['title', 'description', 'image', 'sequence'];
+    const fields = ['title', 'image', 'description', 'sequence'];
 
     setIsLoading(true);
     try {
-      getPromotionalBannerData = await promotionalBannerAPI(SUMMIT_APP_CONFIG, reqParams, tokenFromStore?.token);
-      if (getPromotionalBannerData?.length > 0) {
-        setPromotionalBannerData(getPromotionalBannerData);
+      getPromotionalBannerData = await promotionalBannerAPI(SUMMIT_APP_CONFIG, fields, tokenFromStore?.token);
+      if (getPromotionalBannerData?.status === 200) {
+        setPromotionalBannerData(getPromotionalBannerData?.data?.data);
       } else {
         setErrMessage('No Data Found');
       }
