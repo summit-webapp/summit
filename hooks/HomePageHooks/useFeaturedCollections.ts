@@ -30,11 +30,11 @@ const useFeaturedCollections = (componentProperties: any) => {
       if (getDisplayTagsData?.length > 0) {
         const tagsDataArray = getDisplayTagsData
           .map((data: any) => {
-            if (data?.value?.message?.msg === 'success') {
+            if (data?.value?.msg === 'success') {
               return {
                 tag_name: data.tag_name,
                 description: data.description,
-                value: data?.value?.message?.data,
+                value: data.value?.data,
                 tag_image: data?.tag_image,
               };
             } else {
@@ -68,7 +68,6 @@ const useFeaturedCollections = (componentProperties: any) => {
   useEffect(() => {
     fetchCurrencyValue();
   }, [currency_state_from_redux]);
-
   return {
     allTagsData,
     fetchDisplayTagsDataFunction,
