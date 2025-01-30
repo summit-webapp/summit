@@ -26,19 +26,20 @@ const useFeaturedCollections = (componentProperties: any) => {
         currency_value,
         tokenFromStore?.token
       );
+      console.log('getDisplayTagsData', getDisplayTagsData);
 
       if (getDisplayTagsData?.length > 0) {
         const tagsDataArray = getDisplayTagsData
           .map((data: any) => {
-            if (data?.value?.message?.msg === 'success') {
+            if (data?.value?.msg === 'success') {
               return {
                 tag_name: data.tag_name,
                 description: data.description,
-                value: data?.value?.message?.data,
+                value: data?.value?.data,
                 tag_image: data?.tag_image,
               };
             } else {
-              setErrMessage(data?.value?.message?.error);
+              setErrMessage(data?.value?.error);
               return null;
             }
           })
