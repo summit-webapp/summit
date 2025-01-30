@@ -56,21 +56,21 @@ const useProductListing = () => {
     setIsLoading(true);
     try {
       productListDataAPI = await fetchProductListingFromAPI(SUMMIT_APP_CONFIG, reqParams, TokenFromStore?.token);
-      if (productListDataAPI?.data?.message?.msg === 'success' && productListDataAPI?.data?.message?.data?.length > 0) {
+      if (productListDataAPI?.data?.msg === 'success' && productListDataAPI?.data?.data?.length > 0) {
         if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
           setProductListingData((prevData: any) => [...prevData, ...productListDataAPI?.data?.message?.data]);
         } else if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
-          setProductListingData([...productListDataAPI?.data?.message?.data]);
+          setProductListingData([...productListDataAPI?.data?.data]);
         }
-        setProductListTotalCount(productListDataAPI?.data?.message?.total_count);
+        setProductListTotalCount(productListDataAPI?.data?.total_count);
       } else {
         setProductListingData([]);
         setProductListTotalCount(0);
-        setErrMessage(productListDataAPI?.data?.message?.error || 'An unknown error occured.');
+        setErrMessage(productListDataAPI?.data?.error || 'An unknown error occured.');
       }
     } catch (error) {
       setProductListingData([]);
-      setErrMessage(productListDataAPI?.data?.message?.error || 'An unknown error occured.');
+      setErrMessage(productListDataAPI?.data?.error || 'An unknown error occured.');
     } finally {
       setIsLoading(false);
     }
