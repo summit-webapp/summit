@@ -69,7 +69,6 @@ const useFeaturedCollections = (componentProperties: any) => {
   useEffect(() => {
     fetchCurrencyValue();
   }, [currency_state_from_redux]);
-
   return {
     allTagsData,
     fetchDisplayTagsDataFunction,
