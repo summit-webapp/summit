@@ -14,7 +14,8 @@ HTTP_STATUS=$(curl -s -o $OUTPUT_FILE -w "%{http_code}" $API_URL)
 
 # Check the HTTP status code
 if [ "$HTTP_STATUS" -ne 200 ]; then
-  echo "Error: API request failed with status code $HTTP_STATUS"
+  echo "Error Code: API request failed with status code $HTTP_STATUS"
+  echo "Error Message:  $(cat $OUTPUT_FILE)"
   exit 1
 fi
 
