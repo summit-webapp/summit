@@ -142,7 +142,16 @@ export default function ProductDetails() {
     ['Size', 'qty', 'value'],
   ];
 
-  const customerInfoRows = [['Test text display'], ['Another sample line'], ['Customer liked it'], ['Fast delivery'], ['Will buy again']];
+  const customerInfoRows = [
+    ['Customer Instructions'],
+    ['Product Instruction'],
+    ['Stamping'],
+    ['Size'],
+    ['Special Remark'],
+    ['Sub Remark'],
+    ['Delivery Date'],
+    ['Payment Terms'],
+  ];
 
   return (
     <div className="container py-4">
@@ -194,18 +203,32 @@ export default function ProductDetails() {
             <br />
 
             <button
-              className={`btn btn-sm me-2 ${productInformationStyle['metal-btn']} ${selectedMetal === 'Gold' ? `${productInformationStyle.selected}` : 'btn-outline-secondary'}`}
+              className="btn btn-sm me-2"
               onClick={() => setSelectedMetal('Gold')}
+              style={{
+                backgroundColor: selectedMetal === 'Gold' ? '#f5f5f5' : 'transparent',
+                color: selectedMetal === 'Gold' ? '#000' : '#6c757d',
+                fontWeight: selectedMetal === 'Gold' ? 'bold' : 'normal',
+                border: selectedMetal === 'Gold' ? 'solid 1px #f5f5f5' : 'solid 1px #f5f5f5',
+                borderRadius: '2px',
+              }}
             >
               Gold
             </button>
 
             <button
-              className={`btn btn-sm me-2 ${productInformationStyle['metal-btn']} ${selectedMetal === 'Platinum' ? 'btn-secondary' : 'btn-outline-secondary'}`}
+              className="btn btn-sm me-2"
               onClick={() => {
                 setSelectedMetal('Platinum');
                 setSelectedPurity('');
                 setSelectedTone('');
+              }}
+              style={{
+                backgroundColor: selectedMetal === 'Platinum' ? '#f5f5f5' : 'transparent',
+                color: selectedMetal === 'Platinum' ? '#000' : '#6c757d',
+                fontWeight: selectedMetal === 'Platinum' ? 'bold' : 'normal',
+                border: '1px solid #ccc',
+                borderRadius: '6px',
               }}
             >
               Platinum
@@ -221,6 +244,13 @@ export default function ProductDetails() {
                       key={i}
                       className={`btn btn-sm me-2 ${productInformationStyle['metal-btn']}  ${selectedPurity === k ? 'btn-secondary' : 'btn-outline-secondary'}`}
                       onClick={() => setSelectedPurity(k)}
+                      style={{
+                        backgroundColor: selectedPurity === k ? '#f5f5f5' : 'transparent',
+                        color: selectedPurity === k ? '#000' : '#6c757d',
+                        fontWeight: selectedPurity === k ? 'bold' : 'normal',
+                        border: '1px solid #ccc',
+                        borderRadius: '6px',
+                      }}
                     >
                       {k}
                     </button>
@@ -234,6 +264,13 @@ export default function ProductDetails() {
                     <button
                       key={i}
                       className={`btn btn-sm me-2 ${productInformationStyle['metal-btn']} ${selectedTone === tone ? 'btn-secondary' : 'btn-outline-secondary'}`}
+                      style={{
+                        backgroundColor: selectedTone === tone ? '#f5f5f5' : 'transparent',
+                        color: selectedTone === tone ? '#000' : '#6c757d',
+                        fontWeight: selectedTone === tone ? 'bold' : 'normal',
+                        border: '1px solid #ccc',
+                        borderRadius: '6px',
+                      }}
                       onClick={() => setSelectedTone(tone)}
                     >
                       {tone}
@@ -251,6 +288,13 @@ export default function ProductDetails() {
                   key={i}
                   className={`btn btn-sm me-2 ${productInformationStyle['metal-btn']} ${selectedDiamond === type ? 'btn-secondary' : 'btn-outline-secondary'}`}
                   onClick={() => setSelectedDiamond(type)}
+                  style={{
+                    backgroundColor: selectedDiamond === type ? '#f5f5f5' : 'transparent',
+                    color: selectedDiamond === type ? '#000' : '#6c757d',
+                    fontWeight: selectedDiamond === type ? 'bold' : 'normal',
+                    border: '1px solid #ccc',
+                    borderRadius: '6px',
+                  }}
                 >
                   {type}
                 </button>
@@ -265,6 +309,13 @@ export default function ProductDetails() {
                   key={i}
                   className={`btn btn-sm me-2 ${productInformationStyle['metal-btn']}  ${selectedSize === size ? 'btn-secondary' : 'btn-outline-secondary'}`}
                   onClick={() => setSelectedSize(size)}
+                  style={{
+                    backgroundColor: selectedSize === size ? '#f5f5f5' : 'transparent',
+                    color: selectedSize === size ? '#000' : '#6c757d',
+                    fontWeight: selectedSize === size ? 'bold' : 'normal',
+                    border: '1px solid #ccc',
+                    borderRadius: '6px',
+                  }}
                 >
                   {size}
                 </button>
@@ -304,7 +355,7 @@ export default function ProductDetails() {
       </div>
 
       {/* Cart Summary */}
-      <div className="mt-5">
+      <div style={{ marginTop: window.innerWidth < 768 ? '7rem' : '3rem' }}>
         <div className="d-flex justify-content-between align-items-center mb-3">
           <div className="d-flex gap-3 align-items-center">
             <img
@@ -322,13 +373,20 @@ export default function ProductDetails() {
         <CartTable cart={cart} handleCartQuantityChange={handleCartQuantityChange} />
       </div>
 
-      {/* Metal Details */}
-
       {/* --- Desktop Version: Positioned Summary and Customer Info --- */}
       <div className="position-relative mt-5 d-none d-md-block">
         {/* Left: Metal Details */}
         <div className="col-md-8">
-          <h5 className="fw-bold">Metal Details</h5>
+          <div className="d-flex gap-3 align-items-center mb-2">
+            <img
+              src="https://picsum.photos/200/200"
+              alt="Side 1"
+              className="img-fluid rounded"
+              style={{ objectFit: 'cover', height: '30px', width: '30px' }}
+            />
+
+            <h5 className="fw-bold">Metal Details</h5>
+          </div>
           <ProductInfoTable headers={metalHeader} rows={metalRows} />
         </div>
 
@@ -342,14 +400,24 @@ export default function ProductDetails() {
             maxWidth: '350px',
           }}
         >
-          <div className="mb-4">
+          <div className="mt-4">
             <ProductInfoTable headers={summaryHeaders} rows={summaryRows} />
           </div>
           <div className="mb-4">
-            <ProductInfoTable rows={customerInfoRows} />
+            {customerInfoRows.map((item, index) => (
+              <div
+                key={index}
+                className="bg-light p-3 fw-normal rounded"
+                style={index === customerInfoRows.length - 1 ? { border: '1px solid #dee2e6' } : {}}
+              >
+                {item}
+              </div>
+            ))}
           </div>
           <div className="d-flex justify-content-end gap-2 mb-4">
-            <button className="btn btn-light w-100 text-dark fw-bold border rounded">Delete Cart</button>
+            <button className="btn btn-light w-100 text-dark fw-bold border rounded" onClick={() => setCart([])}>
+              Delete Cart
+            </button>
             <button className="btn btn-dark w-100 text-light">View Cart</button>
           </div>
         </div>
@@ -358,28 +426,60 @@ export default function ProductDetails() {
       {/* Diamond Details */}
 
       <div className="mt-5 col-md-8">
-        <h5 className="fw-bold">Diamond Details</h5>
+        <div className="d-flex gap-3 align-items-center mb-2">
+          <img
+            src="https://picsum.photos/200/200"
+            alt="Side 1"
+            className="img-fluid rounded"
+            style={{ objectFit: 'cover', height: '30px', width: '30px' }}
+          />
+          <h5 className="fw-bold">Diamond Details</h5>
+        </div>
         <ProductInfoTable headers={diamondHeader} rows={diamondRows} />
       </div>
 
       {/* Color Stone Details */}
 
       <div className="mt-5 col-md-8">
-        <h5 className="fw-bold">Color Stone Details</h5>
+        <div className="d-flex gap-3 align-items-center mb-2">
+          <img
+            src="https://picsum.photos/200/200"
+            alt="Side 1"
+            className="img-fluid rounded"
+            style={{ objectFit: 'cover', height: '30px', width: '30px' }}
+          />
+          <h5 className="fw-bold">Color Stone Details</h5>
+        </div>
         <ProductInfoTable headers={colorStoneHeader} rows={colorStoneRows} />
       </div>
 
       {/* Accessories Details */}
 
       <div className="mt-5 col-md-8">
-        <h5 className="fw-bold">Accessories Details</h5>
+        <div className="d-flex gap-3 align-items-center mb-2">
+          <img
+            src="https://picsum.photos/200/200"
+            alt="Side 1"
+            className="img-fluid rounded"
+            style={{ objectFit: 'cover', height: '30px', width: '30px' }}
+          />
+          <h5 className="fw-bold">Accessories Details</h5>
+        </div>
         <ProductInfoTable headers={accessoriesHeader} rows={accessoriesRows} />
       </div>
 
       {/* Labour Details */}
 
       <div className="mt-5 col-md-8">
-        <h5 className="fw-bold">Labour Details</h5>
+        <div className="d-flex gap-3 align-items-center mb-2">
+          <img
+            src="https://picsum.photos/200/200"
+            alt="Side 1"
+            className="img-fluid rounded"
+            style={{ objectFit: 'cover', height: '30px', width: '30px' }}
+          />
+          <h5 className="fw-bold">Labour Details</h5>
+        </div>
         <ProductInfoTable headers={labourHeader} rows={labourRows} />
       </div>
 
@@ -389,7 +489,15 @@ export default function ProductDetails() {
           <ProductInfoTable headers={summaryHeaders} rows={summaryRows} />
         </div>
         <div className="mb-4">
-          <ProductInfoTable rows={customerInfoRows} />
+          {customerInfoRows.map((item, index) => (
+            <div
+              key={index}
+              className="bg-light p-3 fw-normal rounded"
+              style={index === customerInfoRows.length - 1 ? { border: '1px solid #dee2e6' } : {}}
+            >
+              {item}
+            </div>
+          ))}
         </div>
         <div className="d-flex justify-content-end gap-2 mb-4">
           <button className="btn btn-light w-100 text-dark fw-bold border rounded">Delete Cart</button>

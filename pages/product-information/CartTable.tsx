@@ -20,7 +20,7 @@ type CartTableProps = {
 const CartTable: React.FC<CartTableProps> = ({ cart, handleCartQuantityChange }) => {
   const headers = ['Metal', 'Purity', 'Tone', 'Diamond', 'Size', 'Quantity', 'Total'];
 
-  const rows = cart.map((item, index) => [
+  const rows: any[][] = cart.map((item, index) => [
     item.metal,
     item.purity,
     item.tone,
@@ -46,9 +46,13 @@ const CartTable: React.FC<CartTableProps> = ({ cart, handleCartQuantityChange })
   ]);
   if (cart.length === 0) {
     rows.push([
-      <td key="empty" colSpan={7} className="text-center fw-bold px-4">
-        No items in cart
-      </td>,
+      {
+        content: 'No items in cart',
+        props: {
+          colSpan: 7,
+          className: 'text-center fw-bold px-4',
+        },
+      },
     ]);
   }
 

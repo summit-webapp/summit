@@ -34,12 +34,16 @@ const CustomTable: React.FC<CustomTableProps> = ({ headers = [], rows }) => {
               {row.map((cell, j) => {
                 if (typeof cell === 'object' && 'content' in cell) {
                   return (
-                    <td key={j} {...(cell.props || {})}>
+                    <td key={j} {...(cell.props || {})} style={{ border: 'none', ...(cell.props?.style || {}) }}>
                       {cell.content}
                     </td>
                   );
                 } else {
-                  return <td key={j}>{cell}</td>;
+                  return (
+                    <td key={j} style={{ border: 'none' }}>
+                      {cell}
+                    </td>
+                  );
                 }
               })}
             </tr>
