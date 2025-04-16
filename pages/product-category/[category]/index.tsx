@@ -22,17 +22,28 @@ export const getStaticPaths = async () => {
     getListOfAllPathsFromAPI?.data?.message?.msg === 'success' &&
     getListOfAllPathsFromAPI?.data?.message?.data?.length > 0
   ) {
-    getPathsList = getListOfAllPathsFromAPI?.data?.message?.data?.map((path: string) => {
-      const segments = path.split('/');
-      const lastSegment = segments[segments.length - 1].replace(/^\//, ''); // Remove leading '/';
-      return `${lastSegment}`;
+    const originalPaths = getListOfAllPathsFromAPI.data.message.data;
+    const pathSet = new Set<string>();
+
+    originalPaths.forEach((fullPath: string) => {
+      const parts = fullPath.split('/');
+      let currPath = '';
+      for (let i = 0; i < parts.length; i++) {
+        currPath = currPath ? `${currPath}/${parts[i]}` : parts[i];
+        pathSet.add(currPath);
+      }
     });
+
+    getPathsList = Array.from(pathSet);
   }
+
   return {
-    paths: getPathsList.map((category: string) => ({
-      params: { category }, // Matches the [category] dynamic segment
+    paths: getPathsList.map((categoryPath: string) => ({
+      params: {
+        category: categoryPath.split('/').pop(), // Important!
+      },
     })),
-    fallback: false, // Adjust based on your fallback strategy
+    fallback: false,
   };
 };
 
