@@ -1,4 +1,5 @@
 export const CONSTANTS = {
+  APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
   FRONTEND_URL: process.env.NEXT_PUBLIC_FRONTEND_URL,
   API_BASE_URL: process.env.NEXT_PUBLIC_API_URL,
   SUMMIT_APP_CONFIG: {

@@ -3,6 +3,41 @@ import fetchAPISDK from '../utils/get-api-sdk';
 import { CONSTANTS } from '../services/config/app-config';
 import APP_CONFIG from '../interfaces/app-config-interface';
 
+const summitAPIHandler = async (summitAppConfig: APP_CONFIG, apiName: string, token: any, additionalParams: any, path: any) => {
+  const response = await executeGETAPI(summitAppConfig, apiName, token, additionalParams, path);
+  return response;
+};
+
+const emrAPIHandler = async (appName: string, apiName: string, token: any, additionalParams: any) => {
+  let apiURL: string;
+  const sdkInfo = fetchAPISDK(apiName, appName);
+  const params = new URLSearchParams({
+    ...additionalParams, // Add additional parameters if provided
+  });
+  const storeParams = params.toString();
+  if (Object.keys(additionalParams).length !== 0) {
+    apiURL = `${CONSTANTS.API_BASE_URL}${sdkInfo}?${storeParams}`;
+  } else {
+    apiURL = `${CONSTANTS.API_BASE_URL}${sdkInfo}`;
+  }
+  // Make the API call
+  const response = await callGetAPI(`${apiURL}`, token);
+  return response;
+};
+
+export const apiEndpointFetcher = (appName: any, apiName: any, token: any, additionalParams: any, path: any) => {
+  const { SUMMIT_APP_CONFIG } = CONSTANTS;
+  if (appName === 'Summit') {
+    const response = summitAPIHandler(SUMMIT_APP_CONFIG, apiName, token, additionalParams, path);
+    return response;
+  } else if (appName === 'EMR') {
+    const response = emrAPIHandler(appName, apiName, token, additionalParams);
+    return response;
+  } else if (appName === 'Odoo') {
+  } else if (appName === 'SAP') {
+  }
+};
+
 /**
  * @function getVME - VME stands for Version, Method and Entity for that API function.
  */

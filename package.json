@@ -6,7 +6,6 @@
     "summit": "sh -c './check-if-theme-exists.sh' && npm run dev",
     "predev": "sh -c ./fetch-summit-settings.sh",
     "dev": "next dev",
-    "prebuild": "sh -c ./fetch-summit-settings.sh",
     "build": "cross-env NODE_ENV=production next build",
     "start": "next start",
     "test": "jest",
