@@ -5,6 +5,12 @@ import { CONSTANTS } from '../../services/config/app-config';
 const useFiltersHook = () => {
   const { APP_NAME, SUMMIT_APP_CONFIG }: any = CONSTANTS;
 
+  const [workScopeList, setWorkScopeList] = useState([
+    { label: 'Database', value: 'Database' },
+    { label: 'Current Session', value: 'Current Session' },
+    { label: 'Voucher', value: 'Voucher' },
+  ]);
+
   const [customerCodeList, setCustomerCodeList] = useState([]);
   const [selectedCustomerCode, setSelectedCustomerCode] = useState<any>();
   const [sourceTypeList, setSourceTYpeList]: any[] = useState([
@@ -133,6 +139,8 @@ const useFiltersHook = () => {
   }, []);
 
   return {
+    workScopeList,
+    setWorkScopeList,
     collectionList,
     inspirationList,
     verticalList,
