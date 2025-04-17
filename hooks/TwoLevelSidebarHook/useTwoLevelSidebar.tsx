@@ -31,6 +31,8 @@ const useFiltersHook = () => {
     { label: 'Party Goods', value: 'Party Goods' },
   ]);
 
+  const [selectedScope,setSelectedScope] = useState<any>(null);
+
   const [typeList, setTypeList] = useState([{ label: '', value: '' }]);
   const [selectedSourceType, setSelectedSourceType] = useState<any>(null);
   const [statusTags, setStatusTags] = useState<string[]>([]);
@@ -60,7 +62,7 @@ const useFiltersHook = () => {
 
   const displayQualityList = [{ label: '', value: '' }];
 
-  const sortByList = [{ label: '', value: '' }];
+  // const sortByList = [{ label: '', value: '' }];
 
   const styleCodeList = [{ label: '', value: '' }];
 
@@ -71,6 +73,15 @@ const useFiltersHook = () => {
   const inspirationList = [{ label: '', value: '' }];
 
   const verticalList = [{ label: '', value: '' }];
+
+  const sortByList = [
+    { label: "Price - Ascending", value: "priceAsc" },
+    { label: "Price - Descending", value: "priceDesc" },
+    { label: "Diamond Cts - Ascending", value: "diamondAsc" },
+    { label: "Diamond Cts - Descending", value: "diamondDesc" },
+    { label: "Gross Wt - Ascending", value: "grossAsc" },
+    { label: "Gross Wt - Descending", value: "grossDesc" },
+  ];
 
   const openSidebar = (filterType: any) => {
     setSelectedFilter(filterType);
@@ -141,6 +152,8 @@ const useFiltersHook = () => {
   return {
     workScopeList,
     setWorkScopeList,
+    selectedScope,
+    setSelectedScope,
     collectionList,
     inspirationList,
     verticalList,
