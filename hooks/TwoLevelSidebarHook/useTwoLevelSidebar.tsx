@@ -16,7 +16,6 @@ const useFiltersHook = () => {
     { label: 'All', value: 'All' },
     { label: 'In Stock', value: 'In Stock' },
     { label: 'On Memo', value: 'On Memo' },
-    { label: 'Canada', value: 'Canada' },
   ]);
 
   const [originList, setOriginList] = useState([
@@ -61,6 +60,12 @@ const useFiltersHook = () => {
 
   const bagNoList = [{ label: '', value: '' }];
 
+  const collectionList = [{ label: '', value: '' }];
+
+  const inspirationList = [{ label: '', value: '' }];
+
+  const verticalList = [{ label: '', value: '' }];
+
   const openSidebar = (filterType: any) => {
     setSelectedFilter(filterType);
     setSidebarVisible(true);
@@ -98,14 +103,22 @@ const useFiltersHook = () => {
         const setter = sectionToSetterMap[item.section];
         if (item.section === 'customers') {
           const mappedValues = item.values.map((val: any) => ({
-            label: val.CmName,
+            label: val.CmCd,
             value: val.CmCd,
           }));
           setter(mappedValues);
-        } else {
+        } else if (item.section === 'design_category' || item.section === 'design_color') {
           if (Array.isArray(item.values)) {
             const mappedValues = item?.values?.map((val: any) => ({
               label: val.PMCd,
+              value: val.PMCd,
+            }));
+            setter(mappedValues);
+          }
+        } else if (item.section === 'sales_category') {
+          if (Array.isArray(item.values)) {
+            const mappedValues = item?.values?.map((val: any) => ({
+              label: val.PSCd,
               value: val.PSCd,
             }));
             setter(mappedValues);
@@ -120,6 +133,9 @@ const useFiltersHook = () => {
   }, []);
 
   return {
+    collectionList,
+    inspirationList,
+    verticalList,
     isSidebarVisible,
     selectedFilter,
     filters,
