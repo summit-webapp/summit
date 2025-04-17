@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import fetchProductListingPageFilters from '../../services/api/product-listing-page-apis/get-filters-api';
+import fetchProductListingPageFilters from '../../services/api/get-emr-filter/get-emr-filters-api';
 import { CONSTANTS } from '../../services/config/app-config';
 
-const useFiltersHook = () => {
+const useFiltersHook = (getProductsData: any) => {
   const { APP_NAME, SUMMIT_APP_CONFIG }: any = CONSTANTS;
 
   const [workScopeList, setWorkScopeList] = useState([
@@ -66,11 +66,18 @@ const useFiltersHook = () => {
 
   const bagNoList = [{ label: '', value: '' }];
 
-  const collectionList = [{ label: '', value: '' }];
+  const [targetTags, setTargetTags] = useState<any>();
+  const [collectionTags, setCollectionTags] = useState<any>();
+  const [inspirationTags, setInspirationTags] = useState<any>();
+  const [verticalTags, setVerticalTags] = useState<any>();
 
-  const inspirationList = [{ label: '', value: '' }];
+  const [targetShowList, setTargetShowList] = useState<any[]>([]);
 
-  const verticalList = [{ label: '', value: '' }];
+  const [collectionList, setCollectionList] = useState<{ label: string; value: string }[]>([{ label: '', value: '' }]);
+
+  const [inspirationList, setInspirationList] = useState<{ label: string; value: string }[]>([{ label: '', value: '' }]);
+
+  const [verticalList, setVerticalList] = useState<{ label: string; value: string }[]>([{ label: '', value: '' }]);
 
   const openSidebar = (filterType: any) => {
     setSelectedFilter(filterType);
@@ -87,7 +94,64 @@ const useFiltersHook = () => {
       ...newFilters,
     }));
   };
+  function mapFilterData(input: any) {
+    const result: any = {};
 
+    if (input.designCategory?.length) {
+      result.DmCtg = input.designCategory.map((item: any) => item.value);
+    }
+
+    if (input.salesCategory?.length) {
+      result.DmSalCtg = input.salesCategory.map((item: any) => item.value);
+    }
+
+    if (input.priceRange?.length === 2) {
+      result.FromSalPrc = input.priceRange[0];
+      result.ToSalPrc = input.priceRange[1];
+    }
+
+    if (input.designColor?.length) {
+      result.DmCol = input.designColor.map((item: any) => item.value);
+    }
+
+    if (input.grossWtRange?.length === 2) {
+      result.FromGWt = input.grossWtRange[0];
+      result.ToGWt = input.grossWtRange[1];
+    }
+
+    if (input.diamond?.length === 2) {
+      result.FromDiaWt = input.diamond[0];
+      result.ToDiaWt = input.diamond[1];
+    }
+
+    if (input.colorStone?.value) {
+      result.CsAvl = input.colorStone.value;
+    }
+
+    // Always include these empty by default (as per earlier requirement)
+    result.FromCsWt = 0;
+    result.ToCsWt = 0;
+    result.DmCd = [];
+    result.DpCd = [];
+
+    const DsgAna = [];
+    if (input.collectionTags?.value) DsgAna.push([1, input.collectionTags.value]);
+    if (input.inspiration?.value) DsgAna.push([2, input.inspiration.value]);
+    if (input.vertical?.value) DsgAna.push([3, input.vertical.value]);
+    if (input.targetTags?.value) DsgAna.push([7, input.targetTags.value]);
+
+    if (DsgAna.length) {
+      result.DsgAna = DsgAna;
+    }
+
+    return result;
+  }
+
+  const handleApplyFilters = () => {
+    const mappedData = mapFilterData(filters);
+    getProductsData(mappedData);
+    closeSidebar();
+  };
   const sectionToSetterMap: any = {
     customers: setCustomerCodeList,
     design_category: setDesignCategoryList,
@@ -95,9 +159,18 @@ const useFiltersHook = () => {
     design_color: setDesignColorList,
   };
 
+  // 1. Map number keys to your state setters
+  const keyToSetterMap: any = {
+    1: setCollectionList,
+    2: setInspirationList,
+    3: setTargetShowList,
+    7: setVerticalList,
+  };
+
   const fetchFiltersData = async () => {
     const reqParams = {
       query: '',
+      anaSr: [1, 2, 3, 7],
     };
     const getFiltersData: any = await fetchProductListingPageFilters(SUMMIT_APP_CONFIG, reqParams, undefined, APP_NAME);
     console.log('getFiltersData', getFiltersData);
@@ -109,14 +182,14 @@ const useFiltersHook = () => {
         const setter = sectionToSetterMap[item.section];
         if (item.section === 'customers') {
           const mappedValues = item.values.map((val: any) => ({
-            label: val.CmCd,
+            label: `${val.CmCd} - ${val.CmName}`,
             value: val.CmCd,
           }));
           setter(mappedValues);
         } else if (item.section === 'design_category' || item.section === 'design_color') {
           if (Array.isArray(item.values)) {
             const mappedValues = item?.values?.map((val: any) => ({
-              label: val.PMCd,
+              label: `${val.PMCd} - ${val.PDesc}`,
               value: val.PMCd,
             }));
             setter(mappedValues);
@@ -124,11 +197,22 @@ const useFiltersHook = () => {
         } else if (item.section === 'sales_category') {
           if (Array.isArray(item.values)) {
             const mappedValues = item?.values?.map((val: any) => ({
-              label: val.PSCd,
+              label: `${val.PSCd} - ${val.PDesc}`,
               value: val.PSCd,
             }));
             setter(mappedValues);
           }
+        } else if (item?.section === 'design_analysis') {
+          Object.entries(item.values).forEach(([key, value]: any) => {
+            const setter = keyToSetterMap[Number(key)];
+            if (setter) {
+              const mappedValues = value?.map((val: any) => ({
+                label: `${val.pscd} - ${val.pdesc}`,
+                value: val.pscd,
+              }));
+              setter(mappedValues); // assuming the value is already formatted as [{label, value}]
+            }
+          });
         }
       });
     }
@@ -141,6 +225,7 @@ const useFiltersHook = () => {
   return {
     workScopeList,
     setWorkScopeList,
+    targetShowList,
     collectionList,
     inspirationList,
     verticalList,
@@ -195,6 +280,15 @@ const useFiltersHook = () => {
     typeList,
     selectedColorStone,
     setSelectedColorStone,
+    handleApplyFilters,
+    targetTags,
+    setTargetTags,
+    collectionTags,
+    setCollectionTags,
+    inspirationTags,
+    setInspirationTags,
+    verticalTags,
+    setVerticalTags,
   };
 };
 
