@@ -22,6 +22,8 @@ const fetchProductListingFromAPI = async (appName: any, query: any, token: any) 
     .map((key) => {
       if (key === 'filter') {
         return `${key}={"${query.filterDoctype}":"${query.filterDocname}", "sections":${query.url_params.filter}}`;
+      } if (key === 'vehicle_filters') {
+        return `${key}={"${query.filterDoctype}":"${query.filterDocname}", "sections":${query.url_params.vehicle_filters}}`;
       } else {
         return `${key}=${encodeURIComponent(query.url_params[key])}`;
       }
