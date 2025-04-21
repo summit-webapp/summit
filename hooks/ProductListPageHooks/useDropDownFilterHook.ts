@@ -6,6 +6,7 @@ import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
 import fetchProductListingPageFilters from '../../services/api/product-listing-page-apis/get-filters-api';
 import axios from 'axios';
+import fetchProductListingPageDropDownFilters from '../../services/api/product-listing-page-apis/get-dropdown-filters-api';
 
 const useDropDownFilterHook = () => {
   const router: any = useRouter();
@@ -21,11 +22,10 @@ const useDropDownFilterHook = () => {
 
   const fetchFiltersDataFunction = async (selectedValues?: any) => {
     const vehicleCompany = selectedValues?.[0];
-    const url = `https://staging-auto-house-hubli.8848digitalerp.com/api/method/summitapp.sdk.api?version=v2&method=get_vehicle_filters&entity=filter${vehicleCompany ? `&vehicle_company=${vehicleCompany}` : ''}`;
-
+    const reqParams = vehicleCompany || ''
     setIsLoading(true);
     try {
-      const response: any = await axios.get(url);
+      const response: any = await fetchProductListingPageDropDownFilters(SUMMIT_APP_CONFIG, reqParams, tokenFromStore?.token);
       if (response?.status === 200) {
         setFiltersData(response?.data?.message || {});
         setErrMessage('');
