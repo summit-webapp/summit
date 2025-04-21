@@ -58,9 +58,22 @@ const useFiltersHook = (getProductsData: any) => {
 
   const [designColorList, setDesignColorList] = useState([]);
 
-  const displayQualityList = [{ label: '', value: '' }];
+  const displayQualityList = [
+    { label: 'High', value: 'High' },
+    { label: 'Low', value: 'Low' },
+    { label: 'Medium', value: 'Medium' },
+  ];
+  const sortByList = [
+    { label: 'Price - Ascending', value: 'priceAsc' },
+    { label: 'Price - Descending', value: 'priceDesc' },
+    { label: 'Diamond Cts - Ascending', value: 'diamondAsc' },
+    { label: 'Diamond Cts - Descending', value: 'diamondDesc' },
+    { label: 'Gross Wt - Ascending', value: 'grossAsc' },
+    { label: 'Gross Wt - Descending', value: 'grossDesc' },
+  ];
 
-  const sortByList = [{ label: '', value: '' }];
+  const [selectedScope, setSelectedScope] = useState<any>(null);
+  const [showFilters, setShowFilters] = useState(false);
 
   const styleCodeList = [{ label: '', value: '' }];
 
@@ -71,7 +84,7 @@ const useFiltersHook = (getProductsData: any) => {
   const [inspirationTags, setInspirationTags] = useState<any>();
   const [verticalTags, setVerticalTags] = useState<any>();
 
-  const [targetShowList, setTargetShowList] = useState<any[]>([]);
+  const [targetShowList, setTargetShowList] = useState<{ label: string; value: string }[]>([{ label: '', value: '' }]);
 
   const [collectionList, setCollectionList] = useState<{ label: string; value: string }[]>([{ label: '', value: '' }]);
 
@@ -97,35 +110,41 @@ const useFiltersHook = (getProductsData: any) => {
   function mapFilterData(input: any) {
     const result: any = {};
 
-    if (input.designCategory?.length) {
-      result.DmCtg = input.designCategory.map((item: any) => item.value);
+    if (input?.designCategory?.length) {
+      result.DmCtg = input?.designCategory.map((item: any) => item.value);
     }
 
-    if (input.salesCategory?.length) {
-      result.DmSalCtg = input.salesCategory.map((item: any) => item.value);
+    if (input?.salesCategory?.length) {
+      result.DmSalCtg = input?.salesCategory.map((item: any) => item.value);
     }
 
-    if (input.priceRange?.length === 2) {
-      result.FromSalPrc = input.priceRange[0];
-      result.ToSalPrc = input.priceRange[1];
+    if (input?.priceRange?.length === 2) {
+      result.FromSalPrc = input?.priceRange[0];
+      result.ToSalPrc = input?.priceRange[1];
     }
 
-    if (input.designColor?.length) {
-      result.DmCol = input.designColor.map((item: any) => item.value);
+    if (input?.designColor?.length) {
+      result.DmCol = input?.designColor.map((item: any) => item.value);
     }
 
-    if (input.grossWtRange?.length === 2) {
-      result.FromGWt = input.grossWtRange[0];
-      result.ToGWt = input.grossWtRange[1];
+    if (input?.grossWtRange?.length === 2) {
+      result.FromGWt = input?.grossWtRange[0];
+      result.ToGWt = input?.grossWtRange[1];
     }
 
-    if (input.diamond?.length === 2) {
-      result.FromDiaWt = input.diamond[0];
-      result.ToDiaWt = input.diamond[1];
+    if (input?.diamond?.length === 2) {
+      result.FromDiaWt = input?.diamond[0];
+      result.ToDiaWt = input?.diamond[1];
     }
 
-    if (input.colorStone?.value) {
-      result.CsAvl = input.colorStone.value;
+    if (input?.colorStone?.value) {
+      result.CsAvl = input?.colorStone.value;
+    }
+    if (input?.sortByTags?.value) {
+      result.sort_by = input?.sortByTags.value;
+    }
+    if (input?.customer?.value) {
+      result.customer = input?.customer.value;
     }
 
     // Always include these empty by default (as per earlier requirement)
@@ -148,9 +167,16 @@ const useFiltersHook = (getProductsData: any) => {
   }
 
   const handleApplyFilters = () => {
-    const mappedData = mapFilterData(filters);
-    getProductsData(mappedData);
-    closeSidebar();
+    console.log('filters data', filters);
+    if (Object.keys(filters).length === 0) {
+      alert('Please select at least one filter option');
+      return;
+    } else {
+      setShowFilters(true);
+      const mappedData = mapFilterData(filters);
+      getProductsData(mappedData);
+      closeSidebar();
+    }
   };
   const sectionToSetterMap: any = {
     customers: setCustomerCodeList,
@@ -289,6 +315,9 @@ const useFiltersHook = (getProductsData: any) => {
     setInspirationTags,
     verticalTags,
     setVerticalTags,
+    selectedScope,
+    setSelectedScope,
+    showFilters,
   };
 };
 
