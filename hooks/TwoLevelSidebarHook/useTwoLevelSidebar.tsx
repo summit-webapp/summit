@@ -54,6 +54,8 @@ const useFiltersHook = (getProductsData: any) => {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 0]);
   const [diamondCtsRange, setDiamondCtsRange] = useState<[number, number]>([0, 0]);
   const [grossWtRange, setGrossWtRange] = useState<[number, number]>([0, 0]);
+  const [fromDmCd, setFromDmCd] = useState<number>(0);
+  const [toDmCd, setToDmCd] = useState<number>(0);
   const [selectedColorStone, setSelectedColorStone] = useState();
 
   const [designColorList, setDesignColorList] = useState([]);
@@ -106,6 +108,7 @@ const useFiltersHook = (getProductsData: any) => {
       ...prevFilters,
       ...newFilters,
     }));
+    closeSidebar();
   };
   function mapFilterData(input: any) {
     const result: any = {};
@@ -146,6 +149,10 @@ const useFiltersHook = (getProductsData: any) => {
     if (input?.customer?.value) {
       result.customer = input?.customer.value;
     }
+    if (fromDmCd && toDmCd) {
+      result.FromDmCd = fromDmCd;
+      result.ToDmCd = toDmCd;
+    }
 
     // Always include these empty by default (as per earlier requirement)
     result.FromCsWt = 0;
@@ -167,7 +174,7 @@ const useFiltersHook = (getProductsData: any) => {
   }
 
   const handleApplyFilters = () => {
-    console.log('filters data', filters);
+    console.log('filters data', filters, fromDmCd, toDmCd);
     if (Object.keys(filters).length === 0) {
       alert('Please select at least one filter option');
       return;
@@ -318,6 +325,8 @@ const useFiltersHook = (getProductsData: any) => {
     selectedScope,
     setSelectedScope,
     showFilters,
+    setFromDmCd,
+    setToDmCd,
   };
 };
 
