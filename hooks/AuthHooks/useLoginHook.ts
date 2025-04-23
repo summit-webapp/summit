@@ -8,7 +8,7 @@ import { storeToken } from '../../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../../services/config/app-config';
 
 const useLoginHook = () => {
-  const { SUMMIT_APP_CONFIG } = CONSTANTS;
+  const { SUMMIT_APP_CONFIG, APP_NAME }: any = CONSTANTS;
   const dispatch = useDispatch();
   const router = useRouter();
   const [loginForm, setLoginForm] = useState<TypeLoginForm>({ usr: '', pwd: '' });
@@ -31,7 +31,7 @@ const useLoginHook = () => {
         LoginViaGoogle: false,
       };
 
-      const tokenData = await getTokenFromLoginAPI(SUMMIT_APP_CONFIG, userParams);
+      const tokenData = await getTokenFromLoginAPI(SUMMIT_APP_CONFIG, userParams, APP_NAME);
 
       if (tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
         localStorage.setItem('isLoggedIn', 'true');
@@ -39,7 +39,7 @@ const useLoginHook = () => {
         localStorage.setItem('party_name', tokenData?.data?.full_name);
 
         dispatch(storeToken(tokenData?.data));
-        router.push('/');
+        router.push('/product-category');
         // toast.success('Login Successfully');
       } else {
         toast.error('Invalid Credentials. Please try again.');

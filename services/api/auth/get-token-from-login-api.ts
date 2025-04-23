@@ -7,7 +7,7 @@ import OtpLoginApi from './otp-login-api';
 import getGoogleLoginApi from './google_login_api';
 import APP_CONFIG from '../../../interfaces/app-config-interface';
 
-const getTokenFromLoginAPI: any = async (appConfig: APP_CONFIG, loginParams: TypeLoginAPIParams) => {
+const getTokenFromLoginAPI: any = async (appConfig: APP_CONFIG, loginParams: TypeLoginAPIParams, appName: string) => {
   if (loginParams?.isGuest) {
     const guestLoginFunction = await CheckGuestLogin(appConfig, loginParams);
     return guestLoginFunction;
@@ -18,14 +18,27 @@ const getTokenFromLoginAPI: any = async (appConfig: APP_CONFIG, loginParams: Typ
     const getTokenAfterLogginViaGoogle = await getGoogleLoginApi(appConfig, loginParams);
     return getTokenAfterLogginViaGoogle;
   } else {
-    const getTokenAfterLogginViaUsrAndPwd = await getAccessTokenFromAPI(appConfig, loginParams);
+    const getTokenAfterLogginViaUsrAndPwd = await getAccessTokenFromAPI(appConfig, loginParams, appName);
     return getTokenAfterLogginViaUsrAndPwd;
   }
 };
 
-const getAccessTokenFromAPI = async (appConfig: APP_CONFIG, loginParams: TypeLoginAPIParams) => {
+const getAccessTokenFromAPI = async (appConfig: APP_CONFIG, loginParams: TypeLoginAPIParams, appName: string) => {
   const usr = loginParams?.values.usr;
   const pwd = encodeURIComponent(loginParams?.values?.pwd);
+  if (appName) {
+    let response;
+    const body = {
+      username: usr,
+      password: pwd,
+    };
+
+    await axios.post(`${CONSTANTS.API_BASE_URL}/api/login`, body).then((res) => {
+      console.log('Response from login API:', res);
+      response = res?.data;
+    });
+    return response;
+  }
   const version = appConfig.version;
   const method = 'get_access_token';
   const entity = 'access_token';
