@@ -44,7 +44,8 @@ const useFiltersHook = (getProductsData: any) => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('');
 
-  const [filters, setFilters] = useState<any>();
+  const [filters, setFilters] = useState<any>({ selectedScope: { label: 'Database', value: 'Database' } });
+  const [filtersSetOfAPI, setFiltersSetOfAPI] = useState<any>({ selectedScope: { label: 'Database', value: 'Database' } });
   const [displayQualityTags, setDisplayQualityTags] = useState<string[]>([]);
   const [sortByTags, setSortByTags] = useState<string[]>([]);
   const [styleCodeTags, setStyleCodeTags] = useState<string[]>([]);
@@ -74,7 +75,7 @@ const useFiltersHook = (getProductsData: any) => {
     { label: 'Gross Wt - Descending', value: 'grossDesc' },
   ];
 
-  const [selectedScope, setSelectedScope] = useState<any>(null);
+  const [selectedScope, setSelectedScope] = useState<any>({ label: 'Database', value: 'Database' });
   const [showFilters, setShowFilters] = useState(false);
 
   const styleCodeList = [{ label: '', value: '' }];
@@ -104,7 +105,13 @@ const useFiltersHook = (getProductsData: any) => {
   };
 
   const handleAcceptIndivisualFilter = (newFilters: Record<string, any>) => {
-    setFilters((prevFilters: any) => ({
+    if (filters?.selectedScope?.value === 'Database') {
+      setFilters((prevFilters: any) => ({
+        ...prevFilters,
+        ...newFilters,
+      }));
+    }
+    setFiltersSetOfAPI((prevFilters: any) => ({
       ...prevFilters,
       ...newFilters,
     }));
@@ -112,6 +119,10 @@ const useFiltersHook = (getProductsData: any) => {
   };
   function mapFilterData(input: any) {
     const result: any = {};
+
+    if (input?.selectedScope?.value) {
+      result.scope = input?.selectedScope?.value;
+    }
 
     if (input?.designCategory?.length) {
       result.DmCtg = input?.designCategory.map((item: any) => item.value);
@@ -174,16 +185,23 @@ const useFiltersHook = (getProductsData: any) => {
   }
 
   const handleApplyFilters = () => {
-    console.log('filters data', filters, fromDmCd, toDmCd);
-    if (Object.keys(filters).length === 0) {
-      alert('Please select at least one filter option');
-      return;
-    } else {
-      setShowFilters(true);
-      const mappedData = mapFilterData(filters);
-      getProductsData(mappedData);
-      closeSidebar();
-    }
+    console.log('show filters data', filters);
+    console.log('api filters data', filtersSetOfAPI);
+    setShowFilters(true);
+    const mappedData = mapFilterData(filtersSetOfAPI);
+    getProductsData(mappedData);
+    setFilters((prevFilters: any) => ({
+      ...prevFilters,
+      selectedScope: { label: 'Current Session', value: 'Current Session' },
+    }));
+    setFiltersSetOfAPI((prevFilters: any) => ({
+      ...prevFilters,
+      selectedScope: { label: 'Current Session', value: 'Current Session' },
+    }));
+    closeSidebar();
+    setDesignTags([]);
+    setSalesTags([]);
+    setFiltersSetOfAPI({});
   };
   const sectionToSetterMap: any = {
     customers: setCustomerCodeList,
