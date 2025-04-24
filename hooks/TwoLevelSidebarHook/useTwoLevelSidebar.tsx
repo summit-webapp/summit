@@ -213,10 +213,10 @@ const useFiltersHook = (getProductsData: any) => {
   const handleApplyFilters = async () => {
     console.log('show filters data', filters);
     console.log('api filters data', filtersSetOfAPI);
-    if (filters?.selectedScope?.value === 'Database') {
-      const postInsertCsFilters = await setCurrentSessionWithFiltersData(SUMMIT_APP_CONFIG, filters, TokenFromStore?.token, APP_NAME);
-      fetchCurrentSessionFiltersData();
-    }
+    // if (filters?.selectedScope?.value === 'Database') {
+    //   const postInsertCsFilters = await setCurrentSessionWithFiltersData(SUMMIT_APP_CONFIG, filters, TokenFromStore?.token, APP_NAME);
+    //   fetchCurrentSessionFiltersData();
+    // }
     setShowFilters(true);
     const mappedData = mapFilterData(filtersSetOfAPI);
     getProductsData(mappedData);
