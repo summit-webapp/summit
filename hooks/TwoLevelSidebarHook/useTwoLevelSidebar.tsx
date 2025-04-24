@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
-import fetchProductListingPageFilters from '../../services/api/get-emr-filter/get-emr-filters-api';
+import { useSelector } from 'react-redux';
+import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import fetchProductListingPageFilters from '../../services/api/emr-apis/get-emr-filter/get-emr-filters-api';
 import { CONSTANTS } from '../../services/config/app-config';
+import fetchCurrentSessionFilters from '../../services/api/emr-apis/get-emr-current-session-filters-data/get-current-session-filters-api';
+import setCurrentSessionWithFiltersData from '../../services/api/emr-apis/post-insert-cs-filters/post-emr-filters-api';
 
 const useFiltersHook = (getProductsData: any) => {
   const { APP_NAME, SUMMIT_APP_CONFIG }: any = CONSTANTS;
+  const TokenFromStore: any = useSelector(get_access_token);
+  const [sessionLoader, setSessionLoader] = useState<boolean>(false);
 
   const [workScopeList, setWorkScopeList] = useState([
     { label: 'Database', value: 'Database' },
@@ -105,16 +111,36 @@ const useFiltersHook = (getProductsData: any) => {
   };
 
   const handleAcceptIndivisualFilter = (newFilters: Record<string, any>) => {
-    if (filters?.selectedScope?.value === 'Database') {
+    console.log('newFilters', newFilters);
+    if ('selectedScope' in newFilters && newFilters?.selectedScope?.value === 'Database') {
       setFilters((prevFilters: any) => ({
         ...prevFilters,
         ...newFilters,
       }));
+      setFiltersSetOfAPI((prevFilters: any) => ({
+        ...prevFilters,
+        ...newFilters,
+      }));
+    } else {
+      // setFilters((prevFilters: any) => ({
+      //   ...prevFilters,
+      //   ...newFilters,
+      // }));
+      setFiltersSetOfAPI((prevFilters: any) => ({
+        ...prevFilters,
+        ...newFilters,
+      }));
     }
-    setFiltersSetOfAPI((prevFilters: any) => ({
-      ...prevFilters,
-      ...newFilters,
-    }));
+    // if (filters?.selectedScope?.value === 'Database') {
+    //   setFilters((prevFilters: any) => ({
+    //     ...prevFilters,
+    //     ...newFilters,
+    //   }));
+    // }
+    // setFiltersSetOfAPI((prevFilters: any) => ({
+    //   ...prevFilters,
+    //   ...newFilters,
+    // }));
     closeSidebar();
   };
   function mapFilterData(input: any) {
@@ -184,9 +210,13 @@ const useFiltersHook = (getProductsData: any) => {
     return result;
   }
 
-  const handleApplyFilters = () => {
+  const handleApplyFilters = async () => {
     console.log('show filters data', filters);
     console.log('api filters data', filtersSetOfAPI);
+    if (filters?.selectedScope?.value === 'Database') {
+      const postInsertCsFilters = await setCurrentSessionWithFiltersData(SUMMIT_APP_CONFIG, filters, TokenFromStore?.token, APP_NAME);
+      fetchCurrentSessionFiltersData();
+    }
     setShowFilters(true);
     const mappedData = mapFilterData(filtersSetOfAPI);
     getProductsData(mappedData);
@@ -203,6 +233,7 @@ const useFiltersHook = (getProductsData: any) => {
     setSalesTags([]);
     setFiltersSetOfAPI({});
   };
+
   const sectionToSetterMap: any = {
     customers: setCustomerCodeList,
     design_category: setDesignCategoryList,
@@ -269,11 +300,40 @@ const useFiltersHook = (getProductsData: any) => {
     }
   };
 
+  const fetchCurrentSessionFiltersData = async () => {
+    setSessionLoader(true);
+    const getCurrentSessionFiltersDataFromAPI = await fetchCurrentSessionFilters(SUMMIT_APP_CONFIG, {}, TokenFromStore?.token, APP_NAME);
+    console.log('getCurrentSessionFiltersDataFromAPI', getCurrentSessionFiltersDataFromAPI);
+    if (
+      getCurrentSessionFiltersDataFromAPI?.data?.msg === 'success' &&
+      Object.keys(getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr).length > 0
+    ) {
+      setShowFilters(true);
+      const currentSessionFiltersData = getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr;
+      setFilters((prevFilters: any) => ({
+        ...prevFilters,
+        ...currentSessionFiltersData,
+        selectedScope: { label: 'Current Session', value: 'Current Session' },
+      }));
+      setFiltersSetOfAPI((prevFilters: any) => ({
+        ...prevFilters,
+        ...currentSessionFiltersData,
+        selectedScope: { label: 'Current Session', value: 'Current Session' },
+      }));
+      setSessionLoader(false);
+      const mappedData = mapFilterData({ selectedScope: { label: 'Current Session', value: 'Current Session' } });
+      getProductsData(mappedData);
+    }
+    setSessionLoader(false);
+  };
+
   useEffect(() => {
+    fetchCurrentSessionFiltersData();
     fetchFiltersData();
   }, []);
 
   return {
+    sessionLoader,
     workScopeList,
     setWorkScopeList,
     targetShowList,

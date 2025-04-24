@@ -148,10 +148,11 @@ export const callGetAPI = async (url: string, token?: any) => {
       response = res;
     })
     .catch((err: any) => {
+      console.log('Error in API call:', err);
       if (err.code === 'ECONNABORTED') {
         response = 'Request timed out. API took too long to return response.';
       } else if (err.code === 'ERR_BAD_REQUEST') {
-        response = err?.response?.data?.exception ?? 'Bad Request';
+        response = err?.response?.data?.exception ?? `Status Code: ${err.status} Bad Request`;
       } else if (err.code === 'ERR_INVALID_URL') {
         response = 'Invalid URL';
       } else {

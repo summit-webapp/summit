@@ -12,7 +12,7 @@ const login = ({ serverDataForPages }: ServerDataTypes) => {
   function checkIfUserIsAuthorized() {
     const checkUserStatus = checkAuthorizedUser();
     if (checkUserStatus) {
-      router.push('/');
+      router.push('/product-category');
     } else {
       // return <LoginComponent />;
       return <KCLoginComponent />;

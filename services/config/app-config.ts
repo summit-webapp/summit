@@ -6,7 +6,7 @@ export const CONSTANTS = {
     app_name: '/api/method/summitapp.sdk.api',
     version: 'v2',
   },
-  ALLOW_GUEST_TO_ACCESS_SITE_EVEN_WITHOUT_AUTHENTICATION: true,
+  ALLOW_GUEST_TO_ACCESS_SITE_EVEN_WITHOUT_AUTHENTICATION: false,
   ENABLE_META_TAGS: true,
   ENABLE_LOGIN_USING_OTP: false,
   ENABLE_LOGIN_USING_GOOGLE_ID: false,
