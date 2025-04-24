@@ -15,42 +15,68 @@ const useDropDownFilterHook = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
 
+  const [isLoadingDropDown, setIsLoadingDropDown] = useState<boolean>(false);
+  const [errorMessageDropDown, setErrMessageDropDown] = useState<string>('');
   const [filtersData, setFiltersData] = useState<any>([]);
+  const [checkBoxfiltersData, setCheckBoxfiltersData] = useState<any>([]);
   const [selectedFilters, setSelectedFilters] = useState<any>();
   const [lastChangedSection, setLastChangedSection] = useState<string | null>(null);
   const [initialFiltersSet, setInitialFiltersSet] = useState(false);
 
-  const fetchFiltersDataFunction = async (selectedValues?: any) => {
+  const fetchDropDownFiltersDataFunction = async (selectedValues?: any) => {
     const vehicleCompany = selectedValues?.[0];
     const reqParams = vehicleCompany || ''
-    setIsLoading(true);
+    setIsLoadingDropDown(true);
     try {
       const response: any = await fetchProductListingPageDropDownFilters(SUMMIT_APP_CONFIG, reqParams, tokenFromStore?.token);
       if (response?.status === 200) {
         setFiltersData(response?.data?.message || {});
-        setErrMessage('');
       } else {
         setFiltersData([]);
-        setErrMessage(response?.error || 'Something went wrong');
+        setErrMessageDropDown(response?.error || 'Something went wrong');
       }
 
       return response;
     } catch (error: any) {
       console.error("Error fetching filters:", error);
       setFiltersData([]);
-      setErrMessage(error?.message || 'API error');
+      setErrMessageDropDown(error?.message || 'API error');
+    } finally {
+      setIsLoadingDropDown(false);
+    }
+  };
+
+  const fetchFiltersDataFunction = async () => {
+    setIsLoading(true);
+    const reqParams = {
+      query: query,
+    };
+    try {
+      const getFiltersData: any = await fetchProductListingPageFilters(SUMMIT_APP_CONFIG, reqParams, tokenFromStore?.token);
+      if (getFiltersData?.data?.message?.msg === 'success') {
+        setCheckBoxfiltersData(getFiltersData?.data?.message?.data);
+        setIsLoading(false);
+      } else {
+        setCheckBoxfiltersData([]);
+        setIsLoading(false);
+        setErrMessage(getFiltersData?.data?.message?.error);
+      }
+
+      return getFiltersData;
+    } catch (error) {
+      return;
     } finally {
       setIsLoading(false);
     }
   };
 
-
   useEffect(() => {
-    if (initialFiltersSet) return;
     fetchFiltersDataFunction();
-
+    if (!initialFiltersSet) {
+      fetchDropDownFiltersDataFunction();
+    }
     if (router.query.hasOwnProperty('vehicle_filters')) {
-      const encodedFilterString: any = router.query.filter;
+      const encodedFilterString: any = router.query.vehicle_filters;
       if (encodedFilterString !== undefined) {
         const decodedFilterString = decodeURIComponent(encodedFilterString);
         const decodedFilters = JSON.parse(decodedFilterString);
@@ -61,16 +87,16 @@ const useDropDownFilterHook = () => {
     setInitialFiltersSet(true); // mark initial setup complete
   }, [query]);
 
-  // 2️⃣ Watch for Vehicle Company changes (only after initial load)
+  // Watch for Vehicle Company changes (only after initial load)
   useEffect(() => {
     const changedFilter = selectedFilters?.length > 0 && selectedFilters.find((f: any) => f.name === lastChangedSection);
     if (lastChangedSection === 'Vehicle Company' && changedFilter) {
-      fetchFiltersDataFunction(changedFilter.value);
+      fetchDropDownFiltersDataFunction(changedFilter.value);
     }
   }, [selectedFilters, lastChangedSection, initialFiltersSet]);
 
 
-  const handleFilterCheckFun = async (selectedOptions: any, meta: any = null, isColorFilter?: boolean, isActiveColor?: boolean, colorValue?: string) => {
+  const handleFilterSelectDropDown = async (selectedOptions: any, meta: any = null, isColorFilter?: boolean, isActiveColor?: boolean, colorValue?: string) => {
     let duplicateFilters: any[] = [];
     const section = meta?.name || selectedOptions?.[0]?.section || '';
 
@@ -121,15 +147,73 @@ const useDropDownFilterHook = () => {
 
     await router.push(url);
   };
+
+  const handleFilterCheckFun = async (event: any, isColorFilter?: boolean, isActiveColor?: boolean, colorValue?: string) => {
+    let duplicateFilters: any;
+    const section = isColorFilter ? 'Color' : event.target.name; // Use "Color" for color filters, otherwise from event
+    const filterValue = isColorFilter ? colorValue : event.target.value; // Use `colorValue` for color filters
+    const isChecked = isColorFilter ? isActiveColor : event.target.checked; // Colors are selected on click, so treat them as checked
+
+    setSelectedFilters((prevFilters: any) => {
+      const safePrevFilters = Array.isArray(prevFilters) ? prevFilters : [];
+      let updatedFilters = [...safePrevFilters];
+
+      const existingSectionIndex = updatedFilters.findIndex((filter: any) => filter.name === section);
+
+      if (existingSectionIndex !== -1) {
+        if (isChecked) {
+          if (!updatedFilters[existingSectionIndex].value.includes(filterValue)) {
+            updatedFilters[existingSectionIndex].value.push(filterValue);
+          }
+        } else {
+          updatedFilters[existingSectionIndex].value = updatedFilters[existingSectionIndex].value.filter((val: any) => val !== filterValue);
+          if (updatedFilters[existingSectionIndex].value.length === 0) {
+            updatedFilters = updatedFilters.filter((filter) => filter.name !== section);
+          }
+        }
+      } else if (isChecked) {
+        updatedFilters.push({ name: section, value: [filterValue] });
+      }
+
+      duplicateFilters = [...updatedFilters];
+      return updatedFilters;
+    });
+
+    const filterString = duplicateFilters?.length > 0 ? `&vehicle_filters=${encodeURIComponent(JSON.stringify(duplicateFilters))}` : '';
+    let url = router.asPath;
+    const existingFilterIndex = url.indexOf('&vehicle_filters=');
+    if (existingFilterIndex !== -1) {
+      const ampIndex = url.indexOf('&', existingFilterIndex + 1);
+      if (ampIndex !== -1) {
+        url = url.slice(0, existingFilterIndex) + url.slice(ampIndex);
+      } else {
+        url = url.slice(0, existingFilterIndex);
+      }
+    }
+
+    if (filterString) {
+      url = `${url.split('?')[0]}?&page=1${filterString}`;
+    } else {
+      url = `${url.split('?')[0]}?page=1`;
+    }
+
+    await router.push(url);
+  };
+
+
   const clearFilters = async () => {
     setSelectedFilters([]);
     const baseUrl = router.asPath.split('?')[0];
     await router.push(`${baseUrl}?page=1&currency=INR`);
   };
   return {
+    checkBoxfiltersData,
     filtersData,
+    isLoadingDropDown,
     isLoading,
     errorMessage,
+    errorMessageDropDown,
+    handleFilterSelectDropDown,
     handleFilterCheckFun,
     selectedFilters,
     clearFilters,
