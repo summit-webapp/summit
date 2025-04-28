@@ -18,16 +18,17 @@ const Cart = ({ cartPageComponents, translationsList }: any) => {
   // }, []);
   return (
     <>
-      <CartListingMaster componentsList={cartPageComponents}  />
+      <CartListingMaster componentsList={cartPageComponents} />
     </>
   );
 };
 
-
 export const getStaticProps = async (context: any) => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   let componentsList: any;
-  let fetchComponentsList: any = await getComponentsList('Cart Page', SUMMIT_APP_CONFIG);
+
+  const requestParams = { page_type: 'Cart Page' };
+  let fetchComponentsList: any = await getComponentsList('GET', 'get-page-components-list-api', requestParams);
   if (fetchComponentsList?.status === 200 && fetchComponentsList?.data?.message?.msg === 'success') {
     componentsList = fetchComponentsList?.data?.message?.data;
   }

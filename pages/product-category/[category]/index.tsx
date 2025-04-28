@@ -51,7 +51,9 @@ export const getStaticProps = async (context: any) => {
   const { category } = context.params;
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   let componentsList: any;
-  let fetchComponentsList: any = await getComponentsList('Product Category Page', SUMMIT_APP_CONFIG);
+
+  const requestParams = { page_type: 'Product Category Page' };
+  let fetchComponentsList: any = await getComponentsList('GET', 'get-page-components-list-api', requestParams);
   if (fetchComponentsList?.status === 200 && fetchComponentsList?.data?.message?.msg === 'success') {
     componentsList = fetchComponentsList?.data?.message?.data;
   }

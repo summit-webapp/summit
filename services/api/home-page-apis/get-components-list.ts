@@ -1,16 +1,7 @@
-import APP_CONFIG from '../../../interfaces/app-config-interface';
-import { executeGETAPI } from '../../../utils/http-methods';
+import engineRunner from '../../../utils/engine-runner';
 
-const getComponentsList = async (page_type: string, appConfig: APP_CONFIG) => {
-  const additionalParams = { page_type }; // Add additional parameters if needed
-  // Use executeGETAPI to handle GET Request logic
-  const response = await executeGETAPI(
-    appConfig,
-    'get-page-components-list-api',
-    undefined,
-    additionalParams // Pass additional parameters if needed
-  );
-
+const getComponentsList = async (apiMethod: string, apiName: string, apiData?: any, token?: string, path?: string) => {
+  const response = engineRunner(apiMethod, apiName, apiData, token, path);
   return response;
 };
 
