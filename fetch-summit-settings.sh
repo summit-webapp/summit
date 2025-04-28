@@ -34,6 +34,17 @@ fi
 
 source "$(dirname "$0")/.env"
 
+# Check if required environment variables are set
+if [ -z "$NEXT_PUBLIC_ENGINE_NAME" ]; then
+  echo "Error: NEXT_PUBLIC_ENGINE_NAME is not set in the .env file"
+  exit 1
+fi
+
+if [ -z "$NEXT_PUBLIC_API_URL" ]; then
+  echo "Error: NEXT_PUBLIC_API_URL is not set in the .env file"
+  exit 1
+fi
+
 # Check NEXT_PUBLIC_ENGINE_NAME value
 if [ "$NEXT_PUBLIC_ENGINE_NAME" == "EMR" ]; then
   echo "{}" > ./summit-settings.json
