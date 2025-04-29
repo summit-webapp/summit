@@ -85,7 +85,7 @@ const useFiltersHook = (getProductsData: any) => {
     { label: 'Gross Wt - Descending', value: 'grossDesc' },
   ];
 
-  const [selectedScope, setSelectedScope] = useState<any>({ label: 'Database', value: 'Database' });
+  const [selectedScope, setSelectedScope] = useState<any>({ label: '', value: '' });
   const [showFilters, setShowFilters] = useState(false);
 
   const styleCodeList = [{ label: '', value: '' }];
@@ -213,16 +213,17 @@ const useFiltersHook = (getProductsData: any) => {
     console.log('api filters data', filtersSetOfAPI);
 
     const hasOtherKeys = Object.keys(filtersSetOfAPI).some((key) => key !== 'selectedScope');
+    console.log('hasOtherKeys', hasOtherKeys);
     if (filters?.selectedScope?.value === 'Database') {
       const postInsertCsFilters = await setCurrentSessionWithFiltersData({ CsFltr: filtersSetOfAPI }, TokenFromStore?.token);
       const deleteAPIBody = { OdChr: 'CS' };
       const deleteCurrentSessionData = await deleteCurrentSession(deleteAPIBody, TokenFromStore?.token);
       isDBData = true;
     }
-    if (filters?.selectedScope?.value === 'Database' && !hasOtherKeys) {
+    if (!hasOtherKeys) {
       setIsFilterApplied('Database');
     }
-    if (filters?.selectedScope?.value === 'Database' && hasOtherKeys) {
+    if (hasOtherKeys) {
       setIsFilterApplied('Current Session');
     }
     setShowFilters(true);
