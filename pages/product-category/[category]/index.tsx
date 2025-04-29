@@ -38,9 +38,9 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: any) => {
   const { category } = context.params;
-  const { SUMMIT_APP_CONFIG } = CONSTANTS;
+  const { SUMMIT_APP_CONFIG, APP_NAME }: any = CONSTANTS;
   let componentsList: any;
-  let fetchComponentsList: any = await getComponentsList('Product Category Page', SUMMIT_APP_CONFIG);
+  let fetchComponentsList: any = await getComponentsList('Product Category Page', SUMMIT_APP_CONFIG, APP_NAME);
   if (fetchComponentsList?.status === 200 && fetchComponentsList?.data?.message?.msg === 'success') {
     componentsList = fetchComponentsList?.data?.message?.data;
   }
