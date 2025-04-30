@@ -29,6 +29,8 @@ next-env.d.ts
 # summit settings json
 *.json
 
+/services/api/emr-api's
+
 # addons applications
 /addons/*
 /addons/kc-addons
