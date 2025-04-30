@@ -30,6 +30,7 @@ next-env.d.ts
 *.json
 
 # addons applications
+/addons/*
 /addons/kc-addons
 /addons/emr-api-addons
 
