@@ -31,6 +31,7 @@ next-env.d.ts
 
 # addons applications
 /addons/kc-addons
+/addons/emr-api-addons
 
 /public/robots.txt
 /public/sitemap.xml
