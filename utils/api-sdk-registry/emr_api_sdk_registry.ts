@@ -3,7 +3,8 @@ const emrAPISDKRegistry: any = {
   'get-current-session-filters-api': '/api/getCsFilters',
   'post-insert-current-session-filters-api': '/api/insertCsFltrs',
   'get-product-listing-filters-api': '/api/getCatalogueFilterMasters',
-  'product-list-api': '/api/getCatalogues',
+  'get-product-list-api': '/api/getCatalogues',
+  'post-move-current-session-api': '/api/moveDsg',
 };
 
 export default emrAPISDKRegistry;
