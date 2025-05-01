@@ -38,6 +38,7 @@
     "react-multi-carousel": "^2.8.5",
     "react-paginate": "^8.2.0",
     "react-redux": "^8.0.5",
+    "react-select": "^5.10.1",
     "react-simple-star-rating": "^5.1.7",
     "react-social-login-buttons": "^4.1.0",
     "react-toastify": "^9.1.3",
