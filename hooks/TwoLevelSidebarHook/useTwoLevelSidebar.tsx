@@ -6,6 +6,7 @@ import fetchCurrentSessionFilters from '../../services/api/emr-apis/get-emr-curr
 import setCurrentSessionWithFiltersData from '../../services/api/emr-apis/post-insert-cs-filters/post-emr-filters-api';
 import deleteCurrentSession from '../../services/api/emr-apis/delete-current-session-filter/delete-current-session-api';
 import { CONSTANTS } from '../../services/config/app-config';
+import { set } from 'zod';
 
 const useFiltersHook = (getProductsData: any) => {
   const { APP_NAME, SUMMIT_APP_CONFIG }: any = CONSTANTS;
@@ -53,7 +54,7 @@ const useFiltersHook = (getProductsData: any) => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('');
 
-  const [isFilterApplied, setIsFilterApplied] = useState<string>('');
+  const [sessionTypeState, setSessionTypeState] = useState<string>('');
   const [filters, setFilters] = useState<any>({ selectedScope: { label: 'Database', value: 'Database' } });
   const [filtersSetOfAPI, setFiltersSetOfAPI] = useState<any>({ selectedScope: { label: 'Database', value: 'Database' } });
   const [displayQualityTags, setDisplayQualityTags] = useState<string[]>([]);
@@ -114,28 +115,77 @@ const useFiltersHook = (getProductsData: any) => {
     setSidebarVisible(false);
   };
 
+  const handleFiltersChange = (newFilters: any) => {
+    setFiltersSetOfAPI({ ...newFilters });
+    if (sessionTypeState === 'Database') {
+      setFilters((prevFilters: any) => ({
+        ...prevFilters,
+        ...newFilters,
+      }));
+    }
+  };
+
+  function sanitizeObject(obj: any) {
+    const sanitized: any = {};
+
+    for (const key in obj) {
+      const value = obj[key];
+
+      if (value === undefined) continue;
+
+      if (Array.isArray(value)) {
+        // Check if it's empty or all zeroes
+        const isAllZero = value.every((v) => v === 0);
+        if (value.length === 0 || isAllZero) continue;
+      } else if (typeof value === 'object' && value !== null) {
+        // Recursively sanitize nested objects
+        const nested = sanitizeObject(value);
+        if (Object.keys(nested).length === 0) continue;
+        sanitized[key] = nested;
+        continue;
+      }
+
+      sanitized[key] = value;
+    }
+
+    return sanitized;
+  }
+
   const handleAcceptIndivisualFilter = (newFilters: Record<string, any>) => {
     console.log('newFilters', newFilters);
+    const sanitizedObj = sanitizeObject(newFilters);
+    console.log('sanitized', sanitizedObj);
     setFiltersSetOfAPI((prevFilters: any) => ({
       ...prevFilters,
-      ...newFilters,
+      ...sanitizedObj,
     }));
-    if ('selectedScope' in newFilters && newFilters?.selectedScope?.value === 'Database') {
+    if (sanitizedObj?.selectedScope?.value === 'Database') {
+      setSessionTypeState('Database');
+      setShowFilters(false);
+      setFilters({});
+    }
+    if (sessionTypeState === 'Database') {
       setFilters((prevFilters: any) => ({
         ...prevFilters,
-        ...newFilters,
-      }));
-      setFiltersSetOfAPI((prevFilters: any) => ({
-        ...prevFilters,
-        ...newFilters,
+        ...sanitizedObj,
       }));
     }
-    if (filters?.selectedScope?.value === 'Database') {
-      setFilters((prevFilters: any) => ({
-        ...prevFilters,
-        ...newFilters,
-      }));
-    }
+    // if ('selectedScope' in newFilters && newFilters?.selectedScope?.value === 'Database') {
+    //   setFilters((prevFilters: any) => ({
+    //     ...prevFilters,
+    //     ...newFilters,
+    //   }));
+    //   setFiltersSetOfAPI((prevFilters: any) => ({
+    //     ...prevFilters,
+    //     ...newFilters,
+    //   }));
+    // }
+    // if (filters?.selectedScope?.value === 'Database') {
+    //   setFilters((prevFilters: any) => ({
+    //     ...prevFilters,
+    //     ...newFilters,
+    //   }));
+    // }
 
     closeSidebar();
   };
@@ -214,38 +264,56 @@ const useFiltersHook = (getProductsData: any) => {
 
     const hasOtherKeys = Object.keys(filtersSetOfAPI).some((key) => key !== 'selectedScope');
     console.log('hasOtherKeys', hasOtherKeys);
-    if (filters?.selectedScope?.value === 'Database') {
+    if (sessionTypeState === 'Database') {
       const postInsertCsFilters = await setCurrentSessionWithFiltersData({ CsFltr: filtersSetOfAPI }, TokenFromStore?.token);
       const deleteAPIBody = { OdChr: 'CS' };
       const deleteCurrentSessionData = await deleteCurrentSession(deleteAPIBody, TokenFromStore?.token);
       isDBData = true;
+      setSessionTypeState('Current Session');
+      setShowFilters(true);
+      const mappedData = mapFilterData({
+        ...filtersSetOfAPI,
+        selectedScope: { label: 'Database', value: 'Database' },
+      });
+      getProductsData(mappedData, isDBData);
+    } else if (sessionTypeState === 'Current Session') {
+      isDBData = false;
+      setSessionTypeState('Current Session');
+      setShowFilters(true);
+      const mappedData = mapFilterData({
+        ...filtersSetOfAPI,
+        selectedScope: { label: 'Current Session', value: 'Current Session' },
+      });
+      getProductsData(mappedData, isDBData);
     }
-    if (!hasOtherKeys) {
-      setIsFilterApplied('Database');
-    }
-    if (hasOtherKeys) {
-      setIsFilterApplied('Current Session');
-    }
-    setShowFilters(true);
-    const mappedData = mapFilterData({
-      ...filtersSetOfAPI,
-      selectedScope: filters?.selectedScope,
-    });
-    getProductsData(mappedData, isDBData);
-    if (filters?.selectedScope?.value === 'Database' && Object.keys(filters)?.length) {
-    }
-    setFilters((prevFilters: any) => ({
-      ...prevFilters,
-      selectedScope: { label: 'Current Session', value: 'Current Session' },
-    }));
-    setFiltersSetOfAPI((prevFilters: any) => ({
-      ...prevFilters,
-      selectedScope: { label: 'Current Session', value: 'Current Session' },
-    }));
+    // if (filters?.selectedScope?.value === 'Database') {
+    // const postInsertCsFilters = await setCurrentSessionWithFiltersData({ CsFltr: filtersSetOfAPI }, TokenFromStore?.token);
+    // const deleteAPIBody = { OdChr: 'CS' };
+    // const deleteCurrentSessionData = await deleteCurrentSession(deleteAPIBody, TokenFromStore?.token);
+    // isDBData = true;
+    // }
+    // if (!hasOtherKeys) {
+    //   setSessionTypeState('Database');
+    // }
+    // if (hasOtherKeys) {
+    //   setSessionTypeState('Current Session');
+    // }
+    // if (filters?.selectedScope?.value === 'Database' && Object.keys(filters)?.length) {
+    // }
+    // setFilters((prevFilters: any) => ({
+    //   ...prevFilters,
+    //   selectedScope: { label: 'Current Session', value: 'Current Session' },
+    // }));
+    // setFiltersSetOfAPI((prevFilters: any) => ({
+    //   ...prevFilters,
+    //   selectedScope: { label: 'Current Session', value: 'Current Session' },
+    // }));
     closeSidebar();
     setDesignTags([]);
     setSalesTags([]);
     setFiltersSetOfAPI({});
+    // fetchSessionData();
+    setSelectedScope({ label: '', value: '' });
     setApplyFilterBtnLoader(false);
   };
 
@@ -315,6 +383,28 @@ const useFiltersHook = (getProductsData: any) => {
     }
   };
 
+  const fetchSessionData = async () => {
+    setSessionLoader(true);
+    const getCurrentSessionFiltersDataFromAPI = await fetchCurrentSessionFilters(SUMMIT_APP_CONFIG, {}, TokenFromStore?.token, APP_NAME);
+    if (
+      getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr?.selectedScope?.value === 'Database' &&
+      Object.keys(getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr).length === 1
+    ) {
+      setFilters({});
+      setFiltersSetOfAPI({});
+      setSessionTypeState('Database');
+      fetchProductsData('Database');
+    } else if (Object.keys(getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr).length > 1) {
+      const currentSessionFiltersData = getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr;
+      setFilters({ ...currentSessionFiltersData });
+      setFiltersSetOfAPI({});
+      setShowFilters(true);
+      setSessionTypeState('Current Session');
+      fetchProductsData('Current Session');
+    }
+    setSessionLoader(false);
+  };
+
   const fetchCurrentSessionFiltersData = async () => {
     setSessionLoader(true);
     const getCurrentSessionFiltersDataFromAPI = await fetchCurrentSessionFilters(SUMMIT_APP_CONFIG, {}, TokenFromStore?.token, APP_NAME);
@@ -323,24 +413,34 @@ const useFiltersHook = (getProductsData: any) => {
       getCurrentSessionFiltersDataFromAPI?.data?.msg === 'success' &&
       Object.keys(getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr).length > 0
     ) {
-      setShowFilters(true);
-      const currentSessionFiltersData = getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr;
-      setFilters((prevFilters: any) => ({
-        ...prevFilters,
-        ...currentSessionFiltersData,
-        selectedScope: { label: 'Current Session', value: 'Current Session' },
-      }));
-      // setFiltersSetOfAPI((prevFilters: any) => ({
-      //   ...prevFilters,
-      //   ...currentSessionFiltersData,
-      //   selectedScope: { label: 'Current Session', value: 'Current Session' },
-      // }));
-      setIsFilterApplied('Current Session');
-      setSessionLoader(false);
+      if (
+        getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr?.selectedScope?.value === 'Database' &&
+        Object.keys(getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr).length === 1
+      ) {
+        setFilters({});
+        setFiltersSetOfAPI({});
+        setSessionTypeState('Database');
+        fetchProductsData('Database');
+      } else if (Object.keys(getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr).length > 1) {
+        const currentSessionFiltersData = getCurrentSessionFiltersDataFromAPI?.data?.data?.CsFltr;
+        setFilters({ ...currentSessionFiltersData });
+        setFiltersSetOfAPI({});
+        setShowFilters(true);
+        setSessionTypeState('Current Session');
+        fetchProductsData('Current Session');
+      }
+    }
+    setSessionLoader(false);
+  };
+
+  const fetchProductsData = async (sessionType: string) => {
+    if (sessionType === 'Database') {
+      const mappedData = mapFilterData({ selectedScope: { label: 'Database', value: 'Database' } });
+      getProductsData(mappedData);
+    } else if (sessionType === 'Current Session') {
       const mappedData = mapFilterData({ selectedScope: { label: 'Current Session', value: 'Current Session' } });
       getProductsData(mappedData);
     }
-    setSessionLoader(false);
   };
 
   useEffect(() => {
@@ -349,7 +449,7 @@ const useFiltersHook = (getProductsData: any) => {
   }, []);
 
   return {
-    isFilterApplied,
+    sessionTypeState,
     filtersSetOfAPI,
     applyFilterBtnLoader,
     sessionLoader,
