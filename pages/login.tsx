@@ -4,7 +4,8 @@ import checkAuthorizedUser from '../utils/auth';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 import PageMetaData from '../components/PageMetaData';
-import LoginComponent from '../components/Auth/LoginComponent';
+// import LoginComponent from '../components/Auth/LoginComponent';
+import KCLoginComponent from '../components/Auth/KCLoginComponent';
 
 const login = ({ serverDataForPages }: ServerDataTypes) => {
   const router = useRouter();
@@ -13,13 +14,14 @@ const login = ({ serverDataForPages }: ServerDataTypes) => {
     if (checkUserStatus) {
       router.push('/');
     } else {
-      return <LoginComponent />;
+      // return <LoginComponent />;
+      return <KCLoginComponent />;
     }
   }
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
-      {CONSTANTS?.ALLOW_GUEST_TO_ACCESS_SITE_EVEN_WITHOUT_AUTHENTICATION ? <LoginComponent /> : checkIfUserIsAuthorized()}
+      {CONSTANTS?.ALLOW_GUEST_TO_ACCESS_SITE_EVEN_WITHOUT_AUTHENTICATION ? <KCLoginComponent /> : checkIfUserIsAuthorized()}
     </>
   );
 };

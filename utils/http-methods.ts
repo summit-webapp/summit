@@ -16,6 +16,24 @@ const getVME = (frappeAppConfig: APP_CONFIG, apiName: string) => {
     entity,
   };
 };
+
+export const executeEMRGetAPI = async (apiName: string, apiData: any, token?: string, path?: string) => {
+  const sdkInfo = fetchAPISDK(apiName);
+  let apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
+  if (apiData && Object.keys(apiData).length !== 0) {
+    const params = new URLSearchParams({
+      ...apiData, // Add additional parameters if provided
+    });
+    const storeParams = params.toString();
+    apiURL = `${CONSTANTS.API_BASE_URL}${sdkInfo}?${storeParams}`;
+  }
+  // Make the API call
+  const response = await callGetAPI(`${apiURL}`, `token ${token}`);
+  return response;
+};
+
+export const executeEMRPostAPI = async () => {};
+
 /**
  * Fetches data from an API by handling repetitive steps like fetching SDK names,
  * getting the Frappe app version, constructing the API URL, and making the call.

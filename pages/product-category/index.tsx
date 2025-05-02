@@ -14,6 +14,7 @@ const Index = ({ productListPageComponents, translationsList }: any) => {
   // useEffect(() => {
   //   sendPageViewToGA(window.location.pathname + window.location.search, 'Product Listing Page');
   // }, []);
+  console.log('productListPageComponents', productListPageComponents);
   const dispatch = useDispatch();
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   useEffect(() => {
@@ -41,7 +42,8 @@ export const getStaticProps = async (context: any) => {
     componentsList = fetchComponentsList?.data?.message?.data;
   }
   let translationsList: any;
-  let getMultilanguageData: any = await getMultiLingualTextFromAPI(SUMMIT_APP_CONFIG);
+  let getMultilanguageData: any = [];
+  // getMultilanguageData =  await getMultiLingualTextFromAPI(SUMMIT_APP_CONFIG);
   if (getMultilanguageData?.length > 0) {
     translationsList = getMultilanguageData;
   } else {

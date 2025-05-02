@@ -1,4 +1,5 @@
 const emrAPISDKRegistry: any = {
+  'login-api': '/api/login',
   'get-page-components-list-api': '/api/getComponents',
   'get-current-session-filters-api': '/api/getCsFilters',
   'post-insert-current-session-filters-api': '/api/insertCsFltrs',
