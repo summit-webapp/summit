@@ -32,7 +32,12 @@ export const executeEMRGetAPI = async (apiName: string, apiData: any, token?: st
   return response;
 };
 
-export const executeEMRPostAPI = async () => {};
+export const executeEMRPostAPI = async (apiName: string, apiData: any, token?: string, path?: string) => {
+  const sdkInfo = fetchAPISDK(apiName);
+  let apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
+  const response = await callPostAPI(apiURL, apiData, `Bearer ${token}`);
+  return response;
+};
 
 /**
  * Fetches data from an API by handling repetitive steps like fetching SDK names,

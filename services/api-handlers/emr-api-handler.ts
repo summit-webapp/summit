@@ -4,7 +4,7 @@ const executeEMRAPIHandler = (apiMethod: string, apiName: string, apiData: strin
   if (apiMethod === 'GET') {
     return executeEMRGetAPI(apiName, apiData, token, path);
   } else if (apiMethod === 'POST') {
-    return executeEMRPostAPI();
+    return executeEMRPostAPI(apiName, apiData, token, path);
   }
 };
 
