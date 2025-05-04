@@ -16,7 +16,7 @@ export const getStaticPaths = async () => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const apiParams = { type: 'product-category' };
   let getPathsList: string[] = [];
-  let getListOfAllPathsFromAPI: any = await getSiteMapList(apiParams, SUMMIT_APP_CONFIG);
+  let getListOfAllPathsFromAPI: any = await getSiteMapList('GET', 'get-site-map', apiParams);
   if (
     getListOfAllPathsFromAPI?.status === 200 &&
     getListOfAllPathsFromAPI?.data?.message?.msg === 'success' &&
