@@ -17,5 +17,5 @@
     "types": ["jest","ts-node","@testing-library/jest-dom"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "hooks/LanguageHook/multilingual-hook.ts", "jest.setup.ts"],
-  "exclude": ["node_modules", "themes"]
+  "exclude": ["node_modules", "themes","addons"]
 }
