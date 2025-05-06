@@ -9,8 +9,12 @@ const useCollection = () => {
   const tokenFromStore: any = useSelector(get_access_token);
 
   const fetchCollectionsData = async () => {
-    const collectionData = await getCollectionData('GET', 'get-collection-data-api', undefined, tokenFromStore?.token);
-    console.log('collection data', collectionData);
+    const collectionData = await getCollectionData('GET', 'get-collections-list-api', undefined, tokenFromStore?.token);
+    if (collectionData?.status === 200 && collectionData?.data?.msg === 'success') {
+      setCollectionData([...collectionData?.data?.data]);
+    } else {
+      setErrMessage(collectionData);
+    }
   };
 
   useEffect(() => {
