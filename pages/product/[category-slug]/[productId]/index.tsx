@@ -31,7 +31,8 @@ export const getStaticProps = async (context: any) => {
     componentsList = fetchComponentsList?.data?.message?.data;
   }
   let translationsList: any;
-  let getMultilanguageData: any = await getMultiLingualTextFromAPI(SUMMIT_APP_CONFIG);
+  let getMultilanguageData: any = [];
+  // await getMultiLingualTextFromAPI(SUMMIT_APP_CONFIG);
   if (getMultilanguageData?.length > 0) {
     translationsList = getMultilanguageData;
   } else {

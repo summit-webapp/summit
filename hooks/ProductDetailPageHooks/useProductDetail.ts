@@ -60,13 +60,14 @@ const useProductDetail = () => {
     };
     setIsLoading(true);
     try {
-      const productDetailAPI: any = await fetchProductDetailData(SUMMIT_APP_CONFIG, requestParams, TokenFromStore?.token);
+      // const productDetailAPI: any = await fetchProductDetailData(SUMMIT_APP_CONFIG, requestParams, TokenFromStore?.token);
+      const productDetailAPI: any = await fetchProductDetailData('GET', 'product-detail-api', requestParams, TokenFromStore?.token);
       if (
         productDetailAPI?.status === 200 &&
-        productDetailAPI?.data?.message?.msg === 'Success' &&
-        Object?.keys(productDetailAPI?.data?.message?.data).length > 0
+        productDetailAPI?.data?.msg === 'success' &&
+        Object?.keys(productDetailAPI?.data?.data).length > 0
       ) {
-        setProductDetailData(productDetailAPI?.data?.message?.data);
+        setProductDetailData(productDetailAPI?.data?.data);
         if (productDetailAPI?.data?.message?.data?.min_order_qty > 0) {
           setQty(productDetailAPI?.data?.message?.data?.min_order_qty);
         } else {
