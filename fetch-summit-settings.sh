@@ -47,9 +47,27 @@ fi
 
 # Check NEXT_PUBLIC_ENGINE_NAME value
 if [ "$NEXT_PUBLIC_ENGINE_NAME" == "EMR" ]; then
-  echo "{}" > ./summit-settings.json
   echo "NEXT_PUBLIC_ENGINE_NAME is EMR. Empty object stored in summit-settings.json"
-  exit 0
+
+  API_URL="${NEXT_PUBLIC_API_URL}/api/resource/Settings"
+  OUTPUT_FILE="./summit-settings.json"
+
+  HTTP_STATUS=$(curl -s -o $OUTPUT_FILE -w "%{http_code}" $API_URL)
+
+  if [ '$HTTP_STATUS' -ne 200 ]; then
+    echo "Error Code: API request failed with status code $HTTP_STATUS"
+    echo "Error Message: $(cat $OUTPUT_FILE)"
+    exit 1
+  fi
+
+  if grep -q '"exception"' $OUTPUT_FILE; then
+    echo "Error: EMR settings fetch failed. Details:"
+    cat $OUTPUT_FILE
+    exit 1
+  fi 
+
+  echo "EMR settings data fetched and saved to $OUTPUT_FILE"
+
 elif [ "$NEXT_PUBLIC_ENGINE_NAME" == "Summit" ]; then
   echo "NEXT_PUBLIC_ENGINE_NAME is Summit. Proceeding to fetch summit settings."
   
