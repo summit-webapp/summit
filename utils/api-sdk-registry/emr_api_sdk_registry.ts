@@ -5,7 +5,7 @@ const emrAPISDKRegistry: any = {
   'get-current-session-filters-api': '/api/getCsFilters',
   'post-insert-current-session-filters-api': '/api/insertCsFltrs',
   'get-product-listing-filters-api': '/api/getCatalogueFilterMasters',
-  'get-product-list-api': '/api/getCatalogues',
+  'get-product-list-api': '/api/getCatalog',
   'delete-current-session-filters-api': '/api/delOrdDsg',
   'post-move-current-session-api': '/api/moveDsg',
   'product-detail-api': '/api/getCatalogueDetails',
