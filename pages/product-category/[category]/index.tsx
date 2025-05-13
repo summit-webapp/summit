@@ -47,7 +47,7 @@ export const getStaticPaths = async () => {
   // };
 
   // scrap below code (only for euroshine)
-  const hardcodedCategories = ['BDAY', 'CA001', 'CAT002', 'CAT003', 'CAT004', 'CAT005', 'DIWALI', 'HOLI', 'HOLI1'];
+  const hardcodedCategories = ['ALL', 'ELEGANT', 'ETHEREAL', 'FACETS', 'GEMMIST', 'MUSE', 'RETRO'];
 
   const paths = hardcodedCategories.map((category) => ({
     params: { category },
