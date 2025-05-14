@@ -7,4 +7,5 @@ export interface EMRItemTypes {
   OdSr: number;
   OdDmCd: string;
   OdSalPrc: number;
+  price: number;
 }

@@ -10,6 +10,7 @@ const emrAPISDKRegistry: any = {
   'post-move-current-session-api': '/api/moveDsg',
   'product-detail-api': '/api/getCatalogueDetails',
   'place-order-api': '/api/createOrder',
+  'price-list-api': '/api/getPriceList',
 };
 
 export default emrAPISDKRegistry;
