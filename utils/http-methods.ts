@@ -35,7 +35,20 @@ export const executeEMRGetAPI = async (apiName: string, apiData: any, token?: st
 export const executeEMRPostAPI = async (apiName: string, apiData: any, token?: string, path?: string) => {
   const sdkInfo = fetchAPISDK(apiName);
   let apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
-  const response = await callPostAPI(apiURL, apiData, `Bearer ${token}`);
+  const response = await callPostAPI(apiURL, apiData, `token ${token}`);
+  return response;
+};
+
+export const executeEMRPutAPI = async (apiName: string, apiData: any, token?: string, path?: string) => {
+  const sdkInfo = fetchAPISDK(apiName);
+  let apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
+  const response = await callPutAPI(apiURL, apiData, `token ${token}`);
+  return response;
+};
+export const executeEMRDeleteAPI = async (apiName: string, apiData: any, token?: string, path?: string) => {
+  const sdkInfo = fetchAPISDK(apiName);
+  let apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
+  const response = await callDeleteAPI(apiURL, apiData, `token ${token}`);
   return response;
 };
 
@@ -151,6 +164,35 @@ export const callGetAPI = async (url: string, token?: any) => {
   console.log('res', response);
   return response;
 };
+export const callPutAPI = async (url: string, body: any, token?: any) => {
+  let response: any;
+  const API_CONFIG = {
+    headers: {
+      ...(token ? { Authorization: token } : {}),
+    },
+  };
+  await axios
+    .put(url, body, {
+      ...API_CONFIG,
+      // timeout: 5000,
+    })
+    .then((res: any) => {
+      response = res;
+    })
+    .catch((err: any) => {
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out. API took too long to return response.';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = err?.response?.data?.exception ?? `Status Code: ${err.status} Bad Request`;
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
+      } else {
+        response = err;
+      }
+    });
+  return response;
+};
+
 export const callPostAPI = async (url: string, body: any, token?: any) => {
   let response: any;
   const API_CONFIG = {

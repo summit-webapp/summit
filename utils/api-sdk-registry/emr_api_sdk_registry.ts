@@ -9,6 +9,9 @@ const emrAPISDKRegistry: any = {
   'delete-current-session-filters-api': '/api/delOrdDsg',
   'post-move-current-session-api': '/api/moveDsg',
   'product-detail-api': '/api/getCatalogDetails',
+  'cart-list': '/api/getOrdDsgList',
+  'update-cart': '/api/updateOrdDsg',
+  'delete-cart': '/api/clearOrderDsg',
   'place-order-api': '/api/createOrder',
   'price-list-api': '/api/getPriceList',
 };

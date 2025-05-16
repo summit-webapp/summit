@@ -47,19 +47,28 @@ fi
 
 # Check NEXT_PUBLIC_ENGINE_NAME value
 if [ "$NEXT_PUBLIC_ENGINE_NAME" == "EMR" ]; then
-  echo "NEXT_PUBLIC_ENGINE_NAME is EMR. Empty object stored in summit-settings.json"
+  echo "NEXT_PUBLIC_ENGINE_NAME is EMR."
 
   API_URL="${NEXT_PUBLIC_API_URL}/api/resource/Settings"
   OUTPUT_FILE="./summit-settings.json"
 
-  HTTP_STATUS=$(curl -s -o $OUTPUT_FILE -w "%{http_code}" $API_URL)
+  # This is breaking now (dont know why. has to come up with new method to fix this which is down below)
+  # HTTP_STATUS=$(curl -s -o $OUTPUT_FILE -w "%{http_code}" $API_URL)
 
-  if [ '$HTTP_STATUS' -ne 200 ]; then
-    echo "Error Code: API request failed with status code $HTTP_STATUS"
-    echo "Error Message: $(cat $OUTPUT_FILE)"
-    exit 1
+  # echo "$HTTP_STATUS"
+  HTTP_RESPONSE=$(mktemp)
+  HTTP_STATUS=$(curl -s -k -L -w "%{http_code}" -o "$HTTP_RESPONSE" "$API_URL")
+
+  # Move response content to final output file
+  mv "$HTTP_RESPONSE" "$OUTPUT_FILE"
+
+  if [ "$HTTP_STATUS" -ne 200 ]; then
+  echo "❌ Error: API call failed with status $HTTP_STATUS"
+  cat "$OUTPUT_FILE"  # Show the response
+  exit 1
   fi
 
+  # Frappe-style exception check
   if grep -q '"exception"' $OUTPUT_FILE; then
     echo "Error: EMR settings fetch failed. Details:"
     cat $OUTPUT_FILE
