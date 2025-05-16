@@ -16,6 +16,7 @@ const fetchProductListingFromAPI = async (appName: any, query: any, token: any) 
   }
 
   const category: any = query.url_params.category;
+  const email: any = query.url_params.email || '';
 
   // Construct URL parameters
   const urlParams = Object.keys(query.url_params)
@@ -55,6 +56,7 @@ const fetchProductListingFromAPI = async (appName: any, query: any, token: any) 
     additionalParams = {
       ...additionalParams,
       category,
+      email
     };
     response = await executeGETAPI(appName, 'product-list-api', token, additionalParams);
   } else if (query.router_origin === 'catalog') {

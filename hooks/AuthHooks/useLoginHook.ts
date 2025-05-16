@@ -37,6 +37,7 @@ const useLoginHook = () => {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('user', values.usr);
         localStorage.setItem('party_name', tokenData?.data?.full_name);
+        localStorage.setItem('user_role', JSON.stringify(tokenData?.data?.user_role));
 
         dispatch(storeToken(tokenData?.data));
         router.push('/');

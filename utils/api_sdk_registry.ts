@@ -59,6 +59,11 @@ const apiSdkRegistry: any = {
   'promotional-banner-api': { method: '', entity: '' },
   'blog-api': { method: 'get_blog_post_list', entity: 'blog_post' },
   'get-product-listing-dropdown-filters-api': { method: 'get_vehicle_filters', entity: 'filter' },
+  'get-customer-group-list-api': { method: 'get_customer_group', entity: 'customer_group' },
+  'get-website-user-list-api': { method: 'get_website_user', entity: 'user' },
+  'get-mechanic-list-api': { method: 'get_mechanic', entity: 'user' },
+  'add-mechanic-to-user-api': { method: 'update_mechanic_in_customer', entity: 'user' },
+  'get-product-listing-all-filters-api': { method: 'get_filters_without_category', entity: 'filter' },
 };
 
 export default apiSdkRegistry;
