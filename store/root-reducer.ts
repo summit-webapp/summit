@@ -10,7 +10,6 @@ import LanguageReducer from './slices/language-slice/language-json-slice';
 import wishlistSlice from './slices/wishlist-slices/wishlist-local-slice';
 import quickOrderSlice from './slices/quick-order-slice/quick-order-slice';
 import componentsReducer from './slices/general_slices/components-slice';
-import categoryBreadcrumbReducer from "./slices/category-breadcrumb-slice/category-breadcrumb-slice";
 
 const appReducer = combineReducers({
   LanguagesScreen: LanguageReducer,
@@ -23,8 +22,7 @@ const appReducer = combineReducers({
   cart: cartLocalSlice,
   catalogSlice: catalogLocalSlice,
   quickOrder: quickOrderSlice,
-  categoryBreadcrumb: categoryBreadcrumbReducer,
-});
+  });
 
 const rootReducer = (state: any, action: any) => {
   if (action.type === resetStore.type) {
