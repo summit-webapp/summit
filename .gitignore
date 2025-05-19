@@ -29,6 +29,18 @@ next-env.d.ts
 # summit settings json
 *.json
 
+/components/addon-components/*
+/hooks/addon-hooks/*
+/services/addon-services/*
+
+
+/services/api/emr-api's
+
+# addons applications
+/addons/*
+/addons/kc-addons
+/addons/emr-api-addons
+
 /public/robots.txt
 /public/sitemap.xml
 /themes/elite

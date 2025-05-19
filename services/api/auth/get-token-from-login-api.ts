@@ -23,6 +23,21 @@ const getTokenFromLoginAPI: any = async (appConfig: APP_CONFIG, loginParams: Typ
   }
 };
 
+export const emrLogin = async (loginParams: any) => {
+  const usr = loginParams?.values.usr;
+  const pwd = encodeURIComponent(loginParams?.values?.pwd);
+  const body = {
+    username: usr,
+    password: pwd,
+  };
+  let response: any;
+  await axios.post(`${CONSTANTS.API_BASE_URL}/api/login`, body).then((res) => {
+    console.log('Response from login API:', res);
+    response = res?.data;
+  });
+  return response;
+};
+
 const getAccessTokenFromAPI = async (appConfig: APP_CONFIG, loginParams: TypeLoginAPIParams) => {
   const usr = loginParams?.values.usr;
   const pwd = encodeURIComponent(loginParams?.values?.pwd);

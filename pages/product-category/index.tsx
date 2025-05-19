@@ -9,11 +9,12 @@ import getComponentsList from '../../services/api/home-page-apis/get-components-
 import getMultiLingualTextFromAPI from '../../services/api/general-apis/multilanguage-api';
 import { useDispatch } from 'react-redux';
 import { setMultiLingualData } from '../../store/slices/general_slices/multilang-slice';
-const Index = ({productListPageComponents, translationsList}:any) => {
+const Index = ({ productListPageComponents, translationsList }: any) => {
   // const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   // useEffect(() => {
   //   sendPageViewToGA(window.location.pathname + window.location.search, 'Product Listing Page');
   // }, []);
+  console.log('productListPageComponents', productListPageComponents);
   const dispatch = useDispatch();
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   useEffect(() => {
@@ -35,12 +36,14 @@ const Index = ({productListPageComponents, translationsList}:any) => {
 export const getStaticProps = async (context: any) => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   let componentsList: any;
-  let fetchComponentsList: any = await getComponentsList('Product Category Page', SUMMIT_APP_CONFIG);
+  const requestParams = { page_type: 'Product Category Page' };
+  let fetchComponentsList: any = await getComponentsList('GET', 'get-page-components-list-api', requestParams);
   if (fetchComponentsList?.status === 200 && fetchComponentsList?.data?.message?.msg === 'success') {
     componentsList = fetchComponentsList?.data?.message?.data;
   }
   let translationsList: any;
-  let getMultilanguageData: any = await getMultiLingualTextFromAPI(SUMMIT_APP_CONFIG);
+  let getMultilanguageData: any = [];
+  // getMultilanguageData =  await getMultiLingualTextFromAPI(SUMMIT_APP_CONFIG);
   if (getMultilanguageData?.length > 0) {
     translationsList = getMultilanguageData;
   } else {

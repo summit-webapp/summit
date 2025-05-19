@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { TypeLoginAPIParams, TypeLoginForm } from '../../interfaces/login-params-interface';
-import getTokenFromLoginAPI from '../../services/api/auth/get-token-from-login-api';
+import getTokenFromLoginAPI, { emrLogin } from '../../services/api/auth/get-token-from-login-api';
 import { storeToken } from '../../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../../services/config/app-config';
 
@@ -31,7 +31,9 @@ const useLoginHook = () => {
         LoginViaGoogle: false,
       };
 
-      const tokenData = await getTokenFromLoginAPI(SUMMIT_APP_CONFIG, userParams);
+      // const tokenData = await getTokenFromLoginAPI(SUMMIT_APP_CONFIG, userParams);
+      // Need to check below login api logic. Need to make generic.
+      const tokenData = await emrLogin(userParams);
 
       if (tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
         localStorage.setItem('isLoggedIn', 'true');

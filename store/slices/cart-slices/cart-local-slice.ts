@@ -4,6 +4,7 @@ import { RootState } from '../../root-reducer';
 interface CartState {
   items: any[];
   cartCount: any;
+  grandTotal: number;
   error: string | null;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
   quotation_Id: string;
@@ -12,6 +13,7 @@ interface CartState {
 const initialState: CartState = {
   items: [],
   cartCount: 0,
+  grandTotal: 0,
   error: null,
   isLoading: 'idle',
   quotation_Id: '',
@@ -24,6 +26,7 @@ const cartSlice = createSlice({
     addCartList: (state, action) => {
       state.items = action.payload?.cartData;
       state.cartCount = state?.items?.length || 0;
+      state.grandTotal = action.payload.grandTotal;
       state.quotation_Id = action?.payload?.quotationId;
     },
     addItemToCart: (state, action) => {

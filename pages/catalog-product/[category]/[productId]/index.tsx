@@ -8,7 +8,7 @@ const Index = ({ serverDataForPages }: ServerDataTypes) => {
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
-      <ProductPageMaster />
+      {/* <ProductPageMaster /> */}
     </>
   );
 };
