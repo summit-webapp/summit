@@ -5,15 +5,15 @@ const emrAPISDKRegistry: any = {
   'get-current-session-filters-api': '/api/getCsFilters',
   'post-insert-current-session-filters-api': '/api/insertCsFltrs',
   'get-product-listing-filters-api': '/api/getyCatalogueFilterMasters',
-  'get-product-list-api': '/api/getCatalog',
+  'get-product-list-api': '/api/getDesigns',
   'delete-current-session-filters-api': '/api/delOrdDsg',
-  'post-move-current-session-api': '/api/moveDsg',
-  'product-detail-api': '/api/getCatalogDetails',
+  'post-move-current-session-api': '/api/copyDesign',
+  'product-detail-api': '/api/getDesignDetails',
   'cart-list': '/api/getOrdDsgList',
   'update-cart': '/api/updateOrdDsg',
   'delete-cart': '/api/clearOrderDsg',
   'place-order-api': '/api/createOrder',
-  'price-list-api': '/api/getPriceList',
+  'price-list-api': '/api/fetchPrice',
 };
 
 export default emrAPISDKRegistry;
