@@ -16,10 +16,10 @@ const useWebsiteUserList = (type: any) => {
     setIsLoading(true);
 
     /**
-     * Fetches user details from the API using the given token.
+     * Fetches user list from the API using the given token.
      *
      * @async
-     * @function getUserDetailsAPI
+     * @function fetchuseWebsiteUserListList
      * @param {Object} SUMMIT_APP_CONFIG - The Summit API SDK object used to interact with the API.
      * @param {string} token - The authentication token obtained from the store.
      * @returns {Promise<void>} - Resolves when the API response is handled.
