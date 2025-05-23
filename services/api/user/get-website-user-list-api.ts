@@ -5,7 +5,7 @@ import { executeGETAPI } from '../../../utils/http-methods';
  * Fetches website user list from the API using the given parameters.
  *
  * @async
- * @function getUserDetailsAPI
+ * @function getWebsiteUserListAPI
  * @param {string} appConfig - The configuration of the application.
  * @param {string} token - The authentication token.
  * @returns {Promise<any>} - The response from the API call.
