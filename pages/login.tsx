@@ -1,22 +1,21 @@
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { CONSTANTS } from '../services/config/app-config';
 import checkAuthorizedUser from '../utils/auth';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
+import getComponentsList from '../services/api/home-page-apis/get-components-list';
+import { CONSTANTS } from '../services/config/app-config';
 import PageMetaData from '../components/PageMetaData';
 import LoginComponent from '../components/Auth/StandardLogin/LoginComponent';
-import KCLoginComponent from '../components/Auth/KCLoginComponent';
 import FallbackLogin from '../components/Auth/FallbackLogin/FallbackLogin';
-import getComponentsList from '../services/api/home-page-apis/get-components-list';
-import { useEffect, useState } from 'react';
 
 const login = ({ serverDataForPages }: ServerDataTypes) => {
   const router = useRouter();
-  const [componentsList, setComponentList] = useState("");
+  const [componentsList, setComponentList] = useState('');
 
   useEffect(() => {
     async function getLoginPageComponent() {
-      try { 
+      try {
         const requestParams = { page_type: 'Login Page' };
         let fetchComponentsList: any = await getComponentsList('GET', 'get-page-components-list-api', requestParams);
         if (fetchComponentsList?.status === 200) {
@@ -35,7 +34,7 @@ const login = ({ serverDataForPages }: ServerDataTypes) => {
     }
     getLoginPageComponent();
   }, []);
-  
+
   function renderLoginComponent() {
     switch (componentsList) {
       case 'Standard Login Page':
@@ -46,14 +45,13 @@ const login = ({ serverDataForPages }: ServerDataTypes) => {
         return null;
     }
   }
-  
+
   function checkIfUserIsAuthorized() {
     const checkUserStatus = checkAuthorizedUser();
     if (checkUserStatus) {
       router.push('/');
     } else {
-      // return <KCLoginComponent />;
-      return renderLoginComponent()
+      return renderLoginComponent();
     }
   }
   return (
