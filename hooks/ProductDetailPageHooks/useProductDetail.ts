@@ -56,6 +56,7 @@ const useProductDetail = () => {
   const fetchProductDetailDataAPI = async () => {
     const requestParams = {
       item: query?.productId,
+      ...(query && {...query}),
       currency: 'INR',
     };
     setIsLoading(true);
