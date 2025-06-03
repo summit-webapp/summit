@@ -32,6 +32,7 @@ next-env.d.ts
 /components/addon-components/*
 /hooks/addon-hooks/*
 /services/addon-services/*
+/utils/addon-utils/*
 
 
 /services/api/emr-api's
