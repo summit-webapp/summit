@@ -8,4 +8,6 @@ export interface EMRItemTypes {
   OdDmCd: string;
   OdSalPrc: number;
   price: number;
+  OdSfx?: string;
+  OdDmSz: string;
 }
