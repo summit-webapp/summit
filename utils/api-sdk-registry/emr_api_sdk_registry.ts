@@ -16,6 +16,7 @@ const emrAPISDKRegistry: any = {
   'place-order-api': '/api/createOrder',
   'price-list-api': '/api/fetchPrice',
   'get-site-map': '/api/collection-urls',
+  'get-product-design-y-options': '/api/getyDsgConfg'
 };
 
 export default emrAPISDKRegistry;
