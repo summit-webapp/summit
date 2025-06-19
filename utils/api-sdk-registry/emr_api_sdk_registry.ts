@@ -15,6 +15,7 @@ const emrAPISDKRegistry: any = {
   'delete-cart': '/api/clearOrderDsg',
   'place-order-api': '/api/createOrder',
   'price-list-api': '/api/fetchPrice',
+  'get-site-map': '/api/collection-urls',
 };
 
 export default emrAPISDKRegistry;
