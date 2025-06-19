@@ -13,49 +13,36 @@ import TranslationsList from '../../../components/TranslationsList';
 import { useDispatch } from 'react-redux';
 import { setMultiLingualData } from '../../../store/slices/general_slices/multilang-slice';
 export const getStaticPaths = async () => {
-  // const { SUMMIT_APP_CONFIG } = CONSTANTS;
-  // const apiParams = { type: 'product-category' };
-  // let getPathsList: string[] = [];
-  // let getListOfAllPathsFromAPI: any = await getSiteMapList('GET', 'get-site-map', apiParams);
-  // if (
-  //   getListOfAllPathsFromAPI?.status === 200 &&
-  //   getListOfAllPathsFromAPI?.data?.message?.msg === 'success' &&
-  //   getListOfAllPathsFromAPI?.data?.message?.data?.length > 0
-  // ) {
-  //   const originalPaths = getListOfAllPathsFromAPI.data.message.data;
-  //   const pathSet = new Set<string>();
+  const { SUMMIT_APP_CONFIG } = CONSTANTS;
+  const apiParams = { type: 'product-category' };
+  let getPathsList: string[] = [];
+  let getListOfAllPathsFromAPI: any = await getSiteMapList('GET', 'get-site-map', apiParams);
+  if (
+    getListOfAllPathsFromAPI?.status === 200 &&
+    getListOfAllPathsFromAPI?.data?.message?.msg === 'success' &&
+    getListOfAllPathsFromAPI?.data?.message?.data?.length > 0
+  ) {
+    const originalPaths = getListOfAllPathsFromAPI.data.message.data;
+    const pathSet = new Set<string>();
 
-  //   originalPaths.forEach((fullPath: string) => {
-  //     const parts = fullPath.split('/');
-  //     let currPath = '';
-  //     for (let i = 0; i < parts.length; i++) {
-  //       currPath = currPath ? `${currPath}/${parts[i]}` : parts[i];
-  //       pathSet.add(currPath);
-  //     }
-  //   });
+    originalPaths.forEach((fullPath: string) => {
+      const parts = fullPath.split('/');
+      let currPath = '';
+      for (let i = 0; i < parts.length; i++) {
+        currPath = currPath ? `${currPath}/${parts[i]}` : parts[i];
+        pathSet.add(currPath);
+      }
+    });
 
-  //   getPathsList = Array.from(pathSet);
-  // }
-
-  // return {
-  //   paths: getPathsList.map((categoryPath: string) => ({
-  //     params: {
-  //       category: categoryPath.split('/').pop(), // Important!
-  //     },
-  //   })),
-  //   fallback: false,
-  // };
-
-  // scrap below code (only for euroshine)
-  // const hardcodedCategories = ['ALL', 'ELEGANT', 'ETHEREAL', 'FACETS', 'GEMMIST', 'MUSE', 'RETRO'];
-  const hardcodedCategories = ['Bangles', 'Bracelets', 'Earrings','Wedding Rings', 'Pendants', 'Engagement Rings'];
-
-  const paths = hardcodedCategories.map((category) => ({
-    params: { category },
-  }));
+    getPathsList = Array.from(pathSet);
+  }
 
   return {
-    paths,
+    paths: getPathsList.map((categoryPath: string) => ({
+      params: {
+        category: categoryPath.split('/').pop(), // Important!
+      },
+    })),
     fallback: false,
   };
 };
