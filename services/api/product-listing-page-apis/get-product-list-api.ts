@@ -16,12 +16,15 @@ const fetchProductListingFromAPI = async (appName: any, query: any, token: any) 
   }
 
   const category: any = query.url_params.category;
+  const email: any = query.url_params.email || '';
 
   // Construct URL parameters
   const urlParams = Object.keys(query.url_params)
     .map((key) => {
       if (key === 'filter') {
         return `${key}={"${query.filterDoctype}":"${query.filterDocname}", "sections":${query.url_params.filter}}`;
+      } if (key === 'vehicle_filters') {
+        return `${key}={"${query.filterDoctype}":"${query.filterDocname}", "sections":${query.url_params.vehicle_filters}}`;
       } else {
         return `${key}=${encodeURIComponent(query.url_params[key])}`;
       }
@@ -53,6 +56,7 @@ const fetchProductListingFromAPI = async (appName: any, query: any, token: any) 
     additionalParams = {
       ...additionalParams,
       category,
+      email
     };
     response = await executeGETAPI(appName, 'product-list-api', token, additionalParams);
   } else if (query.router_origin === 'catalog') {

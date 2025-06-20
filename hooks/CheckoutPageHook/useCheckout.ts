@@ -97,6 +97,7 @@ const useCheckout = () => {
         setErrMessage('Failed to place order');
       } finally {
         setIsLoading(false);
+        localStorage.setItem('otp_verified', 'false');
       }
     }
   };

@@ -22,7 +22,7 @@ const appReducer = combineReducers({
   cart: cartLocalSlice,
   catalogSlice: catalogLocalSlice,
   quickOrder: quickOrderSlice,
-});
+  });
 
 const rootReducer = (state: any, action: any) => {
   if (action.type === resetStore.type) {
