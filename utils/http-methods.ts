@@ -157,7 +157,7 @@ export const callGetAPI = async (url: string, token?: any) => {
       } else if (err.code === 'ERR_INVALID_URL') {
         response = 'Invalid URL';
       } else {
-        response = `${err?.code}: ${err?.message}`;
+        response = err?.response?.data?.error || `Status Code: ${err.status}. ${err?.message}`;
       }
     });
 
