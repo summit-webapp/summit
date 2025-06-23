@@ -149,7 +149,6 @@ export const callGetAPI = async (url: string, token?: any) => {
       response = res;
     })
     .catch((err: any) => {
-      console.log('res err', err);
       if (err.code === 'ECONNABORTED') {
         response = 'Request timed out. API took too long to return response.';
       } else if (err.code === 'ERR_BAD_REQUEST') {
@@ -161,7 +160,6 @@ export const callGetAPI = async (url: string, token?: any) => {
       }
     });
 
-  console.log('res', response);
   return response;
 };
 export const callPutAPI = async (url: string, body: any, token?: any) => {
