@@ -5,6 +5,7 @@ import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { addCartList, selectCart } from '../../store/slices/cart-slices/cart-local-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 const useFetchCartItems = () => {
   const dispatch = useDispatch();
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
@@ -12,6 +13,7 @@ const useFetchCartItems = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
   const { cartCount } = useSelector(selectCart);
+  const handleAuthError = useAuthErrorHandler();
 
   const extractProductCodes = (data: any[]) => {
     return data?.flatMap((category) => category.orders.map((order: any) => order.item_code));
@@ -31,7 +33,7 @@ const useFetchCartItems = () => {
         }
       } else {
         setCartListingItems({});
-        setErrMessage(cartListingData?.data?.message?.error);
+        handleAuthError(cartListingData);
       }
     } catch (error) {
       setErrMessage('Failed to fetch cart listing data.');

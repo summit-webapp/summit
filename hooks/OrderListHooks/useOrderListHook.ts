@@ -5,6 +5,7 @@ import getOrderListAPI from '../../services/api/order-apis/order-list-api';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useOrderListHook = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
@@ -14,6 +15,7 @@ const useOrderListHook = () => {
   const tokenFromStore: any = useSelector(get_access_token);
   const [orderListData, setOrderListData] = useState<any>([]);
   const [history, setHistory] = useState(query?.date_range || 'this_month');
+  const handleAuthError = useAuthErrorHandler();
   const handleHistoryDate = (e: any) => {
     setHistory(e.target.value);
   };
@@ -55,10 +57,10 @@ const useOrderListHook = () => {
       if (getOrderListingData?.status === 200 && getOrderListingData?.data?.message?.msg === 'success') {
         setOrderListData(getOrderListingData?.data?.message?.data);
       } else {
-        setErrMessage(getOrderListingData?.data?.message?.error);
+        handleAuthError(getOrderListingData, setIsLoading, setErrMessage);
       }
     } catch (error) {
-      setErrMessage(getOrderListingData?.data?.message?.error);
+      handleAuthError(getOrderListingData, setIsLoading, setErrMessage);
     } finally {
       setIsLoading(false);
     }

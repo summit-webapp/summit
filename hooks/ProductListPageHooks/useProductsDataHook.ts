@@ -5,6 +5,7 @@ import fetchProductListingFromAPI from '../../services/api/product-listing-page-
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useProductListing = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
@@ -18,6 +19,8 @@ const useProductListing = () => {
   const [productListTotalCount, setProductListTotalCount] = useState<number>(0);
   const [searchFilterValue, setSearchFilterValue] = useState<any>();
   const [sortBy, setSortBy] = useState('latest');
+  const handleAuthError = useAuthErrorHandler();
+
   const handleSortBy = (value: any) => {
     setSortBy(value);
     router.push({
@@ -56,7 +59,7 @@ const useProductListing = () => {
     setIsLoading(true);
     try {
       productListDataAPI = await fetchProductListingFromAPI(SUMMIT_APP_CONFIG, reqParams, TokenFromStore?.token);
-      if (productListDataAPI?.data?.msg === 'success' && productListDataAPI?.data?.data?.length > 0) {
+      if (productListDataAPI?.status === 200 && productListDataAPI?.data?.msg === 'success' && productListDataAPI?.data?.data?.length > 0) {
         if (CONSTANTS.SHOW_MORE_ITEMS === 'load-more') {
           setProductListingData((prevData: any) => [...prevData, ...productListDataAPI?.data?.message?.data]);
         } else if (CONSTANTS.SHOW_MORE_ITEMS === 'paginate') {
@@ -66,11 +69,11 @@ const useProductListing = () => {
       } else {
         setProductListingData([]);
         setProductListTotalCount(0);
-        setErrMessage(productListDataAPI?.data?.error || 'An unknown error occured.');
+        handleAuthError(productListDataAPI, setIsLoading, setErrMessage);
       }
     } catch (error) {
       setProductListingData([]);
-      setErrMessage(productListDataAPI?.data?.error || 'An unknown error occured.');
+      handleAuthError(productListDataAPI, setIsLoading, setErrMessage);
     } finally {
       setIsLoading(false);
     }

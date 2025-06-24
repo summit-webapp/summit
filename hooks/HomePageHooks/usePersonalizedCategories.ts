@@ -5,6 +5,7 @@ import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
 import getTopCategoryAPI from '../../services/api/home-page-apis/top-categories-api';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useHomeTopCategories = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
@@ -13,6 +14,7 @@ const useHomeTopCategories = () => {
   const tokenFromStore: any = useSelector(get_access_token);
   const [selectedCurrencyVal, setSelectedVal] = useState();
   const [homeTopCategories, setHomeTopCategories] = useState<any>([]);
+  const handleAuthError = useAuthErrorHandler();
 
   useEffect(() => {
     setSelectedVal(currency_state_from_redux?.selected_currency_value);
@@ -25,6 +27,7 @@ const useHomeTopCategories = () => {
       if (getCategoryData?.status === 200 && getCategoryData?.data?.msg === 'success') {
         setHomeTopCategories(getCategoryData?.data?.data);
       } else {
+        handleAuthError(getCategoryData, setIsLoading);
         setErrMessage('No Data Found');
       }
     } catch (error) {

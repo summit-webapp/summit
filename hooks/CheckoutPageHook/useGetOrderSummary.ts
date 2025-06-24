@@ -8,6 +8,7 @@ import DeleteCouponAPI from '../../services/api/discounts/delete-coupon-code-api
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useOrderSummary = (quotationId: string) => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
@@ -18,6 +19,8 @@ const useOrderSummary = (quotationId: string) => {
   const [storeCredit, setStoreCredit] = useState<any>('');
   const [couponCode, setCouponCode] = useState<any>('');
   const [isCouponApplied, setIsCouponApplied] = useState(false);
+  const handleAuthError = useAuthErrorHandler();
+  
   const getOrderSummary = async (quotationId: string) => {
     setIsLoading(true);
     try {
@@ -35,7 +38,7 @@ const useOrderSummary = (quotationId: string) => {
         });
       } else {
         setOrderSummary({});
-        setErrMessage(orderSummaryData?.data?.message?.error);
+        handleAuthError(orderSummaryData, undefined, setErrMessage);
       }
     } catch (error) {
       setErrMessage('Failed to fetch Order Summary Data');
@@ -55,13 +58,14 @@ const useOrderSummary = (quotationId: string) => {
     };
     if (storeCredit !== '') {
       const applyStoreCredit = await PostApplyStoreCreditAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
-      if (applyStoreCredit?.data?.message?.msg === 'success') {
+      if (applyStoreCredit?.status === 200 && applyStoreCredit?.data?.message?.msg === 'success') {
         toast.success('Store Credit applied sucessfully!');
         setTimeout(() => {
           getOrderSummary(quotationId);
         }, 1000);
       } else {
-        toast.error(applyStoreCredit?.data?.message?.error);
+        // toast.error(applyStoreCredit?.data?.message?.error);
+        handleAuthError(applyStoreCredit, undefined, setErrMessage);
       }
     } else {
       toast.error('Please enter store credit');
@@ -74,14 +78,15 @@ const useOrderSummary = (quotationId: string) => {
     };
     if (couponCode !== '') {
       const applyCouponCode = await PostApplyCouponAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
-      if (applyCouponCode?.data?.message?.msg === 'success') {
+      if (applyCouponCode?.status === 200 && applyCouponCode?.data?.message?.msg === 'success') {
         toast.success('Coupon code applied sucessfully!');
         setIsCouponApplied(true);
         setTimeout(() => {
           getOrderSummary(quotationId);
         }, 1000);
       } else {
-        toast.error(applyCouponCode?.data?.message?.error);
+        // toast.error(applyCouponCode?.data?.message?.error);
+        handleAuthError(applyCouponCode, undefined, setErrMessage);
       }
     } else {
       toast.error('Please enter valid coupon code');
@@ -92,7 +97,7 @@ const useOrderSummary = (quotationId: string) => {
       id: quotationId,
     };
     const newCatalog = await DeleteCouponAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
-    if (newCatalog?.data?.message?.msg === 'success') {
+    if (newCatalog?.status === 200 && newCatalog?.data?.message?.msg === 'success') {
       toast.success('Coupon code removed sucessfully');
       setCouponCode('');
       setIsCouponApplied(false);
@@ -100,7 +105,8 @@ const useOrderSummary = (quotationId: string) => {
         getOrderSummary(quotationId);
       }, 1000);
     } else {
-      toast.error(newCatalog?.message?.error);
+      // toast.error(newCatalog?.message?.error);
+      handleAuthError(newCatalog, undefined, setErrMessage);
     }
   };
 

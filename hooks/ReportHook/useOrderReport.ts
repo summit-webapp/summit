@@ -5,6 +5,7 @@ import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import getOrderReportAPI from '../../services/api/order-report-apis/order-report-api';
 import { useRouter } from 'next/router';
 import { CONSTANTS } from '../../services/config/app-config';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useOrderReport = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
@@ -14,6 +15,8 @@ const useOrderReport = () => {
   const router: any = useRouter();
   let reportStatus: any;
   const user = localStorage.getItem('user');
+  const handleAuthError = useAuthErrorHandler();
+
   const fetchOrderReportDataFunction = async () => {
     switch (router?.query?.order_report) {
       case 'due-date-reminder-report':
@@ -43,7 +46,7 @@ const useOrderReport = () => {
         setOrderReportData(getDispatchOrderData?.data?.message?.data);
       } else {
         setOrderReportData([]);
-        setErrMessage(getDispatchOrderData?.data?.message?.error);
+        handleAuthError(getDispatchOrderData, setIsLoading, setErrMessage);
       }
     } catch (error) {
       return;

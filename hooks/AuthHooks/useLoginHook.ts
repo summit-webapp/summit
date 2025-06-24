@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { TypeLoginAPIParams, TypeLoginForm } from '../../interfaces/login-params-interface';
 import getTokenFromLoginAPI, { emrLogin } from '../../services/api/auth/get-token-from-login-api';
-import { storeToken } from '../../store/slices/auth/token-login-slice';
+import { setShowSessionExpiredModalFalse, storeToken } from '../../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../../services/config/app-config';
 
 const useLoginHook = () => {
@@ -54,6 +54,10 @@ const useLoginHook = () => {
     }
   };
 
+  useEffect(() => {
+    dispatch(setShowSessionExpiredModalFalse());
+  }, []);
+  
   return { passwordHidden, togglePasswordIcon, fetchToken, loginBtnLoader };
 };
 
