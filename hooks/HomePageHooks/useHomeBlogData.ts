@@ -4,11 +4,14 @@ import getBlogDataAPI from '../../services/api/home-page-apis/blog-api';
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 const useHomeBlogData = () => {
   const [blogData, setBlogData] = useState<any>([]);
   const tokenFromStore: any = useSelector(get_access_token);
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
+  const handleAuthError = useAuthErrorHandler();
+
   const fetchBlogData = async () => {
     let getBlogData: any;
     setIsLoading(true);
@@ -17,6 +20,7 @@ const useHomeBlogData = () => {
       if (getBlogData?.status === 200 && getBlogData?.data?.message?.msg === 'success') {
         setBlogData(getBlogData?.data?.message?.data);
       } else {
+        handleAuthError(getBlogData, setIsLoading);
         setErrMessage('No Data Found');
       }
     } catch (error) {

@@ -4,12 +4,14 @@ import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import fetchStateListAPI from '../../services/api/general-apis/get-state-list-api';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useGetStatesData = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const tokenFromStore: any = useSelector(get_access_token);
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
-
+  const handleAuthError = useAuthErrorHandler();
+  
   const [stateList, setStateList] = useState<any>([]);
   const fetchStateList = async () => {
     setIsLoading(true);
@@ -19,7 +21,7 @@ const useGetStatesData = () => {
         setStateList([...statesList?.data?.message?.data]);
       } else {
         setStateList([]);
-        setErrMessage(statesList?.data?.message?.error);
+        handleAuthError(statesList, setIsLoading, setErrMessage);
       }
     } catch (error) {
       setErrMessage('Failed to fetch State List');

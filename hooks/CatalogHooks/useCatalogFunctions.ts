@@ -4,20 +4,23 @@ import { AddItemToCatalogAPI } from '../../services/api/catalog-apis/add-item-to
 import { DeleteCatalogItemAPI } from '../../services/api/catalog-apis/delete-catalog-item-api';
 import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useCatalogFunctions = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const tokenFromStore = useSelector(get_access_token);
+  const handleAuthError = useAuthErrorHandler();
   const handleAddProductToCatalog = async (catalogname: any, itemName: any) => {
     const params = {
       catalog_name: catalogname,
       item: itemName,
     };
     const getCatalogList = await AddItemToCatalogAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
-    if (getCatalogList.data.message.msg === 'success') {
+    if (getCatalogList.status === 200 && getCatalogList.data.message.msg === 'success') {
       toast.success(getCatalogList?.data?.message?.data);
     } else {
       toast.error('Error in adding product to catalog');
+      handleAuthError(getCatalogList);
     }
   };
   const handleDeleteCatalogItem = async (catalog: any, name: string) => {
@@ -26,10 +29,11 @@ const useCatalogFunctions = () => {
       item: name,
     };
     const deleteCatalogItem = await DeleteCatalogItemAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
-    if (deleteCatalogItem?.message?.msg === 'success') {
+    if (deleteCatalogItem?.status === 200 && deleteCatalogItem?.message?.msg === 'success') {
       toast.success('Catalog Item Deleted Successfuly');
     } else {
       toast.error('Error in deleting the catalog item');
+      handleAuthError(deleteCatalogItem);
     }
   };
   return { handleAddProductToCatalog, handleDeleteCatalogItem };

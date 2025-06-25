@@ -5,6 +5,7 @@ import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
 import fetchProductListingPageFilters from '../../services/api/product-listing-page-apis/get-filters-api';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useProductListingFilterHook = () => {
   const router: any = useRouter();
@@ -12,7 +13,7 @@ const useProductListingFilterHook = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
-
+  const handleAuthError = useAuthErrorHandler();
   const [filtersData, setFiltersData] = useState<any>([]);
   const [selectedFilters, setSelectedFilters] = useState<any>();
 
@@ -23,13 +24,12 @@ const useProductListingFilterHook = () => {
     };
     try {
       const getFiltersData: any = await fetchProductListingPageFilters(SUMMIT_APP_CONFIG, reqParams, tokenFromStore?.token);
-      if (getFiltersData?.data?.message?.msg === 'success') {
+      if (getFiltersData?.status === 200 && getFiltersData?.data?.message?.msg === 'success') {
         setFiltersData(getFiltersData?.data?.message?.data);
         setIsLoading(false);
       } else {
         setFiltersData([]);
-        setIsLoading(false);
-        setErrMessage(getFiltersData?.data?.message?.error);
+        handleAuthError(getFiltersData, setIsLoading, setErrMessage);
       }
 
       return getFiltersData;

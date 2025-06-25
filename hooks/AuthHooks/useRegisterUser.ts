@@ -5,10 +5,12 @@ import registrationAPI from '../../services/api/auth/registration-api';
 import { CONSTANTS } from '../../services/config/app-config';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useRegisterUser = () => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const router = useRouter();
+  const handleAuthError = useAuthErrorHandler();
   const { isLoading, setIsLoading, errorMessage, setErrMessage } = useHandleStateUpdate();
   const initialValues = {
     salutation: '',
@@ -51,7 +53,7 @@ const useRegisterUser = () => {
         }, 1500);
       }
     } catch (error) {
-      setErrMessage(registrationAPIResponse?.data?.message?.error);
+      handleAuthError(registrationAPIResponse, setIsLoading, setErrMessage);
       toast.error(`${registrationAPIResponse?.data?.message?.error}`);
     } finally {
       setIsLoading(false);

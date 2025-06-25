@@ -8,10 +8,12 @@ import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { setCatalogListSlice } from '../../store/slices/catalog-slice/catalog-local-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useCatalog = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const dispatch = useDispatch();
+  const handleAuthError = useAuthErrorHandler();
   const [catalogName, setCatalogName] = useState<string>('');
   const [catalogList, setCatalogList] = useState([]);
   const tokenFromStore = useSelector(get_access_token);
@@ -34,7 +36,7 @@ const useCatalog = () => {
       } else {
         setCatalogList([]);
         dispatch(setCatalogListSlice([]));
-        setErrMessage(catalogListData?.data?.message?.error);
+        handleAuthError(catalogListData);
       }
     } catch (error) {
       setErrMessage('Failed to fetch catalog list data.');
@@ -49,7 +51,7 @@ const useCatalog = () => {
     };
     if (catalogName !== '') {
       const newCatalog = await CreateCatalogAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
-      if (newCatalog?.data?.message?.msg === 'success') {
+      if (newCatalog?.status === 200 && newCatalog?.data?.message?.msg === 'success') {
         toast.success('Catalog created sucessfully');
         setTimeout(() => {
           fetchCatalogListData();
@@ -57,6 +59,7 @@ const useCatalog = () => {
         setCatalogName('');
       } else {
         toast.error(newCatalog?.message?.error);
+        handleAuthError(newCatalog, setIsLoading);
       }
     } else {
       toast.error('Please enter valid catalog name');
@@ -67,13 +70,14 @@ const useCatalog = () => {
       catalog_name: catalog,
     };
     const deleteCatalogs: any = await DeleteCatalogAPI(SUMMIT_APP_CONFIG, params, tokenFromStore?.token);
-    if (deleteCatalogs?.data?.message?.msg === 'success') {
+    if (deleteCatalogs?.status === 200 && deleteCatalogs?.data?.message?.msg === 'success') {
       toast.success('Catalog Deleted Successfuly');
       setTimeout(() => {
         fetchCatalogListData();
       }, 1000);
     } else {
       toast.error('Error in deleting the catalog');
+      handleAuthError(deleteCatalogs, setIsLoading);
     }
   };
 

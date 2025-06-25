@@ -4,12 +4,14 @@ import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../../services/config/app-config';
 import getUserDetailsAPI from '../../services/api/user/get-user-detail-api';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useGetUserDetails = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const [userData, setUserData] = useState<any>({});
   const tokenFromStore: any = useSelector(get_access_token);
+  const handleAuthError = useAuthErrorHandler();
 
   const fetchUserDetails: any = async () => {
     let userDetails: any;
@@ -30,10 +32,10 @@ const useGetUserDetails = () => {
       if (userDetails?.status === 200 && userDetails?.data?.message?.msg === 'success') {
         setUserData(userDetails?.data?.message?.data);
       } else {
-        setErrMessage(userDetails?.data?.message?.error);
+        handleAuthError(userDetails, setIsLoading, setErrMessage);
       }
     } catch (error) {
-      setErrMessage(userDetails?.data?.message?.error);
+      handleAuthError(userDetails, setIsLoading, setErrMessage);
     } finally {
       setIsLoading(false);
     }

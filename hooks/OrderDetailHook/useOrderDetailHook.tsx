@@ -5,13 +5,14 @@ import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import getOrderDetailAPI from '../../services/api/order-detail-apis/order-detail-api';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../../services/config/app-config';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 
 const useOrderDetailHook = () => {
   const { query } = useRouter();
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
-
+  const handleAuthError = useAuthErrorHandler();
   const [orderData, setOrderData] = useState<any>([]);
 
   const fetchOrderData: any = async () => {
@@ -22,7 +23,7 @@ const useOrderDetailHook = () => {
         setOrderData(orderDetailData?.data?.message?.data);
       } else {
         setOrderData([]);
-        setErrMessage(orderDetailData?.data?.message?.error);
+        handleAuthError(orderDetailData, setIsLoading, setErrMessage);
       }
     } catch (error) {
       setErrMessage('Failed to fetch Order data.');
