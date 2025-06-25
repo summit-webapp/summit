@@ -8,7 +8,7 @@ import { storeToken } from '../../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../../services/config/app-config';
 
 const useLoginHook = () => {
-  const { SUMMIT_APP_CONFIG } = CONSTANTS;
+  const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
   const dispatch = useDispatch();
   const router = useRouter();
   const [loginForm, setLoginForm] = useState<TypeLoginForm>({ usr: '', pwd: '' });
@@ -41,7 +41,12 @@ const useLoginHook = () => {
         localStorage.setItem('party_name', tokenData?.data?.full_name);
 
         dispatch(storeToken(tokenData?.data));
-        router.push('/');
+        // Redirect to the home page or any other page after successful login
+        if (AFTER_LOGIN_REDIRECT_URL) {
+          router.push(AFTER_LOGIN_REDIRECT_URL);
+        } else {
+          router.push('/');
+        }
         // toast.success('Login Successfully');
       } else {
         toast.error('Invalid Credentials. Please try again.');
