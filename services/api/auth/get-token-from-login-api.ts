@@ -25,7 +25,7 @@ const getTokenFromLoginAPI: any = async (appConfig: APP_CONFIG, loginParams: Typ
 
 export const emrLogin = async (loginParams: any) => {
   const usr = loginParams?.values.usr;
-  const pwd = encodeURIComponent(loginParams?.values?.pwd);
+  const pwd = loginParams?.values?.pwd;
   const body = {
     username: usr,
     password: pwd,
