@@ -58,6 +58,7 @@ const apiSdkRegistry: any = {
   'sitemap-api': { method: 'get_site_map', entity: 'seo' },
   'promotional-banner-api': { method: '', entity: '' },
   'blog-api': { method: 'get_blog_post_list', entity: 'blog_post' },
+  'get-meta-tags-api': { method: 'get_meta_tags', entity: 'seo' },
 };
 
 export default apiSdkRegistry;

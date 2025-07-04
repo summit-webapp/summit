@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { setMultiLingualData } from '../../../../store/slices/general_slices/multilang-slice';
 import TranslationsList from '../../../../components/TranslationsList';
 import { WebsiteInterfaceTypes } from '../../../../interfaces/website-interface-types';
+import MetaTag from '../../../../services/api/general-apis/meta-tag-api';
 
 export const getStaticPaths = async () => {
   return {
@@ -38,11 +39,24 @@ export const getStaticProps = async (context: any) => {
   } else {
     translationsList = [];
   }
-
+  let metaTagsData: any;
+  if (CONSTANTS.ENABLE_META_TAGS) {
+    const method = 'get-meta-tags-api';
+    const version = SUMMIT_APP_CONFIG.version;
+    const entity = 'seo';
+    const params = `?version=${version}&method=${method}&entity=${entity}`;
+    let metaData: any = await MetaTag('GET', method);
+    if (metaData.status === 200 && metaData?.data?.message?.msg === 'success' && metaData?.data?.message?.data !== 'null') {
+      metaTagsData = metaData?.data?.message?.data;
+    } else {
+      metaTagsData = {};
+    }
+  }
   return {
     props: {
       productPageComponents: fetchComponentsList?.data?.message?.data || {},
       translationsList,
+      metaTagsData
     },
   };
 };
@@ -50,9 +64,10 @@ export const getStaticProps = async (context: any) => {
 type BuildPropTypes = {
   productPageComponents: WebsiteInterfaceTypes;
   translationsList: any;
+  metaTagsData: any;
 };
 
-const Index = ({ productPageComponents, translationsList }: BuildPropTypes) => {
+const Index = ({ productPageComponents, translationsList, metaTagsData }: BuildPropTypes) => {
   const dispatch = useDispatch();
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   useEffect(() => {
@@ -64,26 +79,11 @@ const Index = ({ productPageComponents, translationsList }: BuildPropTypes) => {
   return (
     <>
       <TranslationsList>
-        {/* {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />} */}
+        {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaTagsData} />}
         <ProductPageMaster productPageComponents={productPageComponents} />
       </TranslationsList>
     </>
   );
 };
 
-// export async function getServerSideProps(context: any) {
-//   const { SUMMIT_APP_CONFIG } = CONSTANTS;
-//   const method = 'get_meta_tags';
-//   const version = SUMMIT_APP_CONFIG.version;
-//   const entity = 'seo';
-//   const params = `?version=${version}&method=${method}&entity=${entity}`;
-//   const url = `${context.resolvedUrl.split('?')[0]}`;
-//   if (CONSTANTS.ENABLE_META_TAGS) {
-//     return await getPageMetaData(params, url);
-//   } else {
-//     return {
-//       props: {},
-//     };
-//   }
-// }
 export default Index;
