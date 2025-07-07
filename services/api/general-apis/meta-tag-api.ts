@@ -1,26 +1,8 @@
-import axios from 'axios';
+import engineRunner from '../../../utils/engine-runner';
 
-const MetaTag = async (url: any) => {
-  let meta_data;
-
-  await axios
-    .get(`${url}`, { timeout: 5000 })
-    .then((res) => {
-      meta_data = res;
-    })
-    .catch((err) => {
-      if (err.code === 'ECONNABORTED') {
-        meta_data = 'Request timed out';
-      } else if (err.code === 'ERR_BAD_REQUEST') {
-        meta_data = 'Bad Request';
-      } else if (err.code === 'ERR_INVALID_URL') {
-        meta_data = 'Invalid URL';
-      } else {
-        meta_data = err;
-      }
-    });
-
-  return meta_data;
+export const MetaTag = async (apiMethod: string, apiName: string, apiData?: any, url?: any, token?: string, path?: string) => {
+  const apiParams = url ? `${apiData}&page_name=${url}` : apiData;
+  return await engineRunner(apiMethod, apiName, apiParams, token, path);
 };
 
 export default MetaTag;

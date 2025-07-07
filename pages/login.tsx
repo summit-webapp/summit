@@ -64,13 +64,13 @@ const login = ({ serverDataForPages }: ServerDataTypes) => {
 
 export async function getServerSideProps(context: any) {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
-  const method = 'get_meta_tags';
+  const method = 'get-meta-tags-api';
   const version = SUMMIT_APP_CONFIG.version;
   const entity = 'seo';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
   const url = `${context.resolvedUrl.split('?')[0]}`;
   if (CONSTANTS.ENABLE_META_TAGS) {
-    return await getPageMetaData(params, url);
+    return await getPageMetaData(method, params, url);
   } else {
     return {
       props: {},
