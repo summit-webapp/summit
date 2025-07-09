@@ -17,8 +17,11 @@ const emrAPISDKRegistry: any = {
   'price-list-api': '/api/fetchPrice',
   'get-site-map': '/api/collection-urls',
   'refresh-price-api': '/api/refreshPrice',
+  'get-meta-tags-api': '/api/seo-api',,
+  'get-voucher-product-list': '/api/getVoucherDetails',
   'get-product-design-y-options': '/api/getyDsgConfg',
   'get-meta-tags-api': '/api/seo-api',
+  'delete-current-session-api': '/api/logout',
 };
 
 export default emrAPISDKRegistry;

@@ -12,6 +12,7 @@ import FallbackLogin from '../components/Auth/FallbackLogin/FallbackLogin';
 const login = ({ serverDataForPages }: ServerDataTypes) => {
   const router = useRouter();
   const [componentsList, setComponentList] = useState('');
+  const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
 
   useEffect(() => {
     async function getLoginPageComponent() {
@@ -49,7 +50,11 @@ const login = ({ serverDataForPages }: ServerDataTypes) => {
   function checkIfUserIsAuthorized() {
     const checkUserStatus = checkAuthorizedUser();
     if (checkUserStatus) {
-      router.push('/');
+      if (AFTER_LOGIN_REDIRECT_URL) {
+        router.push(AFTER_LOGIN_REDIRECT_URL);
+      } else {
+        router.push('/');
+      }
     } else {
       return renderLoginComponent();
     }
