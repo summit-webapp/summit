@@ -6,6 +6,7 @@ import { TypeLoginAPIParams, TypeLoginForm } from '../../interfaces/login-params
 import getTokenFromLoginAPI, { emrLogin } from '../../services/api/auth/get-token-from-login-api';
 import { setShowSessionExpiredModalFalse, storeToken } from '../../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../../services/config/app-config';
+import { setDefaultCurrencyValue } from '../../store/slices/general_slices/multi-currency-slice';
 
 const useLoginHook = () => {
   const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
@@ -40,12 +41,23 @@ const useLoginHook = () => {
         localStorage.setItem('user', values.usr);
         localStorage.setItem('party_name', tokenData?.data?.full_name);
 
-        dispatch(storeToken(tokenData?.data));
+        if (tokenData?.data?.isPwdChg !== 0) {
+          router.push('/forgot_password');
+          dispatch(storeToken(tokenData?.data));
+        }
+
+        dispatch(setDefaultCurrencyValue({ default_currency: 'USD' }));
+        localStorage.setItem('selected_currency', 'USD');
+
         // Redirect to the home page or any other page after successful login
-        if (AFTER_LOGIN_REDIRECT_URL) {
-          router.push(AFTER_LOGIN_REDIRECT_URL);
+        if (tokenData?.data?.isPwdChg === 0) {
+          router.push('/forgot_password');
         } else {
-          router.push('/');
+          if (AFTER_LOGIN_REDIRECT_URL) {
+            router.push(AFTER_LOGIN_REDIRECT_URL);
+          } else {
+            router.push('/')
+          }
         }
         // toast.success('Login Successfully');
       } else {

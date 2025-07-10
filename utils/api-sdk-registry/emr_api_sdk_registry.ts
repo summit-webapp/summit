@@ -21,6 +21,7 @@ const emrAPISDKRegistry: any = {
   'get-product-design-y-options': '/api/getyDsgConfg',
   'get-meta-tags-api': '/api/seo-api',
   'delete-current-session-api': '/api/logout',
+  'reset-password-api': '/api/resetPwd',
 };
 
 export default emrAPISDKRegistry;
