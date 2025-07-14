@@ -42,7 +42,6 @@ const useLoginHook = () => {
         localStorage.setItem('party_name', tokenData?.data?.full_name);
 
         if (tokenData?.data?.isPwdChg !== 0) {
-          router.push('/forgot_password');
           dispatch(storeToken(tokenData?.data));
         }
 
