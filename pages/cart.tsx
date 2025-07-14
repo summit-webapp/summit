@@ -18,6 +18,7 @@ const Cart = ({ cartPageComponents, translationsList, metaTagsData}: any) => {
   //     dispatch(setMultiLingualData(translationsList));
   //   }
   // }, []);
+  console.log('metaTagsData from cart page', metaTagsData);
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaTagsData} />}

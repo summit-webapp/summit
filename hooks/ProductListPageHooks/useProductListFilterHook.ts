@@ -6,6 +6,7 @@ import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import { CONSTANTS } from '../../services/config/app-config';
 import fetchProductListingPageFilters from '../../services/api/product-listing-page-apis/get-filters-api';
 import useAuthErrorHandler from '../AuthHooks/handleAuthError';
+import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
 
 const useProductListingFilterHook = () => {
   const router: any = useRouter();
@@ -13,6 +14,7 @@ const useProductListingFilterHook = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
   const tokenFromStore: any = useSelector(get_access_token);
+  const currencyState = useSelector(currency_selector_state);
   const handleAuthError = useAuthErrorHandler();
   const [filtersData, setFiltersData] = useState<any>([]);
   const [selectedFilters, setSelectedFilters] = useState<any>();
@@ -107,7 +109,7 @@ const useProductListingFilterHook = () => {
   const clearFilters = async () => {
     setSelectedFilters([]);
     const baseUrl = router.asPath.split('?')[0];
-    await router.push(`${baseUrl}?page=1&currency=INR`);
+    await router.push(`${baseUrl}?page=1&currency=${currencyState.selected_currency_value}`);
   };
   return {
     filtersData,
