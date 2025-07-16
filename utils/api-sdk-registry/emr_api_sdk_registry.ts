@@ -22,6 +22,7 @@ const emrAPISDKRegistry: any = {
   'get-meta-tags-api': '/api/seo-api',
   'delete-current-session-api': '/api/logout',
   'reset-password-api': '/api/resetPwd',
+  'sign-up-api': '/api/SignUp',
 };
 
 export default emrAPISDKRegistry;

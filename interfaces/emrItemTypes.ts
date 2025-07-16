@@ -10,4 +10,5 @@ export interface EMRItemTypes {
   price: number;
   OdSfx?: string;
   OdDmSz: string;
+  OdIdNo?: string | number;
 }
