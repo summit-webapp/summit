@@ -5,7 +5,6 @@ interface CartState {
   items: any[];
   cartCount: any;
   grandTotal: number;
-  convGrandTotal: number;
   error: string | null;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
   quotation_Id: string;
@@ -15,7 +14,6 @@ const initialState: CartState = {
   items: [],
   cartCount: 0,
   grandTotal: 0,
-  convGrandTotal: 0,
   error: null,
   isLoading: 'idle',
   quotation_Id: '',
@@ -29,7 +27,6 @@ const cartSlice = createSlice({
       state.items = action.payload?.cartData;
       state.cartCount = state?.items?.length || 0;
       state.grandTotal = action.payload.grandTotal;
-      state.convGrandTotal = action.payload.convGrandTotal;
       state.quotation_Id = action?.payload?.quotationId;
     },
     addItemToCart: (state, action) => {
