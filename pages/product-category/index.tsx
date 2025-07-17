@@ -14,7 +14,6 @@ const Index = ({ productListPageComponents, translationsList }: any) => {
   // useEffect(() => {
   //   sendPageViewToGA(window.location.pathname + window.location.search, 'Product Listing Page');
   // }, []);
-  console.log('productListPageComponents', productListPageComponents);
   const dispatch = useDispatch();
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   useEffect(() => {

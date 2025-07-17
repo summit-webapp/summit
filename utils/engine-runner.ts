@@ -7,7 +7,6 @@ const engineRunner = (apiMethod: string, apiName: string, apiData: any, token?: 
     Summit: executeSummitAPIHandler,
     EMR: executeEMRAPIHandler,
   };
-  console.log( 'engineName',engineName, apiMethod, apiName)
 
   const handler = handlers[engineName || ''];
   if (!handler) {
