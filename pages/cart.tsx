@@ -8,8 +8,9 @@ import useGoogleAnalyticsOperationsHandler from '../hooks/GoogleAnalytics/useGoo
 import CartListingMaster from '../components/Cart/CartListingMaster';
 import MetaTag from '../services/api/general-apis/meta-tag-api';
 import PageMetaData from '../components/PageMetaData';
+
 // import { useEffect } from 'react';
-const Cart = ({ cartPageComponents, translationsList, metaTagsData}: any) => {
+const Cart = ({ cartPageComponents, translationsList, metaTagsData }: any) => {
   // const dispatch = useDispatch();
   // const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   // useEffect(() => {
@@ -26,7 +27,7 @@ const Cart = ({ cartPageComponents, translationsList, metaTagsData}: any) => {
   );
 };
 
-export const getStaticProps = async (context: any) => {
+export const getStaticProps = async ({ locale }: { locale: string }) => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   let componentsList: any;
 

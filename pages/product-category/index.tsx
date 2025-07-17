@@ -33,7 +33,7 @@ const Index = ({ productListPageComponents, translationsList }: any) => {
   );
 };
 
-export const getStaticProps = async (context: any) => {
+export const getStaticProps = async ({ locale }: { locale: string }) => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   let componentsList: any;
   const requestParams = { page_type: 'Product Category Page' };

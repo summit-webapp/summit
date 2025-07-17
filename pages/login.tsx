@@ -63,17 +63,33 @@ const login = ({ serverDataForPages }: ServerDataTypes) => {
 };
 
 export async function getServerSideProps(context: any) {
+  const { locale, resolvedUrl } = context;
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const method = 'get-meta-tags-api';
   const version = SUMMIT_APP_CONFIG.version;
   const entity = 'seo';
   const params = `?version=${version}&method=${method}&entity=${entity}`;
-  const url = `${context.resolvedUrl.split('?')[0]}`;
+  const url = `${resolvedUrl.split('?')[0]}`;
+
+  let translationProps = {};
+  try {
+  } catch (error) {
+    console.error('Translation error:', error);
+  }
+
   if (CONSTANTS.ENABLE_META_TAGS) {
-    return await getPageMetaData(method, params, url);
+    const metaDataResponse = await getPageMetaData(method, params, url);
+    return {
+      props: {
+        ...metaDataResponse.props,
+        ...translationProps,
+      },
+    };
   } else {
     return {
-      props: {},
+      props: {
+        ...translationProps,
+      },
     };
   }
 }
