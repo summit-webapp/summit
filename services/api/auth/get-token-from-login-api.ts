@@ -32,7 +32,6 @@ export const emrLogin = async (loginParams: any) => {
   };
   let response: any;
   await axios.post(`${CONSTANTS.API_BASE_URL}/api/login`, body).then((res) => {
-    console.log('Response from login API:', res);
     response = res?.data;
   });
   return response;
