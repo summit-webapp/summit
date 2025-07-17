@@ -76,6 +76,7 @@ const Index = ({ productPageComponents, translationsList, metaTagsData }: BuildP
       dispatch(setMultiLingualData(translationsList));
     }
   }, []);
+  console.log('from product page', productPageComponents)
   return (
     <>
       <TranslationsList>
