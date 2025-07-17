@@ -140,7 +140,6 @@ export const callGetAPI = async (url: string, token?: any) => {
       ...(token ? { Authorization: token } : {}),
     },
   };
-  console.log('backend url', url)
   await axios
     .get(`${url}`, {
       ...API_CONFIG,
@@ -161,7 +160,6 @@ export const callGetAPI = async (url: string, token?: any) => {
         response = err?.response?.data?.error || `Status Code: ${err.status}. ${err?.message}`;
       }
     });
-  console.log('backend res', response?.data)
   return response;
 };
 export const callPutAPI = async (url: string, body: any, token?: any) => {

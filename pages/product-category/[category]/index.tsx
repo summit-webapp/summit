@@ -89,7 +89,6 @@ export const getStaticProps = async (context: any) => {
 };
 
 const Index = ({ productListPageComponents, translationsList, metaTagsData }: any) => {
-  console.log('metaTagsData from /product-category/[category] page', metaTagsData);
   const dispatch = useDispatch();
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   useEffect(() => {
