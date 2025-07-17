@@ -1,11 +1,13 @@
 import { CONSTANTS } from '../../services/config/app-config';
 import getPageMetaData from '../../utils/fetch-page-meta-deta';
 import OrderMaster from '../../components/MyOrder/OrderMaster';
+import OrderListing from '../../components/FallbackOrderComponents/OrderListing';
 
 const MyOrder = () => {
   return (
     <>
-      <OrderMaster />
+      {/* <OrderMaster /> */}
+      <OrderListing />
     </>
   );
 };
