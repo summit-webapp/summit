@@ -10,7 +10,6 @@ import LanguageReducer from './slices/language-slice/language-json-slice';
 import wishlistSlice from './slices/wishlist-slices/wishlist-local-slice';
 import quickOrderSlice from './slices/quick-order-slice/quick-order-slice';
 import componentsReducer from './slices/general_slices/components-slice';
-import SelectedLangDataScreen from './slices/general_slices/multilingual-slice';
 
 const appReducer = combineReducers({
   LanguagesScreen: LanguageReducer,
@@ -19,7 +18,6 @@ const appReducer = combineReducers({
   MultilanguageScreen: MultiLanguageReducer,
   ComponentsScreen: componentsReducer,
   SelectedFilterLangDataReducer: SelectedFilterLangDataScreen,
-  SelectedLangDataReducer: SelectedLangDataScreen,
   wishlistSlice: wishlistSlice,
   cart: cartLocalSlice,
   catalogSlice: catalogLocalSlice,
