@@ -23,6 +23,7 @@ const emrAPISDKRegistry: any = {
   'delete-current-session-api': '/api/logout',
   'reset-password-api': '/api/resetPwd',
   'sign-up-api': '/api/SignUp',
+  'order-list-api': '/api/getListViewData',
 };
 
 export default emrAPISDKRegistry;
