@@ -13,7 +13,7 @@ const Wishlist = ({ serverDataForPages }: ServerDataTypes) => {
   );
 };
 
-export async function getServerSideProps(context: any, { locale }: { locale: string }) {
+export async function getServerSideProps(context: any) {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const method = 'get-meta-tags-api';
   const version = SUMMIT_APP_CONFIG.version;

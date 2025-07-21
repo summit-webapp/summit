@@ -13,7 +13,6 @@ import TranslationsList from '../../../components/TranslationsList';
 import { useDispatch } from 'react-redux';
 import { setMultiLingualData } from '../../../store/slices/general_slices/multilang-slice';
 import MetaTag from '../../../services/api/general-apis/meta-tag-api';
-
 export const getStaticPaths = async () => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   const apiParams = { type: 'product-category' };
@@ -82,10 +81,9 @@ export const getStaticProps = async (context: any) => {
   }
   return {
     props: {
-      // ...(await serverSideTranslations(locale, ['common', 'footer'])),
       productListPageComponents: fetchComponentsList?.data?.message?.data || {},
       translationsList,
-      metaTagsData,
+      metaTagsData
     },
   };
 };

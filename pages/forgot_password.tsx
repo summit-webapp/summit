@@ -2,13 +2,14 @@ import { CONSTANTS } from '../services/config/app-config';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 import PageMetaData from '../components/PageMetaData';
-import ForgotPasswordComponent from '../components/Auth/FallbackForgotPassword/ForgotPasswordComponent';
+// import ForgotPasswordComponent from '../components/Auth/FallbackForgotPassword/ForgotPasswordComponent';
 
 const ResetPassowrd = ({ serverDataForPages }: ServerDataTypes) => {
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
-      <ForgotPasswordComponent />
+      {/* <ForgotPasswordComponent /> */}
+      <div>Forgot Password Page</div>
     </>
   );
 };
