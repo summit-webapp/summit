@@ -7,11 +7,13 @@ import getTokenFromLoginAPI, { emrLogin } from '../../services/api/auth/get-toke
 import { setShowSessionExpiredModalFalse, storeToken } from '../../store/slices/auth/token-login-slice';
 import { CONSTANTS } from '../../services/config/app-config';
 import { setDefaultCurrencyValue } from '../../store/slices/general_slices/multi-currency-slice';
+import { useTranslation } from 'react-i18next';
 
 const useLoginHook = () => {
   const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
   const dispatch = useDispatch();
   const router = useRouter();
+  const { t } = useTranslation('common');
   const [loginForm, setLoginForm] = useState<TypeLoginForm>({ usr: '', pwd: '' });
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [isLoginThroughOTP, setIsLoginThroughOTP] = useState<boolean>(false);
@@ -60,10 +62,10 @@ const useLoginHook = () => {
         }
         // toast.success('Login Successfully');
       } else {
-        toast.error('Invalid Credentials. Please try again.');
+        toast.error(t('invalid_credentials'));
       }
     } catch (error) {
-      toast.error('An error occurred during login. Please try again.');
+      toast.error(t('error_while_login'));
       console.error('Login Error:', error);
     } finally {
       setLoginBtnLoader(false);
