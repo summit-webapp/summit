@@ -122,5 +122,10 @@
   "Platinum": "Platinum",
   "Yellow": "Yellow",
   "White": "White",
-  "Rose": "Rose"
+  "Rose": "Rose",
+  "Category": "Category",
+  "Sub category": "Sub category",
+  "Price": "Price",
+  "Diamond Weight": "Diamond Weight",
+  "Gross Weight": "Gross Weight"
 }

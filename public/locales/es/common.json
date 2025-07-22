@@ -122,5 +122,10 @@
   "Platinum": "Platino",
   "Yellow": "Amarilla",
   "White": "Blanca",
-  "Rose": "Rosa"
+  "Rose": "Rosa",
+  "Category": "Categoría",
+  "Sub category": "Subcategoría",
+  "Price": "Precio",
+  "Diamond Weight": "Peso del diamante",
+  "Gross Weight": "Peso bruto"
 }
