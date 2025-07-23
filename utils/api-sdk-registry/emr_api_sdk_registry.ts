@@ -20,7 +20,7 @@ const emrAPISDKRegistry: any = {
   'get-voucher-product-list': '/api/getVoucherDetails',
   'get-product-design-y-options': '/api/getyDsgConfg',
   'get-meta-tags-api': '/api/seo-api',
-  'delete-current-session-api': '/api/logout',
+  'delete-current-session-api': '/api/clearUserData',
   'reset-password-api': '/api/resetPwd',
   'sign-up-api': '/api/SignUp',
   'order-list-api': '/api/getListViewData',
