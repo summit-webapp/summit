@@ -124,8 +124,10 @@
   "White": "White",
   "Rose": "Rose",
   "Category": "Category",
-  "Sub category": "Sub category",
+  "Sub Category": "Sub Category",
   "Price": "Price",
   "Diamond Weight": "Diamond Weight",
-  "Gross Weight": "Gross Weight"
+  "Gross Weight": "Gross Weight",
+  "no_orders_found": "No Orders found",
+  "no_order_items_found": "No Order Items found"
 }
