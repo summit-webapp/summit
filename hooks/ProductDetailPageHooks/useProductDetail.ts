@@ -10,8 +10,8 @@ import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-p
 import fetchPinCodesListAPI from '../../services/api/general-apis/get-pin-code-list-api';
 import debounce from 'debounce';
 import useAuthErrorHandler from '../AuthHooks/handleAuthError';
-// import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
-// import { getCurrencyMeta, CurrencyCode } from '../../utils/addon-utils/currency-map';
+import { currency_selector_state } from '../../store/slices/general_slices/multi-currency-slice';
+import { getCurrencyMeta, CurrencyCode } from '../../utils/addon-utils/currency-map';
 type PinCodeTypes = {
   name: string;
 };
@@ -23,7 +23,7 @@ const useProductDetail = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   // const currency_state_from_redux: any = useSelector(currency_selector_state);
   const TokenFromStore: any = useSelector(get_access_token);
-  // const currencyState: any = useSelector(currency_selector_state)
+  const currencyState: any = useSelector(currency_selector_state)
   const [productDetailData, setProductDetailData] = useState<any>({});
   // Set if product detail data is variant that has opened. If Variant then check what's its template and set it.
   const [variantOf, setVariantOf] = useState<string>('');
@@ -62,7 +62,7 @@ const useProductDetail = () => {
     const requestParams = {
       item: query?.productId,
       ...(query && {...query}),
-      // toCurrency: getCurrencyMeta && getCurrencyMeta(currencyState.selected_currency_value as CurrencyCode)?.value || 'INR',
+      toCurrency: getCurrencyMeta && getCurrencyMeta(currencyState.selected_currency_value as CurrencyCode)?.value || 'INR',
     };
     setIsLoading(true);
     try {
@@ -177,8 +177,8 @@ const useProductDetail = () => {
 
   useEffect(() => {
     fetchProductDetailDataAPI();
-  }, [query?.productId]);
-  // }, [query?.productId, currencyState.selected_currency_value]);
+  // }, [query?.productId]);
+  }, [query?.productId, currencyState.selected_currency_value]);
 
   return {
     isLoading,

@@ -21,7 +21,7 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (context: any) => {
+export const getStaticProps = async ({ locale }: { locale: string }) => {
   const { SUMMIT_APP_CONFIG } = CONSTANTS;
   let componentsList: any;
 
@@ -56,7 +56,7 @@ export const getStaticProps = async (context: any) => {
     props: {
       productPageComponents: fetchComponentsList?.data?.message?.data || {},
       translationsList,
-      metaTagsData
+      metaTagsData,
     },
   };
 };
