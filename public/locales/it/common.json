@@ -127,5 +127,7 @@
   "Sub Category": "Sottocategoria",
   "Price": "Prezzo",
   "Diamond Weight": "Peso del diamante",
-  "Gross Weight": "Peso lordo"
+  "Gross Weight": "Peso lordo",
+  "no_orders_found": "Nessun ordine trovato",
+  "no_order_items_found": "Nessun articolo ordinato trovato"
 }

@@ -127,5 +127,7 @@
   "Sub Category": "Unterkategorie",
   "Price": "Preis",
   "Diamond Weight": "Diamantgewicht",
-  "Gross Weight": "Bruttogewicht"
+  "Gross Weight": "Bruttogewicht",
+  "no_orders_found": "Keine bestellungen gefunden",
+  "no_order_items_found": "Keine bestellten Artikel gefunden"
 }
