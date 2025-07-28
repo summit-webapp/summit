@@ -34,7 +34,7 @@
   "order_id": "ID del pedido",
   "thank_you_craftsmanship": "Gracias por confiar en nuestra artesanía",
   "order_preparing_message": "Tu pieza atemporal y elegante está siendo preparada.",
-  "ok": "OK",
+  "ok": "De acuerdo",
   "product": "Producto",
   "price": "Precio",
   "check_out": "Finalizar compra",
@@ -129,5 +129,22 @@
   "Diamond Weight": "Peso del diamante",
   "Gross Weight": "Peso bruto",
   "no_orders_found": "No se encontraron pedidos",
-  "no_order_items_found": "No se encontraron artículos de pedido"
+  "no_order_items_found": "No se encontraron artículos de pedido",
+  
+  "Bracelet": "Pulsera",
+  "Earings": "Pendientes",
+  "Necklaces": "Collares",
+  "Ring": "Anillo",
+  "Less than": "Menos de",
+  "Above": "Por encima de",
+  "by_signing_up_you_agree_to_our_platform's_terms_of_service_and_acceptable_use_policy": "Al registrarte, aceptas los términos de servicio y la política de uso aceptable de nuestra plataforma.",
+  "you_are_responsible_for_maintaining_the_confidentiality_of_your_login_credentials": "Usted es responsable de mantener la confidencialidad de sus credenciales de inicio de sesión.",
+  "we_reserve_the_right_to_suspend_accounts_found_violating_our_policies": "Nos reservamos el derecho de suspender las cuentas que infrinjan nuestras políticas.",
+  "product_availability_and_pricing_are_subject_to_change_without_notice": "La disponibilidad y los precios de los productos están sujetos a cambios sin previo aviso.",
+  "all_transactions_are_subject_to_applicable_taxes_and_service_charges": "Todas las transacciones están sujetas a impuestos y cargos por servicio aplicables.",
+  "we_collect_and_process_personal_data_in_accordance_with_applicable_data_protection_laws": "Recopilamos y procesamos datos personales de acuerdo con las leyes de protección de datos aplicables.",
+  "your_information_will_not_be_shared_with_third_parties_without_your_consent": "Su información no se compartirá con terceros sin su consentimiento.",
+  "we_use_cookies_to_enhance_user_experience_and_analyze_site_usage": "Utilizamos cookies para mejorar la experiencia del usuario y analizar el uso del sitio.",
+  "you_can_request_access_or_deletion_of_your_data_by_contacting_support": "Puede solicitar el acceso o la eliminación de sus datos contactando con el soporte.",
+  "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "Todos los datos se almacenan de forma segura y el acceso está restringido únicamente al personal autorizado."
 }

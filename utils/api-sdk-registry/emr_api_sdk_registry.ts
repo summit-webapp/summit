@@ -24,6 +24,7 @@ const emrAPISDKRegistry: any = {
   'reset-password-api': '/api/resetPwd',
   'sign-up-api': '/api/SignUp',
   'order-list-api': '/api/getListViewData',
+  'update-user-preferences': '/api/storeUserPreferences',
 };
 
 export default emrAPISDKRegistry;

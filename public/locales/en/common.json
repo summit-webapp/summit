@@ -129,5 +129,22 @@
   "Diamond Weight": "Diamond Weight",
   "Gross Weight": "Gross Weight",
   "no_orders_found": "No Orders found",
-  "no_order_items_found": "No Order Items found"
+  "no_order_items_found": "No Order Items found",
+
+  "Bracelet": "Bracelet",
+  "Earings": "Earrings",
+  "Necklaces": "Necklaces",
+  "Ring": "Ring",
+  "Less than": "Less than",
+  "Above": "Above",
+  "by_signing_up_you_agree_to_our_platform's_terms_of_service_and_acceptable_use_policy": "By signing up, you agree to our platform's terms of service and acceptable use policy.",
+  "you_are_responsible_for_maintaining_the_confidentiality_of_your_login_credentials": "You are responsible for maintaining the confidentiality of your login credentials.",
+  "we_reserve_the_right_to_suspend_accounts_found_violating_our_policies": "We reserve the right to suspend accounts found violating our policies.",
+  "product_availability_and_pricing_are_subject_to_change_without_notice": "Product availability and pricing are subject to change without notice.",
+  "all_transactions_are_subject_to_applicable_taxes_and_service_charges": "All transactions are subject to applicable taxes and service charges.",
+  "we_collect_and_process_personal_data_in_accordance_with_applicable_data_protection_laws": "We collect and process personal data in accordance with applicable data protection laws.",
+  "your_information_will_not_be_shared_with_third_parties_without_your_consent": "Your information will not be shared with third parties without your consent.",
+  "we_use_cookies_to_enhance_user_experience_and_analyze_site_usage": "We use cookies to enhance user experience and analyze site usage.",
+  "you_can_request_access_or_deletion_of_your_data_by_contacting_support": "You can request access or deletion of your data by contacting support.",
+  "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "All data is stored securely and access is restricted to authorized personnel only."
 }

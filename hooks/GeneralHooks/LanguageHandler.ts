@@ -1,16 +1,68 @@
-import { useEffect } from 'react';
 import i18n from 'i18next';
-import { useSelector } from 'react-redux';
-import { SelectedLangFromStore } from '../../store/slices/general_slices/multilingual-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { SelectedLangFromStore, setLanguage } from '../../store/slices/general_slices/multilingual-slice';
+import useAuthErrorHandler from '../AuthHooks/handleAuthError';
+import { currency_selector_state, setCurrencyValue } from '../../store/slices/general_slices/multi-currency-slice';
+import { updateCart } from '../../services/addon-services/api/emr-api\'s/voucher-api\'s/create-voucher-api';
+import { get_access_token } from '../../store/slices/auth/token-login-slice';
+import { languageDisplayOptions } from '../../utils/addon-utils/language-options';
+import { Option } from '../../store/slices/general_slices/multilingual-slice';
+import { currencyOptions } from '../../utils/addon-utils/currency-map';
 
-const useLanguageHandler = () => {
-  const selectedLanguage = useSelector(SelectedLangFromStore)?.selectedLanguage;
+const useCurrencyLanguageHandler = () => {
+  const dispatch = useDispatch();
+  const languageState = useSelector(SelectedLangFromStore)?.selectedLanguage;
+  const TokenFromStore: any = useSelector(get_access_token);
+  const currencyState = useSelector(currency_selector_state)?.selected_currency_value;
+  const handleAuthError = useAuthErrorHandler();
+  const selectedCurrency = currencyOptions.filter((opt) => opt?.value === currencyState)[0]
+  const selectedLanguage = languageDisplayOptions.filter((opt) => opt?.value === languageState)[0]
 
-  useEffect(() => {
-    if (typeof selectedLanguage === 'string' && selectedLanguage.length > 0) {
-      i18n.changeLanguage(selectedLanguage).catch((err) => {});
+  const updateUserPreference = async (langCode: string, currency: string) => {
+    const apiBody = {
+      userPreferences:{
+        language: languageDisplayOptions.find((opt: Option) => opt?.value === langCode)?.label,
+        currency: currency,
+      }
+    };
+
+    const response = await updateCart('PUT', 'update-user-preferences', apiBody, TokenFromStore?.token);
+
+    if (response?.status === 200 && response?.data?.msg === 'success') {
+      i18n.changeLanguage(langCode).catch((err) => {});
+      localStorage.setItem('selected_currency', JSON.stringify(currency));
+    } else {
+      handleAuthError(response);
     }
-  }, [selectedLanguage]);
+  };
+
+  const handleLanguageChange = (value: Option | undefined) => {
+    dispatch(setLanguage(value?.value));
+    updateUserPreference(value?.value as string, selectedCurrency?.value);
+  };
+
+  const handleLanguageShallowUpdate = (value: Option | undefined) => {
+    dispatch(setLanguage(value?.value));
+    i18n.changeLanguage(value?.value as string).catch((err) => {});
+  };
+
+  const handleCurrencyChange = (value: Option | undefined) => {
+    dispatch(setCurrencyValue(value?.value));
+    updateUserPreference(selectedLanguage?.value, value?.value as string);
+  };
+  
+  const handleCurrencyShallowUpdate = (value: Option | undefined) => {
+    dispatch(setCurrencyValue(value?.value));
+  }
+
+  return {
+    handleLanguageShallowUpdate,
+    handleCurrencyShallowUpdate,
+    handleLanguageChange,
+    handleCurrencyChange,
+    selectedLanguage,
+    selectedCurrency
+  };
 };
 
-export default useLanguageHandler;
+export default useCurrencyLanguageHandler;
