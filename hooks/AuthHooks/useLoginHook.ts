@@ -8,12 +8,19 @@ import { setShowSessionExpiredModalFalse, storeToken } from '../../store/slices/
 import { CONSTANTS } from '../../services/config/app-config';
 import { setDefaultCurrencyValue } from '../../store/slices/general_slices/multi-currency-slice';
 import { useTranslation } from 'react-i18next';
+import { setLanguage } from '../../store/slices/general_slices/multilingual-slice';
+import { languageDisplayOptions } from '../../utils/addon-utils/language-options';
+import { Option } from '../../store/slices/general_slices/multilingual-slice';
+import i18n from '../../i18n/i18n';
+import useCurrencyLanguageHandler from '../GeneralHooks/LanguageHandler';
+import { currencyOptions } from '../../utils/addon-utils/currency-map';
 
 const useLoginHook = () => {
   const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
   const dispatch = useDispatch();
   const router = useRouter();
   const { t } = useTranslation('common');
+  const { handleCurrencyShallowUpdate, handleLanguageShallowUpdate } = useCurrencyLanguageHandler();
   const [loginForm, setLoginForm] = useState<TypeLoginForm>({ usr: '', pwd: '' });
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [isLoginThroughOTP, setIsLoginThroughOTP] = useState<boolean>(false);
@@ -47,9 +54,11 @@ const useLoginHook = () => {
           dispatch(storeToken(tokenData?.data));
         }
 
-        dispatch(setDefaultCurrencyValue({ default_currency: 'USD' }));
-        localStorage.setItem('selected_currency', 'USD');
-
+        handleLanguageShallowUpdate(languageDisplayOptions.find((opt: Option) => opt?.label === tokenData?.data?.language));
+        handleCurrencyShallowUpdate(currencyOptions.find((opt: Option) => opt?.value === tokenData?.data?.currency));
+        
+        localStorage.setItem('selected_language', JSON.stringify(tokenData?.data?.language));
+        localStorage.setItem('selected_currency', JSON.stringify(tokenData?.data?.currency));
         // Redirect to the home page or any other page after successful login
         if (tokenData?.data?.isPwdChg === 0) {
           router.push('/forgot_password');
