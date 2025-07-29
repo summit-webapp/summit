@@ -183,6 +183,7 @@ const useProductDetail = () => {
     isLoading,
     errorMessage,
     productDetailData,
+    setProductDetailData,
     productVariantData,
     fetchProductDetailDataAPI,
     variantLoading,
