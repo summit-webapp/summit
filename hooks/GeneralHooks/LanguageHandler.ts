@@ -30,8 +30,8 @@ const useCurrencyLanguageHandler = () => {
 
     if (response?.status === 200 && response?.data?.msg === 'success') {
       i18n.changeLanguage(langCode).catch((err) => {});
-      localStorage.setItem('selected_currency', JSON.stringify(currency));
-      localStorage.setItem('selected_language', JSON.stringify(languageDisplayOptions.find((opt: Option) => opt?.value === langCode)?.label))
+      localStorage.setItem('selected_currency', currency);
+      localStorage.setItem('selected_language', languageDisplayOptions.find((opt: Option) => opt?.value === langCode)?.label as string)
     } else {
       handleAuthError(response);
     }
