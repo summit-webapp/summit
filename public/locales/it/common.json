@@ -146,5 +146,27 @@
   "your_information_will_not_be_shared_with_third_parties_without_your_consent": "Le tue informazioni non saranno condivise con terze parti senza il tuo consenso.",
   "we_use_cookies_to_enhance_user_experience_and_analyze_site_usage": "Utilizziamo i cookie per migliorare l'esperienza dell'utente e analizzare l'utilizzo del sito.",
   "you_can_request_access_or_deletion_of_your_data_by_contacting_support": "Puoi richiedere l'accesso o la cancellazione dei tuoi dati contattando il supporto.",
-  "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "Tutti i dati sono archiviati in modo sicuro e l'accesso è riservato solo al personale autorizzato."
+  "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "Tutti i dati sono archiviati in modo sicuro e l'accesso è riservato solo al personale autorizzato.",
+
+  "metal_details": "Dettagli del metallo",
+  "diamond_details": "Dettagli del diamante",
+  "colour_stone_details": "Dettagli delle pietre colorate",
+  "accessories_details": "Dettagli degli accessori",
+  "labour_details": "Dettagli del lavoro",
+  "kt": "KT",
+  "colour": "Colore",
+  "weight": "Peso",
+  "value": "Valore",
+  "shape": "Forma",
+  "setting": "Montatura",
+  "size 1 (mm)": "Dimensione 1 (mm)",
+  "size 2 (mm)": "Dimensione 2 (mm)",
+  "pointer": "Dimensione pietra",
+  "qty": "Quantità",
+  "carats": "Carati",
+  "category": "Categoria",
+  "name": "Nome",
+  "main_code": "Codice principale",
+  "sub_code": "Sotto-codice",
+  "qty_wt": "Quantità / Peso"
 }
