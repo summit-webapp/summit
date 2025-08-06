@@ -11,6 +11,7 @@ import wishlistSlice from './slices/wishlist-slices/wishlist-local-slice';
 import quickOrderSlice from './slices/quick-order-slice/quick-order-slice';
 import componentsReducer from './slices/general_slices/components-slice';
 import SelectedLangDataScreen from './slices/general_slices/multilingual-slice';
+import kcSlice from './slices/general_slices/kc-slice';
 
 const appReducer = combineReducers({
   LanguagesScreen: LanguageReducer,
@@ -24,6 +25,7 @@ const appReducer = combineReducers({
   cart: cartLocalSlice,
   catalogSlice: catalogLocalSlice,
   quickOrder: quickOrderSlice,
+  KCSlice: kcSlice,
 });
 
 const rootReducer = (state: any, action: any) => {
