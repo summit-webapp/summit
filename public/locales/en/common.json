@@ -146,5 +146,27 @@
   "your_information_will_not_be_shared_with_third_parties_without_your_consent": "Your information will not be shared with third parties without your consent.",
   "we_use_cookies_to_enhance_user_experience_and_analyze_site_usage": "We use cookies to enhance user experience and analyze site usage.",
   "you_can_request_access_or_deletion_of_your_data_by_contacting_support": "You can request access or deletion of your data by contacting support.",
-  "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "All data is stored securely and access is restricted to authorized personnel only."
+  "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "All data is stored securely and access is restricted to authorized personnel only.",
+  
+  "metal_details": "Metal Details",
+  "diamond_details": "Diamond Details",
+  "colour_stone_details": "Colour Stone Details",
+  "accessories_details": "Accessories Details",
+  "labour_details": "Labour Details",
+  "kt": "KT",
+  "colour": "Colour",
+  "weight" : "Weight",
+  "value": "Value",
+  "shape": "Shape", 
+  "setting": "Settings",
+  "size 1 (mm)": "Size 1 (mm)",
+  "size 2 (mm)": "Size 2 (mm)",
+  "pointer": "Pointer",
+  "qty": "Qty",
+  "carats": "Carats",
+  "category": "Category",
+  "name": "Name",
+  "main_code": "Main Code",
+  "sub_code": "Sub Code",
+  "qty_wt": "Qty / Wt"
 }
