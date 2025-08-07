@@ -6,7 +6,7 @@ export const CONSTANTS = {
     version: 'v2',
   },
   ALLOW_GUEST_TO_ACCESS_SITE_EVEN_WITHOUT_AUTHENTICATION: true,
-  AFTER_LOGIN_REDIRECT_URL: '/',
+  AFTER_LOGIN_REDIRECT_URL: '/product-category',
   ENABLE_META_TAGS: true,
   ENABLE_LOGIN_USING_OTP: false,
   ENABLE_LOGIN_USING_GOOGLE_ID: false,
@@ -32,10 +32,10 @@ export const CONSTANTS = {
   DEFAULT_LANGUAGE: 'en',
   ENABLE_SHOP_ON_AMAZON: false,
   ENABLE_GOOGLE_ANALYTICS: false,
-  META_TITLE: 'B2B Atelier-Reya',
-  META_DESCRIPTION: 'Atelier Reya designs and manufactures exquisite fine jewelry with precision and purpose. Through artisanal expertise, ethical sourcing, and scalable production, we help our partners grow with confidence and distinction.',
-  META_FAVICON: '/AR-favicon.png',
-  OG_META_TITLE: 'B2B Atelier-Reya',
-  OG_META_DESCRIPTION: 'Atelier Reya designs and manufactures exquisite fine jewelry with precision and purpose. Through artisanal expertise, ethical sourcing, and scalable production, we help our partners grow with confidence and distinction.',
-  OG_META_IMAGE: 'https://res.cloudinary.com/dxysvmfft/image/upload/v1752478648/Atelier-Reya-Og-Image_stg13i.png'
+  META_TITLE: '',
+  META_DESCRIPTION: '',
+  META_FAVICON: '',
+  OG_META_TITLE: '',
+  OG_META_DESCRIPTION: '',
+  OG_META_IMAGE: ''
 };
