@@ -25,6 +25,8 @@ const emrAPISDKRegistry: any = {
   'sign-up-api': '/api/SignUp',
   'order-list-api': '/api/getListViewData',
   'update-user-preferences': '/api/storeUserPreferences',
+  'get-metal-rate-api': '/api/getMetalRT',
+  'post-metal-rate-api': '/api/updateMetalRT',
 };
 
 export default emrAPISDKRegistry;
