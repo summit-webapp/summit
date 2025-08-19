@@ -72,7 +72,7 @@ const useProductDetail = () => {
         productDetailAPI?.data?.msg === 'success' &&
         Object?.keys(productDetailAPI?.data?.data).length > 0
       ) {
-        setProductDetailData(productDetailAPI?.data?.data);
+        setProductDetailData(productDetailAPI?.data?.data[0]);
         if (productDetailAPI?.data?.message?.data?.min_order_qty > 0) {
           setQty(productDetailAPI?.data?.message?.data?.min_order_qty);
         } else {
