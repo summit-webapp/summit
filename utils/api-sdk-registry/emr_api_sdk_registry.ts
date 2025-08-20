@@ -25,6 +25,7 @@ const emrAPISDKRegistry: any = {
   'sign-up-api': '/api/SignUp',
   'order-list-api': '/api/getListViewData',
   'update-user-preferences': '/api/storeUserPreferences',
+  'bom-details-api': '/api/bomChange',
 };
 
 export default emrAPISDKRegistry;
