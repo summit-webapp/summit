@@ -1,5 +1,5 @@
 export interface ProductSlideshowImages {
   slideShowImages: string[];
-  selectedImageBasedOnSelectedTone?: number;
+  selectedImageBasedOnSelectedTone: number;
   setSelectedImageBasedOnSelectedTone?: (i: number) => void;
 }

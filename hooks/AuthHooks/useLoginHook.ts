@@ -45,7 +45,7 @@ const useLoginHook = () => {
       // Need to check below login api logic. Need to make generic.
       const tokenData = await emrLogin(userParams);
 
-      if (tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
+      if (tokenData?.success === true && tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('user', values.usr);
         localStorage.setItem('party_name', tokenData?.data?.full_name);
@@ -70,12 +70,15 @@ const useLoginHook = () => {
           }
         }
         // toast.success('Login Successfully');
-      } else {
-        toast.error(t('invalid_credentials'));
       }
-    } catch (error) {
-      toast.error(t('error_while_login'));
-      console.error('Login Error:', error);
+    } catch (error: any) {
+      if (error?.status === 400 && error?.response?.data?.error === "Invalid username or password") {
+        toast.error(t('invalid_credentials'));
+        return;
+      } else {
+        toast.error(t('error_while_login'));
+      }
+      console.error('Error:', error);
     } finally {
       setLoginBtnLoader(false);
     }
