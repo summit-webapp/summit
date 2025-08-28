@@ -15,9 +15,9 @@ const useCurrencyLanguageHandler = () => {
   const TokenFromStore: any = useSelector(get_access_token);
   const currencyState = useSelector(currency_selector_state)?.selected_currency_value;
   const handleAuthError = useAuthErrorHandler();
-  const selectedCurrency = currencyOptions[0];
-  const selectedLanguage = languageDisplayOptions[0];
-
+  const selectedCurrency = currencyOptions.filter((opt) => opt?.value === currencyState)[0];
+  const selectedLanguage = languageDisplayOptions.filter((opt) => opt?.value === languageState)[0];
+  
   const updateUserPreference = async (langCode: string, currency: string) => {
     const apiBody = {
       userPreferences:{
