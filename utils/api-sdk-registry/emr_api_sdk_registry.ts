@@ -29,6 +29,7 @@ const emrAPISDKRegistry: any = {
   'get-metal-rate-api': '/api/getMetalRT',
   'post-metal-rate-api': '/api/updateMetalRT',
   'get-sizes-api': '/api/getSizes',
+  'copy-stock-design': '/api/copyStckDsg'
 };
 
 export default emrAPISDKRegistry;
