@@ -298,5 +298,14 @@
   "Ruby": "Rubis",
   "Emerald": "Émeraude",
   "add_to_stock_cart": "Ajouter au panier de stock",
-  "move": "Déplacer"
+  "move": "Déplacer",
+  "No File Chosen": "Aucun fichier choisi",
+  "Remove": "Supprimer",
+  "Image Search": "Recherche d'image",
+  "Load more": "Charger plus",
+  "Sizes": "Tailles",
+  "Customise": "Personnaliser",
+  "Items Selected": "Articles sélectionnés",
+  "Item Selected": "Article sélectionné",
+  "Apply": "Appliquer"
 }

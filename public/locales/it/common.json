@@ -298,5 +298,14 @@
   "Ruby": "Rubino",
   "Emerald": "Smeraldo",
   "add_to_stock_cart": "Aggiungi al carrello stock",
-  "move": "Sposta"
+  "move": "Sposta",
+  "No File Chosen": "Nessun file scelto",
+  "Remove": "Rimuovere",
+  "Image Search": "Ricerca immagine",
+  "Load more": "Carica altro",
+  "Sizes": "Taglie",
+  "Customise": "Personalizzare",
+  "Items Selected": "Articoli selezionati",
+  "Item Selected": "Articolo selezionato",
+  "Apply": "Applica"
 }

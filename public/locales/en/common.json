@@ -298,5 +298,14 @@
   "Ruby": "Ruby",
   "Emerald": "Emerald",
   "add_to_stock_cart": "Add to Stock Cart",
-  "move": "Move"
+  "move": "Move",
+  "No File Chosen": "No File Chosen",
+  "Remove": "Remove",
+  "Image Search": "Image Search",
+  "Load more": "Load more",
+  "Sizes": "Sizes",
+  "Customise": "Customise",
+  "Items Selected": "Items Selected",
+  "Item Selected": "Item Selected",
+  "Apply": "Apply"
 }
