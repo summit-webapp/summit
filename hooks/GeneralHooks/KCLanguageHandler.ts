@@ -8,6 +8,7 @@ import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { languageDisplayOptions } from '../../utils/addon-utils/kc-language-options';
 import { Option } from '../../store/slices/general_slices/multilingual-slice';
 import { currencyOptions } from '../../utils/addon-utils/kc-currency-map';
+import { useEffect } from 'react';
 
 const useCurrencyLanguageHandler = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,11 @@ const useCurrencyLanguageHandler = () => {
   const handleCurrencyShallowUpdate = (value: Option | undefined | null) => {
     dispatch(setCurrencyValue(value?.value));
   }
+
+  useEffect(() => {
+    handleLanguageShallowUpdate(selectedLanguage);
+    handleCurrencyShallowUpdate(selectedCurrency);
+  },[selectedCurrency, selectedLanguage])
 
   return {
     handleLanguageShallowUpdate,
