@@ -16,8 +16,8 @@ const useCurrencyLanguageHandler = () => {
   const TokenFromStore: any = useSelector(get_access_token);
   const currencyState = useSelector(currency_selector_state)?.selected_currency_value;
   const handleAuthError = useAuthErrorHandler();
-  const selectedCurrency = currencyOptions.find((opt) => currencyState ? opt?.value === currencyState : opt?.value === 'RS');
-  const selectedLanguage = languageDisplayOptions.find((opt) => languageState ? opt?.value === languageState : opt?.value === 'en');
+  const selectedCurrency = currencyOptions.find((opt) => opt?.value === (currencyState || 'RS'))!;
+  const selectedLanguage = languageDisplayOptions.find((opt) => opt?.value === languageState || 'en')!;
   
   const updateUserPreference = async (langCode: string, currency: string) => {
     const apiBody = {
@@ -40,7 +40,7 @@ const useCurrencyLanguageHandler = () => {
 
   const handleLanguageChange = (value: Option | undefined | null) => {
     dispatch(setLanguage(value?.value));
-    updateUserPreference(value?.value as string, selectedCurrency?.value as string);
+    updateUserPreference(value?.value as string, selectedCurrency?.value);
   };
 
   const handleLanguageShallowUpdate = (value: Option | undefined | null) => {
@@ -50,7 +50,7 @@ const useCurrencyLanguageHandler = () => {
 
   const handleCurrencyChange = (value: Option | undefined | null) => {
     dispatch(setCurrencyValue(value?.value));
-    updateUserPreference(selectedLanguage?.value as string, value?.value as string);
+    updateUserPreference(selectedLanguage?.value, value?.value as string);
   };
   
   const handleCurrencyShallowUpdate = (value: Option | undefined | null) => {

@@ -11,6 +11,7 @@ export const KCSlice = createSlice({
     // selectedCustomerCode: { value: "", label: "" },
     // voucherNo: "",
     metalRateSidebar: false,
+    prevCSFilters: {},
     gridCols: 4,
     goldRate: 0,
     palladiumRate: 0,
@@ -38,10 +39,13 @@ export const KCSlice = createSlice({
     },
     setMetalRateSidebar: (state, action) => {
       state.metalRateSidebar = action.payload;
+    },
+    setPrevCSFilters: (state, action) => {
+      state.prevCSFilters = action.payload;
     }
   },
 })
 
-export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar } = KCSlice.actions;
+export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters } = KCSlice.actions;
 export const KCFromStore = (state: any) => state.KCSlice;
 export default KCSlice.reducer;
