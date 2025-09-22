@@ -17,6 +17,22 @@ export const KCSlice = createSlice({
     palladiumRate: 0,
     platinumRate: 0,
     silverRate: 0,
+    filters: {
+      Database: { selectedScope: { label: 'New Session', value: 'Database' } },
+      Stock: { selectedScope: { label: 'Stock', value: 'Stock' } },
+      'Current Session': { selectedScope: { label: 'Current Session (QT/CS)', value: 'Current Session' } },
+      Cart: { selectedScope: { label: 'Cart (QT/CT)', value: 'Cart' } },
+      'Stock Cart': { selectedScope: { label: 'Stock Cart', value: 'Stock Cart' } },
+      Voucher: { selectedScope: { label: 'Voucher', value: 'Voucher' } },
+    },
+    filtersSetOfAPI: {
+      Database: { selectedScope: { label: 'New Session', value: 'Database' } },
+      Stock: { selectedScope: { label: 'Stock', value: 'Stock' } },
+      'Current Session': { selectedScope: { label: 'Current Session (QT/CS)', value: 'Current Session' } },
+      Cart: { selectedScope: { label: 'Cart (QT/CT)', value: 'Cart' } },
+      'Stock Cart': { selectedScope: { label: 'Stock Cart', value: 'Stock Cart' } },
+      Voucher: { selectedScope: { label: 'Voucher', value: 'Voucher' } },
+    },
   },
   reducers: {
     setHideFiltersOnFirstLoad: (state, action) => {
@@ -42,10 +58,16 @@ export const KCSlice = createSlice({
     },
     setPrevCSFilters: (state, action) => {
       state.prevCSFilters = action.payload;
-    }
+    },
+    setFilters: (state, action) => {
+      state.filters = action.payload;
+    },
+    setFiltersSetOfAPI: (state, action) => {
+      state.filtersSetOfAPI = action.payload;
+    },
   },
 })
 
-export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters } = KCSlice.actions;
+export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI } = KCSlice.actions;
 export const KCFromStore = (state: any) => state.KCSlice;
 export default KCSlice.reducer;
