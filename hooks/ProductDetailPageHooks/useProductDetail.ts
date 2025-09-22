@@ -10,7 +10,7 @@ import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-p
 import fetchPinCodesListAPI from '../../services/api/general-apis/get-pin-code-list-api';
 import debounce from 'debounce';
 import useAuthErrorHandler from '../AuthHooks/handleAuthError';
-import useCurrencyLanguageHandler from '../GeneralHooks/LanguageHandler';
+import useCurrencyLanguageHandler from '../GeneralHooks/KCLanguageHandler';
 type PinCodeTypes = {
   name: string;
 };

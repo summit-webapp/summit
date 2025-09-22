@@ -8,6 +8,7 @@ import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import { languageDisplayOptions } from '../../utils/addon-utils/kc-language-options';
 import { Option } from '../../store/slices/general_slices/multilingual-slice';
 import { currencyOptions } from '../../utils/addon-utils/kc-currency-map';
+import { useEffect } from 'react';
 
 const useCurrencyLanguageHandler = () => {
   const dispatch = useDispatch();
@@ -15,8 +16,8 @@ const useCurrencyLanguageHandler = () => {
   const TokenFromStore: any = useSelector(get_access_token);
   const currencyState = useSelector(currency_selector_state)?.selected_currency_value;
   const handleAuthError = useAuthErrorHandler();
-  const selectedCurrency = currencyOptions.filter((opt) => currencyState ? opt?.value === currencyState : opt?.value === 'RS')[0];
-  const selectedLanguage = languageDisplayOptions.filter((opt) => languageState ? opt?.value === languageState : opt?.value === 'en')[0];
+  const selectedCurrency = currencyOptions.find((opt) => opt?.value === (currencyState || 'RS'))!;
+  const selectedLanguage = languageDisplayOptions.find((opt) => opt?.value === languageState || 'en')!;
   
   const updateUserPreference = async (langCode: string, currency: string) => {
     const apiBody = {
@@ -55,6 +56,11 @@ const useCurrencyLanguageHandler = () => {
   const handleCurrencyShallowUpdate = (value: Option | undefined | null) => {
     dispatch(setCurrencyValue(value?.value));
   }
+
+  useEffect(() => {
+    handleLanguageShallowUpdate(selectedLanguage);
+    handleCurrencyShallowUpdate(selectedCurrency);
+  },[selectedCurrency, selectedLanguage])
 
   return {
     handleLanguageShallowUpdate,

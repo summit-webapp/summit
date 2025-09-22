@@ -298,5 +298,15 @@
   "Ruby": "Rubin",
   "Emerald": "Smaragd",
   "add_to_stock_cart": "Zum Lagerkorb hinzufügen",
-  "move": "Bewegen"
+  "move": "Bewegen",
+  "No File Chosen": "Keine Datei ausgewählt",
+  "Remove": "Entfernen",
+  "Image Search": "Bildsuche",
+  "Load more": "Mehr laden",
+  "Sizes": "Größen",
+  "Customise": "Anpassen",
+  "Items Selected": "Artikel ausgewählt",
+  "Item Selected": "Artikel ausgewählt",
+  "Apply": "Anwenden",
+  "Stock Cart": "Warenkorb"
 }
