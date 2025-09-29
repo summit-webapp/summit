@@ -21,11 +21,13 @@ const emrAPISDKRegistry: any = {
   'get-product-design-y-options': '/api/getyDsgConfg',
   'get-meta-tags-api': '/api/seo-api',
   'delete-current-session-api': '/api/clearUserData',
-  'reset-password-api': '/api/resetPwd',
+  'forgot-password-api': '/api/forgotPwd',
   'sign-up-api': '/api/SignUp',
   'order-list-api': '/api/getListViewData',
   'update-user-preferences': '/api/storeUserPreferences',
   'bom-details-api': '/api/bomChange',
+  'send-reset-password-email-api': '/api/sendEmail',
+  'verify-reset-password-token-api': '/api/verifyLink',
 };
 
 export default emrAPISDKRegistry;
