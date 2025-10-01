@@ -5,9 +5,9 @@ import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 import { currency_selector_state, setCurrencyValue } from '../../store/slices/general_slices/multi-currency-slice';
 import { updateCart } from '../../services/addon-services/api/emr-api\'s/voucher-api\'s/create-voucher-api';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
-import { languageDisplayOptions } from '../../utils/addon-utils/kc-language-options';
+import { languageDisplayOptions } from '../../utils/addon-utils/language-options';
 import { Option } from '../../store/slices/general_slices/multilingual-slice';
-import { currencyOptions } from '../../utils/addon-utils/kc-currency-map';
+import { currencyOptions } from '../../utils/addon-utils/currency-map';
 import { useEffect } from 'react';
 
 const useCurrencyLanguageHandler = () => {
@@ -16,51 +16,53 @@ const useCurrencyLanguageHandler = () => {
   const TokenFromStore: any = useSelector(get_access_token);
   const currencyState = useSelector(currency_selector_state)?.selected_currency_value;
   const handleAuthError = useAuthErrorHandler();
-  const selectedCurrency = currencyOptions.find((opt) => opt?.value === (currencyState || 'RS'))!;
-  const selectedLanguage = languageDisplayOptions.find((opt) => opt?.value === languageState || 'en')!;
+  const selectedCurrency = currencyOptions.find((opt) => opt?.value === (currencyState))!;
+  const selectedLanguage = languageDisplayOptions.find((opt) => opt?.value === languageState)!;
   
-  const updateUserPreference = async (langCode: string, currency: string) => {
+  const updateUserPreference = async (language: Option, currency: Option) => {
+    const languageCode = language?.value.toString();
+    const currencyCode = currency?.value.toString()
     const apiBody = {
       userPreferences:{
-        language: languageDisplayOptions.find((opt: Option) => opt?.value === langCode)?.label,
-        currency: currency,
+        language: languageDisplayOptions.find((opt: Option) => opt?.value === languageCode)?.label,
+        currency: currencyCode,
       }
     };
 
     const response = await updateCart('PUT', 'update-user-preferences', apiBody, TokenFromStore?.token);
 
     if (response?.status === 200 && response?.data?.msg === 'success') {
-      i18n.changeLanguage(langCode).catch((err) => {});
-      localStorage.setItem('selected_currency', currency);
-      localStorage.setItem('selected_language', languageDisplayOptions.find((opt: Option) => opt?.value === langCode)?.label as string)
+      i18n.changeLanguage(languageCode).catch((err) => {});
+      localStorage.setItem('selected_currency', currencyCode);
+      localStorage.setItem('selected_language', languageDisplayOptions.find((opt: Option) => opt?.value === languageCode)!.label)
     } else {
       handleAuthError(response);
     }
   };
 
-  const handleLanguageChange = (value: Option | undefined | null) => {
+  const handleLanguageChange = (value: Option) => {
     dispatch(setLanguage(value?.value));
-    updateUserPreference(value?.value as string, selectedCurrency?.value);
+    updateUserPreference(value, selectedCurrency);
   };
 
-  const handleLanguageShallowUpdate = (value: Option | undefined | null) => {
+  const handleLanguageShallowUpdate = (value: Option) => {
     dispatch(setLanguage(value?.value));
     i18n.changeLanguage(value?.value as string).catch((err) => {});
   };
 
-  const handleCurrencyChange = (value: Option | undefined | null) => {
+  const handleCurrencyChange = (value: Option) => {
     dispatch(setCurrencyValue(value?.value));
-    updateUserPreference(selectedLanguage?.value, value?.value as string);
+    updateUserPreference(selectedLanguage, value);
   };
   
-  const handleCurrencyShallowUpdate = (value: Option | undefined | null) => {
+  const handleCurrencyShallowUpdate = (value: Option) => {
     dispatch(setCurrencyValue(value?.value));
   }
 
   useEffect(() => {
-    handleLanguageShallowUpdate(selectedLanguage);
-    handleCurrencyShallowUpdate(selectedCurrency);
-  },[selectedCurrency, selectedLanguage])
+    handleLanguageShallowUpdate(languageDisplayOptions.find((opt) => opt?.value === 'en')!);
+    handleCurrencyShallowUpdate(currencyOptions.find((opt) => opt?.value === 'RS')!);
+  },[selectedCurrency, selectedLanguage]);
 
   return {
     handleLanguageShallowUpdate,
