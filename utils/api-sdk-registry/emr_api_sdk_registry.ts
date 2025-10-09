@@ -28,6 +28,7 @@ const emrAPISDKRegistry: any = {
   'bom-details-api': '/api/bomChange',
   'send-reset-password-email-api': '/api/sendEmail',
   'verify-reset-password-token-api': '/api/verifyLink',
+  'get-sizes-api': '/api/getSizes',
 };
 
 export default emrAPISDKRegistry;
