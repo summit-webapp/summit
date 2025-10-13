@@ -8,3 +8,9 @@ export interface TypeLoginAPIParams {
   loginViaOTP: boolean;
   LoginViaGoogle: boolean;
 }
+
+export interface TypeRegistrationForm {
+  eml: string;
+  usr: string;
+  pwd: string;
+}
