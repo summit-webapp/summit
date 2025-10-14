@@ -32,7 +32,8 @@ const emrAPISDKRegistry: any = {
   'copy-stock-design': '/api/copyStckDsg',
   'stock-block-api': '/api/stockBlock',
   'get-voucher-headers-details-api': '/api/getVchHeaderDetails',
-  'get-filtered-sales-customer-api' : '/api/getFilteredSalesCustomer'
+  'get-filtered-sales-customer-api' : '/api/getFilteredSalesCustomer',
+  'get-rate-look-up-options-api': '/api/getPLlist',
 };
 
 export default emrAPISDKRegistry;
