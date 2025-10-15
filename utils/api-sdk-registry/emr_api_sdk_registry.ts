@@ -34,6 +34,8 @@ const emrAPISDKRegistry: any = {
   'get-voucher-headers-details-api': '/api/getVchHeaderDetails',
   'send-reset-password-email-api': '/api/sendEmail',
   'verify-reset-password-token-api': '/api/verifyLink',
+  'get-filtered-sales-customer-api' : '/api/getFilteredSalesCustomer',
+  'get-rate-look-up-options-api': '/api/getPLlist',
 };
 
 export default emrAPISDKRegistry;
