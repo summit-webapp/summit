@@ -78,7 +78,6 @@ const useLoginHook = () => {
       } else {
         toast.error(t('error_while_login'));
       }
-      console.error('Error:', error);
     } finally {
       setLoginBtnLoader(false);
     }
