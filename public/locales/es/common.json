@@ -322,5 +322,7 @@
   "Item Selected": "Artículo seleccionado",
   "Apply": "Aplicar",
   "Stock Cart": "Carrito de stock",
-  "profile": "Perfil"
+  "profile": "Perfil",
+  "available_in_stock": "Disponible en stock",
+  "no_item_found": "No se encontró ningún artículo"
 }

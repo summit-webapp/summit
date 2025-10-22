@@ -25,7 +25,7 @@ const cartSlice = createSlice({
   reducers: {
     addCartList: (state, action) => {
       state.items = action.payload?.cartData;
-      state.cartCount = state?.items?.length || 0;
+      state.cartCount = action.payload.cartCount;
       state.grandTotal = action.payload.grandTotal;
       state.quotation_Id = action?.payload?.quotationId;
     },

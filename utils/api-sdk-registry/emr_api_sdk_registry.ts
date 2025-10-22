@@ -36,6 +36,7 @@ const emrAPISDKRegistry: any = {
   'verify-reset-password-token-api': '/api/verifyLink',
   'get-filtered-sales-customer-api' : '/api/getFilteredSalesCustomer',
   'get-rate-look-up-options-api': '/api/getPLlist',
+  'check-design-stock-for-ct-api': '/api/checkDsgStckforCT'
 };
 
 export default emrAPISDKRegistry;
