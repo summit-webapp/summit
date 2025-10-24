@@ -33,6 +33,7 @@ export const KCSlice = createSlice({
       'Stock Cart': { selectedScope: { label: 'Stock Cart', value: 'Stock Cart' } },
       Voucher: { selectedScope: { label: 'Voucher', value: 'Voucher' } },
     },
+    currentScope: 'Database',
   },
   reducers: {
     setHideFiltersOnFirstLoad: (state, action) => {
@@ -65,9 +66,12 @@ export const KCSlice = createSlice({
     setFiltersSetOfAPI: (state, action) => {
       state.filtersSetOfAPI = action.payload;
     },
+    setCurrentScope: (state, action) => {
+      state.currentScope = action.payload;
+    },
   },
 })
 
-export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI } = KCSlice.actions;
+export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope } = KCSlice.actions;
 export const KCFromStore = (state: any) => state.KCSlice;
 export default KCSlice.reducer;
