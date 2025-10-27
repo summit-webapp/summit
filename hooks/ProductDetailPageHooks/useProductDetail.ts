@@ -40,6 +40,8 @@ const useProductDetail = () => {
       quantity: productDetailData?.min_order_qty || 1,
     },
   ]);
+  const router = useRouter();
+
   const handleMultipleQtyChange = (index: number, itemCode: string, value: string) => {
     setItemList((prevItemList: any) => {
       if (!Array.isArray(prevItemList)) {
@@ -174,10 +176,12 @@ const useProductDetail = () => {
     debouncedSetValue(pinCode); // Debounce state update
   };
 
+
   useEffect(() => {
+    if (!router.isReady) return;
     fetchProductDetailDataAPI();
-  // }, [query?.productId]);
-  }, [query?.productId, selectedCurrency]);
+  }, [router.isReady, query?.productId, selectedCurrency]);
+
 
   return {
     isLoading,
