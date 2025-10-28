@@ -150,16 +150,104 @@
   "Ring": "Anillo",
   "Less than": "Menos de",
   "Above": "Por encima de",
-  "by_signing_up_you_agree_to_our_platform's_terms_of_service_and_acceptable_use_policy": "Al registrarte, aceptas los términos de servicio y la política de uso aceptable de nuestra plataforma.",
-  "you_are_responsible_for_maintaining_the_confidentiality_of_your_login_credentials": "Usted es responsable de mantener la confidencialidad de sus credenciales de inicio de sesión.",
-  "we_reserve_the_right_to_suspend_accounts_found_violating_our_policies": "Nos reservamos el derecho de suspender las cuentas que infrinjan nuestras políticas.",
-  "product_availability_and_pricing_are_subject_to_change_without_notice": "La disponibilidad y los precios de los productos están sujetos a cambios sin previo aviso.",
-  "all_transactions_are_subject_to_applicable_taxes_and_service_charges": "Todas las transacciones están sujetas a impuestos y cargos por servicio aplicables.",
-  "we_collect_and_process_personal_data_in_accordance_with_applicable_data_protection_laws": "Recopilamos y procesamos datos personales de acuerdo con las leyes de protección de datos aplicables.",
-  "your_information_will_not_be_shared_with_third_parties_without_your_consent": "Su información no se compartirá con terceros sin su consentimiento.",
-  "we_use_cookies_to_enhance_user_experience_and_analyze_site_usage": "Utilizamos cookies para mejorar la experiencia del usuario y analizar el uso del sitio.",
-  "you_can_request_access_or_deletion_of_your_data_by_contacting_support": "Puede solicitar el acceso o la eliminación de sus datos contactando con el soporte.",
-  "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "Todos los datos se almacenan de forma segura y el acceso está restringido únicamente al personal autorizado.",
+
+  "terms_intro_title": "Introducción",
+  "terms_intro_p1": "Al usar nuestro sitio web o realizar un pedido, usted acepta estar sujeto a estos Términos. Por favor, léalos detenidamente.",
+
+  "terms_definitions_title": "Definiciones",
+  "terms_definitions_p1": "“Nosotros”, “nuestro” y “nos” se refieren al operador de este sitio web. “Usted” se refiere a la persona que utiliza el sitio o realiza un pedido.",
+  "terms_definitions_p2": "“Productos” se refiere a las piezas de joyería, accesorios y servicios relacionados ofrecidos a través del sitio web.",
+
+  "terms_use_of_website_title": "Uso del sitio web",
+  "terms_use_of_website_p1": "No debe usar el sitio web para fines fraudulentos o ilegales y debe cumplir cualquier instrucción de uso.",
+  "terms_use_of_website_p2": "Podemos modificar, suspender o interrumpir el sitio web (o cualquier parte) en cualquier momento sin previo aviso.",
+
+  "terms_order_acceptance_title": "Realización del pedido & aceptación",
+  "terms_order_acceptance_p1": "Los pedidos se aceptan cuando enviamos una confirmación por correo electrónico. Antes de eso, los pedidos pueden ser rechazados.",
+  "terms_order_acceptance_p2": "Nos reservamos el derecho de rechazar o cancelar un pedido por motivos como indisponibilidad del producto, errores de precio o problemas de pago.",
+
+  "terms_pricing_taxes_title": "Precios, IVA & tasas",
+  "terms_pricing_taxes_p1": "Los precios indicados incluyen IVA cuando sea aplicable. Para clientes fuera de la UE, pueden aplicarse aranceles de importación e impuestos que correrán por cuenta del cliente.",
+  "terms_pricing_taxes_p2": "Nos reservamos el derecho de corregir errores en los precios o descripciones y actualizar los precios antes de aceptar un pedido.",
+
+  "terms_payment_title": "Pago",
+  "terms_payment_p1": "El pago se debe realizar al momento del pedido y debe efectuarse mediante los métodos de pago mostrados en el sitio web.",
+  "terms_payment_p2": "Para artículos personalizados o a medida puede requerirse un depósito. Los depósitos generalmente no son reembolsables una vez iniciada la producción.",
+  "terms_payment_p3": "Usted es responsable de asegurar que los datos de pago sean correctos y de cualquier cargo por transacción que aplique su banco/proveedor.",
+
+  "terms_delivery_risk_title": "Entrega & riesgo",
+  "terms_delivery_risk_p1": "Los plazos de entrega son estimados y no están garantizados. Realizaremos esfuerzos razonables para cumplir con los plazos estimados.",
+  "terms_delivery_risk_p2": "El riesgo de los bienes pasa a usted en el momento de la entrega en la dirección que proporcionó; inspeccione los bienes inmediatamente y reporte defectos sin demora.",
+
+  "terms_returns_cancellations_title": "Devoluciones, cancelaciones & personalización",
+  "terms_returns_cancellations_p1": "Los artículos que no son personalizados pueden devolverse dentro de 14 a 30 días si se devuelven en su estado original, sin uso y con su embalaje original.",
+  "terms_returns_cancellations_p2": "Los artículos personalizados, grabados o a medida no suelen poder devolverse salvo que estén defectuosos.",
+  "terms_returns_cancellations_p3": "Los costes de envío de la devolución corren por cuenta del cliente salvo que la devolución se deba a un error nuestro.",
+
+  "terms_warranty_liability_title": "Garantías & limitación de responsabilidad",
+  "terms_warranty_liability_p1": "Garantizamos que los productos están libres de defectos materiales en el momento de la entrega. Esta garantía está sujeta a las exclusiones normales por desgaste o uso indebido.",
+  "terms_warranty_liability_p2": "Salvo que la ley disponga lo contrario, nuestra responsabilidad está limitada al precio de compra del producto y no somos responsables de pérdidas indirectas.",
+
+  "terms_intellectual_property_title": "Propiedad intelectual",
+  "terms_intellectual_property_p1": "Todo el contenido del sitio web (textos, imágenes, diseños) es nuestro o bajo licencia.",
+  "terms_intellectual_property_p2": "No puede reproducir, copiar o reutilizar materiales del sitio web sin nuestro consentimiento previo por escrito.",
+
+  "terms_custom_orders_title": "Pedidos personalizados & tallas",
+  "terms_custom_orders_p1": "La joyería personalizada o a medida se produce según sus especificaciones y no puede cancelarse una vez iniciada la producción.",
+  "terms_custom_orders_p2": "Por favor, proporcione información exacta sobre la talla/especificación. No podemos garantizar tallas más allá de tolerancias razonables.",
+
+  "terms_changes_title": "Cambios a estos Términos",
+  "terms_changes_p1": "Podemos cambiar estos Términos en cualquier momento. El uso continuado del sitio web después de los cambios implica aceptación.",
+
+  "terms_governing_law_title": "Ley aplicable & jurisdicción",
+  "terms_governing_law_p1": "Estos Términos se rigen por la ley de [Jurisdicción aplicable]. Cualquier disputa estará sujeta a la competencia de los tribunales de [Jurisdicción aplicable].",
+
+  "terms_contact_title": "Contacto",
+  "terms_contact_p1": "Para preguntas sobre estos Términos, contáctenos en los datos de contacto proporcionados en el sitio web.",
+
+  "privacy_intro_title": "Introducción",
+  "privacy_intro_p1": "Respetamos su privacidad y nos comprometemos a proteger sus datos personales de acuerdo con las leyes de protección de datos aplicables.",
+
+  "privacy_data_controller_title": "Responsable del tratamiento",
+  "privacy_data_controller_p1": "Somos el responsable del tratamiento de sus datos personales en relación con el sitio web y nuestros servicios.",
+
+  "privacy_data_we_collect_title": "Datos que recopilamos",
+  "privacy_data_we_collect_p1": "Datos personales que usted proporciona: nombre, correo electrónico, dirección, número de teléfono, historial de pedidos e información de pago (procesada a través de proveedores de pago).",
+  "privacy_data_we_collect_p2": "Datos técnicos y de uso: dirección IP, dispositivo y navegador, páginas visitadas y marcas temporales recopiladas automáticamente.",
+
+  "privacy_how_we_use_data_title": "Cómo usamos sus datos",
+  "privacy_how_we_use_data_p1": "Usamos sus datos para procesar pedidos, gestionar su cuenta y ofrecer servicio al cliente.",
+  "privacy_how_we_use_data_p2": "Podemos usar los datos para personalizar su experiencia, mejorar el sitio web y para prevención de fraudes y cumplimiento legal.",
+  "privacy_how_we_use_data_p3": "Las comunicaciones de marketing se envían solo con su consentimiento; puede retirar ese consentimiento en cualquier momento.",
+
+  "privacy_legal_basis_title": "Base legal para el procesamiento",
+  "privacy_legal_basis_p1": "Procesamos datos personales cuando es necesario para la ejecución del contrato, para cumplir obligaciones legales, con su consentimiento o en base a nuestros intereses legítimos.",
+
+  "privacy_data_sharing_title": "Compartir & transferencias de datos",
+  "privacy_data_sharing_p1": "Compartimos datos con proveedores de servicios como procesadores de pago, logística y análisis que tratan datos en nuestro nombre según contrato.",
+  "privacy_data_sharing_p2": "Las transferencias internacionales fuera del EEE se protegen con garantías apropiadas como cláusulas contractuales estándar.",
+
+  "privacy_cookies_title": "Cookies y seguimiento",
+  "privacy_cookies_p1": "Usamos cookies para habilitar la funcionalidad del sitio y análisis. Puedes gestionar o desactivar las cookies desde los ajustes de tu navegador.",
+
+  "privacy_data_retention_title": "Retención de datos",
+  "privacy_data_retention_p1": "Conservamos los datos personales solo mientras sean necesarios para los fines para los cuales fueron recogidos y para cumplir nuestras obligaciones legales.",
+
+  "privacy_your_rights_title": "Sus derechos",
+  "privacy_your_rights_p1": "Usted puede solicitar acceso, rectificación, eliminación, limitación o portabilidad de sus datos personales y puede oponerse al tratamiento cuando sea aplicable.",
+  "privacy_your_rights_p2": "Para ejercer sus derechos, contáctenos. También puede presentar una queja ante la autoridad de supervisión competente en su jurisdicción.",
+
+  "privacy_security_title": "Seguridad",
+  "privacy_security_p1": "Implementamos medidas técnicas y organizativas para proteger los datos personales, pero ninguna transmisión por Internet puede garantizarse al 100 % segura.",
+
+  "privacy_minors_title": "Menores",
+  "privacy_minors_p1": "Nuestros servicios no están dirigidos a niños menores de 16 años. Si descubrimos que se han recopilado datos de un menor sin consentimiento, los eliminaremos.",
+
+  "privacy_policy_changes_title": "Cambios en esta política",
+  "privacy_policy_changes_p1": "Podemos actualizar esta Política de Privacidad; los cambios importantes serán comunicados mediante el sitio web o correo electrónico.",
+
+  "privacy_contact_title": "Contacto & autoridad de control",
+  "privacy_contact_p1": "Para consultas sobre privacidad, contáctenos en los datos de contacto del sitio web. También puede contactar a la autoridad de supervisión competente en su jurisdicción.",
 
   "metal_details": "Detalles del metal",
   "diamond_details": "Detalles del diamante",
