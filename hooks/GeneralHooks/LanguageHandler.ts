@@ -39,22 +39,22 @@ const useCurrencyLanguageHandler = () => {
     }
   };
 
- const handleLanguageChange = (value: Option) => {
+ const handleLanguageChange = (value: Option | null) => {
     dispatch(setLanguage(value?.value));
-    updateUserPreference(value, selectedCurrency);
+    updateUserPreference(value!, selectedCurrency);
   };
 
-  const handleLanguageShallowUpdate = (value: Option) => {
+  const handleLanguageShallowUpdate = (value: Option | null) => {
     dispatch(setLanguage(value?.value));
     i18n.changeLanguage(value?.value as string).catch((err) => {});
   };
 
-  const handleCurrencyChange = (value: Option) => {
+  const handleCurrencyChange = (value: Option | null) => {
     dispatch(setCurrencyValue(value?.value));
-    updateUserPreference(selectedLanguage, value);
+    updateUserPreference(selectedLanguage, value!);
   };
   
-  const handleCurrencyShallowUpdate = (value: Option) => {
+  const handleCurrencyShallowUpdate = (value: Option | null) => {
     dispatch(setCurrencyValue(value?.value));
   }
 
