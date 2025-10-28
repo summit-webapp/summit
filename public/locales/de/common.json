@@ -153,6 +153,122 @@
   "Ring": "Ring",
   "Less than": "Weniger als",
   "Above": "Über",
+  
+  "terms_intro_title": "Einleitung",
+  "terms_intro_p1": "Indem Sie unsere Website nutzen oder eine Bestellung aufgeben, stimmen Sie zu, an diese Bedingungen gebunden zu sein. Bitte lesen Sie diese sorgfältig durch.",
+
+  "terms_definitions_title": "Definitionen",
+  "terms_definitions_p1": "„Wir“, „uns“ und „unser“ beziehen sich auf den Betreiber dieser Website. „Sie“ bezeichnet die Person, die die Website nutzt oder eine Bestellung aufgibt.",
+  "terms_definitions_p2": "„Produkte“ bezeichnet Schmuckstücke, Accessoires und damit verbundene Dienstleistungen, die über die Website angeboten werden.",
+
+  "terms_use_of_website_title": "Nutzung der Website",
+  "terms_use_of_website_p1": "Sie dürfen die Website nicht für betrügerische oder rechtswidrige Zwecke nutzen und müssen jegliche Nutzungshinweise einhalten.",
+  "terms_use_of_website_p2": "Wir können die Website (oder Teile davon) jederzeit ohne Vorankündigung ändern, aussetzen oder einstellen.",
+
+  "terms_order_acceptance_title": "Bestellung & Annahme",
+  "terms_order_acceptance_p1": "Bestellungen gelten als angenommen, wenn wir eine Bestellbestätigung per E-Mail senden. Davor können Bestellungen abgelehnt werden.",
+  "terms_order_acceptance_p2": "Wir behalten uns das Recht vor, eine Bestellung z. B. wegen Nichtverfügbarkeit eines Produkts, Preisfehlern oder Zahlungsproblemen abzulehnen oder zu stornieren.",
+
+  "terms_pricing_taxes_title": "Preise, MWSt & Steuern",
+  "terms_pricing_taxes_p1": "Die angegebenen Preise enthalten ggf. die gesetzliche Mehrwertsteuer. Bei Kunden außerhalb der EU können Zollgebühren und Einfuhrsteuern anfallen, die vom Kunden zu tragen sind.",
+  "terms_pricing_taxes_p2": "Wir behalten uns das Recht vor, Preis- oder Beschreibungsfehler zu korrigieren und Preise vor Annahme einer Bestellung zu ändern.",
+
+  "terms_payment_title": "Zahlung",
+  "terms_payment_p1": "Die Zahlung ist bei Bestellung fällig und muss über die auf der Website angezeigten Zahlungsmethoden erfolgen.",
+  "terms_payment_p2": "Für kundenspezifische oder maßgefertigte Artikel kann eine Anzahlung erforderlich sein. Anzahlungen sind in der Regel nicht erstattbar, sobald die Produktion begonnen wurde.",
+  "terms_payment_p3": "Sie sind dafür verantwortlich, dass Ihre Zahlungsdaten korrekt sind und für alle von Ihrer Bank/dem Anbieter berechneten Transaktionsgebühren.",
+
+  "terms_delivery_risk_title": "Lieferung & Risiko",
+  "terms_delivery_risk_p1": "Lieferzeiten sind Schätzungen und nicht garantiert. Wir werden angemessene Anstrengungen unternehmen, um die geschätzten Liefertermine einzuhalten.",
+  "terms_delivery_risk_p2": "Das Risiko an den Waren geht mit der Lieferung an die von Ihnen angegebene Adresse auf Sie über; prüfen Sie die Waren sofort und melden Sie Mängel umgehend.",
+
+  "terms_returns_cancellations_title": "Rückgaben, Stornierungen & Personalisierung",
+  "terms_returns_cancellations_p1": "Nicht personalisierte Artikel können innerhalb von 14–30 Tagen zurückgegeben werden, sofern sie unbenutzt und in Originalverpackung sind.",
+  "terms_returns_cancellations_p2": "Personalisierte, gravierte oder maßgefertigte Artikel sind im Allgemeinen nicht rückgabefähig, es sei denn, sie sind fehlerhaft.",
+  "terms_returns_cancellations_p3": "Die Rücksendekosten trägt der Kunde, es sei denn, die Rückgabe erfolgt aufgrund unseres Fehlers.",
+
+  "terms_warranty_liability_title": "Garantie & Haftungsbegrenzung",
+  "terms_warranty_liability_p1": "Wir garantieren, dass die Produkte bei Lieferung frei von materiellen Mängeln sind. Diese Garantie unterliegt normalen Ausschlüssen wegen Abnutzung oder Missbrauch.",
+  "terms_warranty_liability_p2": "Sofern gesetzlich nicht anders vorgeschrieben, ist unsere Haftung auf den Kaufpreis des Produkts begrenzt und wir haften nicht für indirekte Schäden.",
+
+  "terms_intellectual_property_title": "Geistiges Eigentum",
+  "terms_intellectual_property_p1": "Alle Inhalte der Website (Texte, Bilder, Designs) sind unser Eigentum oder unter Lizenz.",
+  "terms_intellectual_property_p2": "Sie dürfen Website-Materialien nicht ohne unsere vorherige schriftliche Zustimmung reproduzieren, kopieren oder wiederverwenden.",
+
+  "terms_custom_orders_title": "Maßanfertigungen & Größen",
+  "terms_custom_orders_p1": "Personalisierter oder maßgefertigter Schmuck wird nach Ihren Spezifikationen gefertigt und kann nach Produktionsbeginn nicht mehr storniert werden.",
+  "terms_custom_orders_p2": "Bitte geben Sie genaue Größen-/Spezifikationsangaben an. Wir können Größen jenseits angemessener Toleranzen nicht garantieren.",
+
+  "terms_changes_title": "Änderungen dieser Bedingungen",
+  "terms_changes_p1": "Wir können diese Bedingungen jederzeit ändern. Die fortgesetzte Nutzung der Website nach Änderungen gilt als Annahme.",
+
+  "terms_governing_law_title": "Geltendes Recht & Gerichtsstand",
+  "terms_governing_law_p1": "Diese Bedingungen unterliegen dem Recht von [Anwendbarem Gebiet]. Jeglicher Streitfall wird der Zuständigkeit der Gerichte von [Anwendbarem Gebiet] unterworfen.",
+
+  "terms_contact_title": "Kontakt",
+  "terms_contact_p1": "Bei Fragen zu diesen Bedingungen kontaktieren Sie uns bitte über die auf der Website angegebenen Kontaktdaten.",
+
+  "privacy_intro_title": "Einleitung",
+  "privacy_intro_p1": "Wir respektieren Ihre Privatsphäre und verpflichten uns, Ihre personenbezogenen Daten gemäß den geltenden Datenschutzgesetzen zu schützen.",
+
+  "privacy_data_controller_title": "Verantwortlicher für die Datenverarbeitung",
+  "privacy_data_controller_p1": "Wir sind der Verantwortliche für die Verarbeitung Ihrer personenbezogenen Daten im Zusammenhang mit der Website und unseren Dienstleistungen.",
+
+  "privacy_data_we_collect_title": "Daten, die wir erheben",
+  "privacy_data_we_collect_p1": "Von Ihnen bereitgestellte personenbezogene Daten: Name, E-Mail, Adresse, Telefonnummer, Bestellhistorie und Zahlungsinformationen (über Zahlungsanbieter verarbeitet).",
+  "privacy_data_we_collect_p2": "Technische und Nutzungsdaten: IP-Adresse, Gerät und Browser, besuchte Seiten und Zeitstempel werden automatisch erhoben.",
+
+  "privacy_how_we_use_data_title": "Wie wir Ihre Daten verwenden",
+  "privacy_how_we_use_data_p1": "Wir verwenden Ihre Daten zur Bearbeitung von Bestellungen, zur Verwaltung Ihres Kontos und zur Kundenbetreuung.",
+  "privacy_how_we_use_data_p2": "Wir können Daten zur Personalisierung Ihrer Erfahrung, Verbesserung der Website sowie zur Betrugsprävention und gesetzlichen Compliance verwenden.",
+  "privacy_how_we_use_data_p3": "Marketingkommunikationen werden nur mit Ihrer Zustimmung gesendet; Sie können diese Zustimmung jederzeit widerrufen.",
+
+  "privacy_legal_basis_title": "Rechtsgrundlage der Verarbeitung",
+  "privacy_legal_basis_p1": "Wir verarbeiten personenbezogene Daten, wenn dies zur Vertragserfüllung notwendig ist, um gesetzlichen Verpflichtungen nachzukommen, mit Ihrer Zustimmung oder auf Grundlage unserer berechtigten Interessen.",
+
+  "privacy_data_sharing_title": "Datenweitergabe & Transfers",
+  "privacy_data_sharing_p1": "Wir geben Daten an Dienstleister weiter, wie Zahlungsabwickler, Logistik und Analyseanbieter, die Daten in unserem Auftrag auf vertraglicher Basis verarbeiten.",
+  "privacy_data_sharing_p2": "Internationale Transfers außerhalb des EWR werden durch geeignete Garantien wie Standardvertragsklauseln geschützt.",
+
+  "privacy_cookies_title": "Cookies & Tracking",
+  "privacy_cookies_p1": "Wir verwenden Cookies zur Funktionalität der Website und für Analysen. Sie können Cookies über die Browser-Einstellungen verwalten oder deaktivieren.",
+
+  "privacy_data_retention_title": "Datenaufbewahrung",
+  "privacy_data_retention_p1": "Wir speichern personenbezogene Daten nur so lange, wie es für die Zwecke, für die sie erhoben wurden, erforderlich ist, und zur Erfüllung unserer gesetzlichen Verpflichtungen.",
+
+  "privacy_your_rights_title": "Ihre Rechte",
+  "privacy_your_rights_p1": "Sie können Zugriff, Berichtigung, Löschung, Einschränkung oder Datenübertragbarkeit Ihrer personenbezogenen Daten verlangen und der Verarbeitung widersprechen, sofern dies zutrifft.",
+  "privacy_your_rights_p2": "Zur Ausübung Ihrer Rechte kontaktieren Sie uns. Sie können auch eine Beschwerde bei der zuständigen Aufsichtsbehörde in Ihrer Jurisdiktion einreichen.",
+
+  "privacy_security_title": "Sicherheit",
+  "privacy_security_p1": "Wir setzen technische und organisatorische Maßnahmen zum Schutz personenbezogener Daten um, aber keine Internetübertragung kann zu 100 % sicher garantiert werden.",
+
+  "privacy_minors_title": "Minderjährige",
+  "privacy_minors_p1": "Unsere Dienste richten sich nicht an Kinder unter 16 Jahren. Falls wir erfahren, dass Daten eines Minderjährigen ohne Zustimmung gesammelt wurden, werden diese gelöscht.",
+
+  "privacy_policy_changes_title": "Änderungen dieser Richtlinie",
+  "privacy_policy_changes_p1": "Wir können diese Datenschutzerklärung aktualisieren; wesentliche Änderungen werden über die Website oder per E-Mail kommuniziert.",
+
+  "privacy_contact_title": "Kontakt & Aufsichtsbehörde",
+  "privacy_contact_p1": "Für Fragen zum Datenschutz kontaktieren Sie uns über die auf der Website angegebenen Angaben. Sie können auch die zuständige Aufsichtsbehörde in Ihrer Jurisdiktion kontaktieren.",
+
+  "metal_details": "Metalldetails",
+  "diamond_details": "Diamantdetails",
+  "colour_stone_details": "Farbedelsteindetails",
+  "accessories_details": "Zubehördetails",
+  "labour_details": "Arbeitsdetails",
+  "kt": "KT",
+  "colour": "Farbe",
+  "weight": "Gewicht",
+  "value": "Wert",
+  "shape": "Form",
+  "setting": "Fassung",
+  "size 1 (mm)": "Größe 1 (mm)",
+  "size 2 (mm)": "Größe 2 (mm)",
+  "pointer": "Karatgröße",
+  "qty": "Menge",
+  "carats": "Karat",
+  "category": "Kategorie",
   "by_signing_up_you_agree_to_our_platform's_terms_of_service_and_acceptable_use_policy": "Mit der Anmeldung stimmen Sie den Nutzungsbedingungen und der akzeptablen Nutzungsrichtlinie unserer Plattform zu.",
   "you_are_responsible_for_maintaining_the_confidentiality_of_your_login_credentials": "Sie sind für die Vertraulichkeit Ihrer Anmeldedaten verantwortlich.",
   "we_reserve_the_right_to_suspend_accounts_found_violating_our_policies": "Wir behalten uns das Recht vor, Konten zu sperren, die gegen unsere Richtlinien verstoßen.",

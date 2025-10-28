@@ -153,6 +153,122 @@
   "Ring": "Ring",
   "Less than": "Less than",
   "Above": "Above",
+  
+  "terms_intro_title": "Introduction",
+  "terms_intro_p1": "By using our website or placing an order, you agree to be bound by these Terms. Please read them carefully.",
+  "terms_definitions_title": "Definitions",
+  "terms_definitions_p1": "'We', 'us' and 'our' refer to the operator of this website. 'You' refers to the person using the website or placing an order.",
+  "terms_definitions_p2": "'Products' means jewellery items, accessories and related services offered via the website.",
+
+  "terms_use_of_website_title": "Use of the website",
+  "terms_use_of_website_p1": "You must not use the website for fraudulent or unlawful purposes and must comply with any usage instructions.",
+  "terms_use_of_website_p2": "We may modify, suspend or discontinue the website (or any part) at any time without notice.",
+
+  "terms_order_acceptance_title": "Placing an order & acceptance",
+  "terms_order_acceptance_p1": "Orders are accepted when we send an order confirmation by email. Prior to that, orders may be declined.",
+  "terms_order_acceptance_p2": "We reserve the right to refuse or cancel an order for reasons including product unavailability, pricing errors or payment issues.",
+
+  "terms_pricing_taxes_title": "Prices, VAT & taxes",
+  "terms_pricing_taxes_p1": "Prices shown include VAT where applicable. For customers outside the EU, customs duties and import taxes may apply and are the customer's responsibility.",
+  "terms_pricing_taxes_p2": "We reserve the right to correct pricing or description errors and to update prices prior to accepting an order.",
+
+  "terms_payment_title": "Payment",
+  "terms_payment_p1": "Payment is due at the time of order and must be made using the payment methods displayed on the website.",
+  "terms_payment_p2": "For custom or bespoke items a deposit may be required. Deposits are generally non-refundable once production begins.",
+  "terms_payment_p3": "You are responsible for ensuring the accuracy of payment details and for any transaction fees charged by your bank/provider.",
+
+  "terms_delivery_risk_title": "Delivery & risk",
+  "terms_delivery_risk_p1": "Delivery timeframes are estimates and not guaranteed. We will use reasonable efforts to meet estimated delivery dates.",
+  "terms_delivery_risk_p2": "Risk in the goods passes to you on delivery to the address you provided; inspect goods immediately and report defects promptly.",
+
+  "terms_returns_cancellations_title": "Returns, cancellations & customisation",
+  "terms_returns_cancellations_p1": "Non-customised items may be returned within 14–30 days if returned in original condition, unused and with original packaging.",
+  "terms_returns_cancellations_p2": "Custom, personalised or engraved items are generally non-returnable unless faulty.",
+  "terms_returns_cancellations_p3": "Return shipping costs are the customer's responsibility unless the return is due to our error.",
+
+  "terms_warranty_liability_title": "Warranties & limitation of liability",
+  "terms_warranty_liability_p1": "We warrant products to be free from material defects at the time of delivery. This warranty is subject to normal wear and misuse exclusions.",
+  "terms_warranty_liability_p2": "Except as required by law, our liability is limited to the purchase price paid for the product and we are not liable for indirect losses.",
+
+  "terms_intellectual_property_title": "Intellectual property",
+  "terms_intellectual_property_p1": "All content on the website (text, images, designs) is owned by or licensed to us.",
+  "terms_intellectual_property_p2": "You may not reproduce, copy or reuse website materials without our prior written consent.",
+
+  "terms_custom_orders_title": "Custom orders & sizing",
+  "terms_custom_orders_p1": "Custom or bespoke jewellery is produced to your specifications and is non-cancellable once production has started.",
+  "terms_custom_orders_p2": "Please ensure you provide accurate size/specification information. We cannot guarantee sizing beyond reasonable tolerances.",
+
+  "terms_changes_title": "Changes to these Terms",
+  "terms_changes_p1": "We may change these Terms at any time. Continued use of the website after changes constitutes acceptance.",
+
+  "terms_governing_law_title": "Governing law & jurisdiction",
+  "terms_governing_law_p1": "These Terms are governed by the laws of [Applicable Jurisdiction]. Any dispute will be subject to the jurisdiction of the competent courts of [Applicable Jurisdiction].",
+
+  "terms_contact_title": "Contact",
+  "terms_contact_p1": "For questions about these Terms contact us at the contact details provided on the website.",
+
+
+  "privacy_intro_title": "Introduction",
+  "privacy_intro_p1": "We respect your privacy and are committed to protecting your personal data in accordance with applicable data protection laws.",
+
+  "privacy_data_controller_title": "Data controller",
+  "privacy_data_controller_p1": "We are the data controller responsible for the processing of your personal data in connection with the website and our services.",
+
+  "privacy_data_we_collect_title": "Data we collect",
+  "privacy_data_we_collect_p1": "Personal data you provide: name, email, address, telephone number, order history and payment information (processed via payment providers).",
+  "privacy_data_we_collect_p2": "Technical and usage data: IP address, device and browser information, pages visited and timestamps collected automatically.",
+
+  "privacy_how_we_use_data_title": "How we use your data",
+  "privacy_how_we_use_data_p1": "We use your data to process orders, manage your account and provide customer service.",
+  "privacy_how_we_use_data_p2": "We may use data to personalise your experience, improve the website and for fraud prevention and legal compliance.",
+  "privacy_how_we_use_data_p3": "Marketing communications are sent only with your consent; you can withdraw consent at any time.",
+
+  "privacy_legal_basis_title": "Legal basis for processing",
+  "privacy_legal_basis_p1": "We process personal data where necessary for contract performance, to comply with legal obligations, with your consent or based on our legitimate interests.",
+
+  "privacy_data_sharing_title": "Data sharing & transfers",
+  "privacy_data_sharing_p1": "We share data with service providers such as payment processors, logistics and analytics providers who process data on our behalf under contract.",
+  "privacy_data_sharing_p2": "International transfers outside the EEA will be protected by appropriate safeguards such as standard contractual clauses.",
+
+  "privacy_cookies_title": "Cookies and tracking",
+  "privacy_cookies_p1": "We use cookies to enable site functionality and analytics. You can manage or disable cookies via your browser settings.",
+
+  "privacy_data_retention_title": "Data retention",
+  "privacy_data_retention_p1": "We retain personal data only for as long as necessary for the purposes for which it was collected and to meet legal obligations.",
+
+  "privacy_your_rights_title": "Your rights",
+  "privacy_your_rights_p1": "You may request access, correction, erasure, restriction or portability of your personal data and may object to processing where applicable.",
+  "privacy_your_rights_p2": "To exercise your rights, contact us. You may also lodge a complaint with the relevant supervisory authority in your jurisdiction.",
+
+  "privacy_security_title": "Security",
+  "privacy_security_p1": "We implement technical and organisational measures to protect personal data, but no internet transmission can be guaranteed 100% secure.",
+
+  "privacy_minors_title": "Minors",
+  "privacy_minors_p1": "Our services are not directed to children under 16. If we learn that we have collected data from a minor without consent, we will delete it.",
+
+  "privacy_policy_changes_title": "Changes to this policy",
+  "privacy_policy_changes_p1": "We may update this Privacy Policy; material changes will be communicated via the website or email.",
+
+  "privacy_contact_title": "Contact & supervisory authority",
+  "privacy_contact_p1": "For privacy inquiries contact us at the address provided on the website. You may also contact the applicable supervisory authority in your jurisdiction.",
+  
+  "metal_details": "Metal Details",
+  "diamond_details": "Diamond Details",
+  "colour_stone_details": "Colour Stone Details",
+  "accessories_details": "Accessories Details",
+  "labour_details": "Labour Details",
+  "kt": "KT",
+  "colour": "Colour",
+  "weight" : "Weight",
+  "value": "Value",
+  "shape": "Shape", 
+  "setting": "Settings",
+  "size 1 (mm)": "Size 1 (mm)",
+  "size 2 (mm)": "Size 2 (mm)",
+  "pointer": "Pointer",
+  "qty": "Qty",
+  "carats": "Carats",
+  "category": "Category",
   "by_signing_up_you_agree_to_our_platform's_terms_of_service_and_acceptable_use_policy": "By signing up, you agree to our platform's terms of service and acceptable use policy.",
   "you_are_responsible_for_maintaining_the_confidentiality_of_your_login_credentials": "You are responsible for maintaining the confidentiality of your login credentials.",
   "we_reserve_the_right_to_suspend_accounts_found_violating_our_policies": "We reserve the right to suspend accounts found violating our policies.",
