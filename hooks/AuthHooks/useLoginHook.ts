@@ -74,12 +74,13 @@ const useLoginHook = () => {
         toast.error(t('invalid_credentials'));
       }
     } catch (error: any) {
-      if (error?.response?.data?.error === "Invalid username or password") {
-        toast.error(t('invalid_credentials'));
-        return;
-      } else {
-        toast.error(t('error_while_login'));
-      }
+      // if (error?.response?.data?.error === "Invalid username or password") {
+      //   toast.error(t('invalid_credentials'));
+      //   return;
+      // } else {
+      //   toast.error(t('error_while_login'));
+      // }
+      toast.error(error?.response?.data?.error || t('error_while_login'));
       console.error('Error:', error);
     } finally {
       setLoginBtnLoader(false);
