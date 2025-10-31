@@ -2,7 +2,7 @@ import { CONSTANTS } from '../../services/config/app-config';
 import { ServerDataTypes } from '../../interfaces/meta-data-interface';
 import getPageMetaData from '../../utils/fetch-page-meta-deta';
 import PageMetaData from '../../components/PageMetaData';
-import CustomerActivationComponent from '../../components/Admin/CustomerActivationComponent';
+import CustomerActivationComponent from '../../components/Admin/CustomerListingComponent';
 
 const CustomerListingPage = ({ serverDataForPages }: ServerDataTypes) => {
   return (
