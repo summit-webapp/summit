@@ -27,6 +27,10 @@ const emrAPISDKRegistry: any = {
   'update-user-preferences': '/api/storeUserPreferences',
   'send-reset-password-email-api': '/api/sendEmail',
   'verify-reset-password-token-api': '/api/verifyLink',
+  'get-user-data-api': '/api/getUserDetails',
+  'update-password-api': '/api/updateProfilePwd',
+  'activate-customer-api': '/api/activateCustomer',
+  'get-customer-list-api': '/api/getCustomerList',
 };
 
 export default emrAPISDKRegistry;
