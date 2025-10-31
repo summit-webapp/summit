@@ -303,5 +303,6 @@
   "error_approving_multiplier": "Error al aprobar el multiplicador",
   "name": "Nombre",
   "enter_your_name": "Ingresa tu nombre",
-  "enter_your_username": "Ingresa tu nombre de usuario"
+  "enter_your_username": "Ingresa tu nombre de usuario",
+  "profile": "Perfil"
 }

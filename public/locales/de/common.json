@@ -302,5 +302,6 @@
   "error_approving_multiplier": "Fehler beim Genehmigen des Multiplikators",
   "name": "Name",
   "enter_your_name": "Geben Sie Ihren Namen ein",
-  "enter_your_username": "Geben Sie Ihren Benutzernamen ein"
+  "enter_your_username": "Geben Sie Ihren Benutzernamen ein",
+  "profile": "Profil"
 }
