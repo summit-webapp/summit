@@ -10,6 +10,10 @@ const nextConfig = {
   },    
     reactStrictMode: false,
   swcMinify: true,
+  compress: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
