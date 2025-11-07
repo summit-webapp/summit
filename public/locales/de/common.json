@@ -343,9 +343,20 @@
   "multiplier_approved_successfully": "Multiplikator erfolgreich genehmigt",
   "error_approving_multiplier": "Fehler beim Genehmigen des Multiplikators",
   "name": "Name",
-  "full_name": "Vollständiger Name",
-  "enter_your_name": "Geben Sie Ihren Namen ein",
   "enter_your_username": "Geben Sie Ihren Benutzernamen ein",
   "profile": "Profil",
-  "profile_details" : "Profilinformationen"
+  "profile_details" : "Profilinformationen",
+  "my_profile": "Mein Profil",
+  "full_name": "Vollständiger Name",
+  "enter_your_name": "Geben Sie Ihren Namen ein",
+  "full_name_is_required": "Vollständiger Name ist erforderlich",
+  "name_must_be_at_least_2_characters": "Der Name muss mindestens 2 Zeichen enthalten",
+  "email_address": "E-Mail-Adresse",
+  "enter_valid_email_address": "Bitte eine gültige E-Mail-Adresse eingeben",
+  "phone_number": "Telefonnummer",
+  "cancel": "Abbrechen",
+  "save_changes": "Änderungen speichern",
+  "profile_updated_successfully": "Profil erfolgreich aktualisiert",
+  "my_orders": "Meine Bestellungen",
+  "follow_us": "Folge uns"
 }

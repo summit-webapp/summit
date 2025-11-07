@@ -344,9 +344,20 @@
   "multiplier_approved_successfully": "Multiplier approved successfully",
   "error_approving_multiplier": "Error approving multiplier",
   "name": "Name",
-  "full_name": "Full Name",
-  "enter_your_name": "Enter your name",
   "enter_your_username": "Enter your username",
   "profile": "Profile",
-  "profile_details" : "Profile Details"
+  "profile_details" : "Profile Details",
+  "my_profile": "My Profile",
+  "full_name": "Full Name",
+  "enter_your_name": "Enter your name",
+  "full_name_is_required": "Full name is required",
+  "name_must_be_at_least_2_characters": "Name must be at least 2 characters",
+  "email_address": "Email Address",
+  "enter_valid_email_address": "Enter a valid email address",
+  "phone_number": "Phone Number",
+  "cancel": "Cancel",
+  "save_changes": "Save Changes",
+  "profile_updated_successfully": "Profile updated successfully",
+  "my_orders": "My Orders",
+  "follow_us": "Follow Us"
 }
