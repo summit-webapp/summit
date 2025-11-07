@@ -32,10 +32,10 @@ export const CONSTANTS = {
   DEFAULT_LANGUAGE: 'en',
   ENABLE_SHOP_ON_AMAZON: false,
   ENABLE_GOOGLE_ANALYTICS: false,
-  META_TITLE: '',
-  META_DESCRIPTION: '',
-  META_FAVICON: '',
-  OG_META_TITLE: '',
-  OG_META_DESCRIPTION: '',
-  OG_META_IMAGE: ''
+  META_TITLE: 'B2B Atelier-Reya',
+  META_DESCRIPTION: 'Atelier Reya designs and manufactures exquisite fine jewelry with precision and purpose. Through artisanal expertise, ethical sourcing, and scalable production, we help our partners grow with confidence and distinction.',
+  META_FAVICON: '/AR-favicon.png',
+  OG_META_TITLE: 'B2B Atelier-Reya',
+  OG_META_DESCRIPTION: 'Atelier Reya designs and manufactures exquisite fine jewelry with precision and purpose. Through artisanal expertise, ethical sourcing, and scalable production, we help our partners grow with confidence and distinction.',
+  OG_META_IMAGE: 'https://res.cloudinary.com/dxysvmfft/image/upload/v1752478648/Atelier-Reya-Og-Image_stg13i.png'
 };
