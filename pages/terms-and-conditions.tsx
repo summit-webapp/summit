@@ -9,7 +9,7 @@ const TermsConditionPage = ({ serverDataForPages }: ServerDataTypes) => {
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
       {/* <div>Terms & Conditions page</div> */}
-      <TermsPrivacyContent type="terms" />;
+      <TermsPrivacyContent type="terms" />
     </>
   );
 };

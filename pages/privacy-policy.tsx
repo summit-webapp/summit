@@ -9,7 +9,7 @@ const PrivacyPolicyPage = ({ serverDataForPages }: ServerDataTypes) => {
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
       {/* <div>Privacy Policy page</div> */}
-      <TermsPrivacyContent type="privacy" />;
+      <TermsPrivacyContent type="privacy" />
     </>
   );
 };

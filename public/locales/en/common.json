@@ -360,5 +360,6 @@
   "profile_updated_successfully": "Profile updated successfully",
   "my_orders": "My Orders",
   "follow_us": "Follow Us",
-  "new_and_confirm_password_should_match": "New and confirm password should match"
+  "new_and_confirm_password_should_match": "New and confirm password should match",
+  "legal_and_privacy": "Legal & Privacy"
 }
