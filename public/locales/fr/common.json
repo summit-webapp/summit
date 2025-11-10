@@ -321,11 +321,11 @@
   "you_can_request_access_or_deletion_of_your_data_by_contacting_support": "Vous pouvez demander l'accès ou la suppression de vos données en contactant le support.",
   "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "Toutes les données sont stockées de manière sécurisée et l'accès est limité au personnel autorisé uniquement.",
   "update_your_account_password_safely": "Mettez à jour le mot de passe de votre compte en toute sécurité.",
-  "old_password": "Ancien mot de passe",
-  "enter_old_password": "Entrez votre ancien mot de passe",
+  "current_password": "Mot de passe actuel",
+  "enter_current_password": "Entrez votre mot de passe actuel",
   "enter_new_password": "Entrez votre nouveau mot de passe",
   "re_enter_new_password": "Saisissez à nouveau votre nouveau mot de passe",
-  "old_password_is_required": "L'ancien mot de passe est requis",
+  "current_password_is_required": "Le mot de passe actuel est requis",
   "new_password_is_required": "Le nouveau mot de passe est requis",
   "customer_listing": "Liste des clients",
   "username": "Nom d'utilisateur",
@@ -358,5 +358,6 @@
   "save_changes": "Enregistrer les modifications",
   "profile_updated_successfully": "Profil mis à jour avec succès",
   "my_orders": "Mes commandes",
-  "follow_us": "Suivez-nous"
+  "follow_us": "Suivez-nous",
+  "new_and_confirm_password_should_match": "Le nouveau mot de passe et la confirmation doivent correspondre"
 }

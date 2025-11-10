@@ -322,11 +322,11 @@
   "you_can_request_access_or_deletion_of_your_data_by_contacting_support": "Puede solicitar el acceso o la eliminación de sus datos contactando con el soporte.",
   "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "Todos los datos se almacenan de forma segura y el acceso está restringido únicamente al personal autorizado.",
   "update_your_account_password_safely": "Actualiza la contraseña de tu cuenta de forma segura.",
-  "old_password": "Contraseña antigua",
-  "enter_old_password": "Ingresa tu contraseña antigua",
-  "enter_new_password": "Ingresa tu nueva contraseña",
-  "re_enter_new_password": "Vuelve a ingresar tu nueva contraseña",
-  "old_password_is_required": "La contraseña antigua es obligatoria",
+  "current_password": "Contraseña actual",
+  "enter_current_password": "Introduce tu contraseña actual",
+  "enter_new_password": "Introduce tu nueva contraseña",
+  "re_enter_new_password": "Vuelve a introducir tu nueva contraseña",
+  "current_password_is_required": "Se requiere la contraseña actual",
   "new_password_is_required": "La nueva contraseña es obligatoria",
   "customer_listing": "Lista de clientes",
   "username": "Nombre de usuario",
@@ -359,5 +359,6 @@
   "save_changes": "Guardar cambios",
   "profile_updated_successfully": "Perfil actualizado correctamente",
   "my_orders": "Mis pedidos",
-  "follow_us": "Síguenos"
+  "follow_us": "Síguenos",
+  "new_and_confirm_password_should_match": "La nueva contraseña y la confirmación deben coincidir"
 }

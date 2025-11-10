@@ -322,11 +322,11 @@
   "you_can_request_access_or_deletion_of_your_data_by_contacting_support": "You can request access or deletion of your data by contacting support.",
   "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "All data is stored securely and access is restricted to authorized personnel only.",
   "update_your_account_password_safely": "Update your account password safely.",
-  "old_password": "Old Password",
-  "enter_old_password": "Enter your old password",
+  "current_password": "Current Password",
+  "enter_current_password": "Enter your current password",
   "enter_new_password": "Enter your new password",
   "re_enter_new_password": "Re-enter your new password",
-  "old_password_is_required": "Old password is required",
+  "current_password_is_required": "Current password is required",
   "new_password_is_required": "New password is required",
   "customer_listing": "Customer Listing",
   "username": "Username",
@@ -359,5 +359,6 @@
   "save_changes": "Save Changes",
   "profile_updated_successfully": "Profile updated successfully",
   "my_orders": "My Orders",
-  "follow_us": "Follow Us"
+  "follow_us": "Follow Us",
+  "new_and_confirm_password_should_match": "New and confirm password should match"
 }
