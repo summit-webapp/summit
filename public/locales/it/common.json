@@ -324,5 +324,6 @@
   "Stock Cart": "Carrello scorte",
   "profile": "Profilo",
   "available_in_stock": "Disponibile in magazzino",
-  "no_item_found": "Nessun articolo trovato"
+  "no_item_found": "Nessun articolo trovato",
+  "copy_stock_id": "Copia ID stock"
 }

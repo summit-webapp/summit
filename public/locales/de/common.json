@@ -324,5 +324,6 @@
   "Stock Cart": "Warenkorb",
   "profile": "Profil",
   "available_in_stock": "Auf Lager",
-  "no_item_found": "Kein Artikel gefunden"
+  "no_item_found": "Kein Artikel gefunden",
+  "copy_stock_id": "Bestands-ID kopieren"
 }

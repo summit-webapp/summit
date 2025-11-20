@@ -324,5 +324,17 @@
   "Stock Cart": "Stock Cart",
   "profile": "Profile",
   "available_in_stock": "Available in Stock",
-  "no_item_found": "No item found"
+  "no_item_found": "No item found",
+  "copy_stock_id": "Copy Stock Id",
+  "refresh": "Refresh",
+  "refresh_rate": "Refresh Rate",
+  "copy_with_rate" : "Copy With Rate",
+  "rm_category": "Rm Category",
+  "date": "Date",
+  "copy_lab_rate": "Copy Lab Rate",
+  "voucher_odNo": "Voucher OdNo",
+  "voucher_date": "Voucher Date",
+  "select": "Select",
+  "from": "From",
+  "to": "To"
 }

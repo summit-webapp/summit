@@ -324,5 +324,6 @@
   "Stock Cart": "Panier de stock",
   "profile": "Profil",
   "available_in_stock": "Disponible en stock",
-  "no_item_found": "Aucun article trouvé"
+  "no_item_found": "Aucun article trouvé",
+  "copy_stock_id": "Copier l’identifiant du stock"
 }

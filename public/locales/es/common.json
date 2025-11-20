@@ -324,5 +324,6 @@
   "Stock Cart": "Carrito de stock",
   "profile": "Perfil",
   "available_in_stock": "Disponible en stock",
-  "no_item_found": "No se encontró ningún artículo"
+  "no_item_found": "No se encontró ningún artículo",
+  "copy_stock_id": "Copiar ID de stock"
 }
