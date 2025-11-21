@@ -325,5 +325,17 @@
   "profile": "Profil",
   "available_in_stock": "Auf Lager",
   "no_item_found": "Kein Artikel gefunden",
-  "copy_stock_id": "Bestands-ID kopieren"
+  "copy_stock_id": "Bestands-ID kopieren",
+  "refresh": "Aktualisieren",
+  "refresh_rate": "Aktualisierungsrate",
+  "copy_with_rate": "Mit Rate kopieren",
+  "rm_category": "RM-Kategorie",
+  "date": "Datum",
+  "copy_lab_rate": "Laborsatz kopieren",
+  "voucher_odNo": "Beleg OdNr",
+  "voucher_date": "Belegdatum",
+  "select": "Auswählen",
+  "from": "Von",
+  "to": "Bis",
+  "grade_change": "Gradänderung"
 }
