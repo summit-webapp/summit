@@ -176,8 +176,8 @@ const useProductDetail = () => {
     if (getGradeChangeParamsData?.status === 200 && getGradeChangeParamsData?.data?.msg === 'success') {
       setGradeChangeList(getGradeChangeParamsData?.data?.data.map((item: any) => (
         {
-          label: item.Pmcd,
-          value: item.Pmcd,
+          label: item.Pscd,
+          value: item.Pscd,
         }
       )));
     } else {
