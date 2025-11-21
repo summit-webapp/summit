@@ -40,6 +40,8 @@ const useProductDetail = () => {
       quantity: productDetailData?.min_order_qty || 1,
     },
   ]);
+  const [gradeChangeList, setGradeChangeList] = useState([]);
+
   const handleMultipleQtyChange = (index: number, itemCode: string, value: string) => {
     setItemList((prevItemList: any) => {
       if (!Array.isArray(prevItemList)) {
@@ -164,6 +166,26 @@ const useProductDetail = () => {
       }
     }
   };
+
+  const getGradeChangeParamsList = async () => {
+    const apiData = {
+      mnCd: 'MET',
+      typ: 'GRDCD'
+    }
+    const getGradeChangeParamsData: any = await fetchProductDetailData('GET', 'get-refresh-rate-param-api', apiData, TokenFromStore?.token);
+    if (getGradeChangeParamsData?.status === 200 && getGradeChangeParamsData?.data?.msg === 'success') {
+      setGradeChangeList(getGradeChangeParamsData?.data?.data.map((item: any) => (
+        {
+          label: item.Pmcd,
+          value: item.Pmcd,
+        }
+      )));
+    } else {
+      const errorMessage = getGradeChangeParamsData?.data?.error
+      console.error('Error', errorMessage);
+    }
+  };
+
   const debouncedSetValue = debounce((pinCode: string) => {
     const found = pinCodeData.some((pin) => pin.name === pinCode);
     setValidPinCode(found);
@@ -176,6 +198,7 @@ const useProductDetail = () => {
 
   useEffect(() => {
     fetchProductDetailDataAPI();
+    getGradeChangeParamsList();
   // }, [query?.productId]);
   }, [query?.productId, selectedCurrency]);
 
@@ -198,6 +221,7 @@ const useProductDetail = () => {
     validPinCode,
     getPincodesList,
     checkPinCodeExists,
+    gradeChangeList,
   };
 };
 

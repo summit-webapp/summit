@@ -336,5 +336,6 @@
   "voucher_date": "Voucher Date",
   "select": "Select",
   "from": "From",
-  "to": "To"
+  "to": "To",
+  "grade_change": "Grade Change"
 }

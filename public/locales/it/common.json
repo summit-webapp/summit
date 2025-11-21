@@ -325,5 +325,17 @@
   "profile": "Profilo",
   "available_in_stock": "Disponibile in magazzino",
   "no_item_found": "Nessun articolo trovato",
-  "copy_stock_id": "Copia ID stock"
+  "copy_stock_id": "Copia ID stock",
+  "refresh": "Aggiorna",
+  "refresh_rate": "Frequenza di aggiornamento",
+  "copy_with_rate": "Copia con tariffa",
+  "rm_category": "Categoria RM",
+  "date": "Data",
+  "copy_lab_rate": "Copia tariffa laboratorio",
+  "voucher_odNo": "Voucher OdNo",
+  "voucher_date": "Data del voucher",
+  "select": "Seleziona",
+  "from": "Da",
+  "to": "A",
+  "grade_change": "Cambio di grado"
 }
