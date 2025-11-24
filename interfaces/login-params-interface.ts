@@ -13,4 +13,7 @@ export interface TypeRegistrationForm {
   eml: string;
   usr: string;
   pwd: string;
+  mob?: string;
+  defLang?: string;
+  defCurr?: string;
 }
