@@ -2,14 +2,14 @@ import { CONSTANTS } from '../services/config/app-config';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 import PageMetaData from '../components/PageMetaData';
-import ForgotPasswordComponent from '../components/Auth/FallbackForgotPassword/ForgotPasswordComponent';
+import SavedAddresses from '../components/profile/FallbackProfile/SavedAddressesComponent';
 
-const ResetPassowrd = ({ serverDataForPages }: ServerDataTypes) => {
+const SavedAddressesPage = ({ serverDataForPages }: ServerDataTypes) => {
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
-      <ForgotPasswordComponent />
-      {/* <div>Forgot Password Page</div> */}
+      <SavedAddresses />
+      {/* <div>Saved Addresses Page</div> */}
     </>
   );
 };
@@ -29,4 +29,4 @@ export async function getServerSideProps(context: any) {
     };
   }
 }
-export default ResetPassowrd;
+export default SavedAddressesPage;

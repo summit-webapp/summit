@@ -360,5 +360,7 @@
   "my_orders": "Mes commandes",
   "follow_us": "Suivez-nous",
   "new_and_confirm_password_should_match": "Le nouveau mot de passe et la confirmation doivent correspondre",
-  "legal_and_privacy": "Mentions légales et confidentialité"
+  "legal_and_privacy": "Mentions légales et confidentialité",
+  "saved_addresses": "Adresses enregistrées",
+  "no_saved_addresses_found": "Aucune adresse enregistrée trouvée"
 }
