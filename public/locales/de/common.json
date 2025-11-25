@@ -362,5 +362,27 @@
   "new_and_confirm_password_should_match": "Neues Passwort und Bestätigungspasswort müssen übereinstimmen",
   "legal_and_privacy": "Rechtliches & Datenschutz",
   "saved_addresses": "Gespeicherte Adressen",
-  "no_saved_addresses_found": "Keine gespeicherten Adressen gefunden"
+  
+  "go_back_button": "Zurück-Schaltfläche",
+  "add_new_address": "Neue Adresse hinzufügen",
+  "edit_address": "Adresse bearbeiten",
+  "address_line_1": "Adresszeile 1",
+  "state": "Bundesland / Region",
+  "country": "Land",
+  "pin_code": "Postleitzahl",
+  "contact_to": "Ansprechpartner",
+  "siren": "SIREN",
+  "phone_no_1": "Telefonnummer 1",
+  "phone_no_2": "Telefonnummer 2",
+  "save": "Speichern",
+  "edit": "Bearbeiten",
+  "remove": "Entfernen",
+  "no_saved_addresses": "Keine gespeicherten Adressen gefunden",
+  "address_line_1_is_required": "Adresszeile 1 ist erforderlich",
+  "state_is_required": "Bundesland / Region ist erforderlich",
+  "country_is_required": "Land ist erforderlich",
+  "primary_phone_number_is_required": "Die primäre Telefonnummer ist erforderlich",
+  "postal_code_is_required": "Die Postleitzahl ist erforderlich",
+  "contact_name_is_required": "Der Kontaktname ist erforderlich",
+  "siren_is_required": "Die SIREN-Nummer ist erforderlich"
 }

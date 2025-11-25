@@ -362,5 +362,27 @@
   "new_and_confirm_password_should_match": "La nuova password e la conferma devono corrispondere",
   "legal_and_privacy": "Legale e privacy",
   "saved_addresses": "Indirizzi salvati",
-  "no_saved_addresses_found": "Nessun indirizzo salvato trovato"
+  
+  "go_back_button": "Pulsante indietro",
+  "add_new_address": "Aggiungi nuovo indirizzo",
+  "edit_address": "Modifica indirizzo",
+  "address_line_1": "Linea indirizzo 1",
+  "state": "Stato / Regione",
+  "country": "Paese",
+  "pin_code": "CAP",
+  "contact_to": "Persona di contatto",
+  "siren": "SIREN",
+  "phone_no_1": "Telefono 1",
+  "phone_no_2": "Telefono 2",
+  "save": "Salva",
+  "edit": "Modifica",
+  "remove": "Rimuovi",
+  "no_saved_addresses": "Nessun indirizzo salvato trovato",
+  "address_line_1_is_required": "La linea indirizzo 1 è obbligatoria",
+  "state_is_required": "Lo stato / regione è obbligatorio",
+  "country_is_required": "Il paese è obbligatorio",
+  "primary_phone_number_is_required": "Il numero di telefono principale è obbligatorio",
+  "postal_code_is_required": "Il CAP è obbligatorio",
+  "contact_name_is_required": "Il nome del contatto è obbligatorio",
+  "siren_is_required": "Il numero SIREN è obbligatorio"
 }
