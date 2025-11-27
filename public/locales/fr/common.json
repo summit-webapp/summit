@@ -337,5 +337,9 @@
   "select": "Sélectionner",
   "from": "De",
   "to": "À",
-  "grade_change": "Changement de grade"
+  "grade_change": "Changement de grade",
+
+  "list_view": "Vue en liste",
+  "grid_view": "Vue en grille",
+  "back": "Retour"
 }

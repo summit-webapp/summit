@@ -337,5 +337,9 @@
   "select": "Select",
   "from": "From",
   "to": "To",
-  "grade_change": "Grade Change"
+  "grade_change": "Grade Change",
+
+  "list_view": "List View",
+  "grid_view": "Grid View",
+  "back": "Back"
 }

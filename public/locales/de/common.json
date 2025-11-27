@@ -337,5 +337,9 @@
   "select": "Auswählen",
   "from": "Von",
   "to": "Bis",
-  "grade_change": "Gradänderung"
+  "grade_change": "Gradänderung",
+
+  "list_view": "Listenansicht",
+  "grid_view": "Rasteransicht",
+  "back": "Zurück"
 }

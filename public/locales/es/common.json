@@ -337,5 +337,9 @@
   "select": "Seleccionar",
   "from": "Desde",
   "to": "Hasta",
-  "grade_change": "Cambio de grado"
+  "grade_change": "Cambio de grado",
+
+  "list_view": "Vista de lista",
+  "grid_view": "Vista de cuadrícula",
+  "back": "Atrás"
 }
