@@ -38,7 +38,9 @@ const emrAPISDKRegistry: any = {
   'get-rate-look-up-options-api': '/api/getPLlist',
   'check-design-stock-for-ct-api': '/api/checkDsgStckforCT',
   'refresh-voucher-rate-api': '/api/refreshRates',
-  'get-refresh-rate-param-api': '/api/getParamList'
+  'get-refresh-rate-param-api': '/api/getParamList',
+  'get-user-default-data': '/api/getUserDeafults',
+  'post-user-default-data': '/api/postUserDeafults',
 };
 
 export default emrAPISDKRegistry;

@@ -341,5 +341,8 @@
 
   "list_view": "List View",
   "grid_view": "Grid View",
-  "back": "Back"
+  "back": "Back",
+  "status": "Status",
+  "voucher_no": "Voucher No.",
+  "Stock Ids": "Stock Ids"
 }

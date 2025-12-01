@@ -60,8 +60,8 @@ const useCurrencyLanguageHandler = () => {
   }
 
   useEffect(() => {
-    handleLanguageShallowUpdate(languageDisplayOptions.find((opt) => opt?.value === 'en')!);
-    handleCurrencyShallowUpdate(currencyOptions.find((opt) => opt?.value === 'RS')!);
+    handleLanguageShallowUpdate(selectedLanguage);
+    handleCurrencyShallowUpdate(selectedCurrency);
   },[selectedCurrency, selectedLanguage]);
 
   return {

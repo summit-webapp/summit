@@ -14,6 +14,7 @@ import { Option } from '../../store/slices/general_slices/multilingual-slice';
 import i18n from '../../i18n/i18n';
 import useCurrencyLanguageHandler from '../GeneralHooks/LanguageHandler';
 import { currencyOptions } from '../../utils/addon-utils/currency-map';
+import { useUserDefaultData } from '../addon-hooks/kc-hooks/useUserData';
 
 const useLoginHook = () => {
   const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
@@ -21,6 +22,7 @@ const useLoginHook = () => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const { handleCurrencyShallowUpdate, handleLanguageShallowUpdate } = useCurrencyLanguageHandler();
+  const { fetchUserDefaultData } = useUserDefaultData();
   const [loginForm, setLoginForm] = useState<TypeLoginForm>({ usr: '', pwd: '' });
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [isLoginThroughOTP, setIsLoginThroughOTP] = useState<boolean>(false);
@@ -53,12 +55,14 @@ const useLoginHook = () => {
         if (tokenData?.data?.isPwdChg !== 0) {
           dispatch(storeToken(tokenData?.data));
         }
-
+        
         handleLanguageShallowUpdate(languageDisplayOptions.find((opt: Option) => opt?.label === tokenData?.data?.language)!);
         handleCurrencyShallowUpdate(currencyOptions.find((opt: Option) => opt?.value === tokenData?.data?.currency)!);
         
         localStorage.setItem('selected_language', tokenData?.data?.language);
         localStorage.setItem('selected_currency', tokenData?.data?.currency);
+
+        fetchUserDefaultData(tokenData?.data?.access_token);
         // Redirect to the home page or any other page after successful login
         if (tokenData?.data?.isPwdChg === 0) {
           router.push('/forgot_password');
