@@ -10,7 +10,7 @@ import { Option } from '../../store/slices/general_slices/multilingual-slice';
 import { currencyOptions } from '../../utils/addon-utils/currency-map';
 import { useEffect } from 'react';
 
-const useCurrencyLanguageHandler = () => {
+const useCurrencyLanguageHandler = (postUserDefaultData?: (token: string, DefCurrency: string, DefLang: string, RefreshRt: string, LabRt: string, RMCtg: string ) => void, userDefaultData?: any) => {
   const dispatch = useDispatch();
   const languageState = useSelector(SelectedLangFromStore)?.selectedLanguage;
   const TokenFromStore: any = useSelector(get_access_token);
@@ -42,7 +42,8 @@ const useCurrencyLanguageHandler = () => {
 
   const handleLanguageChange = (value: Option) => {
     dispatch(setLanguage(value?.value));
-    updateUserPreference(value, selectedCurrency);
+    // updateUserPreference(value, selectedCurrency);
+    postUserDefaultData && postUserDefaultData(TokenFromStore?.token, languageDisplayOptions.find((opt: Option) => opt?.value === value?.value?.toString())?.label!?.trim(), userDefaultData?.DefCurrency, userDefaultData?.RefreshRt, userDefaultData?.LabRt, userDefaultData?.RMCtg);
   };
 
   const handleLanguageShallowUpdate = (value: Option) => {
@@ -52,7 +53,8 @@ const useCurrencyLanguageHandler = () => {
 
   const handleCurrencyChange = (value: Option) => {
     dispatch(setCurrencyValue(value?.value));
-    updateUserPreference(selectedLanguage, value);
+    // updateUserPreference(selectedLanguage, value);
+    postUserDefaultData && postUserDefaultData(TokenFromStore?.token, userDefaultData?.DefLang, value?.value.toString().trim(), userDefaultData?.RefreshRt, userDefaultData?.LabRt, userDefaultData?.RMCtg);
   };
   
   const handleCurrencyShallowUpdate = (value: Option) => {

@@ -14,7 +14,7 @@ import { Option } from '../../store/slices/general_slices/multilingual-slice';
 import i18n from '../../i18n/i18n';
 import useCurrencyLanguageHandler from '../GeneralHooks/LanguageHandler';
 import { currencyOptions } from '../../utils/addon-utils/currency-map';
-import { useUserDefaultData } from '../addon-hooks/kc-hooks/useUserData';
+import useUserDefaultData from '../addon-hooks/kc-hooks/useUserData';
 
 const useLoginHook = () => {
   const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
