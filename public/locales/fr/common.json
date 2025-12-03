@@ -341,5 +341,9 @@
 
   "list_view": "Vue en liste",
   "grid_view": "Vue en grille",
-  "back": "Retour"
+  "back": "Retour",
+  "status": "Statut",
+  "voucher_no": "Numéro de reçu",
+  "Stock Ids": "Identifiants de stock",
+  "Designs": "Designs"
 }

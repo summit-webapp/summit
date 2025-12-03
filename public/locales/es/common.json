@@ -341,5 +341,9 @@
 
   "list_view": "Vista de lista",
   "grid_view": "Vista de cuadrícula",
-  "back": "Atrás"
+  "back": "Atrás",
+  "status": "Estado",
+  "voucher_no": "Número de comprobante",
+  "Stock Ids": "IDs de inventario",
+  "Designs": "Diseños"
 }

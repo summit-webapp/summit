@@ -341,5 +341,9 @@
 
   "list_view": "Vista elenco",
   "grid_view": "Vista griglia",
-  "back": "Indietro"
+  "back": "Indietro",
+  "status": "Stato",
+  "voucher_no": "Numero del voucher",
+  "Stock Ids": "ID di magazzino",
+  "Designs": "Design"
 }

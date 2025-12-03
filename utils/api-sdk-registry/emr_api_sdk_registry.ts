@@ -41,6 +41,7 @@ const emrAPISDKRegistry: any = {
   'get-refresh-rate-param-api': '/api/getParamList',
   'get-user-default-data': '/api/getUserDeafults',
   'post-user-default-data': '/api/postUserDeafults',
+  'get-list-data-api': '/api/getList',
 };
 
 export default emrAPISDKRegistry;

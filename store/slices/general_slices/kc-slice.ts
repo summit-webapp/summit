@@ -37,6 +37,7 @@ export const KCSlice = createSlice({
     currentScope: 'Database',
     userDefaultData: null,
     userDefaultLoading: false,
+    designBankCount: 0,
   },
   reducers: {
     setHideFiltersOnFirstLoad: (state, action) => {
@@ -81,9 +82,12 @@ export const KCSlice = createSlice({
     setUserDefaultLoading: (state, action) => {
       state.userDefaultLoading = action.payload;
     },
+    setDesignBankCount: (state, action) => {
+      state.designBankCount = action.payload;
+    }
   },
 })
 
-export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope,  setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar } = KCSlice.actions;
+export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope,  setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount } = KCSlice.actions;
 export const KCFromStore = (state: any) => state.KCSlice;
 export default KCSlice.reducer;

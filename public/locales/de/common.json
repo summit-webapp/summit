@@ -341,5 +341,10 @@
 
   "list_view": "Listenansicht",
   "grid_view": "Rasteransicht",
-  "back": "Zurück"
+  "back": "Zurück",
+  "status": "Status",
+  "voucher_no": "Belegnummer",
+  "Stock Ids": "Bestands-IDs",
+  "Designs": "Designs"
+
 }
