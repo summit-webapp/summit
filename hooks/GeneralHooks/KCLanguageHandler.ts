@@ -12,9 +12,9 @@ import { useEffect } from 'react';
 
 const useCurrencyLanguageHandler = (postUserDefaultData?: (token: string, DefCurrency: string, DefLang: string, RefreshRt: string, LabRt: string, RMCtg: string ) => void, userDefaultData?: any) => {
   const dispatch = useDispatch();
-  const languageState = useSelector(SelectedLangFromStore)?.selectedLanguage;
+  const languageState = useSelector(SelectedLangFromStore)?.selectedLanguage?.trim();
   const TokenFromStore: any = useSelector(get_access_token);
-  const currencyState = useSelector(currency_selector_state)?.selected_currency_value;
+  const currencyState = useSelector(currency_selector_state)?.selected_currency_value?.trim();
   const handleAuthError = useAuthErrorHandler();
   const selectedCurrency = currencyOptions.find((opt) => opt?.value === (currencyState))!;
   const selectedLanguage = languageDisplayOptions.find((opt) => opt?.value === languageState)!;

@@ -58,11 +58,11 @@ const useLoginHook = () => {
           dispatch(storeToken(tokenData?.data));
         }
         
-        handleLanguageShallowUpdate(languageDisplayOptions.find((opt: Option) => opt?.label === tokenData?.data?.language)!);
-        handleCurrencyShallowUpdate(currencyOptions.find((opt: Option) => opt?.value === tokenData?.data?.currency)!);
+        // handleLanguageShallowUpdate(languageDisplayOptions.find((opt: Option) => opt?.label === tokenData?.data?.language)!);
+        // handleCurrencyShallowUpdate(currencyOptions.find((opt: Option) => opt?.value === tokenData?.data?.currency)!);
         
-        localStorage.setItem('selected_language', tokenData?.data?.language);
-        localStorage.setItem('selected_currency', tokenData?.data?.currency);
+        // localStorage.setItem('selected_language', tokenData?.data?.language);
+        // localStorage.setItem('selected_currency', tokenData?.data?.currency);
 
         fetchUserDefaultData(tokenData?.data?.access_token);
         // Redirect to the home page or any other page after successful login
