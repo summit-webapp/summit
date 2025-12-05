@@ -345,5 +345,6 @@
   "status": "Stato",
   "voucher_no": "Numero del voucher",
   "Stock Ids": "ID di magazzino",
-  "Designs": "Design"
+  "Designs": "Design",
+  "your_stock_cart_for": "Il tuo carrello stock per"
 }

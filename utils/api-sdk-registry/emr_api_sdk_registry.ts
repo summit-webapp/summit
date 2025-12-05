@@ -42,6 +42,7 @@ const emrAPISDKRegistry: any = {
   'get-user-default-data': '/api/getUserDeafults',
   'post-user-default-data': '/api/postUserDeafults',
   'get-list-data-api': '/api/getList',
+  'get-y-param-list-api': '/api/getyParamList',
 };
 
 export default emrAPISDKRegistry;

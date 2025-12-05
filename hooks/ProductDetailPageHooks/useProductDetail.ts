@@ -171,14 +171,14 @@ const useProductDetail = () => {
 
   const getGradeChangeParamsList = async () => {
     const apiData = {
-      mnCd: 'MET',
-      typ: 'GRDCD'
+      mnCd: 'GrdG',
+      typ: 'yCfg'
     }
-    const getGradeChangeParamsData: any = await fetchProductDetailData('GET', 'get-param-list-api', apiData, TokenFromStore?.token);
+    const getGradeChangeParamsData: any = await fetchProductDetailData('GET', 'get-y-param-list-api', apiData, TokenFromStore?.token);
     if (getGradeChangeParamsData?.status === 200 && getGradeChangeParamsData?.data?.msg === 'success') {
       setGradeChangeList(getGradeChangeParamsData?.data?.data.map((item: any) => (
         {
-          label: item.PScd,
+          label: item.PDesc,
           value: item.PScd,
         }
       )));
