@@ -42,6 +42,7 @@ const useProductDetail = () => {
   ]);
   const [gradeChangeList, setGradeChangeList] = useState([]);
   const [diamondChangeList, setDiamondChangeList] = useState([]);
+  const [colorStoneChangeList, setColorStoneChangeList] = useState([]);
 
   const handleMultipleQtyChange = (index: number, itemCode: string, value: string) => {
     setItemList((prevItemList: any) => {
@@ -173,7 +174,7 @@ const useProductDetail = () => {
       mnCd: 'MET',
       typ: 'GRDCD'
     }
-    const getGradeChangeParamsData: any = await fetchProductDetailData('GET', 'get-refresh-rate-param-api', apiData, TokenFromStore?.token);
+    const getGradeChangeParamsData: any = await fetchProductDetailData('GET', 'get-param-list-api', apiData, TokenFromStore?.token);
     if (getGradeChangeParamsData?.status === 200 && getGradeChangeParamsData?.data?.msg === 'success') {
       setGradeChangeList(getGradeChangeParamsData?.data?.data.map((item: any) => (
         {
@@ -192,7 +193,7 @@ const useProductDetail = () => {
       mnCd: 'DIA',
       typ: 'GRDCD'
     }
-    const getDiamondChangeParamsData: any = await fetchProductDetailData('GET', 'get-refresh-rate-param-api', apiData, TokenFromStore?.token);
+    const getDiamondChangeParamsData: any = await fetchProductDetailData('GET', 'get-param-list-api', apiData, TokenFromStore?.token);
     if (getDiamondChangeParamsData?.status === 200 && getDiamondChangeParamsData?.data?.msg === 'success') {
       setDiamondChangeList(getDiamondChangeParamsData?.data?.data.map((item: any) => (
         {
@@ -202,6 +203,25 @@ const useProductDetail = () => {
       )));
     } else {
       const errorMessage = getDiamondChangeParamsData?.data?.error
+      console.error('Error', errorMessage);
+    }
+  };
+
+  const getColorStoneChangeParamsList = async () => {
+    const apiData = {
+      mnCd: 'CS',
+      typ: 'GRDCD'
+    }
+    const getColorStoneChangeParamsData: any = await fetchProductDetailData('GET', 'get-param-list-api', apiData, TokenFromStore?.token);
+    if (getColorStoneChangeParamsData?.status === 200 && getColorStoneChangeParamsData?.data?.msg === 'success') {
+      setColorStoneChangeList(getColorStoneChangeParamsData?.data?.data.map((item: any) => (
+        {
+          label: item.PScd,
+          value: item.PScd,
+        }
+      )));
+    } else {
+      const errorMessage = getColorStoneChangeParamsData?.data?.error
       console.error('Error', errorMessage);
     }
   };
@@ -220,6 +240,7 @@ const useProductDetail = () => {
     fetchProductDetailDataAPI();
     getGradeChangeParamsList();
     getDiamondChangeParamsList();
+    getColorStoneChangeParamsList();
   // }, [query?.productId]);
   }, [query?.productId, selectedCurrency]);
 
@@ -244,6 +265,7 @@ const useProductDetail = () => {
     checkPinCodeExists,
     gradeChangeList,
     diamondChangeList,
+    colorStoneChangeList,
   };
 };
 
