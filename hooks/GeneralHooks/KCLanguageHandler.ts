@@ -10,7 +10,7 @@ import { Option } from '../../store/slices/general_slices/multilingual-slice';
 import { currencyOptions } from '../../utils/addon-utils/currency-map';
 import { useEffect } from 'react';
 
-const useCurrencyLanguageHandler = (postUserDefaultData?: (token: string, DefCurrency: string, DefLang: string, RefreshRt: string, LabRt: string, RMCtg: string ) => void, userDefaultData?: any) => {
+const useCurrencyLanguageHandler = (postUserDefaultData?: (token: string, DefCurrency: string, DefLang: string, RefreshRt: string, LabRt: string, RMCtg: string, voucherModeType: string ) => void, userDefaultData?: any) => {
   const dispatch = useDispatch();
   const languageState = useSelector(SelectedLangFromStore)?.selectedLanguage?.trim();
   const TokenFromStore: any = useSelector(get_access_token);
@@ -43,7 +43,7 @@ const useCurrencyLanguageHandler = (postUserDefaultData?: (token: string, DefCur
   const handleLanguageChange = (value: Option) => {
     dispatch(setLanguage(value?.value));
     // updateUserPreference(value, selectedCurrency);
-    postUserDefaultData && postUserDefaultData(TokenFromStore?.token, languageDisplayOptions.find((opt: Option) => opt?.value === value?.value?.toString())?.label!?.trim(), userDefaultData?.DefCurrency, userDefaultData?.RefreshRt, userDefaultData?.LabRt, userDefaultData?.RMCtg);
+    postUserDefaultData && postUserDefaultData(TokenFromStore?.token, languageDisplayOptions.find((opt: Option) => opt?.value === value?.value?.toString())?.label!?.trim(), userDefaultData?.DefCurrency, userDefaultData?.RefreshRt, userDefaultData?.LabRt, userDefaultData?.RMCtg, userDefaultData?.voucherModeType);
   };
 
   const handleLanguageShallowUpdate = (value: Option) => {
@@ -54,7 +54,7 @@ const useCurrencyLanguageHandler = (postUserDefaultData?: (token: string, DefCur
   const handleCurrencyChange = (value: Option) => {
     dispatch(setCurrencyValue(value?.value));
     // updateUserPreference(selectedLanguage, value);
-    postUserDefaultData && postUserDefaultData(TokenFromStore?.token, userDefaultData?.DefLang, value?.value.toString().trim(), userDefaultData?.RefreshRt, userDefaultData?.LabRt, userDefaultData?.RMCtg);
+    postUserDefaultData && postUserDefaultData(TokenFromStore?.token, userDefaultData?.DefLang, value?.value.toString().trim(), userDefaultData?.RefreshRt, userDefaultData?.LabRt, userDefaultData?.RMCtg, userDefaultData?.voucherModeType);
   };
   
   const handleCurrencyShallowUpdate = (value: Option) => {
