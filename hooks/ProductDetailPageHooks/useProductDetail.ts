@@ -11,6 +11,7 @@ import fetchPinCodesListAPI from '../../services/api/general-apis/get-pin-code-l
 import debounce from 'debounce';
 import useAuthErrorHandler from '../AuthHooks/handleAuthError';
 import useCurrencyLanguageHandler from '../GeneralHooks/KCLanguageHandler';
+
 type PinCodeTypes = {
   name: string;
 };
@@ -40,9 +41,6 @@ const useProductDetail = () => {
       quantity: productDetailData?.min_order_qty || 1,
     },
   ]);
-  const [gradeChangeList, setGradeChangeList] = useState([]);
-  const [diamondChangeList, setDiamondChangeList] = useState([]);
-  const [colorStoneChangeList, setColorStoneChangeList] = useState([]);
 
   const handleMultipleQtyChange = (index: number, itemCode: string, value: string) => {
     setItemList((prevItemList: any) => {
@@ -168,63 +166,6 @@ const useProductDetail = () => {
       }
     }
   };
-
-  const getGradeChangeParamsList = async () => {
-    const apiData = {
-      mnCd: 'GrdG',
-      typ: 'yCfg'
-    }
-    const getGradeChangeParamsData: any = await fetchProductDetailData('GET', 'get-y-param-list-api', apiData, TokenFromStore?.token);
-    if (getGradeChangeParamsData?.status === 200 && getGradeChangeParamsData?.data?.msg === 'success') {
-      setGradeChangeList(getGradeChangeParamsData?.data?.data.map((item: any) => (
-        {
-          label: item.PDesc,
-          value: item.PScd,
-        }
-      )));
-    } else {
-      const errorMessage = getGradeChangeParamsData?.data?.error
-      console.error('Error', errorMessage);
-    }
-  };
-
-  const getDiamondChangeParamsList = async () => {
-    const apiData = {
-      mnCd: 'DIA',
-      typ: 'GRDCD'
-    }
-    const getDiamondChangeParamsData: any = await fetchProductDetailData('GET', 'get-param-list-api', apiData, TokenFromStore?.token);
-    if (getDiamondChangeParamsData?.status === 200 && getDiamondChangeParamsData?.data?.msg === 'success') {
-      setDiamondChangeList(getDiamondChangeParamsData?.data?.data.map((item: any) => (
-        {
-          label: item.PScd,
-          value: item.PScd,
-        }
-      )));
-    } else {
-      const errorMessage = getDiamondChangeParamsData?.data?.error
-      console.error('Error', errorMessage);
-    }
-  };
-
-  const getColorStoneChangeParamsList = async () => {
-    const apiData = {
-      mnCd: 'CS',
-      typ: 'GRDCD'
-    }
-    const getColorStoneChangeParamsData: any = await fetchProductDetailData('GET', 'get-param-list-api', apiData, TokenFromStore?.token);
-    if (getColorStoneChangeParamsData?.status === 200 && getColorStoneChangeParamsData?.data?.msg === 'success') {
-      setColorStoneChangeList(getColorStoneChangeParamsData?.data?.data.map((item: any) => (
-        {
-          label: item.PScd,
-          value: item.PScd,
-        }
-      )));
-    } else {
-      const errorMessage = getColorStoneChangeParamsData?.data?.error
-      console.error('Error', errorMessage);
-    }
-  };
   
   const debouncedSetValue = debounce((pinCode: string) => {
     const found = pinCodeData.some((pin) => pin.name === pinCode);
@@ -238,9 +179,6 @@ const useProductDetail = () => {
 
   useEffect(() => {
     fetchProductDetailDataAPI();
-    getGradeChangeParamsList();
-    getDiamondChangeParamsList();
-    getColorStoneChangeParamsList();
   // }, [query?.productId]);
   }, [query?.productId, selectedCurrency]);
 
@@ -263,9 +201,6 @@ const useProductDetail = () => {
     validPinCode,
     getPincodesList,
     checkPinCodeExists,
-    gradeChangeList,
-    diamondChangeList,
-    colorStoneChangeList,
   };
 };
 

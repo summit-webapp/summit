@@ -1,44 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface FiltersState {
+  currentScope: { [customer: string]: string };
+  filters: { [customer: string]: { [scope: string]: any } };
+  filtersSetOfAPI: { [customer: string]: { [scope: string]: any } };
+
+  hideFiltersOnFirstLoad: boolean;
+  metalRateSidebar: boolean;
+  userDefaultSidebar: boolean;
+  prevCSFilters: any;
+  gridCols: number;
+  goldRate: number;
+  palladiumRate: number;
+  platinumRate: number;
+  silverRate: number;
+  userDefaultData: any;
+  userDefaultLoading: boolean;
+  designBankCount: number;
+  gradeChangeList: {label: string, value: string}[];
+  diamondChangeList: {label: string, value: string}[];
+  colorStoneChangeList: {label: string, value: string}[];
+}
+
+const initialState: FiltersState = {
+  hideFiltersOnFirstLoad: true,
+  metalRateSidebar: false,
+  userDefaultSidebar: false,
+  prevCSFilters: {},
+  gridCols: 4,
+  goldRate: 0,
+  palladiumRate: 0,
+  platinumRate: 0,
+  silverRate: 0,
+  filters: {},
+  filtersSetOfAPI: {},
+  currentScope: {},
+  userDefaultData: null,
+  userDefaultLoading: false,
+  designBankCount: 0,
+  gradeChangeList: [],
+  diamondChangeList: [],
+  colorStoneChangeList: [],
+};
+
 export const KCSlice = createSlice({
   name: "KC",
-  initialState: {
-    // selectedProducts: [],
-    // hideSelectAllBtn: false,
-    hideFiltersOnFirstLoad: true,
-    // actionBtnLoader: false,
-    // activeScope: "Current Session",
-    // selectedCustomerCode: { value: "", label: "" },
-    // voucherNo: "",
-    metalRateSidebar: false,
-    userDefaultSidebar: false,
-    prevCSFilters: {},
-    gridCols: 4,
-    goldRate: 0,
-    palladiumRate: 0,
-    platinumRate: 0,
-    silverRate: 0,
-    filters: {
-      Database: { selectedScope: { label: 'New Session', value: 'Database' } },
-      Stock: { selectedScope: { label: 'Stock', value: 'Stock' } },
-      'Current Session': { selectedScope: { label: 'Current Session (QT/CS)', value: 'Current Session' } },
-      Cart: { selectedScope: { label: 'Cart (QT/CT)', value: 'Cart' } },
-      'Stock Cart': { selectedScope: { label: 'Stock Cart', value: 'Stock Cart' } },
-      Voucher: { selectedScope: { label: 'Voucher', value: 'Voucher' } },
-    },
-    filtersSetOfAPI: {
-      Database: { selectedScope: { label: 'New Session', value: 'Database' } },
-      Stock: { selectedScope: { label: 'Stock', value: 'Stock' } },
-      'Current Session': { selectedScope: { label: 'Current Session (QT/CS)', value: 'Current Session' } },
-      Cart: { selectedScope: { label: 'Cart (QT/CT)', value: 'Cart' } },
-      'Stock Cart': { selectedScope: { label: 'Stock Cart', value: 'Stock Cart' } },
-      Voucher: { selectedScope: { label: 'Voucher', value: 'Voucher' } },
-    },
-    currentScope: 'Database',
-    userDefaultData: null,
-    userDefaultLoading: false,
-    designBankCount: 0,
-  },
+  initialState,
   reducers: {
     setHideFiltersOnFirstLoad: (state, action) => {
       state.hideFiltersOnFirstLoad = action.payload;
@@ -67,14 +74,28 @@ export const KCSlice = createSlice({
     setPrevCSFilters: (state, action) => {
       state.prevCSFilters = action.payload;
     },
+    setCurrentScope: (state, action) => {
+      const { customer, scope } = action.payload;
+      if (!state.currentScope[customer]) state.currentScope[customer] = scope;
+      else state.currentScope[customer] = scope;
+    },
     setFilters: (state, action) => {
-      state.filters = action.payload;
+      const { customer, scope, data } = action.payload;
+
+      if (!state.filters[customer]) state.filters[customer] = {};
+      state.filters[customer][scope] = {
+        ...(state.filters[customer][scope] || {}),
+        ...data,
+      };
     },
     setFiltersSetOfAPI: (state, action) => {
-      state.filtersSetOfAPI = action.payload;
-    },
-    setCurrentScope: (state, action) => {
-      state.currentScope = action.payload;
+      const { customer, scope, data } = action.payload;
+
+      if (!state.filtersSetOfAPI[customer]) state.filtersSetOfAPI[customer] = {};
+      state.filtersSetOfAPI[customer][scope] = {
+        ...(state.filtersSetOfAPI[customer][scope] || {}),
+        ...data,
+      };
     },
     setUserDefaultData: (state, action) => {
       state.userDefaultData = action.payload;
@@ -84,10 +105,19 @@ export const KCSlice = createSlice({
     },
     setDesignBankCount: (state, action) => {
       state.designBankCount = action.payload;
-    }
+    },
+    setGradeChangeList: (state, action) => {
+      state.gradeChangeList = action.payload;
+    },
+    setDiamondChangeList: (state, action) => {
+      state.diamondChangeList = action.payload;
+    },
+    setColorStoneChangeList: (state, action) => {
+      state.colorStoneChangeList = action.payload;
+    },
   },
 })
 
-export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope,  setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount } = KCSlice.actions;
+export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope,  setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList } = KCSlice.actions;
 export const KCFromStore = (state: any) => state.KCSlice;
 export default KCSlice.reducer;
