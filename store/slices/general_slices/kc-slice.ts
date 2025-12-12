@@ -75,9 +75,7 @@ export const KCSlice = createSlice({
       state.prevCSFilters = action.payload;
     },
     setCurrentScope: (state, action) => {
-      const { customer, scope } = action.payload;
-      if (!state.currentScope[customer]) state.currentScope[customer] = scope;
-      else state.currentScope[customer] = scope;
+      state.currentScope = action.payload;
     },
     setFilters: (state, action) => {
       const { customer, scope, data } = action.payload;
