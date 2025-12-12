@@ -352,5 +352,8 @@
   "go_to_cart": "Go to Cart",
   "go_to_stock_cart": "Go to Stock Cart",
   "selected_items_moved_to_": "Selected item(s) were successfully moved to",
-  "metal_grade": "Metal Grade"
+  "metal_grade": "Metal Grade",
+  "for": "for",
+  "to_view": "To View",
+  "scope_for_customer": "for the customer, please select the customer & scope."
 }

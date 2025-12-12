@@ -43,6 +43,7 @@ const emrAPISDKRegistry: any = {
   'post-user-default-data': '/api/postUserDeafults',
   'get-list-data-api': '/api/getList',
   'get-y-param-list-api': '/api/getyParamList',
+  'update-item-instruction-api': '/api/updateFields',
 };
 
 export default emrAPISDKRegistry;
