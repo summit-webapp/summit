@@ -355,5 +355,7 @@
   "metal_grade": "Metal Grade",
   "for": "for",
   "to_view": "To View",
-  "scope_for_customer": "for the customer, please select the customer & scope."
+  "scope_for_customer": "for the customer, please select the customer & scope.",
+  "list_display": "List Display",
+  "selected": "Selected"
 }
