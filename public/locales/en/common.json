@@ -357,5 +357,6 @@
   "to_view": "To View",
   "scope_for_customer": "for the customer, please select the customer & scope.",
   "list_display": "List Display",
-  "selected": "Selected"
+  "selected": "Selected",
+  "card_details": "Card Details"
 }

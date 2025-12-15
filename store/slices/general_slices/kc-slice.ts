@@ -20,6 +20,7 @@ interface FiltersState {
   gradeChangeList: {label: string, value: string}[];
   diamondChangeList: {label: string, value: string}[];
   colorStoneChangeList: {label: string, value: string}[];
+  showProductCardDetails: boolean;
 }
 
 const initialState: FiltersState = {
@@ -41,6 +42,7 @@ const initialState: FiltersState = {
   gradeChangeList: [],
   diamondChangeList: [],
   colorStoneChangeList: [],
+  showProductCardDetails: false,
 };
 
 export const KCSlice = createSlice({
@@ -113,9 +115,12 @@ export const KCSlice = createSlice({
     setColorStoneChangeList: (state, action) => {
       state.colorStoneChangeList = action.payload;
     },
+    setShowProductCardDetails: (state, action) => {
+      state.showProductCardDetails = action.payload;
+    },
   },
 })
 
-export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope,  setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList } = KCSlice.actions;
+export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope,  setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setShowProductCardDetails } = KCSlice.actions;
 export const KCFromStore = (state: any) => state.KCSlice;
 export default KCSlice.reducer;
