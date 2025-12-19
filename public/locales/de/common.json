@@ -413,5 +413,8 @@
   "primary_phone_number_is_required": "Die primäre Telefonnummer ist erforderlich",
   "postal_code_is_required": "Die Postleitzahl ist erforderlich",
   "contact_name_is_required": "Der Kontaktname ist erforderlich",
-  "siren_is_required": "Die SIREN-Nummer ist erforderlich"
+  "siren_is_required": "Die SIREN-Nummer ist erforderlich",
+
+  "order_again": "Erneut bestellen"
+
 }

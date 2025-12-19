@@ -426,5 +426,7 @@
   "primary_phone_number_is_required": "Le numéro de téléphone principal est requis",
   "postal_code_is_required": "Le code postal est requis",
   "contact_name_is_required": "Le nom du contact est requis",
-  "siren_is_required": "Le numéro SIREN est requis"
+  "siren_is_required": "Le numéro SIREN est requis",
+
+  "order_again": "Commander à nouveau"
 }

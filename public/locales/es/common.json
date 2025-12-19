@@ -428,5 +428,7 @@
   "primary_phone_number_is_required": "El teléfono principal es obligatorio",
   "postal_code_is_required": "El código postal es obligatorio",
   "contact_name_is_required": "El nombre del contacto es obligatorio",
-  "siren_is_required": "El número SIREN es obligatorio"
+  "siren_is_required": "El número SIREN es obligatorio",
+
+  "order_again": "Pedir de nuevo"
 }
