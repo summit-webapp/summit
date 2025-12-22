@@ -358,5 +358,7 @@
   "scope_for_customer": "for the customer, please select the customer & scope.",
   "list_display": "List Display",
   "selected": "Selected",
-  "card_details": "Card Details"
+  "card_details": "Card Details",
+  "refresh_from": "Refresh From",
+  "refreshing_rates": "Refreshing Rates"
 }
