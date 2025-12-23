@@ -5,8 +5,8 @@ import OrderDetails from '../../../components/FallbackOrderComponents/OrderDetai
 const OrderDetail = () => {
   return (
     <>
-      {/* <OrderDetailMaster /> */}
-      <OrderDetails />
+      <OrderDetailMaster />
+      {/* <OrderDetails /> */}
     </>
   );
 };

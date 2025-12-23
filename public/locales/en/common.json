@@ -360,5 +360,6 @@
   "selected": "Selected",
   "card_details": "Card Details",
   "refresh_from": "Refresh From",
-  "refreshing_rates": "Refreshing Rates"
+  "refreshing_rates": "Refreshing Rates",
+  "updating_items": "Updating Items"
 }
