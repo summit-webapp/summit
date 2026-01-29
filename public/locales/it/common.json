@@ -346,5 +346,6 @@
   "voucher_no": "Numero del voucher",
   "Stock Ids": "ID di magazzino",
   "Designs": "Design",
-  "your_stock_cart_for": "Il tuo carrello stock per"
+  "your_stock_cart_for": "Il tuo carrello stock per",
+  "for_pricing_and_vouchers": "per prezzi e voucher"
 }
