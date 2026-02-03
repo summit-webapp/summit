@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface FiltersState {
-  currentScope: { [customer: string]: string };
+  currentScope: string;
+  scope: any;
+  customer: any;
   filters: { [customer: string]: { [scope: string]: any } };
   filtersSetOfAPI: { [customer: string]: { [scope: string]: any } };
 
@@ -36,7 +38,9 @@ const initialState: FiltersState = {
   silverRate: 0,
   filters: {},
   filtersSetOfAPI: {},
-  currentScope: {},
+  currentScope: '',
+  customer: null,
+  scope: { label: 'New Session (PDCM Design Bank)', value: 'Database' },
   userDefaultData: null,
   userDefaultLoading: false,
   designBankCount: 0,
@@ -80,6 +84,14 @@ export const KCSlice = createSlice({
     },
     setCurrentScope: (state, action) => {
       state.currentScope = action.payload;
+    },
+    setCustomer: (state, action) => {
+      console.log("gey", action.payload)
+      state.customer = action.payload;
+    },
+    setScope: (state, action) => {
+      console.log("tewyu", action.payload);
+      state.scope = action.payload;
     },
     setFilters: (state, action) => {
       const { customer, scope, data } = action.payload;
@@ -126,6 +138,6 @@ export const KCSlice = createSlice({
   },
 })
 
-export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope,  setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setShowProductCardDetails, setSelectAllProducts } = KCSlice.actions;
+export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope, setCustomer, setScope, setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setShowProductCardDetails, setSelectAllProducts } = KCSlice.actions;
 export const KCFromStore = (state: any) => state.KCSlice;
 export default KCSlice.reducer;
