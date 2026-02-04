@@ -16,8 +16,8 @@ const useCurrencyLanguageHandler = (postUserDefaultData?: (token: string, DefCur
   const TokenFromStore: any = useSelector(get_access_token);
   const currencyState = useSelector(currency_selector_state)?.selected_currency_value?.trim();
   const handleAuthError = useAuthErrorHandler();
-  const selectedCurrency = currencyOptions.find((opt) => opt?.value === (currencyState))!;
-  const selectedLanguage = languageDisplayOptions.find((opt) => opt?.value === languageState)!;
+  const selectedCurrency = currencyOptions.find((opt) => opt?.value === currencyState || 'INR')!;
+  const selectedLanguage = languageDisplayOptions.find((opt) => opt?.value === languageState || 'en')!;
   
   const updateUserPreference = async (language: Option, currency: Option) => {
     const languageCode = language?.value.toString();
