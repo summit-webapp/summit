@@ -347,5 +347,9 @@
   "Stock Ids": "ID di magazzino",
   "Designs": "Design",
   "your_stock_cart_for": "Il tuo carrello stock per",
-  "for_pricing_and_vouchers": "per prezzi e voucher"
+  "for_pricing_and_vouchers": "per prezzi e voucher",
+
+  "print": "Stampa",
+  "detailed": "Dettagliato",
+  "overview": "Riepilogo"
 }

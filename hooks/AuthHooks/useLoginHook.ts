@@ -15,7 +15,7 @@ import i18n from '../../i18n/i18n';
 import useCurrencyLanguageHandler from '../GeneralHooks/LanguageHandler';
 import { currencyOptions } from '../../utils/addon-utils/currency-map';
 import useUserDefaultData from '../addon-hooks/kc-hooks/useUserData';
-import { setDesignBankCount } from '../../store/slices/general_slices/kc-slice';
+import { setCustomer, setDesignBankCount, setScope } from '../../store/slices/general_slices/kc-slice';
 
 const useLoginHook = () => {
   const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
@@ -58,13 +58,10 @@ const useLoginHook = () => {
           dispatch(storeToken(tokenData?.data));
         }
         
-        // handleLanguageShallowUpdate(languageDisplayOptions.find((opt: Option) => opt?.label === tokenData?.data?.language)!);
-        // handleCurrencyShallowUpdate(currencyOptions.find((opt: Option) => opt?.value === tokenData?.data?.currency)!);
-        
-        // localStorage.setItem('selected_language', tokenData?.data?.language);
-        // localStorage.setItem('selected_currency', tokenData?.data?.currency);
-
         fetchUserDefaultData(tokenData?.data?.access_token);
+        setCustomer(null);
+        setScope({ label: 'New Session (PDCM Design Bank)', value: 'Database' });
+        
         // Redirect to the home page or any other page after successful login
         if (tokenData?.data?.isPwdChg === 0) {
           router.push('/forgot_password');

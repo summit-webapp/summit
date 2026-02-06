@@ -347,5 +347,9 @@
   "Stock Ids": "IDs de inventario",
   "Designs": "Diseños",
   "your_stock_cart_for": "Su carrito de stock para",
-  "for_pricing_and_vouchers": "para precios y vales"
+  "for_pricing_and_vouchers": "para precios y vales",
+
+  "print": "Imprimir",
+  "detailed": "Detallado",
+  "overview": "Resumen"
 }

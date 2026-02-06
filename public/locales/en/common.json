@@ -362,5 +362,9 @@
   "refresh_from": "Refresh From",
   "refreshing_rates": "Refreshing Rates",
   "updating_items": "Updating Items",
-  "for_pricing_and_vouchers": "for Pricing and Voucher"
+  "for_pricing_and_vouchers": "for Pricing and Voucher",
+
+  "print": "Print",
+  "detailed": "Detailed",
+  "overview": "Overview"
 }
