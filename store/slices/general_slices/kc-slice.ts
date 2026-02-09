@@ -86,11 +86,9 @@ export const KCSlice = createSlice({
       state.currentScope = action.payload;
     },
     setCustomer: (state, action) => {
-      console.log("gey", action.payload)
       state.customer = action.payload;
     },
     setScope: (state, action) => {
-      console.log("tewyu", action.payload);
       state.scope = action.payload;
     },
     setFilters: (state, action) => {

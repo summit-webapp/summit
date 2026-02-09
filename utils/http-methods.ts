@@ -4,6 +4,7 @@ import { CONSTANTS } from "../services/config/app-config";
 import fetchAPISDK from "../utils/get-api-sdk";
 import axios from "axios";
 import { EMRApiKey } from "./api-sdk-registry/emr_api_sdk_registry";
+import APP_CONFIG from "../interfaces/app-config-interface";
 
 /**
  * @function getVME - VME stands for Version, Method and Entity for that API function.
