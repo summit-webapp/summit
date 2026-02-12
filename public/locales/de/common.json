@@ -351,5 +351,11 @@
 
   "print": "Drucken",
   "detailed": "Detailliert",
-  "overview": "Übersicht"
+  "overview": "Übersicht",
+
+  "sync_stock": "Bestand synchronisieren",
+  "select_all_client": "Alle Kunden auswählen",
+  "client_code": "Kundencode",
+  "only_for_filtering": "nur zum Filtern",
+  "sync": "Synchronisieren"
 }

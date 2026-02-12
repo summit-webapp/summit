@@ -351,5 +351,11 @@
 
   "print": "Imprimir",
   "detailed": "Detallado",
-  "overview": "Resumen"
+  "overview": "Resumen",
+
+  "sync_stock": "Sincronizar stock",
+  "select_all_client": "Seleccionar todos los clientes",
+  "client_code": "Código de cliente",
+  "only_for_filtering": "solo para filtrar",
+  "sync": "Sincronizar"
 }

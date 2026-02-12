@@ -366,5 +366,11 @@
 
   "print": "Print",
   "detailed": "Detailed",
-  "overview": "Overview"
+  "overview": "Overview",
+
+  "sync_stock": "Sync Stock",
+  "select_all_client": "Select All Clients",
+  "client_code": "Client Code",
+  "only_for_filtering": "only for filtering",
+  "sync": "Sync"
 }

@@ -53,6 +53,7 @@ const emrAPISDKRegistry = {
     'post-user-default-data': '/api/postUserDeafults',
     'get-y-param-list-api': '/api/getyParamList',
     'update-item-instruction-api': '/api/updateFields',
+    "sync-stock-list-api": "/api/manualStockSync",
 } as const;
 
 export type EMRApiKey = keyof typeof emrAPISDKRegistry;
