@@ -38,7 +38,7 @@ const initialState: FiltersState = {
   silverRate: 0,
   filters: {},
   filtersSetOfAPI: {},
-  currentScope: '',
+  currentScope: 'Database',
   customer: null,
   scope: { label: 'New Session (PDCM Design Bank)', value: 'Database' },
   userDefaultData: null,
