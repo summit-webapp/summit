@@ -59,8 +59,8 @@ const useLoginHook = () => {
         }
         
         fetchUserDefaultData(tokenData?.data?.access_token);
-        setCustomer(null);
-        setScope({ label: 'New Session (PDCM Design Bank)', value: 'Database' });
+        dispatch(setCustomer(null));
+        dispatch(setScope({ label: 'New Session (PDCM Design Bank)', value: 'Database' }));
         
         // Redirect to the home page or any other page after successful login
         if (tokenData?.data?.isPwdChg === 0) {
