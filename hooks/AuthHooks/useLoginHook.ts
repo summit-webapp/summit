@@ -16,6 +16,7 @@ import useCurrencyLanguageHandler from '../GeneralHooks/LanguageHandler';
 import { currencyOptions } from '../../utils/addon-utils/currency-map';
 import useUserDefaultData from '../addon-hooks/kc-hooks/useUserData';
 import { setCustomer, setDesignBankCount, setScope } from '../../store/slices/general_slices/kc-slice';
+import { resetStore } from '../../store/slices/auth/logout-slice';
 
 const useLoginHook = () => {
   const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
@@ -47,8 +48,11 @@ const useLoginHook = () => {
       // const tokenData = await getTokenFromLoginAPI(SUMMIT_APP_CONFIG, userParams);
       // Need to check below login api logic. Need to make generic.
       const tokenData = await emrLogin(userParams);
-
+      
       if (tokenData?.success === true && tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
+        localStorage.clear();
+        dispatch(resetStore());
+
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('user', values.usr);
         localStorage.setItem('party_name', tokenData?.data?.full_name);
