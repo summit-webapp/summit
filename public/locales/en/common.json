@@ -371,6 +371,6 @@
   "sync_stock": "Sync Stock",
   "select_all_client": "Select All Clients",
   "client_code": "Client Code",
-  "only_for_filtering": "only for filtering",
+  "only_for_stock_filtering": "only for Stock filtering",
   "sync": "Sync"
 }

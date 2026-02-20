@@ -356,6 +356,6 @@
   "sync_stock": "Sincronizza stock",
   "select_all_client": "Seleziona tutti i clienti",
   "client_code": "Codice cliente",
-  "only_for_filtering": "solo per il filtraggio",
+  "only_for_stock_filtering": "Solo per il filtraggio dello stock",
   "sync": "Sincronizza"
 }

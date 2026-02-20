@@ -356,6 +356,6 @@
   "sync_stock": "Bestand synchronisieren",
   "select_all_client": "Alle Kunden auswählen",
   "client_code": "Kundencode",
-  "only_for_filtering": "nur zum Filtern",
+  "only_for_stock_filtering": "Nur zur Bestandsfilterung",
   "sync": "Synchronisieren"
 }
