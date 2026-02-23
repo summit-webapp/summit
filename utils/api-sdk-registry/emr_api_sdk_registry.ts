@@ -40,6 +40,7 @@ const emrAPISDKRegistry: any = {
   'update-password-api': '/api/updateProfilePwd',
   'activate-customer-api': '/api/activateCustomer',
   'get-customer-list-api': '/api/getCustomerList',
+  'update-saved-address-api': '/api/updateProfileAddress',
 };
 
 export default emrAPISDKRegistry;

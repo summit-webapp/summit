@@ -61,7 +61,7 @@ const useLoginHook = () => {
         localStorage.setItem('selected_currency', tokenData?.data?.currency);
         // Redirect to the home page or any other page after successful login
         if (tokenData?.data?.isPwdChg === 0) {
-          router.push('/forgot_password');
+          router.push('/forgot-password');
         } else {
           if (AFTER_LOGIN_REDIRECT_URL) {
             router.push(AFTER_LOGIN_REDIRECT_URL);
