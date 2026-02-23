@@ -10,7 +10,7 @@ import fetchStockAvailabilityOfProduct from '../../services/api/product-detail-p
 import fetchPinCodesListAPI from '../../services/api/general-apis/get-pin-code-list-api';
 import debounce from 'debounce';
 import useAuthErrorHandler from '../AuthHooks/handleAuthError';
-import useCurrencyLanguageHandler from '../GeneralHooks/KCLanguageHandler';
+import useCurrencyLanguageHandler from '../GeneralHooks/LanguageHandler';
 type PinCodeTypes = {
   name: string;
 };
@@ -40,6 +40,8 @@ const useProductDetail = () => {
       quantity: productDetailData?.min_order_qty || 1,
     },
   ]);
+  const router = useRouter();
+
   const handleMultipleQtyChange = (index: number, itemCode: string, value: string) => {
     setItemList((prevItemList: any) => {
       if (!Array.isArray(prevItemList)) {
@@ -70,7 +72,7 @@ const useProductDetail = () => {
       if (
         productDetailAPI?.status === 200 &&
         productDetailAPI?.data?.msg === 'success' &&
-        Object?.keys(productDetailAPI?.data?.data).length > 0
+        Object?.keys(productDetailAPI?.data?.data[0]).length > 0
       ) {
         setProductDetailData(productDetailAPI?.data?.data[0]);
         if (productDetailAPI?.data?.message?.data?.min_order_qty > 0) {
@@ -174,10 +176,12 @@ const useProductDetail = () => {
     debouncedSetValue(pinCode); // Debounce state update
   };
 
+
   useEffect(() => {
+    if (!router.isReady) return;
     fetchProductDetailDataAPI();
-  // }, [query?.productId]);
-  }, [query?.productId, selectedCurrency]);
+  }, [router.isReady, query?.productId, selectedCurrency]);
+
 
   return {
     isLoading,

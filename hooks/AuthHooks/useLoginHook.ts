@@ -61,7 +61,7 @@ const useLoginHook = () => {
         localStorage.setItem('selected_currency', tokenData?.data?.currency);
         // Redirect to the home page or any other page after successful login
         if (tokenData?.data?.isPwdChg === 0) {
-          router.push('/forgot_password');
+          router.push('/forgot-password');
         } else {
           if (AFTER_LOGIN_REDIRECT_URL) {
             router.push(AFTER_LOGIN_REDIRECT_URL);
@@ -72,12 +72,14 @@ const useLoginHook = () => {
         // toast.success('Login Successfully');
       }
     } catch (error: any) {
-      if (error?.status === 400 && error?.response?.data?.error === "Invalid username or password") {
-        toast.error(t('invalid_credentials'));
-        return;
-      } else {
-        toast.error(t('error_while_login'));
-      }
+      // if (error?.response?.data?.error === "Invalid username or password") {
+      //   toast.error(t('invalid_credentials'));
+      //   return;
+      // } else {
+      //   toast.error(t('error_while_login'));
+      // }
+      toast.error(error?.response?.data?.error || t('error_while_login'));
+      console.error('Error:', error);
     } finally {
       setLoginBtnLoader(false);
     }

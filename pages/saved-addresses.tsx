@@ -2,15 +2,14 @@ import { CONSTANTS } from '../services/config/app-config';
 import { ServerDataTypes } from '../interfaces/meta-data-interface';
 import getPageMetaData from '../utils/fetch-page-meta-deta';
 import PageMetaData from '../components/PageMetaData';
-import RegisterComponent from '../components/Auth/RegisterComponent';
-import FallbackRegisterComponent from '../components/Auth/FallbackRegister/FallbackRegisterComponent';
+import SavedAddresses from '../components/profile/FallbackProfile/SavedAddressesComponent';
 
-const Register = ({ serverDataForPages }: ServerDataTypes) => {
+const SavedAddressesPage = ({ serverDataForPages }: ServerDataTypes) => {
   return (
     <>
       {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={serverDataForPages.metaData} />}
-      {/* <RegisterComponent /> */}
-      <FallbackRegisterComponent />
+      <SavedAddresses />
+      {/* <div>Saved Addresses Page</div> */}
     </>
   );
 };
@@ -30,4 +29,4 @@ export async function getServerSideProps(context: any) {
     };
   }
 }
-export default Register;
+export default SavedAddressesPage;

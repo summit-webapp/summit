@@ -36,6 +36,11 @@ const emrAPISDKRegistry: any = {
   'verify-reset-password-token-api': '/api/verifyLink',
   'get-filtered-sales-customer-api' : '/api/getFilteredSalesCustomer',
   'get-rate-look-up-options-api': '/api/getPLlist',
+  'get-user-data-api': '/api/getUserDetails',
+  'update-password-api': '/api/updateProfilePwd',
+  'activate-customer-api': '/api/activateCustomer',
+  'get-customer-list-api': '/api/getCustomerList',
+  'update-saved-address-api': '/api/updateProfileAddress',
 };
 
 export default emrAPISDKRegistry;
