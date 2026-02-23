@@ -19,8 +19,9 @@ const useCurrencyLanguageHandler = () => {
   const selectedLanguage = languageDisplayOptions.find((opt) => opt?.value === languageState)!;
 
   const updateUserPreference = async (language: Option, currency: Option) => {
-    const languageCode = language.toString();
-    const currencyCode = currency.toString()
+    console
+    const languageCode = language?.value?.toString();
+    const currencyCode = currency?.value?.toString()
     const apiBody = {
       userPreferences:{
         language: languageDisplayOptions.find((opt: Option) => opt?.value === languageCode)?.label,
