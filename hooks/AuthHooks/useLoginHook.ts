@@ -37,6 +37,7 @@ const useLoginHook = () => {
 
   const fetchToken = async (values: TypeLoginForm) => {
     setLoginBtnLoader(true);
+  
     try {
       const userParams: TypeLoginAPIParams = {
         values: { ...values },
@@ -44,44 +45,50 @@ const useLoginHook = () => {
         loginViaOTP: false,
         LoginViaGoogle: false,
       };
-
-      // const tokenData = await getTokenFromLoginAPI(SUMMIT_APP_CONFIG, userParams);
-      // Need to check below login api logic. Need to make generic.
+  
       const tokenData = await emrLogin(userParams);
-      
-      if (tokenData?.success === true && tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
-        localStorage.clear();
-        dispatch(resetStore());
-
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('user', values.usr);
-        localStorage.setItem('party_name', tokenData?.data?.full_name);
-        dispatch(setDesignBankCount(tokenData?.data?.count));
-
-        if (tokenData?.data?.isPwdChg !== 0) {
-          dispatch(storeToken(tokenData?.data));
+  
+      if (
+        tokenData?.success === true &&
+        tokenData?.msg === 'success' &&
+        tokenData?.data?.access_token
+      ) {
+        const { access_token, isPwdChg, count, full_name } = tokenData.data;
+  
+        if (isPwdChg !== 0) {
+          dispatch(storeToken(tokenData.data));
         }
-        
-        fetchUserDefaultData(tokenData?.data?.access_token);
-        dispatch(setCustomer(null));
-        dispatch(setScope({ label: 'New Session (PDCM Design Bank)', value: 'Database' }));
-        
-        // Redirect to the home page or any other page after successful login
-        if (tokenData?.data?.isPwdChg === 0) {
-          router.push('/forgot_password');
-        } else {
-          if (AFTER_LOGIN_REDIRECT_URL) {
-            router.push(AFTER_LOGIN_REDIRECT_URL);
-          } else {
-            router.push('/')
-          }
-        }
-        // toast.success('Login Successfully');
+  
+        const redirectUrl =
+          isPwdChg === 0
+            ? '/forgot_password'
+            : AFTER_LOGIN_REDIRECT_URL || '/';
+  
+        router.replace(redirectUrl);
+  
+        setTimeout(() => {
+          dispatch(setDesignBankCount(count));
+          dispatch(setCustomer(null));
+          dispatch(
+            setScope({
+              label: 'New Session (PDCM Design Bank)',
+              value: 'Database',
+            })
+          );
+  
+          fetchUserDefaultData(access_token);
+  
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('user', values.usr);
+          localStorage.setItem('party_name', full_name);
+        }, 0);
       }
     } catch (error: any) {
-      if (error?.status === 400 && error?.response?.data?.error === "Invalid username or password") {
+      if (
+        error?.status === 400 &&
+        error?.response?.data?.error === 'Invalid username or password'
+      ) {
         toast.error(t('invalid_credentials'));
-        return;
       } else {
         toast.error(t('error_while_login'));
       }
