@@ -69,17 +69,17 @@ const useProductListingFilterHook = () => {
 
       if (existingSectionIndex !== -1) {
         if (isChecked) {
-          if (!updatedFilters[existingSectionIndex].value.includes(filterValue)) {
-            updatedFilters[existingSectionIndex].value.push(filterValue);
+          if (!updatedFilters?.[existingSectionIndex].value.includes(filterValue)) {
+            updatedFilters?.[existingSectionIndex].value.push(filterValue);
           }
         } else {
           updatedFilters[existingSectionIndex].value = updatedFilters[existingSectionIndex].value.filter((val: any) => val !== filterValue);
-          if (updatedFilters[existingSectionIndex].value.length === 0) {
-            updatedFilters = updatedFilters.filter((filter) => filter.name !== section);
+          if (updatedFilters?.[existingSectionIndex].value.length === 0) {
+            updatedFilters = updatedFilters?.filter((filter) => filter?.name !== section);
           }
         }
       } else if (isChecked) {
-        updatedFilters.push({ name: section, value: [filterValue] });
+        updatedFilters?.push({ name: section, value: [filterValue] });
       }
 
       duplicateFilters = [...updatedFilters];

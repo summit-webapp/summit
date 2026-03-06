@@ -99,18 +99,18 @@ export const KCSlice = createSlice({
     setFilters: (state, action) => {
       const { customer, scope, data } = action.payload;
 
-      if (!state.filters[customer]) state.filters[customer] = {};
+      if (!state.filters?.[customer]) state.filters[customer] = {};
       state.filters[customer][scope] = {
-        ...(state.filters[customer][scope] || {}),
+        ...(state.filters?.[customer]?.[scope] || {}),
         ...data,
       };
     },
     setFiltersSetOfAPI: (state, action) => {
       const { customer, scope, data } = action.payload;
 
-      if (!state.filtersSetOfAPI[customer]) state.filtersSetOfAPI[customer] = {};
+      if (!state.filtersSetOfAPI?.[customer]) state.filtersSetOfAPI[customer] = {};
       state.filtersSetOfAPI[customer][scope] = {
-        ...(state.filtersSetOfAPI[customer][scope] || {}),
+        ...(state.filtersSetOfAPI?.[customer]?.[scope] || {}),
         ...data,
       };
     },
