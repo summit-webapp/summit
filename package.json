@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "summit": "sh -c './check-if-theme-exists.sh' && npm run dev",
-    "predev": "sh -c ./fetch-summit-settings.sh",
+    "predev": "node fetch-summit-settings.mjs",
     "dev": "next dev",
-    "prebuild": "sh -c ./fetch-summit-settings.sh",
+    "prebuild": "node fetch-summit-settings.mjs",
     "build": "cross-env NODE_ENV=production next build",
     "start": "next start",
     "test": "jest",
