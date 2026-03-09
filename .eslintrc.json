@@ -1,5 +1,11 @@
 {
   "root": true,
+  "ignorePatterns": ["node_modules/", ".next/", "out/", "dist/"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2022": true
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -13,7 +19,6 @@
     }
   },
   "extends": [
-    "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
@@ -28,19 +33,33 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+
     "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { "prefer": "type-imports", "fixStyle": "inline-type-imports" }
+    ],
+
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "warn",
-      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
     ],
+
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
-    "@typescript-eslint/consistent-type-imports": ["warn", { "prefer": "type-imports" }],
-    "@typescript-eslint/no-explicit-any": "warn",
+    "import/no-unresolved": "off",
+
     "no-console": ["warn", { "allow": ["warn", "error"] }]
   },
   "overrides": [
