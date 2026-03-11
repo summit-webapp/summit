@@ -94,7 +94,7 @@ const useProductListing = () => {
       router.push({
         query: {
           page: '1',
-          currency: 'INR',
+          currency: 'US$',
           sort_by: sortBy,
           scope: 'Database'
         },
