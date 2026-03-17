@@ -372,5 +372,7 @@
   "select_all_client": "Select All Clients",
   "client_code": "Client Code",
   "only_for_stock_filtering": "only for Stock filtering",
-  "sync": "Sync"
+  "sync": "Sync",
+
+  "company_code": "Company Code"
 }

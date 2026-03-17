@@ -357,5 +357,7 @@
   "select_all_client": "Seleziona tutti i clienti",
   "client_code": "Codice cliente",
   "only_for_stock_filtering": "Solo per il filtraggio dello stock",
-  "sync": "Sincronizza"
+  "sync": "Sincronizza",
+
+  "company_code": "Codice azienda"
 }
