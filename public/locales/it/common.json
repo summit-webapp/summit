@@ -55,7 +55,6 @@
   "password": "Password",
   "new_password": "Nuova password",
   "forgot_password": "Password dimenticata",
-
   "menu": "Menu",
   "b2b": "B2B",
   "highlights": "In evidenza",
@@ -73,7 +72,6 @@
   "store_developed": "negozio - Sviluppato da",
   "information": "Informazioni",
   "register_on": "Registrati su",
-
   "dont_have_an_account": "Non hai un account?",
   "sign_up": "Iscrizione",
   "already_have_an_account": "Hai già un account?",
@@ -143,7 +141,6 @@
   "Gross Weight": "Peso lordo",
   "no_orders_found": "Nessun ordine trovato",
   "no_order_items_found": "Nessun articolo ordinato trovato",
-
   "Bracelet": "Bracciale",
   "Earings": "Orecchini",
   "Necklaces": "Collane",
@@ -160,7 +157,6 @@
   "we_use_cookies_to_enhance_user_experience_and_analyze_site_usage": "Utilizziamo i cookie per migliorare l'esperienza dell'utente e analizzare l'utilizzo del sito.",
   "you_can_request_access_or_deletion_of_your_data_by_contacting_support": "Puoi richiedere l'accesso o la cancellazione dei tuoi dati contattando il supporto.",
   "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "Tutti i dati sono archiviati in modo sicuro e l'accesso è riservato solo al personale autorizzato.",
-
   "metal_details": "Dettagli del metallo",
   "diamond_details": "Dettagli del diamante",
   "colour_stone_details": "Dettagli delle pietre colorate",
@@ -182,7 +178,6 @@
   "main_code": "Codice principale",
   "sub_code": "Sotto-codice",
   "qty_wt": "Quantità / Peso",
-
   "Palladium": "Palladio",
   "Silver": "Argento",
   "product_details": "Dettagli del prodotto",
@@ -338,7 +333,6 @@
   "from": "Da",
   "to": "A",
   "grade_change": "Cambio di grado",
-
   "list_view": "Vista elenco",
   "grid_view": "Vista griglia",
   "back": "Indietro",
@@ -348,16 +342,15 @@
   "Designs": "Design",
   "your_stock_cart_for": "Il tuo carrello stock per",
   "for_pricing_and_vouchers": "per prezzi e voucher",
-
   "print": "Stampa",
   "detailed": "Dettagliato",
   "overview": "Riepilogo",
-
   "sync_stock": "Sincronizza stock",
   "select_all_client": "Seleziona tutti i clienti",
   "client_code": "Codice cliente",
   "only_for_stock_filtering": "Solo per il filtraggio dello stock",
   "sync": "Sincronizza",
-
+  "sub_customer": "Sotto-cliente",
+  "so_customer": "Cliente SO",
   "company_code": "Codice azienda"
 }
