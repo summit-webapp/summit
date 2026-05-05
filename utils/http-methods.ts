@@ -45,11 +45,12 @@ export const executeEMRPostAPI = async (
   apiName: EMRApiKey,
   apiData: any,
   token?: string,
-  _path?: string
+  _path?: string,
+  isBlob?: boolean,
 ) => {
   const sdkInfo = fetchAPISDK(apiName);
   const apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
-  const response = await callPostAPI(apiURL, apiData, `token ${token}`);
+  const response = await callPostAPI(apiURL, apiData, `token ${token}`, isBlob);
   return response;
 };
 
@@ -220,12 +221,14 @@ export const callPutAPI = async (url: string, body: any, token?: any) => {
   return response;
 };
 
-export const callPostAPI = async (url: string, body: any, token?: any) => {
+export const callPostAPI = async (url: string, body: any, token?: any, isBlob?: boolean) => {
   let response: any;
-  const API_CONFIG = {
+  const API_CONFIG: any = {
     headers: {
+      Accept: isBlob ? "*/*" : "application/json",
       ...(token ? { Authorization: token } : {}),
     },
+    ...(isBlob ? { responseType: "blob" } : {}),
   };
   await axios
     .post(url, body, {

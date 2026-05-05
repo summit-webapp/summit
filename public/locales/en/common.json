@@ -367,5 +367,10 @@
   "sync": "Sync",
   "sub_customer": "Sub Customer",
   "so_customer": "SO Customer",
-  "company_code": "Company Code"
+  "company_code": "Company Code",
+  "invoice_header": "Invoice Header",
+  "gst_code": "GST Code",
+  "description": "Description",
+  "percentage": "Percentage",
+  "amount": "Amount"
 }
