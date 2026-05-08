@@ -357,5 +357,7 @@
   "gst_code": "GST Code",
   "description": "Description",
   "percentage": "Percentage",
-  "amount": "Amount"
+  "amount": "Amount",
+  "design_color": "Design Color",
+  "selected_filters": "Selected Filters"
 }
