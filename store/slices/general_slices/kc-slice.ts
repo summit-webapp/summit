@@ -22,6 +22,13 @@ interface FiltersState {
   gradeChangeList: {label: string, value: string}[];
   diamondChangeList: {label: string, value: string}[];
   colorStoneChangeList: {label: string, value: string}[];
+  customiseFilters: {
+    metal?: {label: string; value: string | number};
+    purity?: {label: string; value: string | number};
+    tone?: {label: string; value: string | number};
+    diamond?: {label: string; value: string | number};
+    stone?: {label: string; value: string | number};
+  };
   showProductCardDetails: boolean;
   selectAllProducts: boolean;
   designSizes: any[] | null,
@@ -40,6 +47,7 @@ const initialState: FiltersState = {
   silverRate: 0,
   filters: {},
   filtersSetOfAPI: {},
+  customiseFilters: {},
   currentScope: 'Database',
   customer: null,
   scope: { label: 'New Session (PDCM Design Bank)', value: 'Database' },
@@ -147,9 +155,19 @@ export const KCSlice = createSlice({
     setAttributesData: (state, action) => {
       state.attributesData = action.payload;
     },
+    setCustomiseFilters: (state, action) => {
+      const { data } = action.payload;
+      state.customiseFilters = {
+        ...(state.customiseFilters || {}),
+        ...data,
+      };
+    },
+    setCompanyCode: (state, action) => {
+      state.companyCode = action.payload;
+    },
   },
 })
 
-export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope, setCustomer, setScope, setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setShowProductCardDetails, setSelectAllProducts, setToggleProductView, setDesignSizes, setAttributesData } = KCSlice.actions;
+export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope, setCustomer, setScope, setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setCustomiseFilters, setShowProductCardDetails, setSelectAllProducts, setToggleProductView, setDesignSizes, setAttributesData, setCompanyCode } = KCSlice.actions;
 export const KCFromStore = (state: any) => state.KCSlice;
 export default KCSlice.reducer;

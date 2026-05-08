@@ -372,5 +372,15 @@
   "select_all_client": "Select All Clients",
   "client_code": "Client Code",
   "only_for_stock_filtering": "only for Stock filtering",
-  "sync": "Sync"
+  "sync": "Sync",
+  "sub_customer": "Sub Customer",
+  "so_customer": "SO Customer",
+  "company_code": "Company Code",
+  "invoice_header": "Invoice Header",
+  "gst_code": "GST Code",
+  "description": "Description",
+  "percentage": "Percentage",
+  "amount": "Amount",
+  "design_color": "Design Color",
+  "selected_filters": "Selected Filters"
 }
