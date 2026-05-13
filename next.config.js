@@ -6,10 +6,19 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 const nextConfig = {
   images: {
-    domains: ['summit.8848digitalerp.com', 'staging-twinkle.8848digitalerp.com', 'emr-euro-shine.8848digitalerp.com', 'backend.atelier-reya.com', 'kc-backend.8848digitalcloud.com'],
+    domains: ['summit.8848digitalerp.com', 'staging-twinkle.8848digitalerp.com', 'emr-euro-shine.8848digitalerp.com', 'backend.atelier-reya.com', 'kc-backend.8848digitalcloud.com', 'backend-catalog.kantilalchhotalal.com'],
   },    
-    reactStrictMode: false,
+  reactStrictMode: false,
   swcMinify: true,
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/product-category',
+        permanent: false,
+      },
+    ]
+  },
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

@@ -1,7 +1,10 @@
-import axios from 'axios';
-import fetchAPISDK from '../utils/get-api-sdk';
-import { CONSTANTS } from '../services/config/app-config';
-import APP_CONFIG from '../interfaces/app-config-interface';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { CONSTANTS } from "../services/config/app-config";
+import fetchAPISDK from "../utils/get-api-sdk";
+import axios from "axios";
+import { EMRApiKey } from "./api-sdk-registry/emr_api_sdk_registry";
+import APP_CONFIG from "../interfaces/app-config-interface";
 
 /**
  * @function getVME - VME stands for Version, Method and Entity for that API function.
@@ -17,7 +20,13 @@ const getVME = (frappeAppConfig: APP_CONFIG, apiName: string) => {
   };
 };
 
-export const executeEMRGetAPI = async (apiName: string, apiData: any, token?: string, path?: string) => {
+export const executeEMRGetAPI = async (
+  apiName: EMRApiKey,
+  apiData: any,
+  token?: string,
+  _path?: string,
+  isBlob?: boolean,
+) => {
   const sdkInfo = fetchAPISDK(apiName);
   let apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
   if (apiData && Object.keys(apiData).length !== 0) {
@@ -28,29 +37,45 @@ export const executeEMRGetAPI = async (apiName: string, apiData: any, token?: st
     apiURL = `${CONSTANTS.API_BASE_URL}${sdkInfo}?${storeParams}`;
   }
   // Make the API call
-  const response = await callGetAPI(`${apiURL}`, `token ${token}`);
+  const response = await callGetAPI(`${apiURL}`, `token ${token}`, isBlob);
   return response;
 };
 
-export const executeEMRPostAPI = async (apiName: string, apiData: any, token?: string, path?: string) => {
+export const executeEMRPostAPI = async (
+  apiName: EMRApiKey,
+  apiData: any,
+  token?: string,
+  _path?: string
+) => {
   const sdkInfo = fetchAPISDK(apiName);
-  let apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
+  const apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
   const response = await callPostAPI(apiURL, apiData, `token ${token}`);
   return response;
 };
 
-export const executeEMRPutAPI = async (apiName: string, apiData: any, token?: string, path?: string) => {
+export const executeEMRPutAPI = async (
+  apiName: EMRApiKey,
+  apiData: any,
+  token?: string,
+  _path?: string
+) => {
   const sdkInfo = fetchAPISDK(apiName);
-  let apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
+  const apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
   const response = await callPutAPI(apiURL, apiData, `token ${token}`);
   return response;
 };
-export const executeEMRDeleteAPI = async (apiName: string, apiData: any, token?: string, path?: string) => {
+export const executeEMRDeleteAPI = async (
+  apiName: EMRApiKey,
+  apiData: any,
+  token?: string,
+  _path?: string
+) => {
   const sdkInfo = fetchAPISDK(apiName);
-  let apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
+  const apiURL: string = `${CONSTANTS.API_BASE_URL}${sdkInfo}`; // Initialize with a default value
   const response = await callDeleteAPI(apiURL, apiData, `token ${token}`);
   return response;
 };
+
 
 /**
  * Fetches data from an API by handling repetitive steps like fetching SDK names,
@@ -132,13 +157,14 @@ export const executeDELETEAPI = async (frappeAppConfig: APP_CONFIG, apiName: str
   return response;
 };
 
-export const callGetAPI = async (url: string, token?: any) => {
+export const callGetAPI = async (url: string, token?: any, isBlob?: boolean) => {
   let response: any;
-  const API_CONFIG = {
+  const API_CONFIG: any = {
     headers: {
-      Accept: 'application/json',
+      Accept: isBlob ? "*/*" : "application/json",
       ...(token ? { Authorization: token } : {}),
     },
+    ...(isBlob ? { responseType: "blob" } : {}), // ✅ HERE
   };
   await axios
     .get(`${url}`, {
@@ -149,15 +175,17 @@ export const callGetAPI = async (url: string, token?: any) => {
       response = res;
     })
     .catch((err: any) => {
-      if (err.code === 'ECONNABORTED') {
-        response = 'Request timed out. API took too long to return response.';
-      } else if (err.code === 'ERR_BAD_REQUEST') {
+      if (err.code === "ECONNABORTED") {
+        response = "Request timed out. API took too long to return response.";
+      } else if (err.code === "ERR_BAD_REQUEST") {
         // response = err?.response?.data?.exception ?? `Status Code: ${err.status} Bad Request`;
         response = err?.response?.data?.exception ?? err?.response;
-      } else if (err.code === 'ERR_INVALID_URL') {
-        response = 'Invalid URL';
+      } else if (err.code === "ERR_INVALID_URL") {
+        response = "Invalid URL";
       } else {
-        response = err?.response?.data?.error || `Status Code: ${err.status}. ${err?.message}`;
+        response =
+          err?.response?.data?.error ||
+          `Status Code: ${err.status}. ${err?.message}`;
       }
     });
   return response;
@@ -178,13 +206,13 @@ export const callPutAPI = async (url: string, body: any, token?: any) => {
       response = res;
     })
     .catch((err: any) => {
-      if (err.code === 'ECONNABORTED') {
-        response = 'Request timed out. API took too long to return response.';
-      } else if (err.code === 'ERR_BAD_REQUEST') {
+      if (err.code === "ECONNABORTED") {
+        response = "Request timed out. API took too long to return response.";
+      } else if (err.code === "ERR_BAD_REQUEST") {
         // response = err?.response?.data?.exception ?? `Status Code: ${err.status} Bad Request`;
         response = err?.response?.data?.exception ?? err?.response;
-      } else if (err.code === 'ERR_INVALID_URL') {
-        response = 'Invalid URL';
+      } else if (err.code === "ERR_INVALID_URL") {
+        response = "Invalid URL";
       } else {
         response = err;
       }
@@ -208,13 +236,13 @@ export const callPostAPI = async (url: string, body: any, token?: any) => {
       response = res;
     })
     .catch((err: any) => {
-      if (err.code === 'ECONNABORTED') {
-        response = 'Request timed out. API took too long to return response.';
-      } else if (err.code === 'ERR_BAD_REQUEST') {
+      if (err.code === "ECONNABORTED") {
+        response = "Request timed out. API took too long to return response.";
+      } else if (err.code === "ERR_BAD_REQUEST") {
         // response = err?.response?.data?.exception ?? `Status Code: ${err.status} Bad Request`;
         response = err?.response?.data?.exception ?? err?.response;
-      } else if (err.code === 'ERR_INVALID_URL') {
-        response = 'Invalid URL';
+      } else if (err.code === "ERR_INVALID_URL") {
+        response = "Invalid URL";
       } else {
         response = err;
       }
@@ -230,17 +258,17 @@ const callDeleteAPI = async (url: string, body?: any, token?: any) => {
   };
   await axios
     .delete(`${url}`, { headers: { ...API_CONFIG.headers }, data: { ...body } })
-    .then((res) => {
+    .then((res: any) => {
       response = res;
     })
     .catch((err: any) => {
-      if (err.code === 'ECONNABORTED') {
-        response = 'Request timed out. API took too long to return response.';
-      } else if (err.code === 'ERR_BAD_REQUEST') {
+      if (err.code === "ECONNABORTED") {
+        response = "Request timed out. API took too long to return response.";
+      } else if (err.code === "ERR_BAD_REQUEST") {
         // response = err?.response?.data?.exception ?? `Status Code: ${err.status} Bad Request`;
         response = err?.response?.data?.exception ?? err?.response;
-      } else if (err.code === 'ERR_INVALID_URL') {
-        response = 'Invalid URL';
+      } else if (err.code === "ERR_INVALID_URL") {
+        response = "Invalid URL";
       } else {
         response = err;
       }

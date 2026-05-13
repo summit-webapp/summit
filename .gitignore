@@ -69,3 +69,5 @@ next-env.d.ts
 /pages/support/*
 /pages/warranty
 /services/config/theme-config.ts
+
+kc.code-workspace
