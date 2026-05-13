@@ -33,6 +33,7 @@ interface FiltersState {
   selectAllProducts: boolean;
   designSizes: any[] | null,
   attributesData: any[] | null,
+  companyCode: string | null,
 }
 
 const initialState: FiltersState = {
@@ -62,6 +63,7 @@ const initialState: FiltersState = {
   selectAllProducts: false,
   designSizes: [],
   attributesData: [],
+  companyCode: null,
 };
 
 export const KCSlice = createSlice({
