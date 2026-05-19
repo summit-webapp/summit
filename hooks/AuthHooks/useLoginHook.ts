@@ -37,7 +37,7 @@ const useLoginHook = () => {
 
   const fetchToken = async (values: TypeLoginForm) => {
     setLoginBtnLoader(true);
-  
+
     try {
       const userParams: TypeLoginAPIParams = {
         values: { ...values },
@@ -45,39 +45,39 @@ const useLoginHook = () => {
         loginViaOTP: false,
         LoginViaGoogle: false,
       };
-  
+
       const tokenData = await emrLogin(userParams);
-  
+
       if (
         tokenData?.success === true &&
         tokenData?.msg === 'success' &&
         tokenData?.data?.access_token
       ) {
         const { access_token, isPwdChg, count, full_name } = tokenData.data;
-  
+
         if (isPwdChg !== 0) {
           dispatch(storeToken(tokenData.data));
         }
-  
+
         const redirectUrl =
           isPwdChg === 0
             ? '/forgot_password'
             : AFTER_LOGIN_REDIRECT_URL || '/';
-  
+
         router.replace(redirectUrl);
-  
+
         setTimeout(() => {
           dispatch(setDesignBankCount(count));
           dispatch(setCustomer(null));
           dispatch(
             setScope({
-              label: 'New Session (PDCM Design Bank)',
+              label: 'PDCM Design Bank',
               value: 'Database',
             })
           );
-  
+
           fetchUserDefaultData(access_token);
-  
+
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('user', values.usr);
           localStorage.setItem('party_name', full_name);
@@ -100,7 +100,7 @@ const useLoginHook = () => {
   useEffect(() => {
     dispatch(setShowSessionExpiredModalFalse());
   }, []);
-  
+
   return { passwordHidden, togglePasswordIcon, fetchToken, loginBtnLoader };
 };
 
