@@ -383,5 +383,8 @@
   "amount": "Amount",
   "design_color": "Design Color",
   "selected_filters": "Selected Filters",
-  "Check Stock": "Check Stock"
+  "Check Stock": "Check Stock",
+
+  "next": "Next",
+  "previous": "Previous"
 }
