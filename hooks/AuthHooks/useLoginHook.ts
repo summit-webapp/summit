@@ -72,7 +72,7 @@ const useLoginHook = () => {
           dispatch(
             setScope({
               label: 'PDCM Design Bank',
-              value: 'Database',
+              value: 'PDCM Design Bank',
             })
           );
 

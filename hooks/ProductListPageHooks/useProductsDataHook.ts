@@ -96,7 +96,7 @@ const useProductListing = () => {
           page: '1',
           currency: 'INR',
           sort_by: sortBy,
-          scope: 'Database'
+          scope: 'PDCM Design Bank'
         },
       });
     }
