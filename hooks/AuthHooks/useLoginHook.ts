@@ -64,11 +64,13 @@ const useLoginHook = () => {
             ? '/forgot_password'
             : AFTER_LOGIN_REDIRECT_URL || '/';
 
-        router.replace(redirectUrl);
+        await router.replace(redirectUrl);
 
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           dispatch(setDesignBankCount(count));
+
           dispatch(setCustomer(null));
+
           dispatch(
             setScope({
               label: 'PDCM Design Bank',
@@ -81,7 +83,7 @@ const useLoginHook = () => {
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('user', values.usr);
           localStorage.setItem('party_name', full_name);
-        }, 0);
+        });
       }
     } catch (error: any) {
       if (
