@@ -90,7 +90,7 @@ const useProductListing = () => {
 
   useEffect(() => {
     let storeUsefulParamsForFurtherProductListingApi;
-    if (router.asPath === '/product-category') {
+    if (typeof window !== 'undefined' && window.location.pathname === '/product-category' && !window.location.search) {
       router.push({
         query: {
           page: '1',
