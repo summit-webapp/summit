@@ -387,5 +387,6 @@
 
   "next": "Next",
   "previous": "Previous",
-  "memo": "Memo"
+  "memo": "Memo",
+  "sync_pdcm_stock": "Sync PDCM/Stock"
 }
