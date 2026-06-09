@@ -19,15 +19,15 @@ interface FiltersState {
   userDefaultData: any;
   userDefaultLoading: boolean;
   designBankCount: number;
-  gradeChangeList: {label: string, value: string}[];
-  diamondChangeList: {label: string, value: string}[];
-  colorStoneChangeList: {label: string, value: string}[];
+  gradeChangeList: { label: string, value: string }[];
+  diamondChangeList: { label: string, value: string }[];
+  colorStoneChangeList: { label: string, value: string }[];
   customiseFilters: {
-    metal?: {label: string; value: string | number};
-    purity?: {label: string; value: string | number};
-    tone?: {label: string; value: string | number};
-    diamond?: {label: string; value: string | number};
-    stone?: {label: string; value: string | number};
+    metal?: { label: string; value: string | number };
+    purity?: { label: string; value: string | number };
+    tone?: { label: string; value: string | number };
+    diamond?: { label: string; value: string | number };
+    stone?: { label: string; value: string | number };
   };
   showProductCardDetails: boolean;
   selectAllProducts: boolean;
@@ -49,9 +49,9 @@ const initialState: FiltersState = {
   filters: {},
   filtersSetOfAPI: {},
   customiseFilters: {},
-  currentScope: 'Database',
+  currentScope: 'PDCM Design Bank',
   customer: null,
-  scope: { label: 'New Session (PDCM Design Bank)', value: 'Database' },
+  scope: { label: 'PDCM Design Bank', value: 'PDCM Design Bank' },
   userDefaultData: null,
   userDefaultLoading: false,
   designBankCount: 0,

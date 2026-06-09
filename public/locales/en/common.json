@@ -375,5 +375,10 @@
   "amount": "Amount",
   "design_color": "Design Color",
   "selected_filters": "Selected Filters",
+  "Check Stock": "Check Stock",
+
+  "next": "Next",
+  "previous": "Previous",
+  "memo": "Memo",
   "sync_pdcm_stock": "Sync PDCM/Stock"
 }

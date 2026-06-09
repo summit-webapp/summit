@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
 import getTokenLoginApi from '../../../services/api/auth/get-token-from-login-api';
+import { resetStore } from './logout-slice';
 
 export const getAccessToken: any = createAsyncThunk('accessToken/getAccessToken', async (param: any) => {
   const AccessTokenData = await getTokenLoginApi(param);
@@ -34,18 +35,29 @@ export const GetAccessTokenScreen = createSlice({
       state.error = '';
       state.isLoading = 'succeeded';
       state.showSessionExpiredModal = false;
+      if (typeof window !== 'undefined') {
+        const expires = new Date(Date.now() + 86400 * 1000).toUTCString();
+        document.cookie = `token=${action?.payload?.access_token}; path=/; expires=${expires}; SameSite=Lax`;
+      }
     },
     clearToken(state?: any, action?: any) {
       state.token = '';
       state.error = '';
       state.isLoading = 'idle';
       state.showSessionExpiredModal = false;
+      if (typeof window !== 'undefined') {
+        document.cookie = `token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
+      }
     },
     updateAccessToken(state?: any, action?: any) {
       state.token = action?.payload;
       state.error = '';
       state.isLoading = 'idle';
       state.showSessionExpiredModal = false;
+      if (typeof window !== 'undefined') {
+        const expires = new Date(Date.now() + 86400 * 1000).toUTCString();
+        document.cookie = `token=${action?.payload}; path=/; expires=${expires}; SameSite=Lax`;
+      }
     },
     setShowSessionExpiredModalTrue(state) {
       state.showSessionExpiredModal = true;
@@ -65,6 +77,10 @@ export const GetAccessTokenScreen = createSlice({
         state.token = action?.payload?.data?.access_token;
         state.isLoading = 'succeeded';
         state.showSessionExpiredModal = false;
+        if (typeof window !== 'undefined') {
+          const expires = new Date(Date.now() + 86400 * 1000).toUTCString();
+          document.cookie = `token=${action?.payload?.data?.access_token}; path=/; expires=${expires}; SameSite=Lax`;
+        }
       }
     });
     builder.addCase(getAccessToken.rejected, (state, action) => {
@@ -72,6 +88,11 @@ export const GetAccessTokenScreen = createSlice({
       state.token = '';
       state.error = 'failed to store token';
       state.showSessionExpiredModal = false;
+    });
+    builder.addCase(resetStore, (state) => {
+      if (typeof window !== 'undefined') {
+        document.cookie = `token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
+      }
     });
   },
 });

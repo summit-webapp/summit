@@ -65,9 +65,12 @@ type BuildPropTypes = {
   productPageComponents: WebsiteInterfaceTypes;
   translationsList: any;
   metaTagsData: any;
+  setMoveToFromPage: React.Dispatch<React.SetStateAction<'detail' | 'listing'>>
+  moveToSelectedProducts?: any[];
+  setMoveToSelectedProducts: React.Dispatch<React.SetStateAction<any[]>>
 };
 
-const Index = ({ productPageComponents, translationsList, metaTagsData }: BuildPropTypes) => {
+const Index = ({ productPageComponents, translationsList, metaTagsData, setMoveToFromPage, moveToSelectedProducts, setMoveToSelectedProducts }: BuildPropTypes) => {
   const dispatch = useDispatch();
   const { sendPageViewToGA } = useGoogleAnalyticsOperationsHandler();
   useEffect(() => {
@@ -80,7 +83,12 @@ const Index = ({ productPageComponents, translationsList, metaTagsData }: BuildP
     <>
       <TranslationsList>
         {CONSTANTS.ENABLE_META_TAGS && <PageMetaData meta_data={metaTagsData} />}
-        <ProductPageMaster productPageComponents={productPageComponents} />
+        <ProductPageMaster 
+          productPageComponents={productPageComponents}
+          setMoveToFromPage={setMoveToFromPage} 
+          moveToSelectedProducts={moveToSelectedProducts}
+          setMoveToSelectedProducts={setMoveToSelectedProducts}
+        />
       </TranslationsList>
     </>
   );
