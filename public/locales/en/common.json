@@ -374,5 +374,6 @@
   "percentage": "Percentage",
   "amount": "Amount",
   "design_color": "Design Color",
-  "selected_filters": "Selected Filters"
+  "selected_filters": "Selected Filters",
+  "sync_pdcm_stock": "Sync PDCM/Stock"
 }
