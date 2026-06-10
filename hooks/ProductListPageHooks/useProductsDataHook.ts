@@ -89,6 +89,13 @@ const useProductListing = () => {
   }, []);
 
   useEffect(() => {
+    if (!router.isReady) return;
+
+    const scopeParam = query?.scope || query?.Scope;
+    if (scopeParam === 'Cart' || scopeParam === 'Stock Cart') {
+      return;
+    }
+
     let storeUsefulParamsForFurtherProductListingApi;
     if (typeof window !== 'undefined' && window.location.pathname === '/product-category' && !window.location.search) {
       router.push({
@@ -111,7 +118,7 @@ const useProductListing = () => {
     fetchProductListDataAPI(storeUsefulParamsForFurtherProductListingApi);
 
     setSearchFilterValue(router.query.search_text);
-  }, [query]);
+  }, [query, router.isReady]);
   return {
     productListingData,
     productListTotalCount,
