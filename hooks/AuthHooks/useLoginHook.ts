@@ -17,6 +17,7 @@ import { currencyOptions } from '../../utils/addon-utils/currency-map';
 import useUserDefaultData from '../addon-hooks/kc-hooks/useUserData';
 import { setCustomer, setDesignBankCount, setScope } from '../../store/slices/general_slices/kc-slice';
 import { resetStore } from '../../store/slices/auth/logout-slice';
+import { persistor } from '../../store/store';
 
 const useLoginHook = () => {
   const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
@@ -54,6 +55,9 @@ const useLoginHook = () => {
         tokenData?.data?.access_token
       ) {
         const { access_token, isPwdChg, count, full_name } = tokenData.data;
+        await persistor.purge();
+        dispatch(resetStore());  
+        localStorage.clear();
 
         if (isPwdChg !== 0) {
           dispatch(storeToken(tokenData.data));
@@ -70,7 +74,7 @@ const useLoginHook = () => {
           dispatch(setDesignBankCount(count));
 
           dispatch(setCustomer(null));
-
+          
           dispatch(
             setScope({
               label: 'PDCM Design Bank',

@@ -4,8 +4,8 @@ interface FiltersState {
   currentScope: string;
   scope: any;
   customer: any;
-  filters: { [customer: string]: { [scope: string]: any } };
-  filtersSetOfAPI: { [customer: string]: { [scope: string]: any } };
+  filters: { [customer: string]: { [company: string]: { [scope: string]: any } } };
+  filtersSetOfAPI: { [customer: string]: { [company: string]: { [scope: string]: any } } };
   toggleProductView: 'grid' | 'list';
   hideFiltersOnFirstLoad: boolean;
   metalRateSidebar: boolean;
@@ -107,20 +107,22 @@ export const KCSlice = createSlice({
       state.scope = action.payload;
     },
     setFilters: (state, action) => {
-      const { customer, scope, data } = action.payload;
+      const { customer, company = 'KC', scope, data } = action.payload;
 
       if (!state.filters?.[customer]) state.filters[customer] = {};
-      state.filters[customer][scope] = {
-        ...(state.filters?.[customer]?.[scope] || {}),
+      if (!state.filters[customer]?.[company]) state.filters[customer][company] = {};
+      state.filters[customer][company][scope] = {
+        ...(state.filters?.[customer]?.[company]?.[scope] || {}),
         ...data,
       };
     },
     setFiltersSetOfAPI: (state, action) => {
-      const { customer, scope, data } = action.payload;
+      const { customer, company = 'KC', scope, data } = action.payload;
 
       if (!state.filtersSetOfAPI?.[customer]) state.filtersSetOfAPI[customer] = {};
-      state.filtersSetOfAPI[customer][scope] = {
-        ...(state.filtersSetOfAPI?.[customer]?.[scope] || {}),
+      if (!state.filtersSetOfAPI[customer]?.[company]) state.filtersSetOfAPI[customer][company] = {};
+      state.filtersSetOfAPI[customer][company][scope] = {
+        ...(state.filtersSetOfAPI?.[customer]?.[company]?.[scope] || {}),
         ...data,
       };
     },
@@ -171,5 +173,25 @@ export const KCSlice = createSlice({
 })
 
 export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope, setCustomer, setScope, setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setCustomiseFilters, setShowProductCardDetails, setSelectAllProducts, setToggleProductView, setDesignSizes, setAttributesData, setCompanyCode } = KCSlice.actions;
-export const KCFromStore = (state: any) => state.KCSlice;
+export const KCFromStore = (state: any) => {
+  const slice = state.KCSlice;
+  const company = slice.companyCode || 'KC';
+  const flatFilters: any = {};
+  if (slice.filters) {
+    Object.keys(slice.filters).forEach((cust) => {
+      flatFilters[cust] = slice.filters[cust]?.[company] || {};
+    });
+  }
+  const flatFiltersSetOfAPI: any = {};
+  if (slice.filtersSetOfAPI) {
+    Object.keys(slice.filtersSetOfAPI).forEach((cust) => {
+      flatFiltersSetOfAPI[cust] = slice.filtersSetOfAPI[cust]?.[company] || {};
+    });
+  }
+  return {
+    ...slice,
+    filters: flatFilters,
+    filtersSetOfAPI: flatFiltersSetOfAPI,
+  };
+};
 export default KCSlice.reducer;
