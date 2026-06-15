@@ -37,14 +37,21 @@ export const getStaticPaths = async () => {
     });
 
     getPathsList = Array.from(pathSet);
+
   }
+  const finalPaths = getPathsList.map((categoryPath: string) => ({ 
+    params: {
+      category: categoryPath.split('/').pop()?.trim(),
+    },
+    }))
+  .filter(
+    (p) =>
+    p.params.category &&
+    p.params.category !== 'product-category'
+  );
 
   return {
-    paths: getPathsList.map((categoryPath: string) => ({
-      params: {
-        category: categoryPath.split('/').pop(), // Important!
-      },
-    })),
+    paths: finalPaths,
     fallback: false,
   };
 };
