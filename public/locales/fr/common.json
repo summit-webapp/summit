@@ -55,7 +55,6 @@
   "password": "Mot de passe",
   "new_password": "Nouveau mot de passe",
   "forgot_password": "Mot de passe oublié",
-
   "menu": "Menu",
   "b2b": "B2B",
   "highlights": "Temps forts",
@@ -72,8 +71,7 @@
   "progearhub": "ProGearHub",
   "store_developed": "magasin - Développé par",
   "information": "Information",
-  "register_on":"Inscrivez-vous sur",
-
+  "register_on": "Inscrivez-vous sur",
   "dont_have_an_account": "Vous n'avez pas de compte ?",
   "sign_up": "S'inscrire",
   "already_have_an_account": "Vous avez déjà un compte ?",
@@ -143,7 +141,6 @@
   "Gross Weight": "Poids brut",
   "no_orders_found": "Aucune commande trouvée",
   "no_order_items_found": "Aucun articlre de commande trouvé",
-
   "Bracelet": "Bracelet",
   "Earings": "Boucles d'oreilles",
   "Necklaces": "Colliers",
@@ -160,7 +157,6 @@
   "we_use_cookies_to_enhance_user_experience_and_analyze_site_usage": "Nous utilisons des cookies pour améliorer l'expérience utilisateur et analyser l'utilisation du site.",
   "you_can_request_access_or_deletion_of_your_data_by_contacting_support": "Vous pouvez demander l'accès ou la suppression de vos données en contactant le support.",
   "all_data_is_stored_securely_and_access_is_restricted_to_authorized_personnel_only": "Toutes les données sont stockées de manière sécurisée et l'accès est limité au personnel autorisé uniquement.",
-
   "metal_details": "Détails du métal",
   "diamond_details": "Détails du diamant",
   "colour_stone_details": "Détails des pierres colorées",
@@ -182,7 +178,6 @@
   "main_code": "Code principal",
   "sub_code": "Sous-code",
   "qty_wt": "Qté / Poids",
-
   "Palladium": "Palladium",
   "Silver": "Argent",
   "product_details": "Détails du produit",
@@ -338,7 +333,6 @@
   "from": "De",
   "to": "À",
   "grade_change": "Changement de grade",
-
   "list_view": "Vue en liste",
   "grid_view": "Vue en grille",
   "back": "Retour",
@@ -348,11 +342,9 @@
   "Designs": "Designs",
   "your_stock_cart_for": "Votre panier de stock pour",
   "for_pricing_and_vouchers": "pour la tarification et les bons",
-  
   "print": "Imprimer",
   "detailed": "Détaillé",
   "overview": "Aperçu",
-
   "sync_stock": "Synchroniser le stock",
   "select_all_client": "Sélectionner tous les clients",
   "client_code": "Code client",
@@ -372,5 +364,6 @@
 
   "next": "Next",
   "previous": "Previous",
-  "memo": "Memo"
+  "memo": "Memo",
+  "sync_pdcm_stock": "Synchroniser PDCM/Stock"
 }

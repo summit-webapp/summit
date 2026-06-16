@@ -58,7 +58,6 @@ const useLoginHook = () => {
         await persistor.purge();
         dispatch(resetStore());  
         localStorage.clear();
-
         if (isPwdChg !== 0) {
           dispatch(storeToken(tokenData.data));
         }

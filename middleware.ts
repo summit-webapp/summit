@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
 
     // ACTIVE TOKEN VALIDATION VIA API
     try {
-      const apiHost = process.env.NEXT_PUBLIC_API_URL || 'https://backend-catalog.kantilalchhotalal.com';
+      const apiHost = process.env.NEXT_PUBLIC_API_URL;
       const apiUrl = `${apiHost}/api/getUserDeafults`;
       
       const response = await fetch(apiUrl, {
@@ -51,7 +51,7 @@ export async function middleware(request: NextRequest) {
     // PUBLIC ROUTE CHECK (e.g., trying to access /login while logged in)
     if (token) {
       try {
-        const apiHost = process.env.NEXT_PUBLIC_API_URL || 'https://backend-catalog.kantilalchhotalal.com';
+        const apiHost = process.env.NEXT_PUBLIC_API_URL;
         const apiUrl = `${apiHost}/api/getUserDeafults`;
 
         const response = await fetch(apiUrl, {
