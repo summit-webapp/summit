@@ -107,24 +107,28 @@ export const KCSlice = createSlice({
       state.scope = action.payload;
     },
     setFilters: (state, action) => {
-      const { customer, company = 'KC', scope, data } = action.payload;
+      const { customer, company = 'KC', scope, data, overwrite = false } = action.payload;
 
       if (!state.filters?.[customer]) state.filters[customer] = {};
       if (!state.filters[customer]?.[company]) state.filters[customer][company] = {};
-      state.filters[customer][company][scope] = {
-        ...(state.filters?.[customer]?.[company]?.[scope] || {}),
-        ...data,
-      };
+      state.filters[customer][company][scope] = overwrite
+        ? { ...data }
+        : {
+            ...(state.filters?.[customer]?.[company]?.[scope] || {}),
+            ...data,
+          };
     },
     setFiltersSetOfAPI: (state, action) => {
-      const { customer, company = 'KC', scope, data } = action.payload;
+      const { customer, company = 'KC', scope, data, overwrite = false } = action.payload;
 
       if (!state.filtersSetOfAPI?.[customer]) state.filtersSetOfAPI[customer] = {};
       if (!state.filtersSetOfAPI[customer]?.[company]) state.filtersSetOfAPI[customer][company] = {};
-      state.filtersSetOfAPI[customer][company][scope] = {
-        ...(state.filtersSetOfAPI?.[customer]?.[company]?.[scope] || {}),
-        ...data,
-      };
+      state.filtersSetOfAPI[customer][company][scope] = overwrite
+        ? { ...data }
+        : {
+            ...(state.filtersSetOfAPI?.[customer]?.[company]?.[scope] || {}),
+            ...data,
+          };
     },
     setUserDefaultData: (state, action) => {
       state.userDefaultData = action.payload;
