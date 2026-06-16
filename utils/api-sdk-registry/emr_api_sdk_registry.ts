@@ -54,7 +54,7 @@ const emrAPISDKRegistry = {
     'get-y-param-list-api': '/api/getyParamList',
     'get-dynamic-config-api': '/api/getDynamicConfig',
     'update-item-instruction-api': '/api/updateFields',
-    'sync-stock-list-api': '/api/manualStockSync',
+    "sync-stock-list-api": "/api/manualStockSync",
     'get-invoice-pdf-api': '/api/print-format/nyj/invoice/pdf',
     'get-memo-pdf-api': '/api/print-format/nyj/memo/pdf',
     'preview-invoice-header-api': '/api/invHd/previewInvHd',
@@ -64,9 +64,9 @@ const emrAPISDKRegistry = {
     'get-detail-invoice-pdf-api': '/api/print-format/kc/detail-invoice-printing/pdf',
     'get-detail-quotation-pdf-api': '/api/print-format/kc/detail-quotation-printing/pdf',
     'get-memo-issue-pdf-api': '/api/print-format/kc/memo-issue-delivery-challan/pdf',
-    'get-order-catalogue-pdf-api': '/api/report/order-catalogue/pdf',
-    'get-detailed-quotation-excel-api': '/api/report/detailed-quotation/multi-sheet-excel',
-    'get-zero-rate-excel-api': '/api/report/zero-rate-item-list/multi-sheet-excel',
+    'get-order-catalogue-pdf-api': '/api/report/kc/order-catalogue/pdf',
+    'get-detailed-quotation-excel-api': '/api/report/kc/detailed-quotation/multi-sheet-excel',
+    'get-zero-rate-excel-api': '/api/report/kc/zero-rate-item-list/multi-sheet-excel',
 } as const;
 
 export type EMRApiKey = keyof typeof emrAPISDKRegistry;

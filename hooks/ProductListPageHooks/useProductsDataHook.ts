@@ -15,7 +15,7 @@ const useProductListing = () => {
   const { query }: any = useRouter();
   const TokenFromStore: any = useSelector(get_access_token);
   const { companyCode } = useSelector(KCFromStore);
-  const cocd = typeof companyCode === 'object' ? companyCode?.value : companyCode;
+  const cocd = (typeof companyCode === 'object' ? companyCode?.value : companyCode) || undefined;
 
   const [toggleProductListView, setToggleProductListView] = useState('list-view');
   const [productListingData, setProductListingData] = useState<any>([]);
