@@ -3,7 +3,7 @@ import { RootState } from '../../root-reducer';
 
 interface CartState {
   items: any[];
-  cartCount: any;
+  stockCartCount: any;
   grandTotal: number;
   error: string | null;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
@@ -12,7 +12,7 @@ interface CartState {
 
 const initialState: CartState = {
   items: [],
-  cartCount: 0,
+  stockCartCount: 0,
   grandTotal: 0,
   error: null,
   isLoading: 'idle',
@@ -20,28 +20,28 @@ const initialState: CartState = {
 };
 
 const cartSlice = createSlice({
-  name: 'cart',
+  name: 'stockCart',
   initialState,
   reducers: {
-    addCartList: (state, action) => {
+    addStockCartList: (state, action) => {
       state.items = action.payload?.cartData;
-      state.cartCount = action.payload.cartCount;
+      state.stockCartCount = action.payload.stockCartCount;
       state.grandTotal = action.payload.grandTotal;
       state.quotation_Id = action?.payload?.quotationId;
     },
-    addItemToCart: (state, action) => {
+    addItemToStockCart: (state, action) => {
       if (!state.items) {
         state.items = [];
       }
       const mergedArray = [...state?.items, ...action?.payload.filter((item: any) => !state?.items.includes(item))];
       state.items = mergedArray;
-      state.cartCount = state?.items?.length || 1;
+      state.stockCartCount = state?.items?.length || 1;
 
       state.error = null;
     },
-    removeItemFromCart: (state, action: PayloadAction<number>) => {
+    removeItemFromStockCart: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((item) => item !== action.payload);
-      state.cartCount = state.cartCount - 1;
+      state.stockCartCount = state.stockCartCount - 1;
       state.error = null;
     },
     updateItemQuantity: (state, action: PayloadAction<{ id: number; quantity: number }>) => {
@@ -60,12 +60,12 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.items = [];
       state.error = null;
-      state.cartCount = 0;
+      state.stockCartCount = 0;
     },
   },
 });
-export const { addItemToCart, removeItemFromCart, updateItemQuantity, setLoading, setError, clearCart, addCartList } = cartSlice.actions;
+export const { addItemToStockCart, removeItemFromStockCart, updateItemQuantity, setLoading, setError, clearCart, addStockCartList } = cartSlice.actions;
 
-export const selectCart = (state: RootState) => state.cart;
+export const selectStockCart = (state: RootState) => state.stockCart;
 
 export default cartSlice.reducer;

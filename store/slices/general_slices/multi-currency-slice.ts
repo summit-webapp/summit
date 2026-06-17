@@ -14,7 +14,7 @@ interface DefaultCurrencyState {
 }
 
 const initialState = {
-  default_currency_value: 'INR',
+  default_currency_value: 'US$',
   selected_currency_value: '',
   loading: 'idle',
 } as DefaultCurrencyState;
@@ -30,8 +30,8 @@ const MultiCurrencySlice = createSlice({
         state.selected_currency_value = action.payload.default_currency;
       } else {
         state.loading = 'succeeded';
-        state.default_currency_value = 'INR';
-        state.selected_currency_value = 'INR';
+        state.default_currency_value = 'US$';
+        state.selected_currency_value = 'US$';
       }
     },
     setCurrencyValue(state, action) {

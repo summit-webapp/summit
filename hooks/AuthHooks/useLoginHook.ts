@@ -14,6 +14,10 @@ import { Option } from '../../store/slices/general_slices/multilingual-slice';
 import i18n from '../../i18n/i18n';
 import useCurrencyLanguageHandler from '../GeneralHooks/LanguageHandler';
 import { currencyOptions } from '../../utils/addon-utils/currency-map';
+import useUserDefaultData from '../addon-hooks/kc-hooks/useUserData';
+import { setCustomer, setDesignBankCount, setScope } from '../../store/slices/general_slices/kc-slice';
+import { resetStore } from '../../store/slices/auth/logout-slice';
+import { persistor } from '../../store/store';
 
 const useLoginHook = () => {
   const { AFTER_LOGIN_REDIRECT_URL } = CONSTANTS;
@@ -21,6 +25,7 @@ const useLoginHook = () => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const { handleCurrencyShallowUpdate, handleLanguageShallowUpdate } = useCurrencyLanguageHandler();
+  const { fetchUserDefaultData } = useUserDefaultData();
   const [loginForm, setLoginForm] = useState<TypeLoginForm>({ usr: '', pwd: '' });
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [isLoginThroughOTP, setIsLoginThroughOTP] = useState<boolean>(false);
@@ -33,6 +38,7 @@ const useLoginHook = () => {
 
   const fetchToken = async (values: TypeLoginForm) => {
     setLoginBtnLoader(true);
+
     try {
       const userParams: TypeLoginAPIParams = {
         values: { ...values },
@@ -41,40 +47,54 @@ const useLoginHook = () => {
         LoginViaGoogle: false,
       };
 
-      // const tokenData = await getTokenFromLoginAPI(SUMMIT_APP_CONFIG, userParams);
-      // Need to check below login api logic. Need to make generic.
       const tokenData = await emrLogin(userParams);
 
-      if (tokenData?.success === true && tokenData?.msg === 'success' && tokenData?.data?.hasOwnProperty('access_token')) {
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('user', values.usr);
-        localStorage.setItem('party_name', tokenData?.data?.full_name);
-
-        if (tokenData?.data?.isPwdChg !== 0) {
-          dispatch(storeToken(tokenData?.data));
-        }
-
-        handleLanguageShallowUpdate(languageDisplayOptions.find((opt: Option) => opt?.label === tokenData?.data?.language)!);
-        handleCurrencyShallowUpdate(currencyOptions.find((opt: Option) => opt?.value === tokenData?.data?.currency)!);
+      if (
+        tokenData?.success === true &&
+        tokenData?.msg === 'success' &&
+        tokenData?.data?.access_token
+      ) {
+        const { access_token, isPwdChg, count, full_name } = tokenData.data;
+        await persistor.purge();
+        dispatch(resetStore());  
+        localStorage.clear();
         
-        localStorage.setItem('selected_language', tokenData?.data?.language);
-        localStorage.setItem('selected_currency', tokenData?.data?.currency);
-        // Redirect to the home page or any other page after successful login
-        if (tokenData?.data?.isPwdChg === 0) {
-          router.push('/forgot_password');
-        } else {
-          if (AFTER_LOGIN_REDIRECT_URL) {
-            router.push(AFTER_LOGIN_REDIRECT_URL);
-          } else {
-            router.push('/')
-          }
+        if (isPwdChg !== 0) {
+          dispatch(storeToken(tokenData.data));
         }
-        // toast.success('Login Successfully');
+
+        const redirectUrl =
+          isPwdChg === 0
+            ? '/forgot_password'
+            : AFTER_LOGIN_REDIRECT_URL || '/';
+
+        await router.replace(redirectUrl);
+
+        requestAnimationFrame(() => {
+          dispatch(setDesignBankCount(count));
+
+          dispatch(setCustomer(null));
+
+          dispatch(
+            setScope({
+              label: 'PDCM Design Bank',
+              value: 'PDCM Design Bank',
+            })
+          );
+
+          fetchUserDefaultData(access_token);
+
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('user', values.usr);
+          localStorage.setItem('party_name', full_name);
+        });
       }
     } catch (error: any) {
-      if (error?.status === 400 && error?.response?.data?.error === "Invalid username or password") {
+      if (
+        error?.status === 400 &&
+        error?.response?.data?.error === 'Invalid username or password'
+      ) {
         toast.error(t('invalid_credentials'));
-        return;
       } else {
         toast.error(t('error_while_login'));
       }
@@ -86,7 +106,7 @@ const useLoginHook = () => {
   useEffect(() => {
     dispatch(setShowSessionExpiredModalFalse());
   }, []);
-  
+
   return { passwordHidden, togglePasswordIcon, fetchToken, loginBtnLoader };
 };
 

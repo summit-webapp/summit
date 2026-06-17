@@ -6,6 +6,7 @@ import { CONSTANTS } from '../../services/config/app-config';
 import { get_access_token } from '../../store/slices/auth/token-login-slice';
 import useHandleStateUpdate from '../GeneralHooks/handle-state-update-hook';
 import useAuthErrorHandler from '../AuthHooks/handleAuthError';
+import { KCFromStore } from '../../store/slices/general_slices/kc-slice';
 
 const useProductListing = () => {
   const { isLoading, setIsLoading, errorMessage, setErrMessage }: any = useHandleStateUpdate();
@@ -13,6 +14,8 @@ const useProductListing = () => {
   const { SUMMIT_APP_CONFIG }: any = CONSTANTS;
   const { query }: any = useRouter();
   const TokenFromStore: any = useSelector(get_access_token);
+  const { companyCode } = useSelector(KCFromStore);
+  const cocd = typeof companyCode === 'object' ? companyCode?.value : companyCode;
 
   const [toggleProductListView, setToggleProductListView] = useState('list-view');
   const [productListingData, setProductListingData] = useState<any>([]);
@@ -89,13 +92,22 @@ const useProductListing = () => {
   }, []);
 
   useEffect(() => {
+    if (!router.isReady) return;
+
+    const scopeParam = query?.scope || query?.Scope;
+    if (scopeParam === 'Cart' || scopeParam === 'Stock Cart') {
+      return;
+    }
+
     let storeUsefulParamsForFurtherProductListingApi;
-    if (router.asPath === '/product-category') {
+    if (typeof window !== 'undefined' && window.location.pathname === '/product-category' && !window.location.search) {
       router.push({
         query: {
           page: '1',
-          currency: 'INR',
+          currency: 'US$',
           sort_by: sortBy,
+          scope: 'PDCM Design Bank',
+          ...(cocd && { cocd })
         },
       });
     }
@@ -110,7 +122,7 @@ const useProductListing = () => {
     fetchProductListDataAPI(storeUsefulParamsForFurtherProductListingApi);
 
     setSearchFilterValue(router.query.search_text);
-  }, [query]);
+  }, [query, router.isReady]);
   return {
     productListingData,
     productListTotalCount,

@@ -10,14 +10,14 @@ import { Option } from '../../store/slices/general_slices/multilingual-slice';
 import { currencyOptions } from '../../utils/addon-utils/currency-map';
 import { useEffect } from 'react';
 
-const useCurrencyLanguageHandler = () => {
+const useCurrencyLanguageHandler = (postUserDefaultData?: (token: string, DefCurrency: string, DefLang: string, RefreshRt: string, LabRt: string, RMCtg: string, voucherModeType: string ) => void, userDefaultData?: any) => {
   const dispatch = useDispatch();
-  const languageState = useSelector(SelectedLangFromStore)?.selectedLanguage;
+  const languageState = useSelector(SelectedLangFromStore)?.selectedLanguage?.trim();
   const TokenFromStore: any = useSelector(get_access_token);
-  const currencyState = useSelector(currency_selector_state)?.selected_currency_value;
+  const currencyState = useSelector(currency_selector_state)?.selected_currency_value?.trim();
   const handleAuthError = useAuthErrorHandler();
-  const selectedCurrency = currencyOptions.find((opt) => opt?.value === (currencyState))!;
-  const selectedLanguage = languageDisplayOptions.find((opt) => opt?.value === languageState)!;
+  const selectedCurrency = currencyOptions.find((opt) => opt?.value === currencyState || 'INR')!;
+  const selectedLanguage = languageDisplayOptions.find((opt) => opt?.value === languageState || 'en')!;
   
   const updateUserPreference = async (language: Option, currency: Option) => {
     const languageCode = language?.value.toString();
@@ -42,7 +42,8 @@ const useCurrencyLanguageHandler = () => {
 
   const handleLanguageChange = (value: Option) => {
     dispatch(setLanguage(value?.value));
-    updateUserPreference(value, selectedCurrency);
+    // updateUserPreference(value, selectedCurrency);
+    postUserDefaultData && postUserDefaultData(TokenFromStore?.token, languageDisplayOptions.find((opt: Option) => opt?.value === value?.value?.toString())?.label!?.trim(), userDefaultData?.DefCurrency, userDefaultData?.RefreshRt, userDefaultData?.LabRt, userDefaultData?.RMCtg, userDefaultData?.voucherModeType);
   };
 
   const handleLanguageShallowUpdate = (value: Option) => {
@@ -52,7 +53,8 @@ const useCurrencyLanguageHandler = () => {
 
   const handleCurrencyChange = (value: Option) => {
     dispatch(setCurrencyValue(value?.value));
-    updateUserPreference(selectedLanguage, value);
+    // updateUserPreference(selectedLanguage, value);
+    postUserDefaultData && postUserDefaultData(TokenFromStore?.token, userDefaultData?.DefLang, value?.value.toString().trim(), userDefaultData?.RefreshRt, userDefaultData?.LabRt, userDefaultData?.RMCtg, userDefaultData?.voucherModeType);
   };
   
   const handleCurrencyShallowUpdate = (value: Option) => {
@@ -60,8 +62,8 @@ const useCurrencyLanguageHandler = () => {
   }
 
   useEffect(() => {
-    handleLanguageShallowUpdate(languageDisplayOptions.find((opt) => opt?.value === 'en')!);
-    handleCurrencyShallowUpdate(currencyOptions.find((opt) => opt?.value === 'RS')!);
+    handleLanguageShallowUpdate(selectedLanguage);
+    handleCurrencyShallowUpdate(selectedCurrency);
   },[selectedCurrency, selectedLanguage]);
 
   return {

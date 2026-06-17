@@ -2,6 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { resetStore } from './slices/auth/logout-slice';
 import GetAccessTokenReducer from './slices/auth/token-login-slice';
 import cartLocalSlice from './slices/cart-slices/cart-local-slice';
+import stockCartLocalSlice from './slices/cart-slices/stock-cart-local-slice';
 import catalogLocalSlice from './slices/catalog-slice/catalog-local-slice';
 import CurrencyReducer from './slices/general_slices/multi-currency-slice';
 import MultiLanguageReducer from './slices/general_slices/multilang-slice';
@@ -23,6 +24,7 @@ const appReducer = combineReducers({
   SelectedLangDataReducer: SelectedLangDataScreen,
   wishlistSlice: wishlistSlice,
   cart: cartLocalSlice,
+  stockCart: stockCartLocalSlice,
   catalogSlice: catalogLocalSlice,
   quickOrder: quickOrderSlice,
   KCSlice: kcSlice,
