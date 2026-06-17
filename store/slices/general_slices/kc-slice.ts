@@ -107,7 +107,8 @@ export const KCSlice = createSlice({
       state.scope = action.payload;
     },
     setFilters: (state, action) => {
-      const { customer, company = 'KC', scope, data, overwrite = false } = action.payload;
+      const { customer, scope, data, overwrite = false } = action.payload;
+      const company = action.payload.company || 'KC';
 
       if (!state.filters?.[customer]) state.filters[customer] = {};
       if (!state.filters[customer]?.[company]) state.filters[customer][company] = {};
@@ -119,7 +120,8 @@ export const KCSlice = createSlice({
           };
     },
     setFiltersSetOfAPI: (state, action) => {
-      const { customer, company = 'KC', scope, data, overwrite = false } = action.payload;
+      const { customer, scope, data, overwrite = false } = action.payload;
+      const company = action.payload.company || 'KC';
 
       if (!state.filtersSetOfAPI?.[customer]) state.filtersSetOfAPI[customer] = {};
       if (!state.filtersSetOfAPI[customer]?.[company]) state.filtersSetOfAPI[customer][company] = {};
