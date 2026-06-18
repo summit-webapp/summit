@@ -181,7 +181,8 @@ export const KCSlice = createSlice({
 export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope, setCustomer, setScope, setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setCustomiseFilters, setShowProductCardDetails, setSelectAllProducts, setToggleProductView, setDesignSizes, setAttributesData, setCompanyCode } = KCSlice.actions;
 export const KCFromStore = (state: any) => {
   const slice = state.KCSlice;
-  const company = slice.companyCode || 'KC';
+  const rawCompany = slice.companyCode;
+  const company = (typeof rawCompany === 'object' ? rawCompany?.value : rawCompany) || 'KC';
   const flatFilters: any = {};
   if (slice.filters) {
     Object.keys(slice.filters).forEach((cust) => {
