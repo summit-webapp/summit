@@ -34,6 +34,7 @@ interface FiltersState {
   designSizes: any[] | null,
   attributesData: any[] | null,
   companyCode: string | null,
+  cartHeadInfo: { CT: any; SCT: any } | null,
 }
 
 const initialState: FiltersState = {
@@ -64,6 +65,7 @@ const initialState: FiltersState = {
   designSizes: [],
   attributesData: [],
   companyCode: null,
+  cartHeadInfo: null,
 };
 
 export const KCSlice = createSlice({
@@ -175,10 +177,13 @@ export const KCSlice = createSlice({
     setCompanyCode: (state, action) => {
       state.companyCode = action.payload;
     },
+    setCartHeadInfo: (state, action) => {
+      state.cartHeadInfo = action.payload;
+    },
   },
 })
 
-export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope, setCustomer, setScope, setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setCustomiseFilters, setShowProductCardDetails, setSelectAllProducts, setToggleProductView, setDesignSizes, setAttributesData, setCompanyCode } = KCSlice.actions;
+export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope, setCustomer, setScope, setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setCustomiseFilters, setShowProductCardDetails, setSelectAllProducts, setToggleProductView, setDesignSizes, setAttributesData, setCompanyCode, setCartHeadInfo } = KCSlice.actions;
 export const KCFromStore = (state: any) => {
   const slice = state.KCSlice;
   const rawCompany = slice.companyCode;
