@@ -58,7 +58,6 @@ const useLoginHook = () => {
         await persistor.purge();
         dispatch(resetStore());  
         localStorage.clear();
-        
         if (isPwdChg !== 0) {
           dispatch(storeToken(tokenData.data));
         }
@@ -74,7 +73,7 @@ const useLoginHook = () => {
           dispatch(setDesignBankCount(count));
 
           dispatch(setCustomer(null));
-
+          
           dispatch(
             setScope({
               label: 'PDCM Design Bank',

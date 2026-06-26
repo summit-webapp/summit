@@ -52,12 +52,21 @@ const emrAPISDKRegistry = {
     'get-param-list-api': '/api/getParamList',
     'post-user-default-data': '/api/postUserDeafults',
     'get-y-param-list-api': '/api/getyParamList',
+    'get-dynamic-config-api': '/api/getDynamicConfig',
     'update-item-instruction-api': '/api/updateFields',
-    'sync-stock-list-api': '/api/manualStockSync',
+    "sync-stock-list-api": "/api/manualStockSync",
     'get-invoice-pdf-api': '/api/print-format/nyj/invoice/pdf',
     'get-memo-pdf-api': '/api/print-format/nyj/memo/pdf',
-    'get-invoice-header-api': '/api/invHd/previewInvHd',
+    'preview-invoice-header-api': '/api/invHd/previewInvHd',
     'update-invoice-header-api': '/api/invHd/updateInvHd',
+    'get-invoice-header-api': '/api/invHd/getInvHd',
+    'check-stock-designs-api': '/api/checkStkDsg',
+    'get-detail-invoice-pdf-api': '/api/print-format/kc/detail-invoice-printing/pdf',
+    'get-detail-quotation-pdf-api': '/api/print-format/kc/detail-quotation-printing/pdf',
+    'get-memo-issue-pdf-api': '/api/print-format/kc/memo-issue-delivery-challan/pdf',
+    'get-order-catalogue-pdf-api': '/api/report/kc/order-catalogue/pdf',
+    'get-detailed-quotation-excel-api': '/api/report/kc/detailed-quotation/multi-sheet-excel',
+    'get-zero-rate-excel-api': '/api/report/kc/zero-rate-item-list/multi-sheet-excel',
 } as const;
 
 export type EMRApiKey = keyof typeof emrAPISDKRegistry;
