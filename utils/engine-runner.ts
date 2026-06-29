@@ -1,7 +1,7 @@
 import executeEMRAPIHandler from '../services/api-handlers/emr-api-handler';
 import executeSummitAPIHandler from '../services/api-handlers/summit-api-handler';
 
-const engineRunner = (apiMethod: string, apiName: string, apiData: any, token?: string, path?: string, isBlob?: boolean) => {
+const engineRunner = (apiMethod: string, apiName: string, apiData: any, token?: string, path?: string, isBlob: boolean = false) => {
   const engineName = process.env.NEXT_PUBLIC_ENGINE_NAME;
   const handlers: Record<string, Function> = {
     Summit: executeSummitAPIHandler,
