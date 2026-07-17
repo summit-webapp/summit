@@ -69,12 +69,17 @@ const useProductDetail = () => {
     try {
       // const productDetailAPI: any = await fetchProductDetailData(SUMMIT_APP_CONFIG, requestParams, TokenFromStore?.token);
       const productDetailAPI: any = await fetchProductDetailData('GET', 'product-detail-api', requestParams, TokenFromStore?.token);
-      if (
-        productDetailAPI?.status === 200 &&
-        productDetailAPI?.data?.msg === 'success' &&
-        Object?.keys(productDetailAPI?.data?.data).length > 0
-      ) {
-        setProductDetailData(productDetailAPI?.data?.data[0]);
+      console.log('[ProductDetail] API response status:', productDetailAPI?.status);
+      console.log('[ProductDetail] API response data:', productDetailAPI?.data);
+      const rawData = productDetailAPI?.data?.data;
+      const detail = Array.isArray(rawData) ? rawData[0] : (rawData && typeof rawData === 'object' ? rawData : null);
+
+      const isSuccess = productDetailAPI?.data?.msg === 'success' || productDetailAPI?.data?.message?.msg === 'success';
+      console.log('[ProductDetail] isSuccess:', isSuccess, '| rawData type:', Array.isArray(rawData) ? 'array' : typeof rawData, '| detail:', detail);
+
+      if (productDetailAPI?.status === 200 && isSuccess && detail) {
+        console.log('[ProductDetail] Setting product detail data:', detail?.OdDmCd ?? detail?.name ?? 'unknown');
+        setProductDetailData(detail);
         if (productDetailAPI?.data?.message?.data?.min_order_qty > 0) {
           setQty(productDetailAPI?.data?.message?.data?.min_order_qty);
         } else {
@@ -87,11 +92,13 @@ const useProductDetail = () => {
           setProductVariantData([]);
         }
       } else {
+        console.warn('[ProductDetail] Did not set product data. status:', productDetailAPI?.status, 'isSuccess:', isSuccess, 'detail:', detail);
         setProductDetailData({});
         handleAuthError(productDetailAPI, setIsLoading, setErrMessage);
       }
     } catch (error) {
-      return;
+      console.error('Error fetching product detail:', error);
+      setErrMessage('Failed to load product details. Please try again.');
     } finally {
       setIsLoading(false);
     }
