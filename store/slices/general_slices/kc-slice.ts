@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface FiltersState {
   currentScope: string;
+  // Cart-type within the Voucher scope: 'CT' (Cart) | 'SCT' (Stock Cart) | null.
+  // Persisted so consumers (e.g. the navbar) can resolve Cart/Stock Cart across
+  // route changes where the URL subScope isn't present (product detail page).
+  currentSubScope: 'CT' | 'SCT' | null;
   scope: any;
   customer: any;
   filters: { [customer: string]: { [company: string]: { [scope: string]: any } } };
@@ -51,6 +55,7 @@ const initialState: FiltersState = {
   filtersSetOfAPI: {},
   customiseFilters: {},
   currentScope: 'PDCM Design Bank',
+  currentSubScope: null,
   customer: null,
   scope: { label: 'PDCM Design Bank', value: 'PDCM Design Bank' },
   userDefaultData: null,
@@ -101,6 +106,9 @@ export const KCSlice = createSlice({
     },
     setCurrentScope: (state, action) => {
       state.currentScope = action.payload;
+    },
+    setCurrentSubScope: (state, action) => {
+      state.currentSubScope = action.payload;
     },
     setCustomer: (state, action) => {
       state.customer = action.payload;
@@ -183,7 +191,7 @@ export const KCSlice = createSlice({
   },
 })
 
-export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope, setCustomer, setScope, setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setCustomiseFilters, setShowProductCardDetails, setSelectAllProducts, setToggleProductView, setDesignSizes, setAttributesData, setCompanyCode, setCartHeadInfo } = KCSlice.actions;
+export const { setHideFiltersOnFirstLoad, setGridCols, setGoldRate, setPalladiumRate, setPlatinumRate, setSilverRate, setMetalRateSidebar, setPrevCSFilters, setFilters, setFiltersSetOfAPI, setCurrentScope, setCurrentSubScope, setCustomer, setScope, setUserDefaultData, setUserDefaultLoading, setUserDefaultSidebar, setDesignBankCount, setGradeChangeList, setDiamondChangeList, setColorStoneChangeList, setCustomiseFilters, setShowProductCardDetails, setSelectAllProducts, setToggleProductView, setDesignSizes, setAttributesData, setCompanyCode, setCartHeadInfo } = KCSlice.actions;
 export const KCFromStore = (state: any) => {
   const slice = state.KCSlice;
   const rawCompany = slice.companyCode;
